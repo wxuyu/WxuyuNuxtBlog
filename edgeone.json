@@ -1,0 +1,71 @@
+{
+  "headers": [
+    {
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "source": "/api/*"
+    },
+    {
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ],
+      "source": "/zhilu.opml"
+    },
+    {
+      "source": "/_ipx/*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/_nuxt/*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/fonts/*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "caches": [
+    {
+      "source": "/_ipx/*",
+      "cacheTtl": 31536000
+    },
+    {
+      "source": "/_nuxt/*",
+      "cacheTtl": 31536000
+    },
+    {
+      "source": "/assets/*",
+      "cacheTtl": 31536000
+    },
+    {
+      "source": "/fonts/*",
+      "cacheTtl": 31536000
+    }
+  ],
+  "redirects": [
+    {
+      "destination": "https://www.zhilu.site/api/icon",
+      "source": "/favicon.ico",
+      "status": 308
+    }
+  ]
+}
