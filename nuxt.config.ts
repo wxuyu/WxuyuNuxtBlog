@@ -22,10 +22,10 @@ export default defineNuxtConfig({
 				{ rel: 'icon', href: blogConfig.favicon },
 				{ rel: 'alternate', type: 'application/atom+xml', href: '/atom.xml' },
 				// "InterVariable", "Inter", "InterDisplay"
-				{ rel: 'stylesheet', href: 'https://source.yjluo.top/fonts/InterVariable/result.css', media: 'print', onload: 'this.media="all"' },
+				// { rel: 'stylesheet', href: 'https://source.yjluo.top/fonts/InterVariable/result.css', media: 'print', onload: 'this.media="all"' },
 				// { rel: 'stylesheet', href: 'https://cdn-font.hyperos.mi.com/font/css?family=MiSans:100,200,300,400,450,500,600,650,700,900:Chinese_Simplify,Latin&display=swap', media: 'print', onload: 'this.media="all"' },
                 { rel: 'stylesheet', href: 'https://jsd.liiiu.cn/gh/willow-god/Sharding-fonts/Yozai-Medium/result.min.css?v=20260102', media: 'none', onload: 'this.media="all"'},
-                { rel: 'stylesheet', href: '/fonts/WuWa Lahai-Roi Regular/result.css', media: 'none', onload: 'this.media="all"'},
+                // { rel: 'stylesheet', href: '/fonts/WuWa Lahai-Roi Regular/result.css', media: 'none', onload: 'this.media="all"'},
 				// { rel: 'stylesheet', href: 'https://static.vercel.sxiaohe.top/fonts/anzhiyu/anzhiyufonts.css', media: 'none', onload: 'this.media="all"'  },
 				{ rel: 'preconnect', href: 'https://source.yjluo.top' },
 				{ rel: 'preconnect', href: blogConfig.author.homepage },
