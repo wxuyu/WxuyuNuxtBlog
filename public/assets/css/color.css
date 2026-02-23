@@ -832,3 +832,18 @@
     --gh-text-2: rgb(110, 118, 129);
     --gh-text-3: rgb(125, 133, 144);
 }
+
+/* 爱弥斯配色 */
+.dark, .light {
+    --pink-core: #ff8cb0;
+    --pink-light: #ffb3cc;
+    --pink-glow: #ffb6d9;
+    --blue-glitch: #6ed4ff;
+    --blue-glow: #9ae2ff;
+    --purple-mid: #e0a0ff;
+    --white-glow: #fbefff;
+    --bg-deep: linear-gradient(145deg, #1a1028 0%, #281e30 100%);
+    --grid-color: rgba(255, 140, 176, .15);
+    --glitch-shadow: rgba(110, 212, 255, .5);
+    --heart-glow: rgba(255, 140, 176, .7);  
+}

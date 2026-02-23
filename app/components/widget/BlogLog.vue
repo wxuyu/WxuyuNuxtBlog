@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { timeEstablished } = useAppConfig()
-
 const blogLog = [
 	{ label: '2026-03-19', value: '域名到期，预计会提前重定向迁移，届时会通知友链中的各位' },
 	{ label: timeEstablished, value: '更换框架Nuxt，hexo网站迁移到blog.myxz.top' },
@@ -13,7 +12,7 @@ const blogLog = [
 </script>
 
 <template>
-<BlogWidget card title="更新日志">
+<BlogWidget card title="更新日志" right-type="buttom" buttom_title="详情信息" buttom_url="/about">
 	<ZDlGroup size="large" :items="blogLog" />
 </BlogWidget>
 </template>

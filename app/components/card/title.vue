@@ -16,6 +16,6 @@
 
 <script setup lang="ts">
 defineProps<{
-  title: '基础信息' | '描述' | '由来' | '技能'
+  title: '基础信息' | '描述' | '由来' | '技能' | '彩蛋'
 }>()
 </script>

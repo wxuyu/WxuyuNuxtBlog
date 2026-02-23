@@ -16,7 +16,7 @@
 </BlogWidget>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .title {
 	background-clip: text;
 	background-image: linear-gradient(60deg, var(--c-accent) -30%, var(--c-primary), var(--c-text-1));
