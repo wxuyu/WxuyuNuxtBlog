@@ -59,7 +59,7 @@ function handleTouchEnd() {
 </script>
 
 <template>
-  <div class="storiesContainer">
+  <section class="storiesContainer">
     <div 
       class="storiesMain" 
       v-if="heroStories?.[activeIndex]"
@@ -91,7 +91,9 @@ function handleTouchEnd() {
                 :key="key"
                 :style="{ animationDelay: `${index * 0.05}s` }"
               >
-                {{ value }}
+                <slot>
+                  {{ value }}
+                </slot>
               </p>
             </div>
           </div>
@@ -144,7 +146,7 @@ function handleTouchEnd() {
       <div class="empty-icon">📚</div>
       <p class="empty-text">暂无故事内容</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

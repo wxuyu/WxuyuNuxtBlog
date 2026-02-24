@@ -1,50 +1,97 @@
 <script setup lang="ts">
+import Title from '../card/title.vue';
 defineProps<{
-  类型: "爱弥斯" | "尤诺" | "奥古斯塔";
-  头像?: string;
-  共鸣能力?: string;
-  名字?: string;
-  称号?: string;
-  标签?: Record<string, string>;
-  简介?: { 上部分?: string; 下部分?: string };
-  详情信息?: Record<string, string>;
+  类型: "爱弥斯" | "尤诺" | "奥古斯塔"
+  头像?: string
+  徽章?: Record<string, string>
+  名字?: string
+  标签?: Record<string, string>
+  简介?: {
+    上部分?: string
+    称号?: string
+    下部分?: string 
+  };
+  详情信息?: Record<string, string>
+  档案?: {
+    顶部标题?: string
+    报告: Array<{
+      主标题?: string
+      副标题?: string
+      常用简介?: Record<string, string>
+      独特简介?: {
+        上段简介: string
+        上段夹杂简介: string
+        中简介: string
+        中段夹杂简介: string
+        下段简介: string
+        下段夹杂简介: string
+        末尾简介: string
+      }
+      状态?: string
+      权限?: string
+      更新?: string
+    }>
+  }
 }>();
 </script>
 
 <template>
   <div class="heroMain">
-    <div class="leftInfo">
-      <NuxtImg class="avatarImage" :src="头像" />
-      <div class="avatarMeta">
-        <span class="MetaSpan">共鸣能力：{{ 共鸣能力 }}</span>
-      </div>
-    </div>
-    <div class="rightInfo">
-      <div class="panelMain">
-        <h1 class="heroName" :data-text="名字">
+    <div class="heroCard">
+      <div class="leftInfo">
+        <NuxtImg class="avatarImage" :src="头像" />
+        <h3 class="avatarName">
           {{ 名字 }}
-          <span class="heroTitle">（{{ 称号 }}）</span>
-        </h1>
-        <p class="heroDesc">
-          {{ 简介?.上部分 }}<span class="lightDesc">{{ 称号 }}</span
-          >{{ 简介?.下部分 }}
-        </p>
-        <span class="tagItem">
-          <span class="tag" v-for="([key, value]) in Object.entries(标签 ?? {})" :key="key">
-            #{{ value }}
-          </span>
-        </span>
-        <div class="statusMain">
-          <div
-            class="statusCard"
-            v-for="([key, value]) in Object.entries(详情信息 ?? {})"
-            :key="key"
-          >
-            <div class="statusLabel">{{ key }}</div>
-            <div class="statusValue">{{ value }}</div>
-          </div>
+        </h3>
+        <div class="avatarMeta">
+          <span class="MetaSpan" v-for="([key, value]) in Object.entries(徽章 ?? {})" :key="key"> {{key}}：{{value }} </span>
         </div>
       </div>
+      <div class="rightInfo">
+        <div class="panelMain">
+          <Title title="简介"></Title>
+          <p class="heroDesc">
+            {{ 简介?.上部分 }}<span class="lightDesc">{{ 简介?.称号 }}</span
+            >{{ 简介?.下部分 }}
+          </p>
+          <Title title="标签"></Title>
+          <span class="tagItem" style="margin-top: 0.5em;margin-bottom: 0.5em;">
+            <span class="tag" v-for="([key, value]) in Object.entries(标签 ?? {})" :key="key">
+              #{{ value }}
+            </span>
+          </span>
+          <Title title="详情信息"></Title>
+          <div class="infoMain">
+            <div
+              class="infoCard"
+              v-for="([key, value]) in Object.entries(详情信息 ?? {})"
+              :key="key"
+            >
+              <div class="infoLabel">{{ key }}</div>
+              <div class="infoValue">{{ value }}</div>
+            </div>
+          </div>
+          <Title :title="档案?.顶部标题"></Title>
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.报告">
+            <div class="statusHeader">
+              <div class="HeaderTitle">
+                {{ data.主标题 }}
+              </div>
+              <div class="HeaderSub" style="font-size: 0.5em;">
+                {{ data.副标题 }}
+              </div>
+            </div>
+            <div class="statusContent">
+              <p v-for="([key, value]) in Object.entries(data.简介 ?? {})" :key="key" v-show="类型 === '尤诺'">
+                {{ value }}
+              </p>
+              <template v-show="类型 === '爱弥斯'">
+                
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>      
     </div>
   </div>
 </template>
@@ -60,25 +107,17 @@ defineProps<{
   overflow: hidden;
   transition: border-color 0.2s ease;
   display: flex;
-
-  // 主题色定义（保持原风格）
-  --pink-core: #ff8cb0;
-  --pink-light: #ffb3cc;
-  --pink-glow: #ffb6d9;
-  --blue-glitch: #6ed4ff;
-  --blue-glow: #9ae2ff;
-  --purple-mid: #e0a0ff;
-  --white-glow: #fbefff;
-  --bg-deep: linear-gradient(145deg, #1a1028 0%, #281e30 100%);
-  --grid-color: rgba(255, 140, 176, 0.15);
-  --glitch-shadow: rgba(110, 212, 255, 0.5);
-  --heart-glow: rgba(255, 140, 176, 0.7);
-
+  .heroCard {
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    overflow: hidden;
+  }
   // 左侧信息区（头像+共鸣能力）
   .leftInfo {
     display: grid;
-    grid-template-rows: auto auto; // 垂直排列两行
-    gap: 8px;
+    grid-template-rows: auto auto;
     align-items: center;
     justify-items: center;
     border-radius: 16px;
@@ -87,7 +126,6 @@ defineProps<{
     background-clip: padding-box;
     animation: cursorAnimation_link 1s infinite step-start;
     transition: all 0.3s;
-    width: 100%;
     position: relative;
 
     .avatarImage {
@@ -96,7 +134,18 @@ defineProps<{
       border-radius: 12px;
       display: block;
     }
-
+    
+    .avatarName {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      // color: var(--pink-core);
+      // text-shadow: 0 0 10px var(--pink-core), 0 0 20px var(--blue-glitch);
+      // position: relative;
+      // animation: glitch-b7066fb5 3s infinite;
+      // position: relative;
+    }
     .avatarMeta {
       display: flex;
       gap: 8px;
@@ -105,12 +154,14 @@ defineProps<{
       flex-wrap: wrap;
 
       .MetaSpan {
-        font-size: 0.9rem;
-        background: #ff8cb01a;
-        padding: 6px 10px;
-        border-radius: 10px;
-        border: 1px solid var(--pink-core);
         font-weight: 600;
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--c-text-sub);
+        background: #ff8cb01a;
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid var(--pink-core);
       }
     }
   }
@@ -121,14 +172,12 @@ defineProps<{
     flex-direction: column;
     gap: 12px;
     z-index: 6;
-    overflow-y: scroll; // 桌面端滚动
-    scrollbar-width: none; // 隐藏Firefox滚动条
+    overflow-y: scroll;
+    scrollbar-width: none;
 
     .panelMain {
       position: relative;
       z-index: 6;
-      padding: 24px;
-      border-radius: 16px;
 
       .heroName {
         font-size: clamp(1.8rem, 3vw, 2.8rem);
@@ -168,6 +217,11 @@ defineProps<{
       }
 
       .heroDesc {
+        font-size: 14px;
+        color: var(--c-text-content);
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
         .lightDesc {
           color: var(--pink-core);
           text-shadow: 0 0 8px var(--pink-core);
@@ -195,34 +249,47 @@ defineProps<{
   }
 
   // 状态卡片（双列网格）
-  .statusMain {
+  .infoMain {
     background: transparent;
     border-radius: 0;
     display: grid;
     font-size: 1rem;
     gap: 0.4rem;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 0;
-
-    .statusCard {
+    margin-top: 0.5em;
+    .infoCard {
       display: flex;
       flex-direction: column;
       gap: 0.1rem;
-
-      .statusLabel {
+      margin: 0.5em 0;
+      .infoLabel {
         color: var(--c-text-2);
-        font-size: 1rem;
+        font-size: 0.8rem;
         font-weight: 500;
       }
-
-      .statusValue {
+      .infoValue {
         color: var(--c-text);
-        font-size: 1rem;
+        font-size: 0.8rem;
         word-break: break-word;
       }
     }
   }
-
+  .statusMain {
+    background: rgba(122, 92, 61, 0.08);
+    border-radius: 6px;
+    padding: 10px;    
+    .statusHeader {
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .statusContent {
+      font-size: 13px;
+      color: var(--c-text-content);
+      line-height: 1.5;
+    }
+  }
 }
 
 /* ========== 移动端适配（max-width: 768px） ========== */
@@ -263,26 +330,26 @@ defineProps<{
   // 右侧信息区适配
   .rightInfo {
     flex-direction: column;
-    gap: 8px; // 缩小与左侧间距
+    gap: 8px;
     padding: 0;
 
     .panelMain {
-      padding: 16px; // 缩小内边距
+      padding: 16px;
       border-radius: 12px;
 
       .heroName {
-        font-size: clamp(1.2rem, 2.5vw, 1.8rem); // 缩小字体范围
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
         letter-spacing: 0.5px;
         line-height: 1.2;
 
         .heroTitle {
-          font-size: 0.8rem; // 缩小副标题
+          font-size: 0.8rem;
           margin-left: 6px;
         }
       }
 
       .heroDesc {
-        font-size: 0.9rem; // 缩小描述文字
+        font-size: 0.9rem;
         line-height: 1.4;
 
         .lightDesc {
@@ -293,17 +360,17 @@ defineProps<{
   }
 
   // 状态卡片适配（单列布局）
-  .statusMain {
-    grid-template-columns: 1fr; // 单列
-    gap: 0.2rem; // 缩小卡片间距
-    font-size: 0.8rem; // 缩小文字
+  .infoMain {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    font-size: 0.8rem;
 
-    .statusCard {
-      gap: 0.1rem; // 缩小卡片内间距
+    .infoCard {
+      gap: 0.1rem;
 
-      .statusLabel,
-      .statusValue {
-        font-size: 0.8rem; // 缩小标签和内容文字
+      .infoLabel,
+      .infoValue {
+        font-size: 0.8rem;
       }
     }
   }
@@ -313,10 +380,10 @@ defineProps<{
     display: none;
   }
   .rightInfo {
-    overflow-y: auto; // 改为自动滚动
+    overflow-y: auto;
   }
 }
-// 动效模块
+// 动效模块(预留动画，后续可以通过调用以下模块来实现效果，请勿开启会造成光污染损害视力)
 @keyframes glitch-b7066fb5 {
   0% {
     transform: translate(0);
