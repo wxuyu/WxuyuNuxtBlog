@@ -15,13 +15,15 @@ defineProps<{
   档案?: {
     顶部标题?: string
     报告: Array<{
+      序号?: number
       主标题?: string
-      副标题?: string
-      常用简介?: Record<string, string>
+      独有副标题?: string
+      常用副标题?: string
+      常用简介?: Record<string, string> | string
       独特简介?: {
         上段简介: string
         上段夹杂简介: string
-        中简介: string
+        中段简介: string
         中段夹杂简介: string
         下段简介: string
         下段夹杂简介: string
@@ -33,6 +35,7 @@ defineProps<{
     }>
   }
 }>();
+const numberTop = ref(1)
 </script>
 
 <template>
@@ -73,21 +76,32 @@ defineProps<{
           </div>
           <Title :title="档案?.顶部标题"></Title>
           <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.报告">
-            <div class="statusHeader">
+            <div class="statusHeader" v-show="类型 === '尤诺'">
               <div class="HeaderTitle">
                 {{ data.主标题 }}
               </div>
               <div class="HeaderSub" style="font-size: 0.5em;">
-                {{ data.副标题 }}
+                {{ data.常用副标题 }}
+              </div>
+            </div>
+            <div class="statusHeader" v-show="类型 === '爱弥斯'" style="display: flex;">
+              <div class="HeaderTitle">
+                {{ data.主标题 }}
+              </div>
+              <div class="HeaderSub" v-if="data.序号 === 1" style="font-size: 0.5em;font-size: .75rem;background: #f003;color: #ff6b85;padding: 2px 6px;border-radius: 4px;">
+                {{ data?.独有副标题 }}
               </div>
             </div>
             <div class="statusContent">
-              <p v-for="([key, value]) in Object.entries(data.简介 ?? {})" :key="key" v-show="类型 === '尤诺'">
+              <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key" v-show="类型 === '尤诺'">
                 {{ value }}
               </p>
-              <template v-show="类型 === '爱弥斯'">
-                
-              </template>
+              <div v-show="类型 === '爱弥斯'" class="statusDesc">
+                {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
+              </div>
+              <p>
+                {{ data.常用简介 }}
+              </p>
             </div>
           </div>
         </div>
@@ -107,6 +121,7 @@ defineProps<{
   overflow: hidden;
   transition: border-color 0.2s ease;
   display: flex;
+
   .heroCard {
     flex: 1;
     display: flex;
@@ -114,11 +129,10 @@ defineProps<{
     padding: 1rem;
     overflow: hidden;
   }
+
   // 左侧信息区（头像+共鸣能力）
   .leftInfo {
-    display: grid;
     grid-template-rows: auto auto;
-    align-items: center;
     justify-items: center;
     border-radius: 16px;
     padding: 12px;
@@ -127,6 +141,12 @@ defineProps<{
     animation: cursorAnimation_link 1s infinite step-start;
     transition: all 0.3s;
     position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    overflow: hidden;
 
     .avatarImage {
       width: 100%;
@@ -140,11 +160,6 @@ defineProps<{
       font-size: 14px;
       font-weight: bold;
       text-align: center;
-      // color: var(--pink-core);
-      // text-shadow: 0 0 10px var(--pink-core), 0 0 20px var(--blue-glitch);
-      // position: relative;
-      // animation: glitch-b7066fb5 3s infinite;
-      // position: relative;
     }
     .avatarMeta {
       display: flex;
@@ -288,406 +303,369 @@ defineProps<{
       font-size: 13px;
       color: var(--c-text-content);
       line-height: 1.5;
+      .statusDesc {
+        color: var(--c-text-content);
+        line-height: 1.5;
+        .statusLight {
+          color: var(--pink-core);
+          text-shadow: 0 0 8px var(--pink-core);
+        }
+      }
     }
   }
-}
 
-/* ========== 移动端适配（max-width: 768px） ========== */
-@media screen and (max-width: 768px) {
-  .heroMain {
-    flex-direction: column; // 改为垂直堆叠
-    height: auto; // 高度自适应内容
-    margin: 1rem 0; // 缩小上下边距
-    border-radius: 0.5rem;
-    overflow: hidden; // 防止内部滚动溢出
-  }
-
-  // 左侧信息区适配
-  .leftInfo {
+  /* ========== 移动端适配（max-width: 768px） ========== */
+  @media screen and (max-width: 768px) {
     width: 100%;
-    padding: 8px;
-    border-radius: 12px;
-    gap: 6px; // 缩小子元素间距
+    height: auto;
+    margin: 1rem 0; 
+    border-radius: 0.5rem;
+    overflow: hidden; 
 
-    .avatarImage {
-      width: 120px; // 缩小头像尺寸
-      height: 120px;
-      border-radius: 10px;
+    .heroCard {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.75rem;
     }
 
-    .avatarMeta {
-      font-size: 0.8rem; // 缩小文字
-      gap: 6px;
-
-      .MetaSpan {
-        padding: 4px 8px; // 缩小内边距
-        font-size: 0.8rem;
+    // 左侧信息区适配
+    .leftInfo {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 10px;
+      .avatarImage {
+        width: 200px;
+        height: 200px;
         border-radius: 8px;
       }
-    }
-  }
-
-  // 右侧信息区适配
-  .rightInfo {
-    flex-direction: column;
-    gap: 8px;
-    padding: 0;
-
-    .panelMain {
-      padding: 16px;
-      border-radius: 12px;
-
-      .heroName {
-        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-        letter-spacing: 0.5px;
-        line-height: 1.2;
-
-        .heroTitle {
-          font-size: 0.8rem;
-          margin-left: 6px;
-        }
+      .avatarName {
+        font-size: 12px;
+        margin-top: 4px;
       }
-
-      .heroDesc {
-        font-size: 0.9rem;
-        line-height: 1.4;
-
-        .lightDesc {
-          font-size: 0.9rem;
+      .avatarMeta {
+        font-size: 0.7rem;
+        gap: 4px;
+        .MetaSpan {
+          font-size: 0.7rem;
+          padding: 3px 6px;
+          border-radius: 6px;
         }
       }
     }
-  }
 
-  // 状态卡片适配（单列布局）
-  .infoMain {
-    grid-template-columns: 1fr;
-    gap: 0.2rem;
-    font-size: 0.8rem;
+    // 右侧信息区适配
+    .rightInfo {
+      .panelMain {
+        padding: 1rem;
+        .heroName {
+          font-size: clamp(1rem, 2vw, 1.4rem);
+          letter-spacing: 0.3px;
+          line-height: 1.2;
+          .heroTitle {
+            font-size: 0.75rem;
+            margin-left: 4px;
+          }
+        }
+        .heroDesc {
+          font-size: 0.85rem;
+          line-height: 1.4;
+          .lightDesc {
+            font-size: 0.85rem;
+          }
+        }
+        .tagItem {
+          gap: 0.2em 0.4em;
+          .tag {
+            font-size: 0.75em;
+            padding: 0.2em 0.5em;
+          }
+        }
+      }
+    }
 
-    .infoCard {
-      gap: 0.1rem;
+    // 状态卡片适配（单列布局）
+    .infoMain {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.2rem;
+      font-size: 0.8rem;
+      .infoCard {
+        gap: 0.1rem;
+        .infoLabel,
+        .infoValue {
+          font-size: 0.75rem;
+        }
+      }
+    }
 
-      .infoLabel,
-      .infoValue {
+    // 档案部分适配
+    .statusMain {
+      padding: 8px;
+      border-radius: 5px;
+      .statusHeader {
+        gap: 6px;
+        margin-bottom: 4px;
+      }
+      .statusContent {
         font-size: 0.8rem;
+        line-height: 1.4;
+        .statusDesc {
+          font-size: 0.8rem;
+          line-height: 1.4;
+          .statusLight {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    // 隐藏滚动条（可选，提升移动端体验）
+    .rightInfo::-webkit-scrollbar {
+      display: none;
+    }
+    .rightInfo {
+      overflow-y: auto;
+    }
+
+    // 简化动效（减少移动端性能消耗）
+    @keyframes glitch-b7066fb5 {
+      0% {
+        transform: translate(0);
+        text-shadow: -2px 0 var(--blue-glitch), 2px 2px var(--pink-core)
+      }
+      20% {
+        transform: translate(-1px, 1px);
+        text-shadow: 1px -1px var(--blue-glitch), -1px 1px var(--pink-core)
+      }
+      40% {
+        transform: translate(1px, -1px);
+        text-shadow: -1px 1px var(--blue-glitch), 1px -1px var(--pink-core)
+      }
+      60% {
+        transform: translate(0);
+        text-shadow: 1px 0 var(--blue-glitch), -1px -1px var(--pink-core)
+      }
+      80% {
+        transform: translate(1px, 1px);
+        text-shadow: -1px -1px var(--blue-glitch), 1px 0 var(--pink-core)
+      }
+      to {
+        transform: translate(0);
+        text-shadow: none
       }
     }
   }
-
-  // 隐藏滚动条（可选，提升移动端体验）
-  .rightInfo::-webkit-scrollbar {
-    display: none;
-  }
-  .rightInfo {
-    overflow-y: auto;
-  }
-}
-// 动效模块(预留动画，后续可以通过调用以下模块来实现效果，请勿开启会造成光污染损害视力)
-@keyframes glitch-b7066fb5 {
-  0% {
-    transform: translate(0);
-    text-shadow: -2px 0 var(--blue-glitch), 2px 2px var(--pink-core)
-  }
-
-  20% {
-    transform: translate(-2px, 2px);
-    text-shadow: 2px -2px var(--blue-glitch), -2px 2px var(--pink-core)
-  }
-
-  40% {
-    transform: translate(2px, -2px);
-    text-shadow: -2px 2px var(--blue-glitch), 2px -2px var(--pink-core)
-  }
-
-  60% {
-    transform: translate(0);
-    text-shadow: 2px 0 var(--blue-glitch), -2px -2px var(--pink-core)
-  }
-
-  80% {
-    transform: translate(2px, 2px);
-    text-shadow: -2px -2px var(--blue-glitch), 2px 0 var(--pink-core)
-  }
-
-  to {
-    transform: translate(0);
-    text-shadow: none
-  }
 }
 
+// 保留全局动效样式（用户要求不改变全局样式）
 @keyframes pulse-glow-b7066fb5 {
-
   0%,
   to {
     filter: drop-shadow(0 0 5px var(--pink-glow)) drop-shadow(0 0 10px var(--blue-glitch))
   }
-
   50% {
     filter: drop-shadow(0 0 15px var(--pink-core)) drop-shadow(0 0 20px var(--blue-glow))
   }
 }
-
 @keyframes scanline-b7066fb5 {
   0% {
     transform: translateY(-100%)
   }
-
   to {
     transform: translateY(100%)
   }
 }
-
 @keyframes blink-b7066fb5 {
-
   0%,
   to {
     opacity: 1
   }
-
   50% {
     opacity: .3
   }
 }
-
 @keyframes float-particle-b7066fb5 {
   0% {
     transform: translate(0) rotate(0);
     opacity: 0
   }
-
   10% {
     opacity: .5
   }
-
   90% {
     opacity: .5
   }
-
   to {
     transform: translate(calc(100vw * var(--dx)), calc(100vh * var(--dy))) rotate(360deg);
     opacity: 0
   }
 }
-
 @keyframes hologram-scan-b7066fb5 {
   0% {
     top: -10%;
     opacity: 0
   }
-
   20% {
     opacity: .8
   }
-
   80% {
     opacity: .8
   }
-
   to {
     top: 110%;
     opacity: 0
   }
 }
-
 @keyframes core-pulse-b7066fb5 {
   0% {
     box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
   }
-
   50% {
     box-shadow: 0 0 15px var(--pink-core), 0 0 30px var(--blue-glow), 0 0 45px var(--pink-light)
   }
-
   to {
     box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
   }
 }
-
 @keyframes borderRotate-b7066fb5 {
   0% {
     filter: hue-rotate(0deg)
   }
-
   to {
     filter: hue-rotate(360deg)
   }
 }
-
 @keyframes itemIn-b7066fb5 {
   to {
     opacity: 1;
     transform: translateY(0)
   }
 }
-
 @keyframes glitch-anim-b7066fb5 {
   0% {
     clip: rect(31px, 9999px, 94px, 0)
   }
-
   5% {
     clip: rect(70px, 9999px, 71px, 0)
   }
-
   10% {
     clip: rect(29px, 9999px, 83px, 0)
   }
-
   15% {
     clip: rect(16px, 9999px, 91px, 0)
   }
-
   20% {
     clip: rect(2px, 9999px, 36px, 0)
   }
-
   25% {
     clip: rect(27px, 9999px, 9px, 0)
   }
-
   30% {
     clip: rect(9px, 9999px, 53px, 0)
   }
-
   35% {
     clip: rect(17px, 9999px, 24px, 0)
   }
-
   40% {
     clip: rect(74px, 9999px, 61px, 0)
   }
-
   45% {
     clip: rect(17px, 9999px, 83px, 0)
   }
-
   50% {
     clip: rect(74px, 9999px, 55px, 0)
   }
-
   55% {
     clip: rect(38px, 9999px, 48px, 0)
   }
-
   60% {
     clip: rect(94px, 9999px, 42px, 0)
   }
-
   65% {
     clip: rect(35px, 9999px, 23px, 0)
   }
-
   70% {
     clip: rect(41px, 9999px, 46px, 0)
   }
-
   75% {
     clip: rect(35px, 9999px, 3px, 0)
   }
-
   80% {
     clip: rect(41px, 9999px, 96px, 0)
   }
-
   85% {
     clip: rect(52px, 9999px, 59px, 0)
   }
-
   90% {
     clip: rect(69px, 9999px, 97px, 0)
   }
-
   95% {
     clip: rect(10px, 9999px, 71px, 0)
   }
-
   to {
     clip: rect(67px, 9999px, 38px, 0)
   }
 }
-
 @keyframes glitch-anim2-b7066fb5 {
   0% {
     clip: rect(65px, 9999px, 59px, 0)
   }
-
   5% {
     clip: rect(88px, 9999px, 67px, 0)
   }
-
   10% {
     clip: rect(94px, 9999px, 7px, 0)
   }
-
   15% {
     clip: rect(73px, 9999px, 14px, 0)
   }
-
   20% {
     clip: rect(96px, 9999px, 71px, 0)
   }
-
   25% {
     clip: rect(13px, 9999px, 35px, 0)
   }
-
   30% {
     clip: rect(72px, 9999px, 66px, 0)
   }
-
   35% {
     clip: rect(70px, 9999px, 22px, 0)
   }
-
   40% {
     clip: rect(13px, 9999px, 98px, 0)
   }
-
   45% {
     clip: rect(63px, 9999px, 7px, 0)
   }
-
   50% {
     clip: rect(80px, 9999px, 21px, 0)
   }
-
   55% {
     clip: rect(27px, 9999px, 52px, 0)
   }
-
   60% {
     clip: rect(89px, 9999px, 14px, 0)
   }
-
   65% {
     clip: rect(51px, 9999px, 80px, 0)
   }
-
   70% {
     clip: rect(2px, 9999px, 37px, 0)
   }
-
   75% {
     clip: rect(71px, 9999px, 86px, 0)
   }
-
   80% {
     clip: rect(19px, 9999px, 46px, 0)
   }
-
   85% {
     clip: rect(82px, 9999px, 8px, 0)
   }
-
   90% {
     clip: rect(48px, 9999px, 3px, 0)
   }
-
   95% {
     clip: rect(68px, 9999px, 100px, 0)
   }
-
   to {
     clip: rect(47px, 9999px, 2px, 0)
   }
