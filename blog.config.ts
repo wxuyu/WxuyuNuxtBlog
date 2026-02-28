@@ -72,7 +72,7 @@ const blogConfig = {
 	],
 
 	artalk: {
-		server: 'https://artalk.comment.yjluo.top/',
+		server: 'https://artalk.comment.wxuyu.top/',
 		sitename: basicConfig.title,
 		src: 'https://jsd.myxz.top/npm/artalk@2.9.1/dist/Artalk.min.js',
 		owo_src: '/assets/owo/main.json'

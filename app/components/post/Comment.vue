@@ -302,7 +302,7 @@ async function initArtalk() {
       pageTitle: document.title.replace(` | ${appConfig.title}`, ''),
       server: appConfig.artalk?.server,
       site: appConfig.artalk?.sitename,
-      emoticons: appConfig.artalk?.owo_src,
+      emoticons: '/assets/owo/main.json',
       darkMode: colorMode.value === 'dark',
     })
 

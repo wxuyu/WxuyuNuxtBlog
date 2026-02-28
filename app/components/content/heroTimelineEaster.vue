@@ -48,7 +48,7 @@ defineProps<{
 
       <div class="heroEaster" v-for="main in 彩蛋" :id="类型">
         <div class="easterHeader">
-          <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span>
+          <!-- <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span> -->
           <span class="esterTitle">{{ main.标题 }}</span>
         </div>
         <div class="easterContent" v-show="类型 === '爱弥斯'">

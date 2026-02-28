@@ -1,0 +1,46 @@
+  {
+    "name": "狐妖", 
+    "type": "image", 
+    "items": [
+      {
+        "key": "不明嚼栗", 
+        "val": "/image/OwOAsset/不明嚼栗.png"
+      }, 
+      {
+        "key": "吃我安利", 
+        "val": "/image/OwOAsset/吃我安利.png"
+      }, 
+      {
+        "key": "伐开心", 
+        "val": "/image/OwOAsset/伐开心.png"
+      }, 
+      {
+        "key": "大笑", 
+        "val": "/image/OwOAsset/大笑.png"
+      }, 
+      {
+        "key": "脸红", 
+        "val": "/image/OwOAsset/脸红.png"
+      }, 
+      {
+        "key": "哭", 
+        "val": "/image/OwOAsset/哭.png"
+      }, 
+      {
+        "key": "前排", 
+        "val": "/image/OwOAsset/前排.png"
+      }, 
+      {
+        "key": "沙发", 
+        "val": "/image/OwOAsset/沙发.png"
+      }, 
+      {
+        "key": "比心", 
+        "val": "/image/OwOAsset/比心.png"
+      }, 
+      {
+        "key": "吃药", 
+        "val": "/image/OwOAsset/吃药.png"
+      }
+    ]
+  }
