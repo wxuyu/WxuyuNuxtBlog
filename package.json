@@ -40,6 +40,7 @@
     "@vueuse/nuxt": "catalog:util",
     "@vueuse/router": "catalog:util",
     "abcjs": "catalog:content",
+    "artalk": "^2.9.1",
     "ci-info": "catalog:framework",
     "date-fns": "catalog:util",
     "date-fns-tz": "catalog:util",

@@ -4,439 +4,439 @@
     "items": [
       {
         "key": "微笑", 
-        "val": "/image/OwOAsset/wx_001.png"
+        "val": "/image/OwOAsset/wx/wx_001.png"
       }, 
       {
         "key": "撇嘴", 
-        "val": "/image/OwOAsset/wx_002.png"
+        "val": "/image/OwOAsset/wx/wx_002.png"
       }, 
       {
         "key": "色", 
-        "val": "/image/OwOAsset/wx_003.png"
+        "val": "/image/OwOAsset/wx/wx_003.png"
       }, 
       {
         "key": "发呆", 
-        "val": "/image/OwOAsset/wx_004.png"
+        "val": "/image/OwOAsset/wx/wx_004.png"
       }, 
       {
         "key": "得意", 
-        "val": "/image/OwOAsset/wx_005.png"
+        "val": "/image/OwOAsset/wx/wx_005.png"
       }, 
       {
         "key": "流泪", 
-        "val": "/image/OwOAsset/wx_006.png"
+        "val": "/image/OwOAsset/wx/wx_006.png"
       }, 
       {
         "key": "害羞", 
-        "val": "/image/OwOAsset/wx_007.png"
+        "val": "/image/OwOAsset/wx/wx_007.png"
       }, 
       {
         "key": "闭嘴", 
-        "val": "/image/OwOAsset/wx_008.png"
+        "val": "/image/OwOAsset/wx/wx_008.png"
       }, 
       {
         "key": "睡", 
-        "val": "/image/OwOAsset/wx_009.png"
+        "val": "/image/OwOAsset/wx/wx_009.png"
       }, 
       {
         "key": "大哭", 
-        "val": "/image/OwOAsset/wx_010.png"
+        "val": "/image/OwOAsset/wx/wx_010.png"
       }, 
       {
         "key": "尴尬", 
-        "val": "/image/OwOAsset/wx_011.png"
+        "val": "/image/OwOAsset/wx/wx_011.png"
       }, 
       {
         "key": "发怒", 
-        "val": "/image/OwOAsset/wx_012.png"
+        "val": "/image/OwOAsset/wx/wx_012.png"
       }, 
       {
         "key": "调皮", 
-        "val": "/image/OwOAsset/wx_013.png"
+        "val": "/image/OwOAsset/wx/wx_013.png"
       }, 
       {
         "key": "呲牙", 
-        "val": "/image/OwOAsset/wx_014.png"
+        "val": "/image/OwOAsset/wx/wx_014.png"
       }, 
       {
         "key": "惊讶", 
-        "val": "/image/OwOAsset/wx_015.png"
+        "val": "/image/OwOAsset/wx/wx_015.png"
       }, 
       {
         "key": "难过", 
-        "val": "/image/OwOAsset/wx_016.png"
+        "val": "/image/OwOAsset/wx/wx_016.png"
       }, 
       {
         "key": "囧", 
-        "val": "/image/OwOAsset/wx_017.png"
+        "val": "/image/OwOAsset/wx/wx_017.png"
       }, 
       {
         "key": "抓狂", 
-        "val": "/image/OwOAsset/wx_018.png"
+        "val": "/image/OwOAsset/wx/wx_018.png"
       }, 
       {
         "key": "吐", 
-        "val": "/image/OwOAsset/wx_019.png"
+        "val": "/image/OwOAsset/wx/wx_019.png"
       }, 
       {
         "key": "偷笑", 
-        "val": "/image/OwOAsset/wx_020.png"
+        "val": "/image/OwOAsset/wx/wx_020.png"
       }, 
       {
         "key": "愉快", 
-        "val": "/image/OwOAsset/wx_021.png"
+        "val": "/image/OwOAsset/wx/wx_021.png"
       }, 
       {
         "key": "白眼", 
-        "val": "/image/OwOAsset/wx_022.png"
+        "val": "/image/OwOAsset/wx/wx_022.png"
       }, 
       {
         "key": "傲慢", 
-        "val": "/image/OwOAsset/wx_023.png"
+        "val": "/image/OwOAsset/wx/wx_023.png"
       }, 
       {
         "key": "困", 
-        "val": "/image/OwOAsset/wx_024.png"
+        "val": "/image/OwOAsset/wx/wx_024.png"
       }, 
       {
         "key": "惊恐", 
-        "val": "/image/OwOAsset/wx_025.png"
+        "val": "/image/OwOAsset/wx/wx_025.png"
       }, 
       {
         "key": "憨笑", 
-        "val": "/image/OwOAsset/wx_026.png"
+        "val": "/image/OwOAsset/wx/wx_026.png"
       }, 
       {
         "key": "悠闲", 
-        "val": "/image/OwOAsset/wx_027.png"
+        "val": "/image/OwOAsset/wx/wx_027.png"
       }, 
       {
         "key": "咒骂", 
-        "val": "/image/OwOAsset/wx_028.png"
+        "val": "/image/OwOAsset/wx/wx_028.png"
       }, 
       {
         "key": "疑问", 
-        "val": "/image/OwOAsset/wx_029.png"
+        "val": "/image/OwOAsset/wx/wx_029.png"
       }, 
       {
         "key": "嘘", 
-        "val": "/image/OwOAsset/wx_030.png"
+        "val": "/image/OwOAsset/wx/wx_030.png"
       }, 
       {
         "key": "晕", 
-        "val": "/image/OwOAsset/wx_031.png"
+        "val": "/image/OwOAsset/wx/wx_031.png"
       }, 
       {
         "key": "衰", 
-        "val": "/image/OwOAsset/wx_032.png"
+        "val": "/image/OwOAsset/wx/wx_032.png"
       }, 
       {
         "key": "骷髅", 
-        "val": "/image/OwOAsset/wx_033.png"
+        "val": "/image/OwOAsset/wx/wx_033.png"
       }, 
       {
         "key": "敲打", 
-        "val": "/image/OwOAsset/wx_034.png"
+        "val": "/image/OwOAsset/wx/wx_034.png"
       }, 
       {
         "key": "再见", 
-        "val": "/image/OwOAsset/wx_035.png"
+        "val": "/image/OwOAsset/wx/wx_035.png"
       }, 
       {
         "key": "擦汗", 
-        "val": "/image/OwOAsset/wx_036.png"
+        "val": "/image/OwOAsset/wx/wx_036.png"
       }, 
       {
         "key": "抠鼻", 
-        "val": "/image/OwOAsset/wx_037.png"
+        "val": "/image/OwOAsset/wx/wx_037.png"
       }, 
       {
         "key": "鼓掌", 
-        "val": "/image/OwOAsset/wx_038.png"
+        "val": "/image/OwOAsset/wx/wx_038.png"
       }, 
       {
         "key": "坏笑", 
-        "val": "/image/OwOAsset/wx_039.png"
+        "val": "/image/OwOAsset/wx/wx_039.png"
       }, 
       {
         "key": "右哼哼", 
-        "val": "/image/OwOAsset/wx_040.png"
+        "val": "/image/OwOAsset/wx/wx_040.png"
       }, 
       {
         "key": "鄙视", 
-        "val": "/image/OwOAsset/wx_041.png"
+        "val": "/image/OwOAsset/wx/wx_041.png"
       }, 
       {
         "key": "委屈", 
-        "val": "/image/OwOAsset/wx_042.png"
+        "val": "/image/OwOAsset/wx/wx_042.png"
       }, 
       {
         "key": "快哭了", 
-        "val": "/image/OwOAsset/wx_043.png"
+        "val": "/image/OwOAsset/wx/wx_043.png"
       }, 
       {
         "key": "阴险", 
-        "val": "/image/OwOAsset/wx_044.png"
+        "val": "/image/OwOAsset/wx/wx_044.png"
       }, 
       {
         "key": "亲亲", 
-        "val": "/image/OwOAsset/wx_045.png"
+        "val": "/image/OwOAsset/wx/wx_045.png"
       }, 
       {
         "key": "可怜", 
-        "val": "/image/OwOAsset/wx_046.png"
+        "val": "/image/OwOAsset/wx/wx_046.png"
       }, 
       {
         "key": "笑脸", 
-        "val": "/image/OwOAsset/wx_047.png"
+        "val": "/image/OwOAsset/wx/wx_047.png"
       }, 
       {
         "key": "生病", 
-        "val": "/image/OwOAsset/wx_048.png"
+        "val": "/image/OwOAsset/wx/wx_048.png"
       }, 
       {
         "key": "脸红", 
-        "val": "/image/OwOAsset/wx_049.png"
+        "val": "/image/OwOAsset/wx/wx_049.png"
       }, 
       {
         "key": "破涕为笑", 
-        "val": "/image/OwOAsset/wx_050.png"
+        "val": "/image/OwOAsset/wx/wx_050.png"
       }, 
       {
         "key": "恐惧", 
-        "val": "/image/OwOAsset/wx_051.png"
+        "val": "/image/OwOAsset/wx/wx_051.png"
       }, 
       {
         "key": "失望", 
-        "val": "/image/OwOAsset/wx_052.png"
+        "val": "/image/OwOAsset/wx/wx_052.png"
       }, 
       {
         "key": "无语", 
-        "val": "/image/OwOAsset/wx_053.png"
+        "val": "/image/OwOAsset/wx/wx_053.png"
       }, 
       {
         "key": "嘿哈", 
-        "val": "/image/OwOAsset/wx_054.png"
+        "val": "/image/OwOAsset/wx/wx_054.png"
       }, 
       {
         "key": "捂脸", 
-        "val": "/image/OwOAsset/wx_055.png"
+        "val": "/image/OwOAsset/wx/wx_055.png"
       }, 
       {
         "key": "奸笑", 
-        "val": "/image/OwOAsset/wx_056.png"
+        "val": "/image/OwOAsset/wx/wx_056.png"
       }, 
       {
         "key": "机智", 
-        "val": "/image/OwOAsset/wx_057.png"
+        "val": "/image/OwOAsset/wx/wx_057.png"
       }, 
       {
         "key": "皱眉", 
-        "val": "/image/OwOAsset/wx_058.png"
+        "val": "/image/OwOAsset/wx/wx_058.png"
       }, 
       {
         "key": "耶", 
-        "val": "/image/OwOAsset/wx_059.png"
+        "val": "/image/OwOAsset/wx/wx_059.png"
       }, 
       {
         "key": "吃瓜", 
-        "val": "/image/OwOAsset/wx_060.png"
+        "val": "/image/OwOAsset/wx/wx_060.png"
       }, 
       {
         "key": "加油", 
-        "val": "/image/OwOAsset/wx_061.png"
+        "val": "/image/OwOAsset/wx/wx_061.png"
       }, 
       {
         "key": "汗", 
-        "val": "/image/OwOAsset/wx_062.png"
+        "val": "/image/OwOAsset/wx/wx_062.png"
       }, 
       {
         "key": "天啊", 
-        "val": "/image/OwOAsset/wx_063.png"
+        "val": "/image/OwOAsset/wx/wx_063.png"
       }, 
       {
         "key": "Emm", 
-        "val": "/image/OwOAsset/wx_064.png"
+        "val": "/image/OwOAsset/wx/wx_064.png"
       }, 
       {
         "key": "社会社会", 
-        "val": "/image/OwOAsset/wx_065.png"
+        "val": "/image/OwOAsset/wx/wx_065.png"
       }, 
       {
         "key": "旺柴", 
-        "val": "/image/OwOAsset/wx_066.png"
+        "val": "/image/OwOAsset/wx/wx_066.png"
       }, 
       {
         "key": "好的", 
-        "val": "/image/OwOAsset/wx_067.png"
+        "val": "/image/OwOAsset/wx/wx_067.png"
       }, 
       {
         "key": "打脸", 
-        "val": "/image/OwOAsset/wx_068.png"
+        "val": "/image/OwOAsset/wx/wx_068.png"
       }, 
       {
         "key": "哇", 
-        "val": "/image/OwOAsset/wx_069.png"
+        "val": "/image/OwOAsset/wx/wx_069.png"
       }, 
       {
         "key": "翻白眼", 
-        "val": "/image/OwOAsset/wx_070.png"
+        "val": "/image/OwOAsset/wx/wx_070.png"
       }, 
       {
         "key": "666", 
-        "val": "/image/OwOAsset/wx_071.png"
+        "val": "/image/OwOAsset/wx/wx_071.png"
       }, 
       {
         "key": "让我看看", 
-        "val": "/image/OwOAsset/wx_072.png"
+        "val": "/image/OwOAsset/wx/wx_072.png"
       }, 
       {
         "key": "叹气", 
-        "val": "/image/OwOAsset/wx_073.png"
+        "val": "/image/OwOAsset/wx/wx_073.png"
       }, 
       {
         "key": "苦涩", 
-        "val": "/image/OwOAsset/wx_074.png"
+        "val": "/image/OwOAsset/wx/wx_074.png"
       }, 
       {
         "key": "裂开", 
-        "val": "/image/OwOAsset/wx_075.png"
+        "val": "/image/OwOAsset/wx/wx_075.png"
       }, 
       {
         "key": "嘴唇", 
-        "val": "/image/OwOAsset/wx_076.png"
+        "val": "/image/OwOAsset/wx/wx_076.png"
       }, 
       {
         "key": "爱心", 
-        "val": "/image/OwOAsset/wx_077.png"
+        "val": "/image/OwOAsset/wx/wx_077.png"
       }, 
       {
         "key": "心碎", 
-        "val": "/image/OwOAsset/wx_078.png"
+        "val": "/image/OwOAsset/wx/wx_078.png"
       }, 
       {
         "key": "拥抱", 
-        "val": "/image/OwOAsset/wx_079.png"
+        "val": "/image/OwOAsset/wx/wx_079.png"
       }, 
       {
         "key": "强", 
-        "val": "/image/OwOAsset/wx_080.png"
+        "val": "/image/OwOAsset/wx/wx_080.png"
       }, 
       {
         "key": "弱", 
-        "val": "/image/OwOAsset/wx_081.png"
+        "val": "/image/OwOAsset/wx/wx_081.png"
       }, 
       {
         "key": "握手", 
-        "val": "/image/OwOAsset/wx_082.png"
+        "val": "/image/OwOAsset/wx/wx_082.png"
       }, 
       {
         "key": "胜利", 
-        "val": "/image/OwOAsset/wx_083.png"
+        "val": "/image/OwOAsset/wx/wx_083.png"
       }, 
       {
         "key": "抱拳", 
-        "val": "/image/OwOAsset/wx_084.png"
+        "val": "/image/OwOAsset/wx/wx_084.png"
       }, 
       {
         "key": "勾引", 
-        "val": "/image/OwOAsset/wx_085.png"
+        "val": "/image/OwOAsset/wx/wx_085.png"
       }, 
       {
         "key": "拳头", 
-        "val": "/image/OwOAsset/wx_086.png"
+        "val": "/image/OwOAsset/wx/wx_086.png"
       }, 
       {
         "key": "OK", 
-        "val": "/image/OwOAsset/wx_087.png"
+        "val": "/image/OwOAsset/wx/wx_087.png"
       }, 
       {
         "key": "合十", 
-        "val": "/image/OwOAsset/wx_088.png"
+        "val": "/image/OwOAsset/wx/wx_088.png"
       }, 
       {
         "key": "啤酒", 
-        "val": "/image/OwOAsset/wx_089.png"
+        "val": "/image/OwOAsset/wx/wx_089.png"
       }, 
       {
         "key": "咖啡", 
-        "val": "/image/OwOAsset/wx_090.png"
+        "val": "/image/OwOAsset/wx/wx_090.png"
       }, 
       {
         "key": "蛋糕", 
-        "val": "/image/OwOAsset/wx_091.png"
+        "val": "/image/OwOAsset/wx/wx_091.png"
       }, 
       {
         "key": "玫瑰", 
-        "val": "/image/OwOAsset/wx_092.png"
+        "val": "/image/OwOAsset/wx/wx_092.png"
       }, 
       {
         "key": "凋谢", 
-        "val": "/image/OwOAsset/wx_093.png"
+        "val": "/image/OwOAsset/wx/wx_093.png"
       }, 
       {
         "key": "菜刀", 
-        "val": "/image/OwOAsset/wx_094.png"
+        "val": "/image/OwOAsset/wx/wx_094.png"
       }, 
       {
         "key": "炸弹", 
-        "val": "/image/OwOAsset/wx_095.png"
+        "val": "/image/OwOAsset/wx/wx_095.png"
       }, 
       {
         "key": "便便", 
-        "val": "/image/OwOAsset/wx_096.png"
+        "val": "/image/OwOAsset/wx/wx_096.png"
       }, 
       {
         "key": "月亮", 
-        "val": "/image/OwOAsset/wx_097.png"
+        "val": "/image/OwOAsset/wx/wx_097.png"
       }, 
       {
         "key": "太阳", 
-        "val": "/image/OwOAsset/wx_098.png"
+        "val": "/image/OwOAsset/wx/wx_098.png"
       }, 
       {
         "key": "庆祝", 
-        "val": "/image/OwOAsset/wx_099.png"
+        "val": "/image/OwOAsset/wx/wx_099.png"
       }, 
       {
         "key": "礼物", 
-        "val": "/image/OwOAsset/wx_100.png"
+        "val": "/image/OwOAsset/wx/wx_100.png"
       }, 
       {
         "key": "红包", 
-        "val": "/image/OwOAsset/wx_101.png"
+        "val": "/image/OwOAsset/wx/wx_101.png"
       }, 
       {
         "key": "發", 
-        "val": "/image/OwOAsset/wx_102.png"
+        "val": "/image/OwOAsset/wx/wx_102.png"
       }, 
       {
         "key": "福", 
-        "val": "/image/OwOAsset/wx_103.png"
+        "val": "/image/OwOAsset/wx/wx_103.png"
       }, 
       {
         "key": "烟花", 
-        "val": "/image/OwOAsset/wx_104.png"
+        "val": "/image/OwOAsset/wx/wx_104.png"
       }, 
       {
         "key": "爆竹", 
-        "val": "/image/OwOAsset/wx_105.png"
+        "val": "/image/OwOAsset/wx/wx_105.png"
       }, 
       {
         "key": "猪头", 
-        "val": "/image/OwOAsset/wx_106.png"
+        "val": "/image/OwOAsset/wx/wx_106.png"
       }, 
       {
         "key": "跳跳", 
-        "val": "/image/OwOAsset/wx_107.png"
+        "val": "/image/OwOAsset/wx/wx_107.png"
       }, 
       {
         "key": "发抖", 
-        "val": "/image/OwOAsset/wx_108.png"
+        "val": "/image/OwOAsset/wx/wx_108.png"
       }, 
       {
         "key": "转圈", 
-        "val": "/image/OwOAsset/wx_109.png"
+        "val": "/image/OwOAsset/wx/wx_109.png"
       }
     ]
   }
