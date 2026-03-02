@@ -633,7 +633,7 @@ export default ArtalkManager
 - `狐妖小红娘`：[https://www.myxz.top/emoji/huyao.zip]
 ::
 
-::tab{:tabs='["哔哩哔哩", "张洪Heo", "狐妖小红娘", "前尘小筑", "那兔", "微信", "爱弥斯"]'}
+::tab{:tabs='["哔哩哔哩", "张洪Heo", "狐妖小红娘", "前尘小筑", "那兔", "微信", "爱弥斯", ""]'}
 #tab1
 ``` json [blbl.json] lang="json"
   {

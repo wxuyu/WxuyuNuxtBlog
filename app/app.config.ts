@@ -77,7 +77,7 @@ export default defineAppConfig({
 			{
 				title: '社交',
 				items: [
-					{ icon: 'ph:github-logo-bold', text: '661111', url: 'https://github.com/661111' },
+					{ icon: 'ph:github-logo-bold', text: 'wxuyu', url: 'https://github.com/wxuyu' },
 					// { icon: 'ri:qq-line', text: '群: 169994096', url: 'https://jq.qq.com/?_wv=1027&k=lQfNSeEd' },
 					{ icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
 				],

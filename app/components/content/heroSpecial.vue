@@ -54,7 +54,9 @@ const activeIndex = ref(0)
         <!-- 卡片描述 -->
         <Title title="描述" />
         <div class="cardDesc">
-          {{ heroSpecialList[activeIndex]?.物品简介 || '暂无描述信息' }}
+          <slot :name="heroSpecialList[activeIndex]?.物品名称">
+            {{ heroSpecialList[activeIndex]?.物品简介 || '暂无描述信息' }}
+          </slot>
         </div>
         <Title title="彩蛋" />
         <div class="cardYouLai">
