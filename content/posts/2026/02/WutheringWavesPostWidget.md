@@ -3,9 +3,13 @@ title: 【鸣潮】档案文章组件
 description: 该文章主要写了对于低价机器的试水，并提醒是超开类型的机器。在测试的过程中发现机器性能较高，且展示出机器的具体价格，并单独列出只有精简版未采用完整版测试。
 date: 2026-02-20 10:00:00
 updated: 2026-02-26 10:00:00
-image: /image/PostCover/vpsTalk.avif
-categories: [博客魔改]
-tags: [Nuxt, 魔改, 美化]
+image: /image/PostCover/WutheringWavesPostWidget.avif
+categories:
+  - 博客魔改
+tags:
+  - Nuxt
+  - 魔改
+  - 美化
 recommend: true
 ---
 ## 前言

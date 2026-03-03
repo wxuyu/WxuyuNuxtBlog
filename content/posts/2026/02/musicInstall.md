@@ -3,9 +3,13 @@ title: 【本地+云端】搭建道理鱼音乐
 description: 该文章主要写了对于低价机器的试水，并提醒是超开类型的机器。在测试的过程中发现机器性能较高，且展示出机器的具体价格，并单独列出只有精简版未采用完整版测试。
 date: 2026-02-04 10:00:00
 updated: 2026-02-06 20:49:00
-image: /image/PostCover/vpsTalk.avif
-categories: [博客魔改]
-tags: [Nuxt, 魔改, 美化]
+image: /image/PostCover/musicInstall.avif
+categories:
+  - 博客魔改
+tags:
+  - Nuxt
+  - 魔改
+  - 美化
 recommend: true
 ---
 ## 前言
