@@ -1,16 +1,21 @@
-<template lang="pug">
-.FooterCard
-  .head
-    p.title {{ blogConfig.title }}
-    p.desc(v-for="(info, index) in footer_card_info" :key="index") {{ info.desc }}
-  .footer
-    .button_div
-      a.button(
-        v-for="(info, index) in footer_card_info" 
-        :key="index" 
-        :href="info.link" 
-        target="_blank"
-      ) {{ info.link_button_name }}
+<template>
+  <div class="FooterCard">
+    <div class="head">
+      <p class="title">
+        {{ blogConfig.title }}
+      </p>
+      <p class="desc" v-for="(info, index) in footer_card_info" :key="index">
+        {{ info.desc }}
+      </p>
+    </div>
+    <div class="footer">
+      <div class="button_div">
+        <a class="button" v-for="(info, index) in footer_card_info" :key="index" :href="info.link" target="_blank">
+          {{ info.link_button_name }}
+        </a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -89,7 +89,7 @@ const numberTop = ref(1)
               <div class="HeaderTitle">
                 {{ data.主标题 }}
               </div>
-              <div class="HeaderSub" style="font-size: 0.5em;">
+              <div class="HeaderSub" style="font-size: 0.5em;" :id="`sub` + data.序号">
                 {{ data.副标题 }}
               </div>
             </div>
@@ -311,7 +311,7 @@ const numberTop = ref(1)
     }
     .statusHeader#爱弥斯 {
       display: flex;
-      .HeaderSub {
+      .HeaderSub#sub1 {
         font-size: 0.5em;
         font-size: .75rem;
         background: #f003;

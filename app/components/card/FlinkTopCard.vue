@@ -379,12 +379,8 @@ const allPairs = computed(() => {
 
 #flink-banners #skills-tags-group-all .tags-group-wrapper {
 	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
 }
-
+ 
 #skills-tags-group-all .tags-group-wrapper {
 	display: flex;
 	flex-wrap: nowrap;
@@ -393,10 +389,6 @@ const allPairs = computed(() => {
 }
 
 #flink-banners #skills-tags-group-all .tags-group-wrapper {
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
-	animation: rowup 120s linear infinite;
 	animation: rowup 120s linear infinite;
 }
 

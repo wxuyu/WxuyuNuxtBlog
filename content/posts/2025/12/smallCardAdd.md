@@ -1,5 +1,5 @@
 ---
-title: 组件美化
+title: 侧边组件美化
 description: 该文章记录了项目版本迭代中的UI优化与功能调整，包括站点详情卡片组件化改造（采用Badge组件优化布局）、分类卡片新增文章数量统计功能（重新严重问题）、标签卡片新增文章标签统计功能、博主信息模块的拆分与重构，同时删除了冗余的左侧图片和完整博主卡片，最终形成模块化组件结构（涉及5个核心组件及数据调用逻辑调整）。
 date: 2025-12-04 10:00:00
 updated: 2025-12-04 20:49:00
@@ -12,6 +12,10 @@ recommend: true
 由于最近的累计魔改的内容已经多到需要记录了，索性也写成一篇魔改文章。
 
 ## 功能增加与删减
+### V20260304-OFFICIAL
+增加内容
+- 翻转式二维码组件
+
 ### V20251210-OFFICIAL
 增加内容
 - 由标签展示卡片代替掉分类展示卡片
@@ -45,11 +49,12 @@ recommend: true
 - `/app/components/widget/BlogSiteInfo.vue`：站点详情卡片展示，通过调用`sitelink.ts`完成数据展示。
 - `/app/sitelink.ts`：站点详情卡片展示，通过调用`sitelink.ts`完成数据展示。
 - `/app/components/widget/BlogAccount.vue`：博主信息卡片，是博主信息实践的初代版本，后因占用过大而被撤下。
+- `/app/components/widget/BlogFlip.vue`：翻转式二维码组件，可以自由添加内容（请勿商用，字体来源方规定）
 
 ## 教程开始
 
 ### 主渲染组件模块
-::tab{:tabs='["标签详情", "分类详情（请勿使用）", "服务卡片", "站点详情", "博主信息"]'}
+::tab{:tabs='["标签详情", "分类详情（请勿使用）", "服务卡片", "站点详情", "博主信息", "翻转式二维码"]'}
 #tab1
 ``` vue [BlogTag.vue] lang="vue"
 <script setup lang="ts">
@@ -513,6 +518,85 @@ const iconNav= [
 </style>
 ```
 
+#tab6
+``` vue [BlogFlip.vue] lang="vue"
+<template>
+<BlogWidget card title="翻转查看" right-type="desc" desc="查看最新交流群">
+<div class="QQ">
+  <div class="flip">
+    <div class="wc-card face front">
+      <NuxtImg src="/image/DefineAssets/Widget/Flip_QQ/Side_Front.svg" class="cardImage"/>
+    </div>
+    <div class="wc-card face back">
+      <NuxtImg src="/image/DefineAssets/Widget/Flip_QQ/Side_Back.svg" class="cardImage"/>
+    </div>
+  </div>
+</div>
+</BlogWidget>
+</template>
+
+<style lang="scss" scoped>
+:deep(.widget-body) {
+  padding: 0!important;
+}
+.QQ {
+  perspective: 800px;
+  // background-color: #008000b3;
+  justify-content: center;
+  height: 100%;
+  display: flex;
+  container-type: inline-size;
+}
+.cardImage {
+  width: 100%;
+}
+.flip {
+  width: 80%;
+  height: 100px;
+  transform-style: preserve-3d;
+  transition: transform .8s;
+  position: relative;
+  &:hover {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .face {
+    backface-visibility: hidden;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    .cardImage {
+      width: 100%
+    }
+  }
+  .back {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+  }
+}
+.front, .back {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+#card-tuijian#card-tuijian#card-tuijian#card-tuijian {
+  height: 100px;
+  padding: 0 0.8rem;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+</style>
+```
 ::
 
 ### 渲染模块数据模块

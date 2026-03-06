@@ -1,6 +1,6 @@
 ---
 title: 【鸣潮】档案文章组件
-description: 该文章主要写了对于低价机器的试水，并提醒是超开类型的机器。在测试的过程中发现机器性能较高，且展示出机器的具体价格，并单独列出只有精简版未采用完整版测试。
+description: 该文章展示多个以鸣潮为主题的档案组件，包含具体代码、属性表格对应、预览整体组件、写法展示四种类型，并在文章末尾附加更新报告。
 date: 2026-02-20 10:00:00
 updated: 2026-02-26 10:00:00
 image: /image/PostCover/WutheringWavesPostWidget.avif
@@ -28,7 +28,7 @@ recommend: true
 ``` vue [heroMain.vue] lang="ts"
 <script setup lang="ts">
 import Title from '../card/title.vue';
-defineProps<{
+const props = defineProps<{
   类型: "爱弥斯" | "尤诺" | "奥古斯塔"
   头像?: string
   徽章?: Record<string, string>
@@ -38,15 +38,14 @@ defineProps<{
     上部分?: string
     称号?: string
     下部分?: string 
-  };
+  }
   详情信息?: Record<string, string>
+  档案标题: string
   档案?: {
-    顶部标题?: string
     报告: Array<{
       序号?: number
       主标题?: string
-      独有副标题?: string
-      常用副标题?: string
+      副标题?: string
       常用简介?: Record<string, string> | string
       独特简介?: {
         上段简介: string
@@ -75,16 +74,26 @@ const numberTop = ref(1)
           {{ 名字 }}
         </h3>
         <div class="avatarMeta">
-          <span class="MetaSpan" v-for="([key, value]) in Object.entries(徽章 ?? {})" :key="key"> {{key}}：{{value }} </span>
+          <span class="MetaSpan" v-for="([key, value]) in Object.entries(徽章 ?? {})" :key="key">
+            {{key}}：{{value }}
+          </span>
         </div>
       </div>
       <div class="rightInfo">
         <div class="panelMain">
           <Title title="简介"></Title>
-          <p class="heroDesc">
+          <p class="heroDesc" v-show="类型 === '爱弥斯'">
             {{ 简介?.上部分 }}<span class="lightDesc">{{ 简介?.称号 }}</span
             >{{ 简介?.下部分 }}
           </p>
+          <div v-show="类型 === '尤诺'">
+            <p class="heroDesc" >
+              {{ 简介?.上部分 }}
+            </p>
+            <p class="heroDesc">
+              {{ 简介?.下部分 }}
+            </p>
+          </div>
           <Title title="标签"></Title>
           <span class="tagItem" style="margin-top: 0.5em;margin-bottom: 0.5em;">
             <span class="tag" v-for="([key, value]) in Object.entries(标签 ?? {})" :key="key">
@@ -92,7 +101,7 @@ const numberTop = ref(1)
             </span>
           </span>
           <Title title="详情信息"></Title>
-          <div class="infoMain">
+          <div class="infoMain" :id="类型">
             <div
               class="infoCard"
               v-for="([key, value]) in Object.entries(详情信息 ?? {})"
@@ -102,33 +111,29 @@ const numberTop = ref(1)
               <div class="infoValue">{{ value }}</div>
             </div>
           </div>
-          <Title :title="档案?.顶部标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.报告">
-            <div class="statusHeader" v-show="类型 === '尤诺'">
+          <Title :title="档案标题"></Title>
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.报告" :key="data.序号">
+            <div class="statusHeader" :id="类型">
               <div class="HeaderTitle">
                 {{ data.主标题 }}
               </div>
-              <div class="HeaderSub" style="font-size: 0.5em;">
-                {{ data.常用副标题 }}
-              </div>
-            </div>
-            <div class="statusHeader" v-show="类型 === '爱弥斯'" style="display: flex;">
-              <div class="HeaderTitle">
-                {{ data.主标题 }}
-              </div>
-              <div class="HeaderSub" v-if="data.序号 === 1" style="font-size: 0.5em;font-size: .75rem;background: #f003;color: #ff6b85;padding: 2px 6px;border-radius: 4px;">
-                {{ data?.独有副标题 }}
+              <div class="HeaderSub" style="font-size: 0.5em;" :id="`sub` + data.序号">
+                {{ data.副标题 }}
               </div>
             </div>
             <div class="statusContent">
-              <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key" v-show="类型 === '尤诺'">
-                {{ value }}
-              </p>
+              <!-- 爱弥斯专用 -->
               <div v-show="类型 === '爱弥斯'" class="statusDesc">
                 {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
               </div>
-              <p>
-                {{ data.常用简介 }}
+              <!-- 尤诺专用 -->
+              <div class="statusDesc" v-show="类型 === '尤诺'">
+                <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key">
+                  {{ value }}
+                </p>
+              </div>
+              <p v-show="data?.序号 === 2">
+                {{ data?.常用简介 }}
               </p>
             </div>
           </div>
@@ -298,7 +303,6 @@ const numberTop = ref(1)
     display: grid;
     font-size: 1rem;
     gap: 0.4rem;
-    grid-template-columns: repeat(4, 1fr);
     padding: 0;
     margin-top: 0.5em;
     .infoCard {
@@ -318,6 +322,12 @@ const numberTop = ref(1)
       }
     }
   }
+  .infoMain#爱弥斯 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .infoMain#尤诺 {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .statusMain {
     background: rgba(122, 92, 61, 0.08);
     border-radius: 6px;
@@ -326,6 +336,20 @@ const numberTop = ref(1)
       align-items: center;
       gap: 8px;
       margin-bottom: 6px;
+    }
+    .statusHeader#爱弥斯 {
+      display: flex;
+      .HeaderSub#sub1 {
+        font-size: 0.5em;
+        font-size: .75rem;
+        background: #f003;
+        color: #ff6b85;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    }
+    .statusHeader#尤诺 {
+      margin-bottom: 12px;
     }
     .statusContent {
       font-size: 13px;
@@ -2627,6 +2651,12 @@ hero-reson-mecha属性
 ::
 
 ## 更新日志
+**V20260306-PRE**
+- 1.针对`爱弥斯`的人物模块中的`档案`部分的`副标题`样式进行调整
+
+**V20260304-PRE**
+- 1.优化部分组件样式
+
 **V20260227-PRE**
 - 1.添加新模块，并更新具体配置项与组件写法
 - 2.优化新组件中的移动端

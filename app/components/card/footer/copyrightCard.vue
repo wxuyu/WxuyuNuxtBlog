@@ -1,31 +1,44 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+const footerGroup = [{
+  label: "萌ICP备20251949号",
+  tip: "前往萌国ICP备案进行查询",
+  url: "https://icp.gov.moe/"
+},{
+  label: "业务状态",
+  tip: "前往查看状态",
+  url: "https://kuma.wxuyu.top/status/wxuyu"
+}]
 </script>
 
-<template lang="pug">
-.copyrightCard
-  .copyrightNav
-    .timeLoad 
-      .Powerby ©{{ appConfig.timeStart }} — 2026 Powerby
-      a.copyrightName(
-        :href="appConfig.url" 
-        :title="appConfig.title" 
-        target="_blank"
-      )
-        img.logo(
-          :alt="appConfig.title" 
-          :src="appConfig.header.logo" 
-          :class="{circle: appConfig.header.showTitle}"
-          width="25"
-          height="25"
-          loading="lazy"
-        )
-        .title {{ appConfig.title }}
-    .themes
-      .Themesinfo 
-        p 采用 
-        a(href="https://github.com/L33Z22L11/blog-v3") Clarity
-        p 主题
+<template>
+  <div class="copyrightCard">
+    <div class="copyrightNav">
+      <div class="timeLoad">
+        <div class="Powerby">
+          ©{{ appConfig.timeStart }} — 2026 Powerby
+        </div>
+        <a class="copyrightName" :href="appConfig.url" :title="appConfig.title" target="_blank">
+          <NuxtImg class="logo" :alt="appConfig.title" :src="appConfig.header.logo" :class="{circle: appConfig.header.showTitle}" width="25" height="25" loading="lazy" />
+          <div class="title">
+            {{ appConfig.title }}
+          </div>
+        </a>
+      </div>
+      <div class="themes">
+        <div class="Themesinfo">
+          <p> 采用 </p>
+          <a href="https://github.com/L33Z22L11/blog-v3"> Clarity </a>
+          <p> 主题 </p>
+        </div>
+      </div>
+      <div class="footerGroup">
+        <a :href="group.url" v-for="group in footerGroup">
+          <span v-tip="group.tip">{{ group.label }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -33,7 +46,7 @@ const appConfig = useAppConfig()
   .copyrightNav {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.56rem;
     
     .timeLoad {
       display: flex;
@@ -86,6 +99,12 @@ const appConfig = useAppConfig()
         display: flex;
         gap: 0.5rem;
       }
+    }
+    .footerGroup {
+      font-size: 0.85em;
+      color: var(--c-text-secondary);
+      display: flex;
+      gap: 0.6em;
     }
   }
 }

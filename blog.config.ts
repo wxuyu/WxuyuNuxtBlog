@@ -23,6 +23,9 @@ const basicConfig = {
     timezone: 'Asia/Shanghai',
     url: 'https://www.wxuyu.top',
 	defaultCategory: '未分类',
+  tip: {
+    PowerByTip: '前往我的主页'
+  }
 }
 
 // 存储 nuxt.config 和 app.config 共用的配置
