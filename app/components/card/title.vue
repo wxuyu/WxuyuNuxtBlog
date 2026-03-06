@@ -7,6 +7,8 @@
 <style lang="scss" scoped>
 .basic-info-bar {
   display: grid;
+  font-synthesis: none;
+  font-variation-settings: "wght" 600, "BEVL" 100;
   .title-text {
     text-align: center;
     margin: 0 auto;

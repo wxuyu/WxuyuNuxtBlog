@@ -862,10 +862,11 @@ defineProps<{
   heroSpecialList?: Array<{
     物品名称: string       // 卡片标题
     物品含意: string        // 卡片描述
-    物品简介: string
+    物品简介: string | Record<string, string>
     物品图像: string       // 卡片主图
     物品彩蛋: string
   }>
+  类型: '爱弥斯' | '莫宁' | '琳奈'
 }>()
 
 // 跟踪当前激活的卡片索引（初始激活第一个）
@@ -909,11 +910,18 @@ const activeIndex = ref(0)
         <!-- 卡片描述 -->
         <Title title="描述" />
         <div class="cardDesc">
-          {{ heroSpecialList[activeIndex]?.物品简介 || '暂无描述信息' }}
+          <p v-show="类型 === '爱弥斯'">
+            {{ heroSpecialList[activeIndex]?.物品简介 || '暂无描述信息' }}
+          </p>
+          <p v-show="类型 === '莫宁' || 类型 === '琳奈'" v-for="([key, value]) in Object.entries(heroSpecialList[activeIndex]?.物品简介 ?? {})" :key="key">
+            {{ value || '暂无描述信息' }}
+          </p>
         </div>
-        <Title title="彩蛋" />
-        <div class="cardYouLai">
-          {{ heroSpecialList[activeIndex]?.物品彩蛋 || "未写入" }}
+        <div v-show="类型 === '爱弥斯'">
+          <Title title="彩蛋" />
+          <div class="cardYouLai">
+            {{ heroSpecialList[activeIndex]?.物品彩蛋 || "未写入" }}
+          </div>
         </div>
       </div>
     </div>
@@ -2653,6 +2661,7 @@ hero-reson-mecha属性
 ## 更新日志
 **V20260306-PRE**
 - 1.针对`爱弥斯`的人物模块中的`档案`部分的`副标题`样式进行调整
+- 2.对`人物物品`的组件进行优化并加入多个角色类型，并使用复合型组件来兼容多个数据类型
 
 **V20260304-PRE**
 - 1.优化部分组件样式
