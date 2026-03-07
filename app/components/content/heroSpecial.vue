@@ -1,6 +1,5 @@
-<!-- .vitepress/components/InfoCard.vue -->
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue';
 import Title from '../card/title.vue';
 
 defineProps<{
@@ -12,10 +11,15 @@ defineProps<{
     物品彩蛋: string
   }>
   类型: '爱弥斯' | '莫宁' | '琳奈'
-}>()
+}>();
 
 // 跟踪当前激活的卡片索引（初始激活第一个）
-const activeIndex = ref(0)
+const activeIndex = ref(0);
+
+// 计算每个卡片内容的显示状态（始终渲染，通过CSS控制显隐）
+const cardVisibility = computed(() => {
+  return (index: number) => activeIndex.value === index;
+});
 </script>
 
 <template>
@@ -39,33 +43,45 @@ const activeIndex = ref(0)
       </div>
     </div>
 
-    <!-- 右侧内容区：仅渲染当前激活的卡片内容 -->
-    <div class="contentArea" v-if="heroSpecialList?.[activeIndex]">
-      <div class="cardLeft">
-        <!-- 卡片主图 -->
-        <img :src="heroSpecialList[activeIndex]?.物品图像" class="cardImage" alt="卡片主图" />
-        <!-- 卡片标题 -->
-        <h3 class="cardTitle">{{ heroSpecialList[activeIndex]?.物品名称 || '默认标题' }}</h3>
-        <!-- 卡片附属名称（如角色名） -->
-        <div class="cardSubInfo">
-          <span>{{ heroSpecialList[activeIndex]?.物品含意 || '默认名称' }}</span>
+    <!-- 右侧内容区：始终渲染所有卡片内容，通过CSS控制显示/隐藏 -->
+    <div class="contentArea">
+      <div 
+        v-for="(item, index) in heroSpecialList" 
+        :key="index"
+        class="cardContentWrapper"
+        :style="{ display: cardVisibility(index) ? 'flex' : 'none' }"
+      >
+        <div class="cardLeft">
+          <!-- 卡片主图 -->
+          <img :src="item.物品图像" class="cardImage" alt="卡片主图" />
+          <!-- 卡片标题 -->
+          <h3 class="cardTitle">{{ item.物品名称 || '默认标题' }}</h3>
+          <!-- 卡片附属名称（如角色名） -->
+          <div class="cardSubInfo">
+            <span>{{ item.物品含意 || '默认名称' }}</span>
+          </div>
         </div>
-      </div>
-      <div class="cardRight">
-        <!-- 卡片描述 -->
-        <Title title="描述" />
-        <div class="cardDesc">
-          <p v-show="类型 === '爱弥斯'">
-            {{ heroSpecialList[activeIndex]?.物品简介 || '暂无描述信息' }}
-          </p>
-          <p v-show="类型 === '莫宁' || 类型 === '琳奈'" v-for="([key, value]) in Object.entries(heroSpecialList[activeIndex]?.物品简介 ?? {})" :key="key">
-            {{ value || '暂无描述信息' }}
-          </p>
-        </div>
-        <div v-show="类型 === '爱弥斯'">
-          <Title title="彩蛋" />
-          <div class="cardYouLai">
-            {{ heroSpecialList[activeIndex]?.物品彩蛋 || "未写入" }}
+        <div class="cardRight">
+          <!-- 卡片描述 -->
+          <Title title="描述" />
+          <div class="cardDesc">
+            <!-- 爱弥斯类型：直接显示字符串简介 -->
+            <p v-if="类型 === '爱弥斯'">
+              {{ item.物品简介 || '暂无描述信息' }}
+            </p>
+            <!-- 莫宁/琳奈类型：遍历对象简介 -->
+            <template v-else-if="类型 === '莫宁' || 类型 === '琳奈'">
+              <p v-for="([key, value]) in Object.entries(item.物品简介 ?? {})" :key="key">
+                {{ value || '暂无描述信息' }}
+              </p>
+            </template>
+          </div>
+          <!-- 彩蛋区域（仅爱弥斯类型显示） -->
+          <div v-if="类型 === '爱弥斯'">
+            <Title title="彩蛋" />
+            <div class="cardYouLai">
+              {{ item.物品彩蛋 || "未写入" }}
+            </div>
           </div>
         </div>
       </div>

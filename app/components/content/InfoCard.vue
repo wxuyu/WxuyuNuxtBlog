@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import Title from '../card/title.vue';
 
-defineProps<{
+const props = defineProps<{
   cardList?: Array<{
     标题?: string       // 卡片标题
     简介?: string        // 卡片描述

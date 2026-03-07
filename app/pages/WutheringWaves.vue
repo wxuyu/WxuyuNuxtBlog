@@ -8,7 +8,7 @@ const { category, categories, listCategorized } = useCategory(listSorted)
 <UtilHydrateSafe>
   <div class="post-list">
 		<TransitionGroup tag="menu" class="proper-height" name="float-in">
-      <PostArticleMc
+      <PostArticle
         v-for="article in listCategorized"
         :key="article.path"
         v-bind="article"
