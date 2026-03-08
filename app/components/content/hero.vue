@@ -6,35 +6,19 @@ const props = defineProps<{
   徽章?: Record<string, string>
   名字?: string
   标签?: Record<string, string>
-  简介?: {
-    上部分?: string
-    称号?: string
-    下部分?: string 
-  }
+  简介?: string[]
   详情信息?: Record<string, string>
   档案标题: string
-  档案?: {
-    报告: Array<{
+  档案信息?: {
+    档案信息: Array<{
       序号?: number
       主标题?: string
       副标题?: string
-      常用简介?: Record<string, string> | string
-      独特简介?: {
-        上段简介: string
-        上段夹杂简介: string
-        中段简介: string
-        中段夹杂简介: string
-        下段简介: string
-        下段夹杂简介: string
-        末尾简介: string
-      }
-      状态?: string
-      权限?: string
-      更新?: string
     }>
+    档案简介: string[]
+    档案序号: string | number
   }
 }>();
-const numberTop = ref(1)
 </script>
 
 <template>
@@ -54,17 +38,8 @@ const numberTop = ref(1)
       <div class="rightInfo">
         <div class="panelMain">
           <Title title="简介"></Title>
-          <p class="heroDesc" v-show="类型 === '爱弥斯'">
-            {{ 简介?.上部分 }}<span class="lightDesc">{{ 简介?.称号 }}</span
-            >{{ 简介?.下部分 }}
-          </p>
-          <div v-show="类型 === '尤诺'">
-            <p class="heroDesc" >
-              {{ 简介?.上部分 }}
-            </p>
-            <p class="heroDesc">
-              {{ 简介?.下部分 }}
-            </p>
+          <div class="heroDesc">
+            <slot :name="`desc`" />
           </div>
           <Title title="标签"></Title>
           <span class="tagItem" style="margin-top: 0.5em;margin-bottom: 0.5em;">
@@ -84,7 +59,7 @@ const numberTop = ref(1)
             </div>
           </div>
           <Title :title="档案标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.报告" :key="data.序号">
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案信息?.档案信息" :key="data.序号">
             <div class="statusHeader" :id="类型">
               <div class="HeaderTitle">
                 {{ data.主标题 }}
@@ -94,19 +69,22 @@ const numberTop = ref(1)
               </div>
             </div>
             <div class="statusContent">
-              <!-- 爱弥斯专用 -->
-              <div v-show="类型 === '爱弥斯'" class="statusDesc">
-                {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
+              <div v-for="statusIndex in 档案信息?.档案简介.length" v-show="data.序号 === statusIndex">
+                <slot :name="`status${statusIndex}`" />
               </div>
+              <!-- 爱弥斯专用 -->
+              <!-- <div v-show="类型 === '爱弥斯'" class="statusDesc">
+                {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
+              </div> -->
               <!-- 尤诺专用 -->
-              <div class="statusDesc" v-show="类型 === '尤诺'">
+              <!-- <div class="statusDesc" v-show="类型 === '尤诺'">
                 <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key">
                   {{ value }}
                 </p>
               </div>
               <p v-show="data?.序号 === 2">
                 {{ data?.常用简介 }}
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
@@ -242,10 +220,6 @@ const numberTop = ref(1)
         line-height: 1.6;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        .lightDesc {
-          color: var(--pink-core);
-          text-shadow: 0 0 8px var(--pink-core);
-        }
       }
       .tagItem {
         align-items: center;

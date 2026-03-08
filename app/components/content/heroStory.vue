@@ -26,7 +26,7 @@ const activeStory = ref(Number(props.密钥) || 1)
 			{{ story }}
 		</button>
 	</div>
-	<div v-for="storyIndex in 故事.length" v-show="activeStory === storyIndex" :key="storyIndex" class="story-content">
+	<div v-for="storyIndex in props?.故事?.length" v-show="activeStory === storyIndex" :key="storyIndex" class="story-content">
 		<slot :name="`story${storyIndex}`" />
 	</div>
 </div>

@@ -2,15 +2,16 @@
 import { ref, computed } from 'vue';
 import Title from '../card/title.vue';
 
-defineProps<{
+const props = defineProps<{
   heroSpecialList?: Array<{
-    物品名称: string       // 卡片标题
-    物品含意: string        // 卡片描述
-    物品简介: string | Record<string, string>
-    物品图像: string       // 卡片主图
-    物品彩蛋: string
+    物品名称?: string       // 卡片标题
+    物品含意?: string        // 卡片描述
+    物品图像?: string       // 卡片主图
+    密钥?: number
   }>
   类型: '爱弥斯' | '莫宁' | '琳奈'
+  物品彩蛋?: string[]
+  物品简介?: string[]
 }>();
 
 // 跟踪当前激活的卡片索引（初始激活第一个）
@@ -64,23 +65,14 @@ const cardVisibility = computed(() => {
         <div class="cardRight">
           <!-- 卡片描述 -->
           <Title title="描述" />
-          <div class="cardDesc">
-            <!-- 爱弥斯类型：直接显示字符串简介 -->
-            <p v-if="类型 === '爱弥斯'">
-              {{ item.物品简介 || '暂无描述信息' }}
-            </p>
-            <!-- 莫宁/琳奈类型：遍历对象简介 -->
-            <template v-else-if="类型 === '莫宁' || 类型 === '琳奈'">
-              <p v-for="([key, value]) in Object.entries(item.物品简介 ?? {})" :key="key">
-                {{ value || '暂无描述信息' }}
-              </p>
-            </template>
+          <div class="cardDesc" v-for="index in props.物品简介?.length" v-show="item.密钥 === index">
+            <slot :name="`desc${index}`" />
           </div>
           <!-- 彩蛋区域（仅爱弥斯类型显示） -->
           <div v-if="类型 === '爱弥斯'">
             <Title title="彩蛋" />
-            <div class="cardYouLai">
-              {{ item.物品彩蛋 || "未写入" }}
+            <div class="cardYouLai" v-for="index in props.物品彩蛋?.length" v-show="item.密钥 === index">
+              <slot :name="`caidan${index}`" />
             </div>
           </div>
         </div>
@@ -158,8 +150,7 @@ const cardVisibility = computed(() => {
         font-size: 14px;
         font-weight: bold;
         color: var(--c-text-title);
-        text-align: center;
-        // @include text-overflow; /* 若需单行省略，可封装 mixin */
+        text-align: center
       }
 
       .cardSubInfo {

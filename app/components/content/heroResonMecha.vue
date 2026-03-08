@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import Title from '../card/title.vue';
 
-defineProps<{
+const props = defineProps<{
+  元信息?: Array<{
+    链度: number
+    名称: string
+  }>
   主体?: Array<{
-    类型?: '爱弥斯' | '尤诺' | '奥古斯塔'
-    导航?: {
-      名称?: string
-      图标?: string
-    }
-    列表?: Array<{
-      标题?: string
-      内容?: Record<string, string>
-      额外内容?: Record<string, string>
-      密钥?: number
-    }>
+    内容: string[]
+    标题: string
   }>
 }>()
 const activeIndex = ref(0)
@@ -24,34 +19,21 @@ const activeIndex = ref(0)
     <div class="heroResonMechaNav">
       <div 
         class="heroResonMechaNavItem" 
-        v-for="(item, index) in 主体" 
+        v-for="(item, index) in 元信息" 
         :key="index"
         @click="activeIndex = index"
         :class="{ active: activeIndex === index }"
       >
-        <span>{{ item.导航?.名称 }}</span>
+        <span>{{ item.名称 }}</span>
       </div>
     </div>
     <div class="heroResonMechaList" v-if="主体?.[activeIndex]">
-      <div class="heroResonMechaCard" id="Reson" v-for="card in 主体?.[activeIndex]?.列表" v-show="主体?.[activeIndex]?.导航?.名称 === '共鸣链'">
+      <div class="heroResonMechaCard" id="Reson" v-for="card in 元信息" v-show="导航?.[activeIndex]?.类型 === 'Reson'">
         <div class="heroResonTitle">
-          第{{card.密钥}}链 · {{ card.标题 }}
+          第{{card.链度}}链 · {{ card.标题 }}
         </div>
-        <div class="heroResonContent">
-          <p v-for="([key, value]) in Object.entries(card.内容 ?? {})" :key="key" style="margin: 0;" v-show="value !== 'br'">
-            {{ value }}
-          </p>
-        </div>
-      </div>
-      <div class="heroResonMechaCard" id="Mecha" v-for="card in 主体?.[activeIndex]?.列表" :key="card.密钥" v-show="主体?.[activeIndex]?.导航?.名称 === '技能'">
-        <Title :title="card.标题" />
-        <div class="heroMechaContent">
-          <p v-for="([key, value]) in Object.entries(card.内容 ?? {})" :key="card.密钥">
-            {{ value }}
-          </p>
-          <p v-for="([key, value]) in Object.entries(card.额外内容 ?? {})" :key="card.密钥">
-            {{key}}：{{ value }}
-          </p>
+        <div class="heroResonContent" v-for="index in 主体?.[activeIndex]?.内容.length" v-show="card.链度 === index">
+          <slot :name="`Reson${index}`" />
         </div>
       </div>
     </div>
