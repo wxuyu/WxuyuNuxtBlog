@@ -4,10 +4,12 @@ import Title from '../card/title.vue';
 const props = defineProps<{
   元信息?: Array<{
     链度: number
-    名称: string
+    标题: string
   }>
   主体?: Array<{
     内容: string[]
+    密钥: number
+    类型: 'Reson' | 'Mecha'
     标题: string
   }>
 }>()
@@ -19,21 +21,26 @@ const activeIndex = ref(0)
     <div class="heroResonMechaNav">
       <div 
         class="heroResonMechaNavItem" 
-        v-for="(item, index) in 元信息" 
+        v-for="(item, index) in 主体" 
         :key="index"
         @click="activeIndex = index"
         :class="{ active: activeIndex === index }"
       >
-        <span>{{ item.名称 }}</span>
+        <span>{{ item.标题 }}</span>
       </div>
     </div>
     <div class="heroResonMechaList" v-if="主体?.[activeIndex]">
-      <div class="heroResonMechaCard" id="Reson" v-for="card in 元信息" v-show="导航?.[activeIndex]?.类型 === 'Reson'">
+      <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-for="card in 元信息" v-show="主体?.[activeIndex]?.类型 === 'Reson'">
         <div class="heroResonTitle">
           第{{card.链度}}链 · {{ card.标题 }}
         </div>
         <div class="heroResonContent" v-for="index in 主体?.[activeIndex]?.内容.length" v-show="card.链度 === index">
           <slot :name="`Reson${index}`" />
+        </div>
+      </div>
+      <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-show="主体?.[activeIndex]?.类型 === 'Mecha'">
+        <div class="heroMechaContent">
+          <slot :name="`Mecha`" />
         </div>
       </div>
     </div>
