@@ -8,15 +8,14 @@ const props = defineProps<{
   标签?: Record<string, string>
   简介?: string[]
   详情信息?: Record<string, string>
-  档案标题: string
-  档案信息?: {
-    档案信息: Array<{
+  档案?: {
+    信息: Array<{
       序号?: number
       主标题?: string
       副标题?: string
     }>
-    档案简介: string[]
-    档案序号: string | number
+    简介: string[]
+    标题: string
   }
 }>();
 </script>
@@ -58,8 +57,8 @@ const props = defineProps<{
               <div class="infoValue">{{ value }}</div>
             </div>
           </div>
-          <Title :title="档案标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案信息?.档案信息" :key="data.序号">
+          <Title :title="档案?.标题"></Title>
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.信息" :key="data.序号">
             <div class="statusHeader" :id="类型">
               <div class="HeaderTitle">
                 {{ data.主标题 }}
@@ -69,7 +68,7 @@ const props = defineProps<{
               </div>
             </div>
             <div class="statusContent">
-              <div v-for="statusIndex in 档案信息?.档案简介.length" v-show="data.序号 === statusIndex">
+              <div v-for="statusIndex in 档案?.简介.length" v-show="data.序号 === statusIndex">
                 <slot :name="`status${statusIndex}`" />
               </div>
               <!-- 爱弥斯专用 -->

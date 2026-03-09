@@ -747,57 +747,33 @@ const props = defineProps<{
 #tab1
 hero属性
 
-| 配置项  | 类型                     | 说明                   |
-| ---- | ---------------------- | -------------------- |
-| 类型   | "爱弥斯"、"尤诺"、"奥古斯塔"      | 角色类型（目前只有几种，未适配完成）   |
-| 头像   | string                 | 角色头像                 |
-| 徽章   | Record<string, string> | 角色徽章(共鸣能力、属性等等)      |
-| 名字   | string                 | 角色名字                 |
-| 标签   | Record<string, string> | 角色曾用标签               |
-| 详情信息 | Record<string, string> | 角色全局信息               |
-| 简介   | 简介[]?                  | 角色全局简介（包含上部分、称号、下部分） |
-| 档案   | 档案[]?                  | 角色全局特殊&非特殊报告（补充一些设定） |
-
-简介属性
-
-| 配置项 | 类型     |
-| --- | ------  |
-| 上部分 | string |
-| 下部分 | string |
-| 称号  | string |
+| 配置项  | 类型                       | 说明                                                     |
+| ---- | ------------------------ | ------------------------------------------------------ |
+| 类型   | `"爱弥斯"、"尤诺"、"奥古斯塔"`      | 角色类型（目前只有几种，未适配完成）                                     |
+| 头像   | `string`                 | 角色头像                                                   |
+| 徽章   | `Record<string, string>` | 角色徽章(共鸣能力、属性等等)                                        |
+| 名字   | `string`                 | 角色名字                                                   |
+| 标签   | `Record<string, string>` | 角色曾用标签                                                 |
+| 详情信息 | `Record<string, string>` | 角色全局信息                                                 |
+| 简介   | `string[]`               | 角色简介内容，通过使用 **string[]** 类型搭配 **solt** 标签，防止无法被文章字数计数到 |
+| 档案   | `档案[]`                   | 角色档案数据                                                 |
 
 档案属性
 
-| 配置项   | 类型              | 说明                               |
-| -------- | ----------------- | ---------------------------------- |
-| 顶部标题 | `string?`         | 全局标题，用于报告顶部展示         |
-| 报告     | `Array<报告[]>`   | 报告数据集合，使用 Array 多展示    |
+| 配置项 | 类型            | 说明                                                       |
+| --- | ------------- | -------------------------------------------------------- |
+| 标题  | `string?`     | 预留输入标题数据，作为档案主标题显示                                       |
+| 简介  | `string[]`    | 预留输入简介数据，通过使用 **string[]** 类型搭配 **solt** 标签，防止无法被文章字数计数到 |
+| 信息  | `Array<信息[]>` | 使用 `**Array**` 方式来进行分开，具有多适应性的效果                         |
 
-报告属性
+信息属性
 
-| 配置项       | 类型                              | 说明                                                                 |
-| ------------ | --------------------------------- | -------------------------------------------------------------------- |
-| 序号         | `number?`                         | 报告条目序号                                                         |
-| 主标题       | `string?`                         | 报告核心标题                                                         |
-| 独有副标题   | `string?`                         | 仅当前报告特有的补充说明                                             |
-| 常用副标题   | `string?`                         | 通用补充说明                                                         |
-| 常用简介     | `Record<string,string><br>string` | 多语言配置项（键值对）或单一字符串简介                               |
-| 独特简介     | `Array<独特简介[]>`               | 特殊类型简介，用于未来特殊类型档案内容设置                           |
-| 状态         | `string`                          | 状态标识（如：草稿/审核中/已发布）                                   |
-| 权限         | `string`                          | 访问权限控制（如：只读/编辑/管理员）                                 |
-| 更新         | `string`                          | 最后更新时间戳或版本号                                               |
+| 配置项 | 类型     | 说明                            |
+| --- | ------ | ----------------------------- |
+| 序号  | number | 作为锚定档案简介的显示计数                 |
+| 主标题 | string | 作为每个档案中的主要标题                  |
+| 副标题 | string | 作为每个档案中的副标题，为一类标签具有补充效应，可选可不选 |
 
-独特简介属性
-
-| 配置项       | 类型     | 说明                 |
-| ------------ | -------- | -------------------- |
-| 上段简介     | `string` | 章节起始段落         |
-| 上段夹杂简介 | `string` | 起始段落补充说明     |
-| 中段简介     | `string` | 核心内容段落         |
-| 中段夹杂简介 | `string` | 核心内容补充         |
-| 下段简介     | `string` | 结尾总结段落         |
-| 下段夹杂简介 | `string` | 结尾补充说明         |
-| 末尾简介     | `string` | 末尾结束简介         |
 
 #tab2
 ``` md lang="md"
@@ -1696,7 +1672,7 @@ import Title from '../card/title.vue';
 import Badge from './Badge.vue';
 
 defineProps<{
-  类型?: '爱弥斯' | '尤诺'
+  类型?: '爱弥斯' | '莫宁'
   顶部?: {
     标题?: string
     副标题?: string
@@ -1708,14 +1684,9 @@ defineProps<{
   彩蛋?: Array<{
     图标?: string
     标题?: string
-    副标题?: string
-    信息?: { 上部分: string, 重要部分: string, 下部分: string, 显示: "YES" | "NO"}
-    简介?: string | Record<string, string>
-    提示?: Array<{
-      图标?: string
-      内容?: string
-    }>
+    密钥?: number | string
   }>
+  彩蛋内容?: string[]
 }>()
 </script>
 
@@ -1723,34 +1694,36 @@ defineProps<{
   <div class="heroTimelineEasterMain">
     <div class="heroTimelineEasterCard">
       <div class="timelineEasterHeader">
-        <Title :title="顶部?.标题" />
+        <Title :title="`${顶部?.标题}`" />
         <Badge :text="顶部?.副标题" />
       </div>
       
       <!-- 时间线部分 - 修复为两列布局 -->
-      <div class="heroTimelineList">
+      <div class="heroTimelineList" v-show="类型 === '爱弥斯'">
         <div class="heroTimelineMain" v-for="(main, index) in 时间线" :key="index">
           <div class="heroTimelineCard" v-for="([key, value]) in Object.entries(main.信息 ?? {})" :key="key">
             <div class="heroTimelineLabel">
-              {{ key }}<Badge :text="main.标签" />
+              {{ key }}<Badge :text="`${main.标签}`" />
             </div>
             <div class="heroTimelineValue">{{ value }}</div>
           </div>
         </div>
       </div>
 
-      <div class="heroEaster" v-for="main in 彩蛋" :id="类型">
-        <div class="easterHeader">
-          <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span>
-          <span class="esterTitle">{{ main.标题 }}</span>
-        </div>
-        <div class="easterContent" v-show="类型 === '爱弥斯'">
-          <p v-if="类型 === '爱弥斯'" class="easterP">
-            {{ main.信息?.上部分 }} <Badge v-show="main.信息?.显示 === 'YES'" :text="main.信息?.重要部分" /> {{ main.信息?.下部分 }}
-          </p>
-          <p class="easterP">
-            {{ main.简介 }}
-          </p>
+      <div class="heroEasterMain" :id="类型">
+        <div class="heroEaster" v-show="类型 === '爱弥斯' || 类型 === '莫宁'" v-for="main in 彩蛋" :id="类型">
+          <div class="easterNumber" v-show="类型 === '莫宁'">
+            {{ main.密钥 }}
+          </div>
+          <div class="easterHeader">
+            <!-- <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span> -->
+            <span class="esterTitle">{{ main.标题 }}</span>
+          </div>
+          <div class="easterContent">
+            <div class="easterP" :id="类型" v-for="Index in 彩蛋内容?.length" v-show="main.密钥 === Index">
+              <slot :name="`easter${Index}`"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1815,9 +1788,7 @@ defineProps<{
       }
     }
     .heroEaster {
-      background-color: var(--c-bg-soft);
       border-radius: 0.4em;
-      color: var(--c-text-soft);
       font-size: 1em;
       padding: 0.5em 0.6em;
       transition: all 0.2s;
@@ -1849,6 +1820,27 @@ defineProps<{
   background: #ff8cb00d;
   border: 1px dashed var(--pink-core);
 }
+.heroEasterMain#莫宁 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  .heroEaster {
+    background: #0003;
+    border: 1px solid rgba(74, 165, 255, .1);
+    .easterNumber {
+      width: 30px;
+      height: 30px;
+      background: #4aa5ff33;
+      border: 1px solid #4aa5ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: all .3s;
+    }
+  }
+}
 </style>
 ```
 #tab2
@@ -1873,14 +1865,19 @@ defineProps<{
       因果循环: “...别...难过...”
 彩蛋:
   - 标题: 官方彩蛋 · 摩斯密码
-    信息: 
-      上部分: 官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为
-      重要部分: BCAKHOME
-      下部分: —— “回家”
-      显示: YES
+    密钥: 1
   - 标题: 飞行雪绒 · 爱弥斯个人账号
-    简介: 爱弥斯生前以“飞行雪绒”为网名分享原创歌曲，歌友会每年都会筹办
+    密钥: 2
+彩蛋内容: ["官方彩蛋 · 摩斯密码", "飞行雪绒 · 爱弥斯个人账号"]
 ---
+#easter1
+<div>
+官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为`BCAKHOME`—— “回家”
+</div>
+#easter2
+<div>
+爱弥斯生前以“飞行雪绒”为网名分享原创歌曲，歌友会每年都会筹办
+</div>
 ::
 ::
 #### 整体说明
@@ -1942,14 +1939,19 @@ hero-timeline-easter属性
       因果循环: “...别...难过...”
 彩蛋:
   - 标题: 官方彩蛋 · 摩斯密码
-    信息: 
-      上部分: 官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为
-      重要部分: BCAKHOME
-      下部分: —— “回家”
-      显示: YES
+    密钥: 1
   - 标题: 飞行雪绒 · 爱弥斯个人账号
-    简介: 爱弥斯生前以“飞行雪绒”为网名分享原创歌曲，歌友会每年都会筹办
+    密钥: 2
+彩蛋内容: ["官方彩蛋 · 摩斯密码", "飞行雪绒 · 爱弥斯个人账号"]
 ---
+#easter1
+<div>
+官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为`BCAKHOME`—— “回家”
+</div>
+#easter2
+<div>
+爱弥斯生前以“飞行雪绒”为网名分享原创歌曲，歌友会每年都会筹办
+</div>
 ::
 ```
 ::
@@ -2228,36 +2230,27 @@ const activeIndex = ref(0)
 处于共鸣模态·震谐/共鸣模态·聚爆，并处于战斗状态，队伍中登场角色附近的敌人震谐轨迹/聚爆轨迹层数上限提升至60层。爱弥斯施放共鸣技能光翼共奏期间，对范围内目标附加10层震谐轨迹/聚爆轨迹，持续30秒。
 
 #Mecha
-<div class="MechaInfo">
-  <p>
-    共鸣模态·震谐下，可额外造成震谐伤害，拥有强力对单伤害能力。队伍中可响应震谐·干涉的角色越多，伤害越高。
-  </p>
-  <p>
-    共鸣模态·聚爆下，可附加【聚爆效应】，拥有强力对群伤害能力。附加【聚爆效应】的频率越高，伤害越高。攻击可获得【同步率】。 
-  </p>
-  <p>
-    【同步率】达50%时，在施放普攻第4段后，可消耗【同步率】施放强化合击，获得【共鸣率】。 
-  </p>
-  <p>
-    【共鸣率】满时，可施放强化重击充满【同步率】。【同步率】、【共鸣率】都充满时，可施放终结共鸣解放。 
-  </p>
-  <p style="font-weight:bold;">
-    输出流程：
-  </p>
-  <p> 
-    基础流程：R-AAA-E【光翼共奏】-F-AA-E【光翼共奏】-Z-R-AAAA（后撤步切人） 
-  </p>
-  <p> 
-    技能缩写：普攻 = A，重击 = Z，共鸣技能 = E，共鸣解放 = R，声骸 = Q 
-  </p>
+<p>
+  共鸣模态·震谐下，可额外造成震谐伤害，拥有强力对单伤害能力。队伍中可响应震谐·干涉的角色越多，伤害越高。
 </p>
-<style lang="scss">
-.MechaInfo {
-  font-size: 0.9rem;
-  margin: 0px;
-  white-space: pre-wrap;
-}
-</style>
+<p>
+  共鸣模态·聚爆下，可附加【聚爆效应】，拥有强力对群伤害能力。附加【聚爆效应】的频率越高，伤害越高。攻击可获得【同步率】。 
+</p>
+<p>
+  【同步率】达50%时，在施放普攻第4段后，可消耗【同步率】施放强化合击，获得【共鸣率】。 
+</p>
+<p>
+  【共鸣率】满时，可施放强化重击充满【同步率】。【同步率】、【共鸣率】都充满时，可施放终结共鸣解放。 
+</p>
+<p style="font-weight:bold;">
+  输出流程：
+</p>
+<p> 
+  基础流程：R-AAA-E【光翼共奏】-F-AA-E【光翼共奏】-Z-R-AAAA（后撤步切人） 
+</p>
+<p> 
+  技能缩写：普攻 = A，重击 = Z，共鸣技能 = E，共鸣解放 = R，声骸 = Q 
+</p>
 ::
 ::
 
@@ -2412,6 +2405,18 @@ hero-reson-mecha属性
 ::
 
 ## 更新日志
+**V20260309-PRE**
+- 1.优化`时间线&彩蛋组件`，对彩蛋中的内容进行`solt`化（即在配置项外中的标签中的MD写法转译渲染成class）
+- 2.优化`时间线&彩蛋组件`配置项混乱无序的写法，去除不必要的配置项
+- 3.调整`时间线&彩蛋组件`、`共鸣链&机制组件`、`物品组件`、`信息组件`、`故事组件`对各个角色的适配，由于已经`solt`文本化所以废弃了大量依靠对文本适配的配置项，部分组件保留角色类型。对特定类型角色进行单独css适配，极大简洁化浏览。
+- 4.新增`莫宁`、`琳奈`、`尤诺`、`奥古斯塔`角色类型，`爱弥斯`类型完全完善无需更改
+- 5.优化文章配置项具体内容
+- 6.对文章中的部分组件预览进行修改
+
+**V20260308-PRE**
+- 1.修复`共鸣链&机制组件`中的简介未能计入字数的问题
+- 2.优化`共鸣链&机制组件`配置项，并且采用`mdc config` + `mdc content`的写法
+
 **V20260307-PRE**
 - 1.修复`物品组件`中的简介未能计入字数的问题
 - 2.优化`物品组件`配置项，并且采用`mdc config` + `mdc content`的写法
@@ -2420,10 +2425,11 @@ hero-reson-mecha属性
 - 1.修复`信息组件`中的简介未能计入字数的问题
 - 2.修复`故事组件`中的每个章节未能计入字数的问题
 - 3.取消`信息组件`、`故事组件`中对于部分繁琐的配置项信息，并且采用`mdc config` + `mdc content`的写法
+- 4.对全部组件进行配置项删除
 
 **V20260306-PRE**
 - 1.针对`爱弥斯`的人物模块中的`档案`部分的`副标题`样式进行调整
-- 2.对`人物物品`的组件进行优化并加入多个角色类型，并使用复合型组件来兼容多个数据类型
+- 2.对`物品组件`进行优化并加入多个角色类型，并使用复合型组件来兼容多个数据类型
 
 **V20260304-PRE**
 - 1.优化部分组件样式

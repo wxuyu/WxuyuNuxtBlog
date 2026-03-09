@@ -3,7 +3,7 @@ import Title from '../card/title.vue';
 import Badge from './Badge.vue';
 
 defineProps<{
-  类型?: '爱弥斯' | '尤诺'
+  类型?: '爱弥斯' | '莫宁'
   顶部?: {
     标题?: string
     副标题?: string
@@ -15,14 +15,9 @@ defineProps<{
   彩蛋?: Array<{
     图标?: string
     标题?: string
-    副标题?: string
-    信息?: { 上部分: string, 重要部分: string, 下部分: string, 显示: "YES" | "NO"}
-    简介?: string | Record<string, string>
-    提示?: Array<{
-      图标?: string
-      内容?: string
-    }>
+    密钥?: number | string
   }>
+  彩蛋内容?: string[]
 }>()
 </script>
 
@@ -30,34 +25,36 @@ defineProps<{
   <div class="heroTimelineEasterMain">
     <div class="heroTimelineEasterCard">
       <div class="timelineEasterHeader">
-        <Title :title="顶部?.标题" />
+        <Title :title="`${顶部?.标题}`" />
         <Badge :text="顶部?.副标题" />
       </div>
       
       <!-- 时间线部分 - 修复为两列布局 -->
-      <div class="heroTimelineList">
+      <div class="heroTimelineList" v-show="类型 === '爱弥斯'">
         <div class="heroTimelineMain" v-for="(main, index) in 时间线" :key="index">
           <div class="heroTimelineCard" v-for="([key, value]) in Object.entries(main.信息 ?? {})" :key="key">
             <div class="heroTimelineLabel">
-              {{ key }}<Badge :text="main.标签" />
+              {{ key }}<Badge :text="`${main.标签}`" />
             </div>
             <div class="heroTimelineValue">{{ value }}</div>
           </div>
         </div>
       </div>
 
-      <div class="heroEaster" v-for="main in 彩蛋" :id="类型">
-        <div class="easterHeader">
-          <!-- <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span> -->
-          <span class="esterTitle">{{ main.标题 }}</span>
-        </div>
-        <div class="easterContent" v-show="类型 === '爱弥斯'">
-          <p v-if="类型 === '爱弥斯'" class="easterP">
-            {{ main.信息?.上部分 }} <Badge v-show="main.信息?.显示 === 'YES'" :text="main.信息?.重要部分" /> {{ main.信息?.下部分 }}
-          </p>
-          <p class="easterP">
-            {{ main.简介 }}
-          </p>
+      <div class="heroEasterMain" :id="类型">
+        <div class="heroEaster" v-show="类型 === '爱弥斯' || 类型 === '莫宁'" v-for="main in 彩蛋" :id="类型">
+          <div class="easterNumber" v-show="类型 === '莫宁'">
+            {{ main.密钥 }}
+          </div>
+          <div class="easterHeader">
+            <!-- <span v-show="类型 === '爱弥斯'" class="easterIcon" id="ams">{{ main.图标 }}</span> -->
+            <span class="esterTitle">{{ main.标题 }}</span>
+          </div>
+          <div class="easterContent">
+            <div class="easterP" :id="类型" v-for="Index in 彩蛋内容?.length" v-show="main.密钥 === Index">
+              <slot :name="`easter${Index}`"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -122,9 +119,7 @@ defineProps<{
       }
     }
     .heroEaster {
-      background-color: var(--c-bg-soft);
       border-radius: 0.4em;
-      color: var(--c-text-soft);
       font-size: 1em;
       padding: 0.5em 0.6em;
       transition: all 0.2s;
@@ -155,5 +150,26 @@ defineProps<{
 .heroEaster#爱弥斯 {
   background: #ff8cb00d;
   border: 1px dashed var(--pink-core);
+}
+.heroEasterMain#莫宁 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  .heroEaster {
+    background: #0003;
+    border: 1px solid rgba(74, 165, 255, .1);
+    .easterNumber {
+      width: 30px;
+      height: 30px;
+      background: #4aa5ff33;
+      border: 1px solid #4aa5ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: all .3s;
+    }
+  }
 }
 </style>
