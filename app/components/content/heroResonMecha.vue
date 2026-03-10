@@ -4,7 +4,6 @@ import Title from '../card/title.vue';
 const props = defineProps<{
   元信息?: Array<{
     链度: number
-    标题: string
   }>
   主体?: Array<{
     内容: string[]
@@ -31,8 +30,8 @@ const activeIndex = ref(0)
     </div>
     <div class="heroResonMechaList" v-if="主体?.[activeIndex]">
       <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-for="card in 元信息" v-show="主体?.[activeIndex]?.类型 === 'Reson'">
-        <div class="heroResonTitle">
-          第{{card.链度}}链 · {{ card.标题 }}
+        <div class="heroResonTitle" v-for="([key, value], index) in Object.entries(主体?.[activeIndex]?.内容 ?? {})" v-show="card.链度 === index + 1">
+          第{{ card.链度 }}链 · {{ value }}
         </div>
         <div class="heroResonContent" v-for="index in 主体?.[activeIndex]?.内容.length" v-show="card.链度 === index">
           <slot :name="`Reson${index}`" />
