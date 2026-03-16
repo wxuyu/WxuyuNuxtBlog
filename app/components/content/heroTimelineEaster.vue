@@ -2,6 +2,7 @@
 import type { __String } from 'typescript';
 import Title from '../card/title.vue';
 import Badge from './Badge.vue';
+import Timeline from './Timeline.vue';
 
 const props = defineProps<{
   类型?: '爱弥斯' | '莫宁' | '尤诺'
@@ -10,9 +11,9 @@ const props = defineProps<{
     副标题?: string
   }
   时间线?: Array<{
-    小标签: string
-    内容: Record<string, string>
-    大标签: string
+    徽章: string[]
+    标签: string[]
+    密钥: number
   }>
   彩蛋?: Array<{
     图标?: string
@@ -20,6 +21,7 @@ const props = defineProps<{
     密钥?: number | string
     信息列表?: Record<string, string>
   }>
+  时间线内容?:string[]
   彩蛋内容?: string[]
 }>()
 </script>
@@ -34,26 +36,26 @@ const props = defineProps<{
       
       <!-- 时间线部分 - 修复为两列布局 -->
       <div class="heroTimelineList" :id="类型" v-show="类型 !== '莫宁'">
-        <div class="heroTimelineMain" v-for="(main, index) in 时间线" :key="index">
-          <div class="heroTimelineCard" v-for="([key, value]) in Object.entries(main.内容 ?? {})" :key="key">
-            <div class="heroTimelineLabel">
-              {{ key }}<Badge :text="`${main.大标签}`" />
-            </div>
-            <div class="heroTimelineValue">{{ value }}</div>
-            <!-- 特定标签位置||未写完 -->
-            <div class="heroTimelineTag" v-show="类型 === '尤诺'">
-              <span class="heroTimelineTagList" v-for="([key, value]) in Object.entries(main.小标签 ?? {})" :key="key">
-                <slot class="text">
-                  {{ value }}
-                </slot>
-              </span>
-            </div>
+        <div class="heroTimelineCard" v-for="main in 时间线" :key="main.密钥">
+          <div class="heroTimelineLabel" v-for="([key, value], index) in Object.entries(时间线内容 ?? {})" v-show="main.密钥 === index + 1">
+            {{ value }}<Badge :text="`${value}`" v-for="([key, value]) in Object.entries(main.徽章 ?? {})" :key="key"/>
+          </div>     
+          <div class="heroTimelineValue" v-for="index in 时间线内容?.length" v-show="main.密钥 === index">
+            <slot :name="`Timeline${index}`"/>
+          </div>
+          <!-- 特定标签位置||未写完 -->
+          <div class="heroTimelineTag" v-show="类型 === '尤诺'">
+            <span class="heroTimelineTagList" v-for="([key, value]) in Object.entries(main.标签 ?? {})" :key="key">
+              <slot class="text">
+                {{ value }}
+              </slot>
+            </span>
           </div>
         </div>
       </div>
 
       <div class="heroEasterMain" :id="类型">
-        <div class="heroEaster heroColor" v-for="main in 彩蛋" :id="类型">
+        <div class="heroEaster WuWuGameColor" v-for="main in 彩蛋" :id="类型">
           <div class="easterNumber" v-show="类型 === '莫宁'">
             {{ main.密钥 }}
           </div>
@@ -78,7 +80,10 @@ const props = defineProps<{
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.article p {
+  margin: 0!important;
+}
 .heroTimelineEasterMain {
   width: 100%;
   background: var(--ld-bg-card);
@@ -111,11 +116,6 @@ const props = defineProps<{
       @media (max-width: 560px) {
         grid-template-columns: repeat(1, 1fr);
       }
-      .heroTimelineMain {
-        display: grid;
-        gap: 0.4rem;
-        padding: 0;
-        
         .heroTimelineCard {
           display: flex;
           flex-direction: column;
@@ -151,7 +151,6 @@ const props = defineProps<{
           }
         }
       }
-    }
     .heroEasterMain {
       display: grid;
       gap: 0.5rem;
@@ -195,9 +194,10 @@ const props = defineProps<{
   gap: 0.2rem
 }
 /* 彩蛋样式 */
-.heroEaster#爱弥斯 {
-  background: #ff8cb00d;
-  border: 1px dashed var(--pink-core);
+.heroEasterMain#爱弥斯 {
+  .heroEaster {
+    border: 1px dashed var(--pink-core);
+  }
 }
 .heroEasterMain#莫宁 {
   display: grid;
@@ -224,8 +224,7 @@ const props = defineProps<{
   grid-template-columns: 2fr 2fr;
   gap: .5rem;
   .heroEaster {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
+    border: 1px dashed var(--color-tide-light);
     border-radius: 12px;
     padding: 1rem;
     flex-direction: column;
@@ -247,33 +246,10 @@ const props = defineProps<{
       border-bottom: 1px solid rgba(127, 211, 255, .1);
     }
     .easterP {
-      background: #14233c80;
-      border-left: 3px solid var(--color-tide-light);
-      padding: 1rem;
-      border-radius: .5rem;
+      border: 1px dashed var(--color-tide-light);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
     }
   }
-}
-
-/* 颜色样式 */
-.heroColor#尤诺 {
-  --color-cosmic-deep: #050a14;
-  --color-starry-night: #0d1b2a;
-  --color-lunar-silver: #c2d6e6;
-  --color-moonlight: #e6f2ff;
-  --color-tide-blue: #2e88c9;
-  --color-tide-light: #7fd3ff;
-  --color-nebula-purple: #4a235a;
-  --color-constellation: rgba(127, 211, 255, .8);
-  --card-bg: rgba(15, 25, 45, .7);
-  --card-border: rgba(127, 211, 255, .1);
-  --card-shadow: 0 20px 60px rgba(5, 10, 30, .5);
-  --section-spacing: clamp(3rem, 6vw, 5rem);
-  --card-radius: 1.5rem;
-  --transition-smooth: all .4s cubic-bezier(.4, 0, .2, 1);
-  position: relative;
-  background: var(--color-cosmic-deep);
-  color: var(--color-moonlight);
-  padding-top: 60px;
 }
 </style>

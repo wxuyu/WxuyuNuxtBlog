@@ -24,7 +24,7 @@ const cardVisibility = computed(() => {
 </script>
 
 <template>
-  <div class="infoCard">
+  <div class="infoCard WuWuGameColor">
     <!-- 左侧导航区：渲染所有导航头像，点击切换激活项 -->
     <div class="navArea">
       <div 
@@ -71,7 +71,7 @@ const cardVisibility = computed(() => {
           <!-- 彩蛋区域（仅爱弥斯类型显示） -->
           <div v-if="类型 === '爱弥斯'">
             <Title title="彩蛋" />
-            <div class="cardYouLai" v-for="index in props.物品彩蛋?.length" v-show="item.密钥 === index">
+            <div class="cardYouLai WuWuGameColor" :id="类型" v-for="index in props.物品彩蛋?.length" v-show="item.密钥 === index">
               <slot :name="`caidan${index}`" />
             </div>
           </div>

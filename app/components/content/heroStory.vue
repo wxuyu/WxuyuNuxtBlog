@@ -14,8 +14,8 @@ const activeStory = ref(Number(props.密钥) || 1)
 </script>
 
 <template>
-<div :class="{ 居中 }" class="heroStoryMain">
-  <Title :title="props.标题" style="margin-bottom: 10px;"/>
+<div :class="{ 居中 }" class="heroStoryMain WuWuGameColor">
+  <Title :title="`${props.标题}`" style="margin-bottom: 10px;"/>
 	<div class="storys">
 		<button
 			v-for="(story, storyIndex) in 故事"

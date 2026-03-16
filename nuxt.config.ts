@@ -27,7 +27,6 @@ export default defineNuxtConfig({
 				// { rel: 'stylesheet', href: 'https://static.vercel.sxiaohe.top/fonts/anzhiyu/anzhiyufonts.css', media: 'none', onload: 'this.media="all"'  },
 				{ rel: 'preconnect', href: 'https://source.yjluo.top' },
 				{ rel: 'preconnect', href: blogConfig.author.homepage },
-                { rel: 'stylesheet', href: '/assets/css/color.css', media: 'none', onload: 'this.media="all"'  },
 				{ rel: 'stylesheet', href: '/assets/css/artalk.css', media: 'none', onload: 'this.media="all"'  },
 			],
 			templateParams: {
@@ -55,7 +54,10 @@ export default defineNuxtConfig({
 		'@/assets/css/font.scss',
 		'@/assets/css/main.scss',
 		'@/assets/css/reusable.scss',
-		'@/assets/css/comment.scss'
+		'@/assets/css/comment.scss',
+    '@/assets/css/WuWuGameColor.scss',
+    '@/assets/css/BlogSiteColor.scss',
+    '@/assets/css/keyframes.scss'
 	],
 
 	// @keep-sorted

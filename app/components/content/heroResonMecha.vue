@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Title from '../card/title.vue';
+import Title from '../card/title.vue'
 
 const props = defineProps<{
-  元信息?: Array<{
+  共鸣链信息?: Array<{
     链度: number
   }>
   主体?: Array<{
@@ -11,12 +11,17 @@ const props = defineProps<{
     类型: 'Reson' | 'Mecha'
     标题: string
   }>
+  机制信息?: Array<{
+    机制数: number
+  }>
+  流程: string[]
+  类型: '爱弥斯' | '尤诺'
 }>()
 const activeIndex = ref(0)
 </script>
 
 <template>
-  <div class="heroResonMechaMain">
+  <div class="heroResonMechaMain WuWuGameColor">
     <div class="heroResonMechaNav">
       <div 
         class="heroResonMechaNavItem" 
@@ -29,7 +34,7 @@ const activeIndex = ref(0)
       </div>
     </div>
     <div class="heroResonMechaList" v-if="主体?.[activeIndex]">
-      <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-for="card in 元信息" v-show="主体?.[activeIndex]?.类型 === 'Reson'">
+      <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-for="card in 共鸣链信息" v-show="主体?.[activeIndex]?.类型 === 'Reson'">
         <div class="heroResonTitle" v-for="([key, value], index) in Object.entries(主体?.[activeIndex]?.内容 ?? {})" v-show="card.链度 === index + 1">
           第{{ card.链度 }}链 · {{ value }}
         </div>
@@ -38,8 +43,29 @@ const activeIndex = ref(0)
         </div>
       </div>
       <div class="heroResonMechaCard" :id="主体?.[activeIndex]?.类型" v-show="主体?.[activeIndex]?.类型 === 'Mecha'">
-        <div class="heroMechaContent">
+        <div class="heroMechaContent" :id="类型" v-show="类型 === '爱弥斯'">
           <slot :name="`Mecha`" />
+        </div>
+        <div class="heroMechaContent" :id="类型" v-show="类型 === '尤诺'">
+          <div class="mechaCard WuWuGameColor" :id="类型" v-for="card in 机制信息" :key="主体?.[activeIndex]?.密钥">
+            <div class="mechaCardTitle" v-for="([key, value], index) in Object.entries(主体?.[activeIndex]?.内容 ?? {})" v-show="card.机制数 === index + 1">
+              {{ value }}
+            </div>
+            <div class="mechaCardContent" v-for="index in 主体?.[activeIndex]?.内容.length" v-show="card.机制数 === index">
+              <slot :name="`Mecha${index}`" />
+            </div>
+          </div>
+        </div>
+        <div class="heroMechaFooter WuWuGameColor" v-show="类型 === '尤诺'" :id="类型">
+          <Title title="输出流程参考" />
+          <div class="footerList">
+            <div class="footerCard" v-for="([key, value], index) in Object.entries(流程 ?? {})" :key="key">
+              {{ value }}
+            </div>
+            <span class="MechaPKInfo">
+              A: 普攻 | Z: 重击 | E: 共鸣技能 | R: 共鸣解放 | Q: 声骸
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -109,7 +135,7 @@ const activeIndex = ref(0)
     }
     .heroResonMechaCard#Mecha {
       padding: 10px;
-      .heroMechaContent {
+      .heroMechaContent#爱弥斯 {
         font-size: 0.9rem;
         margin: 0px;
         white-space: pre-wrap;
@@ -117,6 +143,46 @@ const activeIndex = ref(0)
           padding: 12px 0;
           border-bottom: 1px dashed rgba(255, 140, 176, .2);
           font-size: 0.78rem;
+        }
+      }
+      .heroMechaContent#尤诺 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        .mechaCard {
+          border: 1px solid var(--card-border);
+          border-radius: 1rem;
+          padding: .5rem;
+          text-align: center;
+          transition: var(--transition-smooth);
+        }
+      }
+      .heroMechaFooter#尤诺 {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 1rem;
+        padding: .5rem;
+        text-align: center;
+        flex-direction: column;
+        display: flex;
+        gap: 0.5rem;
+        .footerList {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
+          margin-bottom: 1rem;
+          .footerCard {
+            padding: .25rem 0.96rem;
+            background: #14233c99;
+            border: 1px solid rgba(127, 211, 255, .2);
+            border-radius: .75rem;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 1.1rem;
+            color: var(--color-moonlight);
+          }
         }
       }
     }

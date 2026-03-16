@@ -1,27 +1,32 @@
 <script setup lang="ts">
 import Title from '../card/title.vue';
 const props = defineProps<{
-  类型: "爱弥斯" | "尤诺" | "奥古斯塔"
-  头像?: string
-  徽章?: Record<string, string>
-  名字?: string
-  标签?: Record<string, string>
-  简介?: string[]
-  详情信息?: Record<string, string>
-  档案?: {
-    信息: Array<{
-      序号?: number
-      主标题?: string
-      副标题?: string
+  类型: "爱弥斯" | "尤诺" | "奥古斯塔" | "莫宁"
+  头像: string
+  徽章: Record<string, string>
+  名字: string
+  标签: Record<string, string>
+  简介: string[]
+  详情信息: Record<string, string>
+  档案: {
+    具体信息: Array<{
+      序号: number
+      徽章: string
+      信息: string[]
+      栏目标题: string
     }>
-    简介: string[]
-    标题: string
+    外挂信息: {
+      简介: string[]
+    }
+    顶栏信息: {
+      主标题: string
+    }
   }
 }>();
 </script>
 
 <template>
-  <div class="heroMain">
+  <div class="heroMain WuWuGameColor">
     <div class="heroCard">
       <div class="leftInfo">
         <NuxtImg class="avatarImage" :src="头像" />
@@ -57,33 +62,35 @@ const props = defineProps<{
               <div class="infoValue">{{ value }}</div>
             </div>
           </div>
-          <Title :title="档案?.标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.信息" :key="data.序号">
+          <Title :title="`${档案?.顶栏信息.主标题}`"></Title>
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.具体信息" :id="类型" :key="data.序号">
             <div class="statusHeader" :id="类型">
-              <div class="HeaderTitle">
-                {{ data.主标题 }}
+              <div class="HeaderTitle" v-for="([key, value], index) in Object.entries(档案.外挂信息.简介 ?? {})" v-show="data.序号 === index + 1">
+                {{ value }}
               </div>
               <div class="HeaderSub" style="font-size: 0.5em;" :id="`sub` + data.序号">
-                {{ data.副标题 }}
+                {{ data.徽章 }}
               </div>
             </div>
-            <div class="statusContent">
-              <div v-for="statusIndex in 档案?.简介.length" v-show="data.序号 === statusIndex">
+            <div class="statusContent" v-show="类型 !== '莫宁'">
+              <div v-for="statusIndex in 档案?.外挂信息.简介.length" v-show="data.序号 === statusIndex">
                 <slot :name="`status${statusIndex}`" />
               </div>
-              <!-- 爱弥斯专用 -->
-              <!-- <div v-show="类型 === '爱弥斯'" class="statusDesc">
-                {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
-              </div> -->
-              <!-- 尤诺专用 -->
-              <!-- <div class="statusDesc" v-show="类型 === '尤诺'">
-                <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key">
-                  {{ value }}
-                </p>
+            </div>
+            <div class="statusContent" v-show="类型 === '莫宁'" :id="类型">
+              <div class="statusContentHeader">
+                <div class="contentTitle">
+                  {{ data.栏目标题 }}
+                </div>
               </div>
-              <p v-show="data?.序号 === 2">
-                {{ data?.常用简介 }}
-              </p> -->
+              <div class="statusContentCard">
+                <div class="contentLabel" v-for="([key, value], index) in Object.entries(data.信息 ?? {})" v-show="data.序号 === index + 1">
+                  {{ value }}
+                </div>
+                <div class="contentValue" v-for="bodyMain in data.信息?.length" v-show="data.序号 === bodyMain">
+                  <slot :name="`info${bodyMain}`" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -450,221 +457,6 @@ const props = defineProps<{
         text-shadow: none
       }
     }
-  }
-}
-
-// 保留全局动效样式（用户要求不改变全局样式）
-@keyframes pulse-glow-b7066fb5 {
-  0%,
-  to {
-    filter: drop-shadow(0 0 5px var(--pink-glow)) drop-shadow(0 0 10px var(--blue-glitch))
-  }
-  50% {
-    filter: drop-shadow(0 0 15px var(--pink-core)) drop-shadow(0 0 20px var(--blue-glow))
-  }
-}
-@keyframes scanline-b7066fb5 {
-  0% {
-    transform: translateY(-100%)
-  }
-  to {
-    transform: translateY(100%)
-  }
-}
-@keyframes blink-b7066fb5 {
-  0%,
-  to {
-    opacity: 1
-  }
-  50% {
-    opacity: .3
-  }
-}
-@keyframes float-particle-b7066fb5 {
-  0% {
-    transform: translate(0) rotate(0);
-    opacity: 0
-  }
-  10% {
-    opacity: .5
-  }
-  90% {
-    opacity: .5
-  }
-  to {
-    transform: translate(calc(100vw * var(--dx)), calc(100vh * var(--dy))) rotate(360deg);
-    opacity: 0
-  }
-}
-@keyframes hologram-scan-b7066fb5 {
-  0% {
-    top: -10%;
-    opacity: 0
-  }
-  20% {
-    opacity: .8
-  }
-  80% {
-    opacity: .8
-  }
-  to {
-    top: 110%;
-    opacity: 0
-  }
-}
-@keyframes core-pulse-b7066fb5 {
-  0% {
-    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
-  }
-  50% {
-    box-shadow: 0 0 15px var(--pink-core), 0 0 30px var(--blue-glow), 0 0 45px var(--pink-light)
-  }
-  to {
-    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
-  }
-}
-@keyframes borderRotate-b7066fb5 {
-  0% {
-    filter: hue-rotate(0deg)
-  }
-  to {
-    filter: hue-rotate(360deg)
-  }
-}
-@keyframes itemIn-b7066fb5 {
-  to {
-    opacity: 1;
-    transform: translateY(0)
-  }
-}
-@keyframes glitch-anim-b7066fb5 {
-  0% {
-    clip: rect(31px, 9999px, 94px, 0)
-  }
-  5% {
-    clip: rect(70px, 9999px, 71px, 0)
-  }
-  10% {
-    clip: rect(29px, 9999px, 83px, 0)
-  }
-  15% {
-    clip: rect(16px, 9999px, 91px, 0)
-  }
-  20% {
-    clip: rect(2px, 9999px, 36px, 0)
-  }
-  25% {
-    clip: rect(27px, 9999px, 9px, 0)
-  }
-  30% {
-    clip: rect(9px, 9999px, 53px, 0)
-  }
-  35% {
-    clip: rect(17px, 9999px, 24px, 0)
-  }
-  40% {
-    clip: rect(74px, 9999px, 61px, 0)
-  }
-  45% {
-    clip: rect(17px, 9999px, 83px, 0)
-  }
-  50% {
-    clip: rect(74px, 9999px, 55px, 0)
-  }
-  55% {
-    clip: rect(38px, 9999px, 48px, 0)
-  }
-  60% {
-    clip: rect(94px, 9999px, 42px, 0)
-  }
-  65% {
-    clip: rect(35px, 9999px, 23px, 0)
-  }
-  70% {
-    clip: rect(41px, 9999px, 46px, 0)
-  }
-  75% {
-    clip: rect(35px, 9999px, 3px, 0)
-  }
-  80% {
-    clip: rect(41px, 9999px, 96px, 0)
-  }
-  85% {
-    clip: rect(52px, 9999px, 59px, 0)
-  }
-  90% {
-    clip: rect(69px, 9999px, 97px, 0)
-  }
-  95% {
-    clip: rect(10px, 9999px, 71px, 0)
-  }
-  to {
-    clip: rect(67px, 9999px, 38px, 0)
-  }
-}
-@keyframes glitch-anim2-b7066fb5 {
-  0% {
-    clip: rect(65px, 9999px, 59px, 0)
-  }
-  5% {
-    clip: rect(88px, 9999px, 67px, 0)
-  }
-  10% {
-    clip: rect(94px, 9999px, 7px, 0)
-  }
-  15% {
-    clip: rect(73px, 9999px, 14px, 0)
-  }
-  20% {
-    clip: rect(96px, 9999px, 71px, 0)
-  }
-  25% {
-    clip: rect(13px, 9999px, 35px, 0)
-  }
-  30% {
-    clip: rect(72px, 9999px, 66px, 0)
-  }
-  35% {
-    clip: rect(70px, 9999px, 22px, 0)
-  }
-  40% {
-    clip: rect(13px, 9999px, 98px, 0)
-  }
-  45% {
-    clip: rect(63px, 9999px, 7px, 0)
-  }
-  50% {
-    clip: rect(80px, 9999px, 21px, 0)
-  }
-  55% {
-    clip: rect(27px, 9999px, 52px, 0)
-  }
-  60% {
-    clip: rect(89px, 9999px, 14px, 0)
-  }
-  65% {
-    clip: rect(51px, 9999px, 80px, 0)
-  }
-  70% {
-    clip: rect(2px, 9999px, 37px, 0)
-  }
-  75% {
-    clip: rect(71px, 9999px, 86px, 0)
-  }
-  80% {
-    clip: rect(19px, 9999px, 46px, 0)
-  }
-  85% {
-    clip: rect(82px, 9999px, 8px, 0)
-  }
-  90% {
-    clip: rect(48px, 9999px, 3px, 0)
-  }
-  95% {
-    clip: rect(68px, 9999px, 100px, 0)
-  }
-  to {
-    clip: rect(47px, 9999px, 2px, 0)
   }
 }
 </style>

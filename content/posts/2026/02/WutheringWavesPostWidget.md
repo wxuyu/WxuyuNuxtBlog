@@ -36,21 +36,20 @@ const props = defineProps<{
   标签?: Record<string, string>
   简介?: string[]
   详情信息?: Record<string, string>
-  档案标题: string
-  档案信息?: {
-    档案信息: Array<{
+  档案?: {
+    信息: Array<{
       序号?: number
       主标题?: string
       副标题?: string
     }>
-    档案简介: string[]
-    档案序号: string | number
+    简介: string[]
+    标题: string
   }
 }>();
 </script>
 
 <template>
-  <div class="heroMain">
+  <div class="heroMain WuWuGameColor">
     <div class="heroCard">
       <div class="leftInfo">
         <NuxtImg class="avatarImage" :src="头像" />
@@ -86,8 +85,8 @@ const props = defineProps<{
               <div class="infoValue">{{ value }}</div>
             </div>
           </div>
-          <Title :title="档案标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案信息?.档案信息" :key="data.序号">
+          <Title :title="档案?.标题"></Title>
+          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.信息" :key="data.序号">
             <div class="statusHeader" :id="类型">
               <div class="HeaderTitle">
                 {{ data.主标题 }}
@@ -97,7 +96,7 @@ const props = defineProps<{
               </div>
             </div>
             <div class="statusContent">
-              <div v-for="statusIndex in 档案信息?.档案简介.length" v-show="data.序号 === statusIndex">
+              <div v-for="statusIndex in 档案?.简介.length" v-show="data.序号 === statusIndex">
                 <slot :name="`status${statusIndex}`" />
               </div>
               <!-- 爱弥斯专用 -->
@@ -481,221 +480,6 @@ const props = defineProps<{
     }
   }
 }
-
-// 保留全局动效样式（用户要求不改变全局样式）
-@keyframes pulse-glow-b7066fb5 {
-  0%,
-  to {
-    filter: drop-shadow(0 0 5px var(--pink-glow)) drop-shadow(0 0 10px var(--blue-glitch))
-  }
-  50% {
-    filter: drop-shadow(0 0 15px var(--pink-core)) drop-shadow(0 0 20px var(--blue-glow))
-  }
-}
-@keyframes scanline-b7066fb5 {
-  0% {
-    transform: translateY(-100%)
-  }
-  to {
-    transform: translateY(100%)
-  }
-}
-@keyframes blink-b7066fb5 {
-  0%,
-  to {
-    opacity: 1
-  }
-  50% {
-    opacity: .3
-  }
-}
-@keyframes float-particle-b7066fb5 {
-  0% {
-    transform: translate(0) rotate(0);
-    opacity: 0
-  }
-  10% {
-    opacity: .5
-  }
-  90% {
-    opacity: .5
-  }
-  to {
-    transform: translate(calc(100vw * var(--dx)), calc(100vh * var(--dy))) rotate(360deg);
-    opacity: 0
-  }
-}
-@keyframes hologram-scan-b7066fb5 {
-  0% {
-    top: -10%;
-    opacity: 0
-  }
-  20% {
-    opacity: .8
-  }
-  80% {
-    opacity: .8
-  }
-  to {
-    top: 110%;
-    opacity: 0
-  }
-}
-@keyframes core-pulse-b7066fb5 {
-  0% {
-    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
-  }
-  50% {
-    box-shadow: 0 0 15px var(--pink-core), 0 0 30px var(--blue-glow), 0 0 45px var(--pink-light)
-  }
-  to {
-    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
-  }
-}
-@keyframes borderRotate-b7066fb5 {
-  0% {
-    filter: hue-rotate(0deg)
-  }
-  to {
-    filter: hue-rotate(360deg)
-  }
-}
-@keyframes itemIn-b7066fb5 {
-  to {
-    opacity: 1;
-    transform: translateY(0)
-  }
-}
-@keyframes glitch-anim-b7066fb5 {
-  0% {
-    clip: rect(31px, 9999px, 94px, 0)
-  }
-  5% {
-    clip: rect(70px, 9999px, 71px, 0)
-  }
-  10% {
-    clip: rect(29px, 9999px, 83px, 0)
-  }
-  15% {
-    clip: rect(16px, 9999px, 91px, 0)
-  }
-  20% {
-    clip: rect(2px, 9999px, 36px, 0)
-  }
-  25% {
-    clip: rect(27px, 9999px, 9px, 0)
-  }
-  30% {
-    clip: rect(9px, 9999px, 53px, 0)
-  }
-  35% {
-    clip: rect(17px, 9999px, 24px, 0)
-  }
-  40% {
-    clip: rect(74px, 9999px, 61px, 0)
-  }
-  45% {
-    clip: rect(17px, 9999px, 83px, 0)
-  }
-  50% {
-    clip: rect(74px, 9999px, 55px, 0)
-  }
-  55% {
-    clip: rect(38px, 9999px, 48px, 0)
-  }
-  60% {
-    clip: rect(94px, 9999px, 42px, 0)
-  }
-  65% {
-    clip: rect(35px, 9999px, 23px, 0)
-  }
-  70% {
-    clip: rect(41px, 9999px, 46px, 0)
-  }
-  75% {
-    clip: rect(35px, 9999px, 3px, 0)
-  }
-  80% {
-    clip: rect(41px, 9999px, 96px, 0)
-  }
-  85% {
-    clip: rect(52px, 9999px, 59px, 0)
-  }
-  90% {
-    clip: rect(69px, 9999px, 97px, 0)
-  }
-  95% {
-    clip: rect(10px, 9999px, 71px, 0)
-  }
-  to {
-    clip: rect(67px, 9999px, 38px, 0)
-  }
-}
-@keyframes glitch-anim2-b7066fb5 {
-  0% {
-    clip: rect(65px, 9999px, 59px, 0)
-  }
-  5% {
-    clip: rect(88px, 9999px, 67px, 0)
-  }
-  10% {
-    clip: rect(94px, 9999px, 7px, 0)
-  }
-  15% {
-    clip: rect(73px, 9999px, 14px, 0)
-  }
-  20% {
-    clip: rect(96px, 9999px, 71px, 0)
-  }
-  25% {
-    clip: rect(13px, 9999px, 35px, 0)
-  }
-  30% {
-    clip: rect(72px, 9999px, 66px, 0)
-  }
-  35% {
-    clip: rect(70px, 9999px, 22px, 0)
-  }
-  40% {
-    clip: rect(13px, 9999px, 98px, 0)
-  }
-  45% {
-    clip: rect(63px, 9999px, 7px, 0)
-  }
-  50% {
-    clip: rect(80px, 9999px, 21px, 0)
-  }
-  55% {
-    clip: rect(27px, 9999px, 52px, 0)
-  }
-  60% {
-    clip: rect(89px, 9999px, 14px, 0)
-  }
-  65% {
-    clip: rect(51px, 9999px, 80px, 0)
-  }
-  70% {
-    clip: rect(2px, 9999px, 37px, 0)
-  }
-  75% {
-    clip: rect(71px, 9999px, 86px, 0)
-  }
-  80% {
-    clip: rect(19px, 9999px, 46px, 0)
-  }
-  85% {
-    clip: rect(82px, 9999px, 8px, 0)
-  }
-  90% {
-    clip: rect(48px, 9999px, 3px, 0)
-  }
-  95% {
-    clip: rect(68px, 9999px, 100px, 0)
-  }
-  to {
-    clip: rect(47px, 9999px, 2px, 0)
-  }
-}
 </style>
 ```
 
@@ -717,15 +501,15 @@ const props = defineProps<{
   - 星炬学院拉贝尔学部
   - 隧者适格者
   - 飞行雪绒
-档案标题: 共鸣状况 · 电子幽灵档案
-档案信息:
-  档案信息:
+档案:
+  信息:
     - 序号: 1 
       主标题: 频谱检验报告
       副标题: ▇▂▇数据损毁▇▋▌”
     - 序号: 2
       主标题: 超频诊断报告
-  档案简介: ["频谱检验报告", "超频诊断报告"]
+  简介: ["频谱检验报告", "超频诊断报告"]
+  标题: 共鸣状况 · 电子幽灵档案
 ---
 #desc
 曾是星炬学院的隧者适格者，如今已成为在星海轻歌的<span class="highlight" style="color: var(--pink-core);text-shadow: 0 0 8px var(--pink-core);">电子幽灵</span>。她在寂静的星海中飞行，星屑在身侧崩解，时间在身后消亡。漫漫孤寂并未消失，它只是被拉伸、稀释、重塑，最终成为她羽翼的一部分。“我知道，只要抬头，那颗星总能找到我。”
@@ -794,15 +578,15 @@ hero属性
   - 星炬学院拉贝尔学部
   - 隧者适格者
   - 飞行雪绒
-档案标题: 共鸣状况 · 电子幽灵档案
-档案信息:
-  档案信息:
+档案:
+  信息:
     - 序号: 1 
       主标题: 频谱检验报告
       副标题: ▇▂▇数据损毁▇▋▌”
     - 序号: 2
       主标题: 超频诊断报告
-  档案简介: ["频谱检验报告", "超频诊断报告"]
+  简介: ["频谱检验报告", "超频诊断报告"]
+  标题: 共鸣状况 · 电子幽灵档案
 ---
 #desc
 曾是星炬学院的隧者适格者，如今已成为在星海轻歌的<span class="highlight" style="color: var(--pink-core);text-shadow: 0 0 8px var(--pink-core);">电子幽灵</span>。她在寂静的星海中飞行，星屑在身侧崩解，时间在身后消亡。漫漫孤寂并未消失，它只是被拉伸、稀释、重塑，最终成为她羽翼的一部分。“我知道，只要抬头，那颗星总能找到我。”
@@ -1671,25 +1455,26 @@ hero-stories属性
 import type { __String } from 'typescript';
 import Title from '../card/title.vue';
 import Badge from './Badge.vue';
+import Timeline from './Timeline.vue';
 
-defineProps<{
+const props = defineProps<{
   类型?: '爱弥斯' | '莫宁' | '尤诺'
   顶部?: {
     标题?: string
     副标题?: string
   }
   时间线?: Array<{
-    小标签: string
-    内容: Record<string, string>
-    大标签: string
+    徽章: string[]
+    标签: string[]
+    密钥: number
   }>
   彩蛋?: Array<{
     图标?: string
-    标题?: string
     徽章?: string
     密钥?: number | string
     信息列表?: Record<string, string>
   }>
+  时间线内容?:string[]
   彩蛋内容?: string[]
 }>()
 </script>
@@ -1704,31 +1489,31 @@ defineProps<{
       
       <!-- 时间线部分 - 修复为两列布局 -->
       <div class="heroTimelineList" :id="类型" v-show="类型 !== '莫宁'">
-        <div class="heroTimelineMain" v-for="(main, index) in 时间线" :key="index">
-          <div class="heroTimelineCard" v-for="([key, value]) in Object.entries(main.内容 ?? {})" :key="key">
-            <div class="heroTimelineLabel">
-              {{ key }}<Badge :text="`${main.大标签}`" />
-            </div>
-            <div class="heroTimelineValue">{{ value }}</div>
-            <!-- 特定标签位置||未写完 -->
-            <div class="heroTimelineTag" v-show="类型 === '尤诺'">
-              <span class="heroTimelineTagList" v-for="([key, value]) in Object.entries(main.小标签 ?? {})" :key="key">
-                <slot class="text">
-                  {{ value }}
-                </slot>
-              </span>
-            </div>
+        <div class="heroTimelineCard" v-for="main in 时间线" :key="main.密钥">
+          <div class="heroTimelineLabel" v-for="([key, value], index) in Object.entries(时间线内容 ?? {})" v-show="main.密钥 === index + 1">
+            {{ value }}<Badge :text="`${value}`" v-for="([key, value]) in Object.entries(main.徽章 ?? {})" :key="key"/>
+          </div>     
+          <div class="heroTimelineValue" v-for="index in 时间线内容?.length" v-show="main.密钥 === index">
+            <slot :name="`Timeline${index}`"/>
+          </div>
+          <!-- 特定标签位置||未写完 -->
+          <div class="heroTimelineTag" v-show="类型 === '尤诺'">
+            <span class="heroTimelineTagList" v-for="([key, value]) in Object.entries(main.标签 ?? {})" :key="key">
+              <slot class="text">
+                {{ value }}
+              </slot>
+            </span>
           </div>
         </div>
       </div>
 
       <div class="heroEasterMain" :id="类型">
-        <div class="heroEaster heroColor" v-for="main in 彩蛋" :id="类型">
+        <div class="heroEaster WuWuGameColor" v-for="main in 彩蛋" :id="类型">
           <div class="easterNumber" v-show="类型 === '莫宁'">
             {{ main.密钥 }}
           </div>
           <div class="easterHeader">
-            <span class="esterTitle">{{ main.标题 }}</span>
+            <span class="esterTitle" v-for="([key, value], index) in Object.entries(props.彩蛋内容 ?? {})" v-show="main.密钥 === index + 1">{{ value }}</span>
             <Badge :text="`${main.徽章}`" v-show="类型 !== '爱弥斯'"/>
           </div>
           <div class="easterContent">
@@ -1748,7 +1533,10 @@ defineProps<{
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.article p {
+  margin: 0!important;
+}
 .heroTimelineEasterMain {
   width: 100%;
   background: var(--ld-bg-card);
@@ -1781,11 +1569,6 @@ defineProps<{
       @media (max-width: 560px) {
         grid-template-columns: repeat(1, 1fr);
       }
-      .heroTimelineMain {
-        display: grid;
-        gap: 0.4rem;
-        padding: 0;
-        
         .heroTimelineCard {
           display: flex;
           flex-direction: column;
@@ -1821,7 +1604,6 @@ defineProps<{
           }
         }
       }
-    }
     .heroEasterMain {
       display: grid;
       gap: 0.5rem;
@@ -1865,9 +1647,10 @@ defineProps<{
   gap: 0.2rem
 }
 /* 彩蛋样式 */
-.heroEaster#爱弥斯 {
-  background: #ff8cb00d;
-  border: 1px dashed var(--pink-core);
+.heroEasterMain#爱弥斯 {
+  .heroEaster {
+    border: 1px dashed var(--pink-core);
+  }
 }
 .heroEasterMain#莫宁 {
   display: grid;
@@ -1894,8 +1677,7 @@ defineProps<{
   grid-template-columns: 2fr 2fr;
   gap: .5rem;
   .heroEaster {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
+    border: 1px dashed var(--color-tide-light);
     border-radius: 12px;
     padding: 1rem;
     flex-direction: column;
@@ -1917,38 +1699,17 @@ defineProps<{
       border-bottom: 1px solid rgba(127, 211, 255, .1);
     }
     .easterP {
-      background: #14233c80;
-      border-left: 3px solid var(--color-tide-light);
-      padding: 1rem;
-      border-radius: .5rem;
+      border: 1px dashed var(--color-tide-light);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
     }
   }
 }
-
-/* 颜色样式 */
-.heroColor#尤诺 {
-  --color-cosmic-deep: #050a14;
-  --color-starry-night: #0d1b2a;
-  --color-lunar-silver: #c2d6e6;
-  --color-moonlight: #e6f2ff;
-  --color-tide-blue: #2e88c9;
-  --color-tide-light: #7fd3ff;
-  --color-nebula-purple: #4a235a;
-  --color-constellation: rgba(127, 211, 255, .8);
-  --card-bg: rgba(15, 25, 45, .7);
-  --card-border: rgba(127, 211, 255, .1);
-  --card-shadow: 0 20px 60px rgba(5, 10, 30, .5);
-  --section-spacing: clamp(3rem, 6vw, 5rem);
-  --card-radius: 1.5rem;
-  --transition-smooth: all .4s cubic-bezier(.4, 0, .2, 1);
-  position: relative;
-  background: var(--color-cosmic-deep);
-  color: var(--color-moonlight);
-  padding-top: 60px;
-}
 </style>
 ```
+
 #tab2
+**预览显示1**
 ::hero-timeline-easter
 ---
 类型: '爱弥斯'
@@ -1956,25 +1717,32 @@ defineProps<{
   标题: 官方剧情时间线 & 彩蛋
   副标题: EMS-DATA
 时间线:
-  - 标签: 2.8版本
-    信息:
-      伏笔埋下: “那一晚上的失忆以及手的虚化”埋下爱弥斯相关伏笔
-  - 标签: 3.0版本
-    信息:
-      初次登场: 第一次相遇即是告别
-  - 标签: 3.1版本
-    信息:
-      真相揭晓: “我不后悔，但还是...好舍不得你”
-  - 标签: 时间闭环
-    信息:
-      因果循环: “...别...难过...”
+  - 密钥: 1
+    徽章: ["2.8版本"]
+  - 密钥: 2
+    徽章: ["3.0版本"]
+  - 密钥: 3
+    徽章: ["3.1版本"]
+  - 密钥: 4
+    徽章: ["时间闭环"]
 彩蛋:
-  - 标题: 官方彩蛋 · 摩斯密码
-    密钥: 1
-  - 标题: 飞行雪绒 · 爱弥斯个人账号
-    密钥: 2
+  - 密钥: 1
+  - 密钥: 2
+时间线内容: ["伏笔埋下", "初次登场", "真相揭晓", "因果循环"]
 彩蛋内容: ["官方彩蛋 · 摩斯密码", "飞行雪绒 · 爱弥斯个人账号"]
 ---
+#Timeline1
+“那一晚上的失忆以及手的虚化”埋下爱弥斯相关伏笔
+
+#Timeline2
+第一次相遇即是告别
+
+#Timeline3
+“我不后悔，但还是...好舍不得你”
+
+#Timeline4
+“...别...难过...”
+
 #easter1
 <div>
 官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为`BCAKHOME`—— “回家”
@@ -1984,44 +1752,110 @@ defineProps<{
 爱弥斯生前以“飞行雪绒”为网名分享原创歌曲，歌友会每年都会筹办
 </div>
 ::
+
+**预览显示2**
+::hero-timeline-easter
+---
+类型: 尤诺
+顶部:
+  标题: 官方剧情时间线 & 彩蛋
+  副标题: YOUNUO-DATA
+时间线:
+  - 密钥: 1
+    徽章: ["幼年时期", "七丘 · 黎那汐塔"]
+    标签: ["诞生", "预言", "天赋"]
+  - 密钥: 2
+    徽章: [青少年时期, 七丘四方殿]
+    标签: ["成长", "反叛", "谕女"]
+  - 密钥: 3
+    徽章: [2.6版本前半, 桑古伊斯狩原]
+    标签: ["牺牲", "黑潮", "记忆抹除"]
+  - 密钥: 4
+    徽章: [2.6版本中段, 混沌之间]
+    标签: ["拯救", "循环", "记忆"]
+  - 密钥: 5
+    徽章: [2.6版本后半, 战场遗迹]
+    标签: ["回归", "锚定", "自我"]
+
+彩蛋:
+  - 标题: 常驻点位1
+    密钥: 1
+    徽章: 牵手副本
+    信息列表:
+      触发地点: 往事花平野和赤林猎场中间的小岛
+      地图坐标: 11497,13780,88
+  - 标题: 常驻点位2
+    密钥: 2
+    徽章: 月下幽会
+    信息列表:
+      触发地点: 三王峰和往事花平野中间的小岛
+      触发时间: 晚上8点到凌晨4点
+      地图坐标: 11273,13744,304
+时间线内容: ["月食之夜 · 谕女诞生", "四方殿 · 谕女之路", "黑潮狩猎 · 初次牺牲", "空白未来 · 唯一记忆者", "月相重圆 · 自我锚定"]
+彩蛋内容: ["常驻点位1", "常驻点位2"]
+---
+#Timeline1
+尤诺诞生于月亮沉没之夜，被预言为能看见绝对正确未来的天才谕女。母亲是前竞技冠军，父亲是著名锻造师。
+
+#Timeline2
+正式成为七丘第127位谕女，但拒绝穿传统礼袍，保持纱缎与黄金装饰，以命运对视者的姿态面对众人。
+
+#Timeline3
+为帮助漂泊者与奥古斯塔狩猎黑潮，使用锚定能力从世人记忆中被抹除，成为"不存在之人"。
+
+#Timeline4
+漂泊者成为唯一记得尤诺的人，踏上拯救之旅。尤诺在存在与消失的夹缝中循环经历自己的过去。
+
+#Timeline5
+尤诺以"先锚定自己，再锚定所有想逃的东西"的决心，重新将自己钉回世界，完成月相的回环与更迭。
+
+#easter1
+🌟 尤诺不同于主线会从灵体变成实体
+<BR>
+✨ 专属情侣空间的含金量
+#easter2
+🌟 隐藏成就「当天空是你眼睛的颜色」
+<BR>
+✨ 对话中有一句今晚月色真美（深情告白了属于是）
 ::
+::
+
 #### 整体说明
 ::tab{:tabs='["配置项", "写法"]'}
 #tab1
 
 hero-timeline-easter属性
 
-| 配置项	     | 类型	                            | 说明                                                      |
-| ------------ | -------------------------------- | --------------------------------------------------------- |
-| 类型         | '爱弥斯'<br>'尤诺'               | 作为模块的显隐逻辑，并且还在一些`class`中作为`id`样式显示 |
-| 顶部         | Array<顶部[]>                    | 具有标题、副标题两类数据                                  |
-| 时间线       | Array<时间线[]>                  | 作为显示时间线的模块                                      |
-| 彩蛋         | Array<彩蛋[]>                    | 作为显示彩蛋的模块                                        |
+| 配置项   | 类型            | 说明                                         |
+| ----- | ------------- | ------------------------------------------ |
+| 类型    | '爱弥斯'<br>'尤诺' | 作为模块的显隐逻辑，并且还在一些`class`中作为`id`样式显示         |
+| 顶部    | Array<顶部[]>   | 具有标题、副标题两类数据                               |
+| 时间线   | Array<时间线[]>  | 作为显示时间线的模块                                 |
+| 彩蛋    | Array<彩蛋[]>   | 作为显示彩蛋的模块                                  |
+| 时间线内容 | string[]      | 作为驱动`solt :name`正常运转的核心数据，锚定了时间线的密钥来进行特定显示 |
+| 彩蛋内容  | string[]      | 作为驱动`solt :name`正常运转的核心数据，锚定了彩蛋的密钥来进行特定显示  |
+
 
 时间线属性
 
-| 配置项	     | 类型	                            | 说明                                                      |
-| ------------ | -------------------------------- | --------------------------------------------------------- |
-| 标签         | string<br>Record<string, string> | 作为Badge的显示字段                                       |
-| 信息         | Record<string, string>           | 自定义字段                                                |
+| 配置项 | 类型       | 说明                   |
+| --- | -------- | -------------------- |
+| 徽章  | string[] | 作为Badge的显示字段         |
+| 标签  | string[] | 自定义字段                |
+| 密钥  | number   | 锚定`时间线内容`的分页数据所需要的密钥 |
 
 彩蛋属性
 
-| 配置项	     | 类型	                            | 说明                                                      |
-| ------------ | -------------------------------- | --------------------------------------------------------- |
-| 标题         | string                           | 作为彩蛋开头，是用来显示                                  |
-| 信息         | Array<信息[]>                    | 作为一类特殊的简介变体，是为了以后进行多拓展而准备的      |
-
-信息属性
-
-| 配置项	     | 类型	                            | 说明                                                      |
-| ------------ | -------------------------------- | --------------------------------------------------------- |
-| 上部分       | string                           | 无                                                        |
-| 重要部分     | string                           | 需要Badge组件显示的字段                                   |
-| 下部分       | string                           | 无                                                        |
-| 显示         | 'YES'<br>'NO'                    | 控制显示与不显示的字段                                    |
+| 配置项  | 类型                     | 说明                  |
+| ---- | ---------------------- | ------------------- |
+| 图标   | string                 | 作为彩蛋开头，是用来显示        |
+| 徽章   | string                 | 作为Badge的显示字段        |
+| 密钥   | number<BR>string       | 锚定`彩蛋内容`的分页数据所需要的密钥 |
+| 信息列表 | Record<string, string> |                     |
 
 #tab2
+::tab{:tabs='["写法1", "写法2"]'}
+#tab1
 ``` md lang="md"
 ::hero-timeline-easter
 ---
@@ -2030,25 +1864,32 @@ hero-timeline-easter属性
   标题: 官方剧情时间线 & 彩蛋
   副标题: EMS-DATA
 时间线:
-  - 标签: 2.8版本
-    信息:
-      伏笔埋下: “那一晚上的失忆以及手的虚化”埋下爱弥斯相关伏笔
-  - 标签: 3.0版本
-    信息:
-      初次登场: 第一次相遇即是告别
-  - 标签: 3.1版本
-    信息:
-      真相揭晓: “我不后悔，但还是...好舍不得你”
-  - 标签: 时间闭环
-    信息:
-      因果循环: “...别...难过...”
+  - 密钥: 1
+    徽章: ["2.8版本"]
+  - 密钥: 2
+    徽章: ["3.0版本"]
+  - 密钥: 3
+    徽章: ["3.1版本"]
+  - 密钥: 4
+    徽章: ["时间闭环"]
 彩蛋:
-  - 标题: 官方彩蛋 · 摩斯密码
-    密钥: 1
-  - 标题: 飞行雪绒 · 爱弥斯个人账号
-    密钥: 2
+  - 密钥: 1
+  - 密钥: 2
+时间线内容: ["伏笔埋下", "初次登场", "真相揭晓", "因果循环"]
 彩蛋内容: ["官方彩蛋 · 摩斯密码", "飞行雪绒 · 爱弥斯个人账号"]
 ---
+#Timeline1
+“那一晚上的失忆以及手的虚化”埋下爱弥斯相关伏笔
+
+#Timeline2
+第一次相遇即是告别
+
+#Timeline3
+“我不后悔，但还是...好舍不得你”
+
+#Timeline4
+“...别...难过...”
+
 #easter1
 <div>
 官方OST《以虚无紧系因果》中隐藏摩斯密码，截取后翻译为`BCAKHOME`—— “回家”
@@ -2059,6 +1900,75 @@ hero-timeline-easter属性
 </div>
 ::
 ```
+
+#tab2
+``` md lang="md"
+::hero-timeline-easter
+---
+类型: 尤诺
+顶部:
+  标题: 官方剧情时间线 & 彩蛋
+  副标题: YOUNUO-DATA
+时间线:
+  - 密钥: 1
+    徽章: ["幼年时期", "七丘 · 黎那汐塔"]
+    标签: ["诞生", "预言", "天赋"]
+  - 密钥: 2
+    徽章: [青少年时期, 七丘四方殿]
+    标签: ["成长", "反叛", "谕女"]
+  - 密钥: 3
+    徽章: [2.6版本前半, 桑古伊斯狩原]
+    标签: ["牺牲", "黑潮", "记忆抹除"]
+  - 密钥: 4
+    徽章: [2.6版本中段, 混沌之间]
+    标签: ["拯救", "循环", "记忆"]
+  - 密钥: 5
+    徽章: [2.6版本后半, 战场遗迹]
+    标签: ["回归", "锚定", "自我"]
+
+彩蛋:
+  - 标题: 常驻点位1
+    密钥: 1
+    徽章: 牵手副本
+    信息列表:
+      触发地点: 往事花平野和赤林猎场中间的小岛
+      地图坐标: 11497,13780,88
+  - 标题: 常驻点位2
+    密钥: 2
+    徽章: 月下幽会
+    信息列表:
+      触发地点: 三王峰和往事花平野中间的小岛
+      触发时间: 晚上8点到凌晨4点
+      地图坐标: 11273,13744,304
+时间线内容: ["月食之夜 · 谕女诞生", "四方殿 · 谕女之路", "黑潮狩猎 · 初次牺牲", "空白未来 · 唯一记忆者", "月相重圆 · 自我锚定"]
+彩蛋内容: ["常驻点位1", "常驻点位2"]
+---
+#Timeline1
+尤诺诞生于月亮沉没之夜，被预言为能看见绝对正确未来的天才谕女。母亲是前竞技冠军，父亲是著名锻造师。
+
+#Timeline2
+正式成为七丘第127位谕女，但拒绝穿传统礼袍，保持纱缎与黄金装饰，以命运对视者的姿态面对众人。
+
+#Timeline3
+为帮助漂泊者与奥古斯塔狩猎黑潮，使用锚定能力从世人记忆中被抹除，成为"不存在之人"。
+
+#Timeline4
+漂泊者成为唯一记得尤诺的人，踏上拯救之旅。尤诺在存在与消失的夹缝中循环经历自己的过去。
+
+#Timeline5
+尤诺以"先锚定自己，再锚定所有想逃的东西"的决心，重新将自己钉回世界，完成月相的回环与更迭。
+
+#easter1
+🌟 尤诺不同于主线会从灵体变成实体
+<BR>
+✨ 专属情侣空间的含金量
+#easter2
+🌟 隐藏成就「当天空是你眼睛的颜色」
+<BR>
+✨ 对话中有一句今晚月色真美（深情告白了属于是）
+::
+```
+::
 ::
 
 ### 共鸣链&&机制
@@ -2363,6 +2273,7 @@ const activeIndex = ref(0)
 ::tab{:tabs='["配置项", "写法"]'}
 #tab1
 hero-reson-mecha属性
+
 | 配置项 | 类型 | 说明 |
 | ------ | ---- | ---- |
 | 主体   | Array<类型[]> | 通过`Array`来分开各个模块内容 |
@@ -2509,10 +2420,291 @@ hero-reson-mecha属性
 ```
 ::
 
+## 补充样式
+因为需要精简scss样式，同时为部分需要用到样式的组件来说比较适配一些
+::tab{:tabs='["动画样式", "颜色样式"]'}
+#tab1
+``` scss lang="scss"
+/* KeyFrames动画封装样式 */
+
+/* 鸣潮档案组件 */
+/* 来源于霜落映界(http://36.150.237.25/) */
+
+/* 角色信息模块动画 */
+@keyframes pulse-glow-b7066fb5 {
+  0%,
+  to {
+    filter: drop-shadow(0 0 5px var(--pink-glow)) drop-shadow(0 0 10px var(--blue-glitch))
+  }
+  50% {
+    filter: drop-shadow(0 0 15px var(--pink-core)) drop-shadow(0 0 20px var(--blue-glow))
+  }
+}
+@keyframes scanline-b7066fb5 {
+  0% {
+    transform: translateY(-100%)
+  }
+  to {
+    transform: translateY(100%)
+  }
+}
+@keyframes blink-b7066fb5 {
+  0%,
+  to {
+    opacity: 1
+  }
+  50% {
+    opacity: .3
+  }
+}
+@keyframes float-particle-b7066fb5 {
+  0% {
+    transform: translate(0) rotate(0);
+    opacity: 0
+  }
+  10% {
+    opacity: .5
+  }
+  90% {
+    opacity: .5
+  }
+  to {
+    transform: translate(calc(100vw * var(--dx)), calc(100vh * var(--dy))) rotate(360deg);
+    opacity: 0
+  }
+}
+@keyframes hologram-scan-b7066fb5 {
+  0% {
+    top: -10%;
+    opacity: 0
+  }
+  20% {
+    opacity: .8
+  }
+  80% {
+    opacity: .8
+  }
+  to {
+    top: 110%;
+    opacity: 0
+  }
+}
+@keyframes core-pulse-b7066fb5 {
+  0% {
+    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
+  }
+  50% {
+    box-shadow: 0 0 15px var(--pink-core), 0 0 30px var(--blue-glow), 0 0 45px var(--pink-light)
+  }
+  to {
+    box-shadow: 0 0 5px var(--pink-core), 0 0 15px var(--blue-glitch)
+  }
+}
+@keyframes borderRotate-b7066fb5 {
+  0% {
+    filter: hue-rotate(0deg)
+  }
+  to {
+    filter: hue-rotate(360deg)
+  }
+}
+@keyframes itemIn-b7066fb5 {
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+@keyframes glitch-anim-b7066fb5 {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0)
+  }
+  5% {
+    clip: rect(70px, 9999px, 71px, 0)
+  }
+  10% {
+    clip: rect(29px, 9999px, 83px, 0)
+  }
+  15% {
+    clip: rect(16px, 9999px, 91px, 0)
+  }
+  20% {
+    clip: rect(2px, 9999px, 36px, 0)
+  }
+  25% {
+    clip: rect(27px, 9999px, 9px, 0)
+  }
+  30% {
+    clip: rect(9px, 9999px, 53px, 0)
+  }
+  35% {
+    clip: rect(17px, 9999px, 24px, 0)
+  }
+  40% {
+    clip: rect(74px, 9999px, 61px, 0)
+  }
+  45% {
+    clip: rect(17px, 9999px, 83px, 0)
+  }
+  50% {
+    clip: rect(74px, 9999px, 55px, 0)
+  }
+  55% {
+    clip: rect(38px, 9999px, 48px, 0)
+  }
+  60% {
+    clip: rect(94px, 9999px, 42px, 0)
+  }
+  65% {
+    clip: rect(35px, 9999px, 23px, 0)
+  }
+  70% {
+    clip: rect(41px, 9999px, 46px, 0)
+  }
+  75% {
+    clip: rect(35px, 9999px, 3px, 0)
+  }
+  80% {
+    clip: rect(41px, 9999px, 96px, 0)
+  }
+  85% {
+    clip: rect(52px, 9999px, 59px, 0)
+  }
+  90% {
+    clip: rect(69px, 9999px, 97px, 0)
+  }
+  95% {
+    clip: rect(10px, 9999px, 71px, 0)
+  }
+  to {
+    clip: rect(67px, 9999px, 38px, 0)
+  }
+}
+@keyframes glitch-anim2-b7066fb5 {
+  0% {
+    clip: rect(65px, 9999px, 59px, 0)
+  }
+  5% {
+    clip: rect(88px, 9999px, 67px, 0)
+  }
+  10% {
+    clip: rect(94px, 9999px, 7px, 0)
+  }
+  15% {
+    clip: rect(73px, 9999px, 14px, 0)
+  }
+  20% {
+    clip: rect(96px, 9999px, 71px, 0)
+  }
+  25% {
+    clip: rect(13px, 9999px, 35px, 0)
+  }
+  30% {
+    clip: rect(72px, 9999px, 66px, 0)
+  }
+  35% {
+    clip: rect(70px, 9999px, 22px, 0)
+  }
+  40% {
+    clip: rect(13px, 9999px, 98px, 0)
+  }
+  45% {
+    clip: rect(63px, 9999px, 7px, 0)
+  }
+  50% {
+    clip: rect(80px, 9999px, 21px, 0)
+  }
+  55% {
+    clip: rect(27px, 9999px, 52px, 0)
+  }
+  60% {
+    clip: rect(89px, 9999px, 14px, 0)
+  }
+  65% {
+    clip: rect(51px, 9999px, 80px, 0)
+  }
+  70% {
+    clip: rect(2px, 9999px, 37px, 0)
+  }
+  75% {
+    clip: rect(71px, 9999px, 86px, 0)
+  }
+  80% {
+    clip: rect(19px, 9999px, 46px, 0)
+  }
+  85% {
+    clip: rect(82px, 9999px, 8px, 0)
+  }
+  90% {
+    clip: rect(48px, 9999px, 3px, 0)
+  }
+  95% {
+    clip: rect(68px, 9999px, 100px, 0)
+  }
+  to {
+    clip: rect(47px, 9999px, 2px, 0)
+  }
+}
+```
+
+#tab2
+``` scss lang="scss"
+/* 颜色样式 */
+.WuWuGameColor#尤诺 {
+  --color-cosmic-deep: #050a14;
+  --color-starry-night: #0d1b2a;
+  --color-lunar-silver: #c2d6e6;
+  --color-moonlight: #e6f2ff;
+  --color-tide-blue: #2e88c9;
+  --color-tide-light: #7fd3ff;
+  --color-nebula-purple: #4a235a;
+  --color-constellation: rgba(127, 211, 255, .8);
+  --card-bg: rgba(15, 25, 45, .7);
+  --card-border: rgba(127, 211, 255, .4);
+  --card-shadow: 0 20px 60px rgba(5, 10, 30, .5);
+  --section-spacing: clamp(3rem, 6vw, 5rem);
+  --card-radius: 1.5rem;
+  --transition-smooth: all .4s cubic-bezier(.4, 0, .2, 1);
+  position: relative;
+  // background: var(--color-cosmic-deep);
+  // color: var(--color-moonlight);
+  padding-top: 60px;
+}
+.WuWuGameColor#爱弥斯 {
+  --pink-core: #ff8cb0;
+  --pink-light: #ffb3cc;
+  --pink-glow: #ffb6d9;
+  --blue-glitch: #6ed4ff;
+  --blue-glow: #9ae2ff;
+  --purple-mid: #e0a0ff;
+  --white-glow: #fbefff;
+  --bg-deep: linear-gradient(145deg, #1a1028 0%, #281e30 100%);
+  --grid-color: rgba(255, 140, 176, .15);
+  --glitch-shadow: rgba(110, 212, 255, .5);
+  --heart-glow: rgba(255, 140, 176, .7);  
+}
+```
+::
+
 ## 更新日志
+**V20260313-PRE**
+- 1.全线优化`时间线&彩蛋组件`，对描述进行`solt`化使可以通过调用`#Timeline[1-无上限]`，即可被计入到文章字数内
+- 2.`时间线&彩蛋组件`的数据框架进行优化，实现了无需写入过于麻烦的配置项（即`-`或`标签1`写法）
+- 3.对部分组件需要用到的颜色样式写入到scss统一管理样式中
+
+**V20260311-PRE**
+- 1.在`共鸣链&机制组件`中新增`尤诺`角色类型`共鸣链`与`机制`的适配，对`机制`切分为4项核心机制与角色手法信息相结合，并且使用`string[]`来进行显示首发对应框显示内容。
+- 2.锁死`共鸣链&机制组件`中的`机制`一栏中具体键位对应表内容
 
 **V20260310-PRE**
 - 1.在`时间线&彩蛋组件`中新增`尤诺`角色类型`时间线`与`菜单`适配，对时间线的显示列表进行适配，并添加小标签。同样，本站在彩蛋的基础上进行适配，除了展示出简介以外还有具体的信息列表，而且对标题上的标签进行分开，以此来呈现出具体效果。
+::pic
+---
+src: /image/PostInternal/2026/WutheringWavesPostWidget/heroTimelineEaster/younuo.png
+# mirror: # 是否借助第三方图片加载服务，见源代码
+caption: 说明文字，还支持通过 width 或 height 属性指定尺寸
+# zoom: false # 是否开启灯箱缩放，默认开启
+---
+::
 - 2.优化`时间线&彩蛋组件`中的样式混乱，更新迭代全新数据表，为后续的适配准备
 - 3.优化`时间线&彩蛋组件`、`共鸣链&机制组件`中的标题显示变量，采用类TAB分栏显示，更加轻量化。
 - 4.优化`时间线&彩蛋组件`、`共鸣链&机制组件`中的部分变量，清除过久的代码，以防出现后续无法解读作用的代码（样式保留）。
