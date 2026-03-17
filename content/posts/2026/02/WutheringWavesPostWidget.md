@@ -28,100 +28,142 @@ recommend: true
 ``` vue [heroMain.vue] lang="ts"
 <script setup lang="ts">
 import Title from '../card/title.vue';
-const props = defineProps<{
-  类型: "爱弥斯" | "尤诺" | "奥古斯塔"
-  头像?: string
-  徽章?: Record<string, string>
-  名字?: string
-  标签?: Record<string, string>
-  简介?: string[]
-  详情信息?: Record<string, string>
-  档案?: {
-    信息: Array<{
-      序号?: number
-      主标题?: string
-      副标题?: string
-    }>
-    简介: string[]
-    标题: string
-  }
-}>();
+
+// ==================== 类型定义 ====================
+interface Props {
+  类型: '爱弥斯' | '尤诺' | '奥古斯塔';
+  头像: string;
+  徽章: Record<string, string>;
+  名字: string;
+  标签: Record<string, string>;
+  简介: string[];
+  详情信息: Record<string, string>;
+  档案: {
+    具体信息: Array<{
+      序号: number;
+      徽章: string;
+    }>;
+    外挂信息: {
+      简介: string[];
+    };
+    顶栏信息: {
+      主标题: string;
+    };
+  };
+}
+
+const props = defineProps<Props>();
+
+// ==================== 计算属性 ====================
+const getInfoGridColumns = (type: string): number => {
+  const columnMap: Record<string, number> = {
+    爱弥斯: 4,
+    尤诺: 3,
+    奥古斯塔: 3,
+  };
+  return columnMap[type] || 3;
+};
 </script>
 
 <template>
-  <div class="heroMain WuWuGameColor">
-    <div class="heroCard">
-      <div class="leftInfo">
-        <NuxtImg class="avatarImage" :src="头像" />
-        <h3 class="avatarName">
-          {{ 名字 }}
-        </h3>
-        <div class="avatarMeta">
-          <span class="MetaSpan" v-for="([key, value]) in Object.entries(徽章 ?? {})" :key="key">
-            {{key}}：{{value }}
+  <div class="hero-main">
+    <div class="hero-card">
+      <!-- ==================== 左侧头像区 ==================== -->
+      <div class="left-info">
+        <NuxtImg class="avatar-image" :src="头像" />
+        <h3 class="avatar-name">{{ 名字 }}</h3>
+        <div class="avatar-meta">
+          <span
+            v-for="[key, value] in Object.entries(徽章 ?? {})"
+            :key="key"
+            class="meta-tag"
+          >
+            {{ key }}:{{ value }}
           </span>
         </div>
       </div>
-      <div class="rightInfo">
-        <div class="panelMain">
-          <Title title="简介"></Title>
-          <div class="heroDesc">
-            <slot :name="`desc`" />
+
+      <!-- ==================== 右侧内容区 ==================== -->
+      <div class="right-info">
+        <div class="panel-main">
+          <!-- 简介 -->
+          <Title title="简介" />
+          <div class="hero-desc">
+            <slot name="desc" />
           </div>
-          <Title title="标签"></Title>
-          <span class="tagItem" style="margin-top: 0.5em;margin-bottom: 0.5em;">
-            <span class="tag" v-for="([key, value]) in Object.entries(标签 ?? {})" :key="key">
+
+          <!-- 标签 -->
+          <Title title="标签" />
+          <div class="tag-container">
+            <span
+              v-for="[key, value] in Object.entries(标签 ?? {})"
+              :key="key"
+              class="tag"
+            >
               #{{ value }}
             </span>
-          </span>
-          <Title title="详情信息"></Title>
-          <div class="infoMain" :id="类型">
+          </div>
+
+          <!-- 详情信息 -->
+          <Title title="详情信息" />
+          <div
+            class="info-grid"
+            :style="{ gridTemplateColumns: `repeat(${getInfoGridColumns(类型)}, 1fr)` }"
+          >
             <div
-              class="infoCard"
-              v-for="([key, value]) in Object.entries(详情信息 ?? {})"
+              v-for="[key, value] in Object.entries(详情信息 ?? {})"
               :key="key"
+              class="info-item"
             >
-              <div class="infoLabel">{{ key }}</div>
-              <div class="infoValue">{{ value }}</div>
+              <div class="info-label">{{ key }}</div>
+              <div class="info-value">{{ value }}</div>
             </div>
           </div>
-          <Title :title="档案?.标题"></Title>
-          <div class="statusMain" style="margin-top: 0.5em;" v-for="data in 档案?.信息" :key="data.序号">
-            <div class="statusHeader" :id="类型">
-              <div class="HeaderTitle">
-                {{ data.主标题 }}
+
+          <!-- 档案 -->
+          <Title :title="档案?.顶栏信息.主标题" />
+          <div
+            v-for="data in 档案?.具体信息"
+            :key="data.序号"
+            class="status-card"
+            :class="`type-${类型}`"
+          >
+            <div class="status-header">
+              <div
+                v-for="(item, index) in 档案.外挂信息.简介 ?? []"
+                v-show="data.序号 === index + 1"
+                :key="index"
+                class="header-title"
+              >
+                {{ item }}
               </div>
-              <div class="HeaderSub" style="font-size: 0.5em;" :id="`sub` + data.序号">
-                {{ data.副标题 }}
+              <div
+                v-if="类型 === '爱弥斯'"
+                class="header-badge"
+                :class="`badge-${data.序号}`"
+              >
+                {{ data.徽章 }}
               </div>
             </div>
-            <div class="statusContent">
-              <div v-for="statusIndex in 档案?.简介.length" v-show="data.序号 === statusIndex">
+            <div class="status-content">
+              <div
+                v-for="statusIndex in 档案?.外挂信息.简介.length"
+                v-show="data.序号 === statusIndex"
+                :key="statusIndex"
+              >
                 <slot :name="`status${statusIndex}`" />
               </div>
-              <!-- 爱弥斯专用 -->
-              <!-- <div v-show="类型 === '爱弥斯'" class="statusDesc">
-                {{ data.独特简介?.上段简介 }}<span class="statusLight">{{ data.独特简介?.上段夹杂简介 }}</span>{{ data.独特简介?.中段简介 }}<span class="statusLight">{{ data.独特简介?.中段夹杂简介 }}</span>{{ data.独特简介?.下段简介 }}<span class="statusLight">{{ data.独特简介?.下段夹杂简介 }}</span>{{ data.独特简介?.末尾简介 }}
-              </div> -->
-              <!-- 尤诺专用 -->
-              <!-- <div class="statusDesc" v-show="类型 === '尤诺'">
-                <p v-for="([key, value]) in Object.entries(data.常用简介 ?? {})" :key="key">
-                  {{ value }}
-                </p>
-              </div>
-              <p v-show="data?.序号 === 2">
-                {{ data?.常用简介 }}
-              </p> -->
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.heroMain {
+/* ==================== 主容器样式(保持原样) ==================== */
+.hero-main {
   width: 100%;
   height: 320px;
   background: var(--ld-bg-card);
@@ -129,354 +171,270 @@ const props = defineProps<{
   border-radius: 0.75rem;
   margin: 1.5rem 0;
   overflow: hidden;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.3s ease;
   display: flex;
+}
 
-  .heroCard {
-    flex: 1;
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    overflow: hidden;
-  }
+.hero-card {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+}
 
-  // 左侧信息区（头像+共鸣能力）
-  .leftInfo {
-    grid-template-rows: auto auto;
-    justify-items: center;
-    border-radius: 16px;
-    padding: 12px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    animation: cursorAnimation_link 1s infinite step-start;
-    transition: all 0.3s;
-    position: relative;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    overflow: hidden;
+/* ==================== 左侧头像区(保持原样) ==================== */
+.left-info {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s;
+  overflow: hidden;
 
-    .avatarImage {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      display: block;
-    }
-    
-    .avatarName {
-      margin-top: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .avatarMeta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      .MetaSpan {
-        font-weight: 600;
-        margin-top: 4px;
-        font-size: 12px;
-        color: var(--c-text-sub);
-        background: #ff8cb01a;
-        padding: 2px 6px;
-        border-radius: 4px;
-        border: 1px solid var(--pink-core);
-      }
-    }
-  }
-
-  // 右侧信息区（名称+描述+状态卡）
-  .rightInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 6;
-    overflow-y: scroll;
-    scrollbar-width: none;
-
-    .panelMain {
-      position: relative;
-      z-index: 6;
-
-      .heroName {
-        font-size: clamp(1.8rem, 3vw, 2.8rem);
-        margin: 0;
-        font-weight: 900;
-        letter-spacing: 1px;
-        line-height: 1;
-        color: var(--pink-core);
-        text-shadow: 0 0 10px var(--pink-core), 0 0 20px var(--blue-glitch);
-        position: relative;
-        animation: glitch-b7066fb5 3s infinite;
-        position: relative;
-
-        .heroTitle {
-          font-size: 0.95rem;
-          color: var(--blue-glow);
-          margin-left: 8px;
-          font-weight: 400;
-        }
-
-        &::before,
-        &::after {
-          content: attr(data-text);
-          position: absolute;
-          left: 2px;
-          text-shadow: -2px 0 var(--blue-glitch);
-          clip: rect(44px, 450px, 56px, 0);
-          animation: glitch-anim-b7066fb5 5s infinite linear alternate-reverse;
-        }
-
-        &::after {
-          left: -2px;
-          text-shadow: -2px 0 var(--pink-core);
-          clip: rect(44px, 450px, 56px, 0);
-          animation: glitch-anim2-b7066fb5 5s infinite linear alternate-reverse;
-        }
-      }
-
-      .heroDesc {
-        font-size: 14px;
-        color: var(--c-text-content);
-        line-height: 1.6;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-      }
-      .tagItem {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        gap: .3em .6em;
-        .tag {
-          background-color: var(--c-bg-soft);
-          border-radius: .4em;
-          color: var(--c-text-soft);
-          font-size: .9em;
-          padding: .25em .6em;
-          transition: all .2s;
-          &:hover {
-            background-color: var(--c-primary-soft);
-            color: var(--c-primary);
-          }
-        }
-      }
-    }
-  }
-
-  // 状态卡片（双列网格）
-  .infoMain {
-    background: transparent;
-    border-radius: 0;
-    display: grid;
-    font-size: 1rem;
-    gap: 0.4rem;
-    padding: 0;
-    margin-top: 0.5em;
-    .infoCard {
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-      margin: 0.5em 0;
-      .infoLabel {
-        color: var(--c-text-2);
-        font-size: 0.8rem;
-        font-weight: 500;
-      }
-      .infoValue {
-        color: var(--c-text);
-        font-size: 0.8rem;
-        word-break: break-word;
-      }
-    }
-  }
-  .infoMain#爱弥斯 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .infoMain#尤诺 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .statusMain {
-    background: rgba(122, 92, 61, 0.08);
-    border-radius: 6px;
-    padding: 10px;    
-    .statusHeader {
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-    .statusHeader#爱弥斯 {
-      display: flex;
-      .HeaderSub#sub1 {
-        font-size: 0.5em;
-        font-size: .75rem;
-        background: #f003;
-        color: #ff6b85;
-        padding: 2px 6px;
-        border-radius: 4px;
-      }
-    }
-    .statusHeader#尤诺 {
-      margin-bottom: 12px;
-    }
-    .statusContent {
-      font-size: 13px;
-      color: var(--c-text-content);
-      line-height: 1.5;
-      .statusDesc {
-        color: var(--c-text-content);
-        line-height: 1.5;
-        .statusLight {
-          color: var(--pink-core);
-          text-shadow: 0 0 8px var(--pink-core);
-        }
-      }
-    }
-  }
-
-  /* ========== 移动端适配（max-width: 768px） ========== */
-  @media screen and (max-width: 768px) {
+  .avatar-image {
     width: 100%;
     height: auto;
-    margin: 1rem 0; 
+    border-radius: 12px;
+    display: block;
+  }
+
+  .avatar-name {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--c-text);
+  }
+
+  .avatar-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+
+    .meta-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--c-text-sub);
+      background: rgba(255, 140, 176, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--pink-core);
+    }
+  }
+}
+
+/* ==================== 右侧内容区(保持原样) ==================== */
+.right-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.panel-main {
+  position: relative;
+  z-index: 6;
+
+  .hero-desc {
+    font-size: 14px;
+    color: var(--c-text-content);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ==================== 标签样式(保持原样) ==================== */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 0.6em;
+  margin: 0.5em 0;
+
+  .tag {
+    background-color: var(--c-bg-soft);
+    border-radius: 0.4em;
+    color: var(--c-text-soft);
+    font-size: 0.9em;
+    padding: 0.25em 0.6em;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--c-primary-soft);
+      color: var(--c-primary);
+    }
+  }
+}
+
+/* ==================== 详情信息网格(保持原样) ==================== */
+.info-grid {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.5em 0;
+  font-size: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin: 0.5em 0;
+
+  .info-label {
+    color: var(--c-text-2);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .info-value {
+    color: var(--c-text);
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+}
+
+/* ==================== 档案状态卡(保持原样) ==================== */
+.status-card {
+  background: rgba(122, 92, 61, 0.08);
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 0.5em;
+
+  .status-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+
+    .header-title {
+      font-weight: 600;
+      color: var(--c-text);
+    }
+
+    .header-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+
+      &.badge-1 {
+        background: rgba(255, 0, 0, 0.2);
+        color: #ff6b85;
+      }
+    }
+  }
+
+  &.type-尤诺 .status-header {
+    margin-bottom: 2px;
+  }
+
+  .status-content {
+    font-size: 13px;
+    color: var(--c-text-content);
+    line-height: 1.5;
+  }
+}
+
+/* ==================== 移动端适配(保持原样) ==================== */
+@media screen and (max-width: 768px) {
+  .hero-main {
+    height: auto;
+    margin: 1rem 0;
     border-radius: 0.5rem;
-    overflow: hidden; 
+  }
 
-    .heroCard {
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 0.75rem;
+  .hero-card {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .left-info {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 10px;
+
+    .avatar-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
     }
 
-    // 左侧信息区适配
-    .leftInfo {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 10px;
-      .avatarImage {
-        width: 200px;
-        height: 200px;
-        border-radius: 8px;
-      }
-      .avatarName {
-        font-size: 12px;
-        margin-top: 4px;
-      }
-      .avatarMeta {
+    .avatar-name {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .avatar-meta {
+      font-size: 0.7rem;
+      gap: 4px;
+
+      .meta-tag {
         font-size: 0.7rem;
-        gap: 4px;
-        .MetaSpan {
-          font-size: 0.7rem;
-          padding: 3px 6px;
-          border-radius: 6px;
-        }
+        padding: 3px 6px;
+        border-radius: 6px;
       }
     }
+  }
 
-    // 右侧信息区适配
-    .rightInfo {
-      .panelMain {
-        padding: 1rem;
-        .heroName {
-          font-size: clamp(1rem, 2vw, 1.4rem);
-          letter-spacing: 0.3px;
-          line-height: 1.2;
-          .heroTitle {
-            font-size: 0.75rem;
-            margin-left: 4px;
-          }
-        }
-        .heroDesc {
-          font-size: 0.85rem;
-          line-height: 1.4;
-          .lightDesc {
-            font-size: 0.85rem;
-          }
-        }
-        .tagItem {
-          gap: 0.2em 0.4em;
-          .tag {
-            font-size: 0.75em;
-            padding: 0.2em 0.5em;
-          }
-        }
-      }
+  .panel-main {
+    .hero-desc {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+  }
+
+  .tag-container {
+    gap: 0.2em 0.4em;
+
+    .tag {
+      font-size: 0.75em;
+      padding: 0.2em 0.5em;
+    }
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+  }
+
+  .info-item {
+    gap: 0.1rem;
+
+    .info-label,
+    .info-value {
+      font-size: 0.75rem;
+    }
+  }
+
+  .status-card {
+    padding: 8px;
+    border-radius: 5px;
+
+    .status-header {
+      gap: 6px;
+      margin-bottom: 4px;
     }
 
-    // 状态卡片适配（单列布局）
-    .infoMain {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.2rem;
+    .status-content {
       font-size: 0.8rem;
-      .infoCard {
-        gap: 0.1rem;
-        .infoLabel,
-        .infoValue {
-          font-size: 0.75rem;
-        }
-      }
-    }
-
-    // 档案部分适配
-    .statusMain {
-      padding: 8px;
-      border-radius: 5px;
-      .statusHeader {
-        gap: 6px;
-        margin-bottom: 4px;
-      }
-      .statusContent {
-        font-size: 0.8rem;
-        line-height: 1.4;
-        .statusDesc {
-          font-size: 0.8rem;
-          line-height: 1.4;
-          .statusLight {
-            font-size: 0.8rem;
-          }
-        }
-      }
-    }
-
-    // 隐藏滚动条（可选，提升移动端体验）
-    .rightInfo::-webkit-scrollbar {
-      display: none;
-    }
-    .rightInfo {
-      overflow-y: auto;
-    }
-
-    // 简化动效（减少移动端性能消耗）
-    @keyframes glitch-b7066fb5 {
-      0% {
-        transform: translate(0);
-        text-shadow: -2px 0 var(--blue-glitch), 2px 2px var(--pink-core)
-      }
-      20% {
-        transform: translate(-1px, 1px);
-        text-shadow: 1px -1px var(--blue-glitch), -1px 1px var(--pink-core)
-      }
-      40% {
-        transform: translate(1px, -1px);
-        text-shadow: -1px 1px var(--blue-glitch), 1px -1px var(--pink-core)
-      }
-      60% {
-        transform: translate(0);
-        text-shadow: 1px 0 var(--blue-glitch), -1px -1px var(--pink-core)
-      }
-      80% {
-        transform: translate(1px, 1px);
-        text-shadow: -1px -1px var(--blue-glitch), 1px 0 var(--pink-core)
-      }
-      to {
-        transform: translate(0);
-        text-shadow: none
-      }
+      line-height: 1.4;
     }
   }
 }
@@ -502,14 +460,14 @@ const props = defineProps<{
   - 隧者适格者
   - 飞行雪绒
 档案:
-  信息:
+  具体信息:
     - 序号: 1 
-      主标题: 频谱检验报告
-      副标题: ▇▂▇数据损毁▇▋▌”
+      徽章: ▇▂▇数据损毁▇▋▌
     - 序号: 2
-      主标题: 超频诊断报告
-  简介: ["频谱检验报告", "超频诊断报告"]
-  标题: 共鸣状况 · 电子幽灵档案
+  外挂信息:
+    简介: ["频谱检验报告", "超频诊断报告"]
+  顶栏信息:
+    主标题: 共鸣状况 · 电子幽灵档案
 ---
 #desc
 曾是星炬学院的隧者适格者，如今已成为在星海轻歌的<span class="highlight" style="color: var(--pink-core);text-shadow: 0 0 8px var(--pink-core);">电子幽灵</span>。她在寂静的星海中飞行，星屑在身侧崩解，时间在身后消亡。漫漫孤寂并未消失，它只是被拉伸、稀释、重塑，最终成为她羽翼的一部分。“我知道，只要抬头，那颗星总能找到我。”
@@ -526,6 +484,7 @@ const props = defineProps<{
 受试样本拉贝尔波形检测图呈椭圆形波动，时域表示稳定，未见任何异常波动倾向。检测结果判断为正常阶段。 诊断结果：超频临界值正常，稳定性高，暂无超频风险。 无过往超频史，拉贝尔曲线稳定。 暂无需心理辅导。 “爱弥斯同学……本学年状态尚处稳定，但我们还是需要更密切地关注她的精神状态。如果情况有变，要及时进行心理干预。” “那孩子明明看起来那么开朗……” “所以，保持关注就好。既然她希望这样生活，那就相信她的判断，我们作为师长，就做好该做的事吧。”
 ::
 ::
+
 #### 整体说明
 ::tab{:tabs='["配置项", "写法"]'}
 #tab1
@@ -579,14 +538,14 @@ hero属性
   - 隧者适格者
   - 飞行雪绒
 档案:
-  信息:
+  具体信息:
     - 序号: 1 
-      主标题: 频谱检验报告
-      副标题: ▇▂▇数据损毁▇▋▌”
+      徽章: ▇▂▇数据损毁▇▋▌
     - 序号: 2
-      主标题: 超频诊断报告
-  简介: ["频谱检验报告", "超频诊断报告"]
-  标题: 共鸣状况 · 电子幽灵档案
+  外挂信息:
+    简介: ["频谱检验报告", "超频诊断报告"]
+  顶栏信息:
+    主标题: 共鸣状况 · 电子幽灵档案
 ---
 #desc
 曾是星炬学院的隧者适格者，如今已成为在星海轻歌的<span class="highlight" style="color: var(--pink-core);text-shadow: 0 0 8px var(--pink-core);">电子幽灵</span>。她在寂静的星海中飞行，星屑在身侧崩解，时间在身后消亡。漫漫孤寂并未消失，它只是被拉伸、稀释、重塑，最终成为她羽翼的一部分。“我知道，只要抬头，那颗星总能找到我。”
@@ -2686,6 +2645,9 @@ hero-reson-mecha属性
 ::
 
 ## 更新日志
+**V20260313-PRE**
+- 1.优化`人物组件`，对混乱无序的模板、数据与样式重新优化
+
 **V20260313-PRE**
 - 1.全线优化`时间线&彩蛋组件`，对描述进行`solt`化使可以通过调用`#Timeline[1-无上限]`，即可被计入到文章字数内
 - 2.`时间线&彩蛋组件`的数据框架进行优化，实现了无需写入过于麻烦的配置项（即`-`或`标签1`写法）
