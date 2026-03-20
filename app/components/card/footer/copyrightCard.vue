@@ -7,7 +7,7 @@ const footerGroup = [{
 },{
   label: "业务状态",
   tip: "前往查看状态",
-  url: "https://kuma.wxuyu.top/status/wxuyu"
+  url: "https://kuma.wxuyu.top"
 }]
 </script>
 

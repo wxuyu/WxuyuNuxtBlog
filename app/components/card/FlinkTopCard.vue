@@ -210,22 +210,6 @@ const allPairs = computed(() => {
 		</div>
 	</div>
 </div>
-<!-- <div class="flink_random" v-for="(friendRandomPostInfo, friendRandomPostInfoIndex) in friendRandomPostInfo" :key="friendRandomPostInfoIndex">
-    <div class="flink_random_head">
-      <div class="flink_random_head_left" v-for="headLeftInfo in friendRandomPostInfo" :key="headLeftInfo">
-        <h2>{{ headLeftInfo.headLeftTitle }}</h2>
-        <a class="fetchRandomPost" :href="{{ headLeftInfo.href }}" data-pjax-state="external" style="opacity: 0.2; transition-duration: 0.3s; transform: rotate(0deg);">
-          <i class="anzhiyufont anzhiyu-icon-arrow-rotate-right"></i>
-        </a>
-      </div>
-      <div class="flink_random_head_right">
-        <a class="random-post-all no-text-decoration" href="/link/" data-pjax-state=""> {{  }} </a>
-      </div>
-    </div>
-    <div class="flink_random_connet">
-
-    </div>
-  </div> -->
 </template>
 
 <style lang="css" scoped>

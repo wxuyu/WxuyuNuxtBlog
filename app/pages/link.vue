@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { myFeed } from '~~/blog.config'
 import feeds from '~/feeds'
-import FlinkTopCard from '~/components/card/FlinkTopCard.vue'
 
 const appConfig = useAppConfig()
 const layoutStore = useLayoutStore()
@@ -28,8 +27,6 @@ const copyFields = {
 </script>
 
 <template>
-<FlinkTopCard />
-
 <div class="mobile-only">
 	<BlogHeader to="/" suffix="友链" tag="h1" />
 </div>

@@ -35,7 +35,7 @@ image: /image/PageInternal/Wuthering Waves/author/ams/11.avif
   顶栏信息:
     主标题: 共鸣状况 · 电子幽灵档案
 ---
-#desc
+#desc1
 曾是星炬学院的隧者适格者，如今已成为在星海轻歌的<span class="highlight" style="color: var(--pink-core);text-shadow: 0 0 8px var(--pink-core);">电子幽灵</span>。她在寂静的星海中飞行，星屑在身侧崩解，时间在身后消亡。漫漫孤寂并未消失，它只是被拉伸、稀释、重塑，最终成为她羽翼的一部分。“我知道，只要抬头，那颗星总能找到我。”
 
 #status1
