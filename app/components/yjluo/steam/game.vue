@@ -54,13 +54,14 @@ onMounted(async () => {
             </div>
           </div>
           <div class="ListCardAchievements">
-            <div class="CaardAchievementsInfo">
+            <div class="CardAchievementsInfo">
               <div class="AchievementsInfoLabel">
-                <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" />
+                <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" :style="`color: ${game.achievements?.percentage === game.achievements?.total}`"/>
                 <span class="InfoLabelCount">
                   {{ game.achievements?.percentage }} / {{ game.achievements?.total }}
                 </span>
               </div>
+              <span class="GamePriceNumber">{{ game.price.displayPrice }}</span>
             </div>
           </div>
         </div>
@@ -159,8 +160,27 @@ onMounted(async () => {
             }
           }
         }
+        .ListCardAchievements {
+          margin-top: auto;
+          .CardAchievementsInfo {
+            align-items: center;
+            display: flex;
+            font-size: .8rem;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            .AchievementsInfoLabel {
+              align-items: center;
+              color: var(--c-text-2);
+              display: flex;
+              gap: 6px;
+            }
+          }
+        }
       }
     }
   }
+}
+.InfoLabelIcon {
+    color: #10b981;
 }
 </style>

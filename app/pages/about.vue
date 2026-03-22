@@ -43,12 +43,6 @@ layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
   };
   // 使用示例：加载百度统计脚本
   loadScript('/assets/js/about.js')
-    .then(() => {
-      console.log('关于页面重要JS加载完毕');
-    })
-    .catch((err) => {
-      console.error('关于页面重要JS加载完毕', err);
-    });
 </script>
 
 <template>
