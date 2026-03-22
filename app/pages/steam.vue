@@ -5,8 +5,9 @@ const layoutStore = useLayoutStore()
 layoutStore.setAside(['blog-log'])
 // 导入模块位置
 import Avatar from '~/components/yjluo/steam/avatar.vue';
-import Game from '~/components/yjluo/steam/game.vue';
+import RecentGames from '~/components/yjluo/steam/recentGames.vue';
 import Overview from '~/components/yjluo/steam/overview.vue';
+import AllGames from '~/components/yjluo/steam/allGames.vue';
 </script>
 
 <template>
@@ -14,7 +15,8 @@ import Overview from '~/components/yjluo/steam/overview.vue';
     <div class="SteamPageContent">
       <Avatar />
       <Overview />
-      <Game />
+      <RecentGames />
+      <AllGames />
     </div>
   </div>
 </template>

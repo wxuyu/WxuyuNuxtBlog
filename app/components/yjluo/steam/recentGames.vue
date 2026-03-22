@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import GameTitle from './gameTitle.vue';
+
 const { 
   fetchSteamData, 
   fetchGameDetail,
@@ -21,18 +23,15 @@ onMounted(async () => {
     await fetchGameDetail(userData.value.currentGame.appid)
   }
 })
+
+const textAPI = gamesData.value?.recentGames
 </script>
 
 <template>
   <div class="SteamGameMain">
-    <div class="SteamGameHeader">
-      <h2 class="GameHeaderTitle">
-        <Icon name="ph:stack-bold" />
-        游戏库        
-      </h2>
-    </div>
+    <GameTitle title="最近游玩" icon="game-controller-bold" :sub-title="`显示最近两周玩的${gamesData?.recentCount}款游戏`"/>
     <div class="SteamGameList">
-      <div class="GameListCard" v-for="game in gamesData?.recentGames">
+      <a class="GameListCard" v-for="game in gamesData?.recentGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
         <div class="ListCardHeader">
           <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
         </div>
@@ -58,24 +57,38 @@ onMounted(async () => {
               <div class="AchievementsInfoLabel">
                 <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" :style="`color: ${game.achievements?.percentage === game.achievements?.total}`"/>
                 <span class="InfoLabelCount">
-                  {{ game.achievements?.percentage }} / {{ game.achievements?.total }}
+                  {{ game.achievements?.unlocked }} / {{ game.achievements?.total }}
                 </span>
               </div>
               <span class="GamePriceNumber">{{ game.price.displayPrice }}</span>
             </div>
+            <div class="CardAchievementsProgress">
+              <div class="AchievementsProgressContainer" style="height: 6px;">
+                <div class="ProgressCcontainerBar" :style="`width: ${game.achievements?.percentage}%`" />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .SteamGameMain{
-
   .SteamGameList {
-    display: grid;
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    min-width: 0;
+    overflow: auto hidden;
+    padding-bottom: .5em;
+    scroll-behavior: smooth;
+    width: 100%;
+    @media (max-width: 767px) {
+      gap: .4em;
+      padding-bottom: .4em;
+    }
     .GameListCard {
       background: var(--ld-bg-card);
       border: 1px solid var(--c-border);
@@ -87,6 +100,10 @@ onMounted(async () => {
       position: relative;
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       width: 100%;
+      @media (max-width: 640px) {
+        flex-direction: column;
+        height: auto;
+      }
       .ListCardHeader {
         flex-shrink: 0;
         max-width: 220px;
@@ -94,6 +111,11 @@ onMounted(async () => {
         overflow: hidden;
         position: relative;
         width: 35%;
+        @media (max-width: 640px) {
+          height: 140px;
+          max-width: none;
+          width: 100%;
+        }
         .CardHeaderImage {
           height: 100%;
           -o-object-fit: cover;
@@ -109,6 +131,10 @@ onMounted(async () => {
         padding: 12px 16px;
         display: flex;
         flex-direction: column;
+        @media (max-width: 640px) {
+          gap: 16px;
+          padding: 12px;
+        }
         .CardBodyInfo {
           display: flex;
           flex-direction: column;
@@ -173,6 +199,32 @@ onMounted(async () => {
               color: var(--c-text-2);
               display: flex;
               gap: 6px;
+            }
+          }
+          .CardAchievementsProgress {
+            align-items: center;
+            display: flex;
+            gap: .5rem;
+            width: 100%;
+            .AchievementsProgressContainer {
+              background: var(--c-bg-2);
+              border-radius: 2px;
+              cursor: pointer;
+              flex: 1;
+              min-width: 0;
+              overflow: visible;
+              position: relative;
+              transition: background-color .15s ease;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+              .ProgressCcontainerBar {
+                background: var(--c-primary);
+                border-radius: 2px;
+                height: 100%;
+                position: relative;
+                transition: width .1s linear;
+              } 
             }
           }
         }

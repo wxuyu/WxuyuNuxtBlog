@@ -16,14 +16,17 @@ const overviewListItemData = [
     icon: 'ph:game-controller-bold',
     label: '游戏总数量',
     value: computed(() => formatNumber(gamesData.value?.totalCount) || '--'),
+    type: '数量'
   },{
     icon: 'ph:timer-bold',
     label: '游玩总时长',
     value: computed(() => formatNumber(userData.value?.playtimeStats.totalForever) || '--'),
+    type: '时间'
   },{
     icon: 'ph:calendar-fill',
     label: '两周总时长',
     value: computed(() => formatNumber(userData.value?.playtimeStats.totalTwoWeeks) || '--'),
+    type: '时间'
   }
 ]
 
@@ -47,8 +50,11 @@ onMounted(async () => {
         <div class="ItemInfoLabel">
           {{ item.label }}
         </div>
-        <div class="ItemInfoValue">
-          {{ item.value }}
+        <div class="ItemInfoValue" v-show="item.type === '数量'">
+          {{ item.value }} 个
+        </div>
+        <div class="ItemInfoValue" v-show="item.type === '时间'">
+          {{ item.value }} 小时
         </div>
       </div>
     </div>
@@ -66,13 +72,22 @@ onMounted(async () => {
   gap: 0.8em;
   padding: 0.8em 1em;
   transition: box-shadow 0.2s;
-
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: .4em;
+    padding: .8em 1em;
+  }
   .overviewListItem{
     align-items: center;
     display: flex;
     flex: 1 1 0%;
     gap: 0.6em;
     padding: 0.3em 0px;
+    @media (max-width: 600px) {
+      flex: auto;
+      gap: .6em;
+      padding: .3em 0;
+    }
     .ItemIcon {
       font-size: 28px;
       color: var(--c-primary);
@@ -87,12 +102,18 @@ onMounted(async () => {
         color: var(--c-text-2);
         font-size: 0.75em;
         font-weight: 600;
+        @media (max-width: 600px) {
+          font-size: 0.7em;
+        }
       }
       .ItemInfoValue {
         color: var(--c-primary);
         font-size: 0.95em;
         font-weight: 700;
         line-height: 1.2;
+        @media (max-width: 600px) {
+          font-size: .85em;
+        }
       }
     }
   }
@@ -100,5 +121,11 @@ onMounted(async () => {
 .overviewListItem:not(:last-child) {
   padding-right: 0.8em;
   border-right: 1px solid var(--c-border);
+  @media (max-width: 600px) {
+    border-bottom: 1px solid var(--c-border);
+    border-right: none;
+    padding-bottom: .4em;
+    padding-right: 0;
+  }
 }
 </style>

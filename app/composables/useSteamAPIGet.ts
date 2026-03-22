@@ -40,7 +40,19 @@ export interface SteamGameAchievement {
   percentage: number
 }
 
-export interface SteamGameSummary {
+export interface SteamGameTwoWeekSummary {
+  appid: number
+  name: string
+  playtimeForever: number
+  playtimeTwoWeeks: number
+  price: SteamGamePrice
+  images: SteamGameImages
+  releaseDate: string
+  shortDescription: string
+  achievements?: SteamGameAchievement
+}
+
+export interface SteamGameAllTimeSummary {
   appid: number
   name: string
   playtimeForever: number
@@ -55,8 +67,8 @@ export interface SteamGameSummary {
 export interface SteamGamesList {
   totalCount: number
   recentCount: number
-  recentGames: SteamGameSummary[]
-  allGames: SteamGameSummary[]
+  recentGames: SteamGameTwoWeekSummary[]
+  allGames: SteamGameAllTimeSummary[]
 }
 
 export interface SteamGamePrice {
