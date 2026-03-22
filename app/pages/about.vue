@@ -2,7 +2,6 @@
 import Skillinfo from '../components/yjluo/about/skillinfo.vue'
 import Author from '../components/yjluo/about/author.vue'
 import Aboutsitetips from '../components/yjluo/about/aboutsitetips.vue'
-import Maxim from '../components/yjluo/about/maxim.vue'
 import MyInfoAndSayHello from '../components/yjluo/about/myInfoAndSayHello.vue'
 import Single from '../components/yjluo/about/single.vue'
 

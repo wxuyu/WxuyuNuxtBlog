@@ -80,6 +80,10 @@ const blogConfig = {
 		src: 'https://jsd.myxz.top/npm/artalk@2.9.1/dist/Artalk.min.js',
 		owo_src: '/assets/owo/main.json'
 	},
+
+  Steam : {
+    status: 'https://steam.status.api.wxuyu.top/api'
+  }
 }
 
 /** 用于生成 OPML 和友链页面配置 */
