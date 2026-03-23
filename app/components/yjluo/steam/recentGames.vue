@@ -52,7 +52,7 @@ const textAPI = gamesData.value?.recentGames
               </div>
             </div>
           </div>
-          <div class="ListCardAchievements">
+          <div class="ListCardAchievements" v-if="game.achievements">
             <div class="CardAchievementsInfo">
               <div class="AchievementsInfoLabel">
                 <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" :style="`color: ${game.achievements?.percentage === game.achievements?.total}`"/>
@@ -77,14 +77,9 @@ const textAPI = gamesData.value?.recentGames
 <style lang="scss" scoped>
 .SteamGameMain{
   .SteamGameList {
-    display: flex;
-    flex-direction: column;
-    gap: .5em;
-    min-width: 0;
-    overflow: auto hidden;
-    padding-bottom: .5em;
-    scroll-behavior: smooth;
-    width: 100%;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     @media (max-width: 767px) {
       gap: .4em;
       padding-bottom: .4em;
@@ -94,28 +89,20 @@ const textAPI = gamesData.value?.recentGames
       border: 1px solid var(--c-border);
       border-radius: 12px;
       cursor: pointer;
-      display: flex;
-      height: 120px;
       overflow: hidden;
       position: relative;
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       width: 100%;
-      @media (max-width: 640px) {
-        flex-direction: column;
-        height: auto;
-      }
+      flex-direction: column;
+      height: auto;
       .ListCardHeader {
         flex-shrink: 0;
-        max-width: 220px;
         min-width: 140px;
         overflow: hidden;
         position: relative;
-        width: 35%;
-        @media (max-width: 640px) {
-          height: 140px;
-          max-width: none;
-          width: 100%;
-        }
+        height: 160px;
+        max-width: none;
+        width: 100%;
         .CardHeaderImage {
           height: 100%;
           -o-object-fit: cover;
