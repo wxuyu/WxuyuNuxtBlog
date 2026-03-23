@@ -18,13 +18,18 @@ recommend: true
 ### 数据获取
 ``` ts [useSteamAPI.ts] lang="ts"
 // composables/useSteamAPIGet.ts
-
-import type { FetchError } from 'ofetch'
 import blogConfig from '~~/blog.config'
 
 // ==================== 基础类型定义 ====================
 
-export type SteamStatus = 'offline' | 'online' | 'away' | 'snooze' | 'busy' | 'trading' | 'playing'
+export type SteamStatus =
+  | 'offline'
+  | 'online'
+  | 'away'
+  | 'snooze'
+  | 'busy'
+  | 'trading'
+  | 'playing'
 
 export interface SteamAvatar {
   small: string
@@ -59,37 +64,6 @@ export interface SteamGameAchievement {
   percentage: number
 }
 
-export interface SteamGameTwoWeekSummary {
-  appid: number
-  name: string
-  playtimeForever: number
-  playtimeTwoWeeks: number
-  price: SteamGamePrice
-  images: SteamGameImages
-  releaseDate: string
-  shortDescription: string
-  achievements?: SteamGameAchievement
-}
-
-export interface SteamGameAllTimeSummary {
-  appid: number
-  name: string
-  playtimeForever: number
-  playtimeTwoWeeks: number
-  price: SteamGamePrice
-  images: SteamGameImages
-  releaseDate: string
-  shortDescription: string
-  achievements?: SteamGameAchievement
-}
-
-export interface SteamGamesList {
-  totalCount: number
-  recentCount: number
-  recentGames: SteamGameTwoWeekSummary[]
-  allGames: SteamGameAllTimeSummary[]
-}
-
 export interface SteamGamePrice {
   amount: number
   currency: string
@@ -114,6 +88,16 @@ export interface SteamGameDetail {
   releaseDate: string
   shortDescription: string
   achievements?: SteamGameAchievement
+}
+
+export interface SteamGameTwoWeekSummary extends SteamGameDetail {}
+export interface SteamGameAllTimeSummary extends SteamGameDetail {}
+
+export interface SteamGamesList {
+  totalCount: number
+  recentCount: number
+  recentGames: SteamGameTwoWeekSummary[]
+  allGames: SteamGameAllTimeSummary[]
 }
 
 export interface SteamAchievementItem {
@@ -193,311 +177,358 @@ export interface SteamAllMetadata {
 
 // ==================== 常量定义 ====================
 
-/**
- * 状态文本映射 (原 h)
- */
 export const steamStatusTextMap: Record<SteamStatus, string> = {
-  offline: "离线",
-  online: "在线",
-  away: "离开",
-  snooze: "打盹",
-  busy: "忙碌",
-  trading: "交易中",
-  playing: "游戏中"
+  offline: '离线',
+  online: '在线',
+  away: '离开',
+  snooze: '打盹',
+  busy: '忙碌',
+  trading: '交易中',
+  playing: '游戏中',
 } as const
 
-/**
- * 状态颜色映射 (原 p)
- */
 export const steamStatusColorMap: Record<SteamStatus, string> = {
-  offline: "#90a0a6",
-  online: "#4fc951",
-  away: "#ffc72c",
-  snooze: "#ffc72c",
-  busy: "#ff6554",
-  trading: "#6495ed",
-  playing: "#26d07c"
+  offline: '#90a0a6',
+  online: '#4fc951',
+  away: '#ffc72c',
+  snooze: '#ffc72c',
+  busy: '#ff6554',
+  trading: '#6495ed',
+  playing: '#26d07c',
 } as const
 
 // ==================== 工具函数 ====================
 
-/**
- * 格式化游戏时长 (原 l)
- * @param hours 小时数
- * @returns 格式化后的字符串
- */
 export const formatPlaytime = (hours: number): string => {
-  return hours < 1 ? "< 1 小时" : `${Math.round(hours)} 小时`
+  return hours < 1 ? '< 1 小时' : `${Math.round(hours)} 小时`
 }
 
-/**
- * 格式化时间戳为可读日期
- */
 export const formatSteamTime = (timestamp: number): string => {
   return new Date(timestamp * 1000).toLocaleDateString('zh-CN')
 }
 
+// ==================== 内部缓存类型 ====================
+
+type CacheEntry<T> = {
+  data: SteamApiResponse<T>
+  expiresAt: number
+}
+
+type FetchOptions = {
+  force?: boolean
+  ttl?: number
+}
+
+const DEFAULT_TTL = 60 * 1000
+const GAME_DETAIL_TTL = 5 * 60 * 1000
+
 // ==================== Composable 主函数 ====================
 
-/**
- * Steam API 获取 Composable (原 g)
- * 适配 Nuxt 3，使用 $fetch 和 useRuntimeConfig
- */
 export const useSteamAPIGet = () => {
-  const config = useRuntimeConfig()
-  
-  // 响应式状态
-  const loading = ref(false)
-  const error = ref<Error | null>(null)
-  const userData = ref<SteamUser | null>(null)
-  const gamesData = ref<SteamGamesList | null>(null)
-  const gameDetail = ref<SteamGameDetail | null>(null)
-  const achievementsData = ref<SteamAchievementsData | null>(null)
-  const allMetadata = ref<SteamAllMetadata | null>(null)
+  // 共享状态：多个组件调用 composable 时复用同一份状态
+  const loadingCount = useState<number>('steam-loading-count', () => 0)
+  const error = useState<Error | null>('steam-error', () => null)
+  const userData = useState<SteamUser | null>('steam-user-data', () => null)
+  const gamesData = useState<SteamGamesList | null>('steam-games-data', () => null)
+  const achievementsData = useState<SteamAchievementsData | null>('steam-achievements-data', () => null)
+  const gameDetailMap = useState<Record<number, SteamGameDetail>>('steam-game-detail-map', () => ({}))
+  const allMetadata = useState<SteamAllMetadata | null>('steam-all-metadata', () => null)
 
-  // 从 Nuxt Runtime Config 获取 API 基础 URL，提供默认值
+  // 内存缓存 + 请求去重
+  const responseCache = useState<Record<string, CacheEntry<any>>>('steam-response-cache', () => ({}))
+  const pendingRequests = useState<Record<string, Promise<any>>>('steam-pending-requests', () => ({}))
+
+  const loading = computed(() => loadingCount.value > 0)
+
   const baseURL = computed(() => {
-    return (blogConfig.Steam.status as string) || "https://steam-api-profile-palomiku.netlify.app/api"
+    return (blogConfig.Steam.status as string) || 'https://steam-api-profile-palomiku.netlify.app/api'
   })
 
-  // API 端点计算属性
   const endpoints = computed(() => ({
     user: `${baseURL.value}/steam-user`,
     games: `${baseURL.value}/steam-games`,
     game: (appid: number) => `${baseURL.value}/steam-game?appid=${appid}`,
-    achievements: `${baseURL.value}/steam-achievements`
+    achievements: `${baseURL.value}/steam-achievements`,
   }))
 
-  /**
-   * 基础请求方法 (原 o)
-   * 使用 Nuxt 的 $fetch (ofetch)
-   */
-  const fetchSteamAPI = async <T>(url: string): Promise<SteamApiResponse<T> | null> => {
-    try {
-      const response = await $fetch<SteamApiResponse<T>>(url, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      })
-      
-      return response
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err)
-      console.error("[Steam] Fetch error:", errorMessage)
-      return null
+  const setLoading = (value: boolean) => {
+    if (value) {
+      loadingCount.value += 1
+    } else {
+      loadingCount.value = Math.max(0, loadingCount.value - 1)
     }
   }
 
-  /**
-   * 获取 Steam 数据（批量获取用户、游戏列表、成就）
-   * @param limit 游戏数量限制 (1-100)，仅影响 allGames
-   */
-  const fetchSteamData = async (limit?: number): Promise<SteamApiResponse<SteamDataResult> & { allMetadata?: SteamAllMetadata }> => {
-    loading.value = true
-    error.value = null
-    
-    try {
-      // 构建游戏端点 URL，支持限制数量
-      const gamesEndpoint = (limit && limit > 0 && limit <= 100) 
-        ? `${endpoints.value.games}?limit=${limit}` 
-        : endpoints.value.games
+  const isCacheValid = (key: string) => {
+    const entry = responseCache.value[key]
+    return !!entry && entry.expiresAt > Date.now()
+  }
 
-      // 并行请求三个端点
+  const getCache = <T>(key: string): SteamApiResponse<T> | null => {
+    if (!isCacheValid(key)) return null
+    return responseCache.value[key].data as SteamApiResponse<T>
+  }
+
+  const setCache = <T>(key: string, data: SteamApiResponse<T>, ttl = DEFAULT_TTL) => {
+    responseCache.value[key] = {
+      data,
+      expiresAt: Date.now() + ttl,
+    }
+  }
+
+  const clearCache = (key?: string) => {
+    if (key) {
+      delete responseCache.value[key]
+      return
+    }
+    responseCache.value = {}
+  }
+
+  const fetchWithDedupe = async <T>(
+    key: string,
+    url: string,
+    options: FetchOptions = {},
+  ): Promise<SteamApiResponse<T> | null> => {
+    const { force = false, ttl = DEFAULT_TTL } = options
+
+    // 1. 优先返回缓存
+    if (!force) {
+      const cached = getCache<T>(key)
+      if (cached) return cached
+    }
+
+    // 2. 有相同请求正在进行时，直接复用 Promise
+    if (!force && pendingRequests.value[key]) {
+      return pendingRequests.value[key] as Promise<SteamApiResponse<T> | null>
+    }
+
+    const requestPromise = (async () => {
+      try {
+        const response = await $fetch<SteamApiResponse<T>>(url, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+          // 不再强制 no-store，让服务端/CDN/浏览器仍有机会利用缓存策略
+        })
+
+        if (response?.success) {
+          setCache(key, response, ttl)
+        }
+
+        return response
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err)
+        console.error('[Steam] Fetch error:', message)
+        return null
+      } finally {
+        delete pendingRequests.value[key]
+      }
+    })()
+
+    pendingRequests.value[key] = requestPromise
+    return requestPromise
+  }
+
+  const mergeMetadata = (patch: Partial<SteamAllMetadata>) => {
+    allMetadata.value = {
+      ...(allMetadata.value || {}),
+      ...patch,
+    }
+  }
+
+  const fetchUser = async (options: FetchOptions = {}) => {
+    const res = await fetchWithDedupe<SteamUserResponse>(
+      'steam:user',
+      endpoints.value.user,
+      { ttl: DEFAULT_TTL, ...options },
+    )
+
+    if (res?.success && res.data?.user) {
+      userData.value = res.data.user
+      mergeMetadata({ user: res.metadata })
+    }
+
+    return res
+  }
+
+  const fetchGames = async (limit?: number, options: FetchOptions = {}) => {
+    const validLimit = limit && limit > 0 && limit <= 100 ? limit : undefined
+    const url = validLimit
+      ? `${endpoints.value.games}?limit=${validLimit}`
+      : endpoints.value.games
+    const key = `steam:games:${validLimit ?? 'default'}`
+
+    const res = await fetchWithDedupe<SteamGamesResponse>(
+      key,
+      url,
+      { ttl: DEFAULT_TTL, ...options },
+    )
+
+    if (res?.success && res.data?.games) {
+      gamesData.value = res.data.games
+      mergeMetadata({ games: res.metadata })
+    }
+
+    return res
+  }
+
+  const fetchAchievements = async (options: FetchOptions = {}) => {
+    const res = await fetchWithDedupe<SteamAchievementsResponse>(
+      'steam:achievements',
+      endpoints.value.achievements,
+      { ttl: DEFAULT_TTL, ...options },
+    )
+
+    if (res?.success && res.data?.achievements) {
+      achievementsData.value = res.data.achievements
+      mergeMetadata({ achievements: res.metadata })
+    }
+
+    return res
+  }
+
+  const fetchSteamData = async (
+    limit?: number,
+    options: FetchOptions = {},
+  ): Promise<SteamApiResponse<SteamDataResult> & { allMetadata?: SteamAllMetadata }> => {
+    setLoading(true)
+    error.value = null
+
+    try {
       const [userRes, gamesRes, achievementsRes] = await Promise.all([
-        fetchSteamAPI<SteamUserResponse>(endpoints.value.user),
-        fetchSteamAPI<SteamGamesResponse>(gamesEndpoint),
-        fetchSteamAPI<SteamAchievementsResponse>(endpoints.value.achievements)
+        fetchUser(options),
+        fetchGames(limit, options),
+        fetchAchievements(options),
       ])
 
-      // 验证必需数据
       if (!userRes?.success || !gamesRes?.success) {
-        const errMsg = "Failed to fetch required Steam data"
+        const errMsg = 'Failed to fetch required Steam data'
         error.value = new Error(errMsg)
         return {
           success: false,
           error: errMsg,
-          code: "FETCH_ERROR"
+          code: 'FETCH_ERROR',
         }
       }
-
-      // 组装数据
-      const resultData: SteamDataResult = {
-        user: userRes.data?.user,
-        games: gamesRes.data?.games,
-        achievements: achievementsRes?.data?.achievements
-      }
-
-      const metaData: SteamAllMetadata = {
-        user: userRes.metadata,
-        games: gamesRes.metadata,
-        achievements: achievementsRes?.metadata
-      }
-
-      // 更新响应式状态
-      userData.value = resultData.user
-      gamesData.value = resultData.games
-      achievementsData.value = resultData.achievements
-      allMetadata.value = metaData
 
       return {
         success: true,
-        data: resultData,
-        allMetadata: metaData
+        data: {
+          user: userRes.data?.user,
+          games: gamesRes.data?.games,
+          achievements: achievementsRes?.data?.achievements,
+        },
+        allMetadata: allMetadata.value || undefined,
       }
-      
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err)
-      console.error("[Steam] Fetch error:", errorMessage)
-      
-      const errorObj = err instanceof Error ? err : new Error(String(err))
+      const message = err instanceof Error ? err.message : String(err)
+      console.error('[Steam] Fetch error:', message)
+
+      const errorObj = err instanceof Error ? err : new Error(message)
       error.value = errorObj
-      
+
       return {
         success: false,
-        error: `Fetch failed: ${errorMessage}`,
-        code: "FETCH_ERROR"
+        error: `Fetch failed: ${message}`,
+        code: 'FETCH_ERROR',
       }
     } finally {
-      loading.value = false
+      setLoading(false)
     }
   }
 
-  /**
-   * 获取单个游戏详情
-   * @param appid 游戏 AppID
-   */
-  const fetchGameDetail = async (appid: number): Promise<SteamApiResponse<SteamGameDetail>> => {
-    loading.value = true
-    
+  const fetchGameDetail = async (
+    appid: number,
+    options: FetchOptions = {},
+  ): Promise<SteamApiResponse<SteamGameDetail>> => {
+    setLoading(true)
+
     try {
-      const response = await fetchSteamAPI<SteamGameResponse>(endpoints.value.game(appid))
-      
-      if (response?.success && response.data) {
-        gameDetail.value = response.data.game
-        
-        // 更新元数据
-        if (allMetadata.value) {
-          allMetadata.value.gameDetail = response.metadata
-        } else {
-          allMetadata.value = { gameDetail: response.metadata }
-        }
-        
+      const res = await fetchWithDedupe<SteamGameResponse>(
+        `steam:game:${appid}`,
+        endpoints.value.game(appid),
+        { ttl: GAME_DETAIL_TTL, ...options },
+      )
+
+      if (res?.success && res.data?.game) {
+        gameDetailMap.value[appid] = res.data.game
+        mergeMetadata({ gameDetail: res.metadata })
+
         return {
           success: true,
-          data: response.data.game,
-          metadata: response.metadata
+          data: res.data.game,
+          metadata: res.metadata,
         }
       }
-      
+
       return {
         success: false,
-        error: response?.error || "Failed to fetch game details",
-        code: "FETCH_ERROR"
+        error: res?.error || 'Failed to fetch game details',
+        code: 'FETCH_ERROR',
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err)
-      console.error("[Steam] Fetch game detail error:", errorMessage)
-      
+      const message = err instanceof Error ? err.message : String(err)
+      console.error('[Steam] Fetch game detail error:', message)
+
       return {
         success: false,
-        error: `Fetch failed: ${errorMessage}`,
-        code: "FETCH_ERROR"
+        error: `Fetch failed: ${message}`,
+        code: 'FETCH_ERROR',
       }
     } finally {
-      loading.value = false
+      setLoading(false)
     }
   }
 
-  /**
-   * 刷新特定数据（支持部分刷新）
-   */
-  const refreshUser = async () => {
-    const res = await fetchSteamAPI<SteamUserResponse>(endpoints.value.user)
-    if (res?.success) {
-      userData.value = res.data.user
-      if (allMetadata.value) allMetadata.value.user = res.metadata
-    }
-    return res
-  }
+  const refreshUser = () => fetchUser({ force: true })
+  const refreshGames = (limit?: number) => fetchGames(limit, { force: true })
+  const refreshAchievements = () => fetchAchievements({ force: true })
+  const refreshGameDetail = (appid: number) => fetchGameDetail(appid, { force: true })
 
-  const refreshGames = async (limit?: number) => {
-    const url = limit ? `${endpoints.value.games}?limit=${limit}` : endpoints.value.games
-    const res = await fetchSteamAPI<SteamGamesResponse>(url)
-    if (res?.success) {
-      gamesData.value = res.data.games
-      if (allMetadata.value) allMetadata.value.games = res.metadata
-    }
-    return res
-  }
-
-  const refreshAchievements = async () => {
-    const res = await fetchSteamAPI<SteamAchievementsResponse>(endpoints.value.achievements)
-    if (res?.success) {
-      achievementsData.value = res.data.achievements
-      if (allMetadata.value) allMetadata.value.achievements = res.metadata
-    }
-    return res
-  }
+  const getGameDetail = computed(() => {
+    return (appid: number) => gameDetailMap.value[appid] || null
+  })
 
   return {
-    // 状态 (readonly)
+    // 状态
     loading: readonly(loading),
     error: readonly(error),
     userData: readonly(userData),
     gamesData: readonly(gamesData),
-    gameDetail: readonly(gameDetail),
     achievementsData: readonly(achievementsData),
+    gameDetailMap: readonly(gameDetailMap),
     allMetadata: readonly(allMetadata),
-    
-    // 计算属性
+
+    // 计算
     endpoints: readonly(endpoints),
     baseURL: readonly(baseURL),
-    
+    getGameDetail,
+
     // 方法
     fetchSteamData,
     fetchGameDetail,
-    fetchSteamAPI,
-    formatPlaytime,
-    formatSteamTime,
     refreshUser,
     refreshGames,
     refreshAchievements,
-    
-    // 便捷常量
+    refreshGameDetail,
+    clearCache,
+    formatPlaytime,
+    formatSteamTime,
+
+    // 常量
     statusTextMap: steamStatusTextMap,
-    statusColorMap: steamStatusColorMap
+    statusColorMap: steamStatusColorMap,
   }
 }
 
-// ==================== 向后兼容的别名导出 ====================
+// ==================== 向后兼容别名导出 ====================
 
-/**
- * 状态文本映射别名 (原 h as a)
- * @deprecated 建议使用 useSteamAPIGet().statusTextMap 或直接使用 steamStatusTextMap
- */
 export const a = steamStatusTextMap
-
-/**
- * 格式化函数别名 (原 l as f)
- * @deprecated 建议使用 useSteamAPIGet().formatPlaytime 或直接使用 formatPlaytime
- */
 export const f = formatPlaytime
-
-/**
- * 状态颜色映射别名 (原 p as s)
- * @deprecated 建议使用 useSteamAPIGet().statusColorMap 或直接使用 steamStatusColorMap
- */
 export const s = steamStatusColorMap
-
-/**
- * Composable 别名 (原 g as u)
- * @deprecated 建议直接使用 useSteamAPIGet
- */
 export const u = useSteamAPIGet
 
-// 默认导出
 export default useSteamAPIGet
 ```
 
@@ -1285,6 +1316,9 @@ onMounted(async () => {
 ::
 
 ## 更新日志
+**V0.20260322.14599.11.0_PRE**
+- 1.优化后端API获取模块中对于链接请求重复过多的问题
+
 **V0.20260322.7688.8.0_PRE**
 - 1.优化`用户面板`、`信息面板`、`最近游戏`、`全部游戏`四个模块的移动端不同尺寸的适配
 - 2.分离`最近游戏`、`全部游戏`两个模块的顶部信息栏，添加到`标题模块`中，并且进行特殊化配置项(即`defineProps`写法)
