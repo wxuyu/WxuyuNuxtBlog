@@ -20,6 +20,16 @@ export function getLocaleDatetime(date: string | Date) {
 		})
 }
 
+export function getPostDate(date: string | Date) {
+	const appConfig = useAppConfig()
+	return toDate(date, { timeZone: appConfig.timezone })
+		.toLocaleString(undefined, {
+			year: 'numeric',
+			month: 'long',
+			day: '2-digit',
+		})
+}
+
 export function isTimeDiffSignificant(
 	date1?: string | Date,
 	date2?: string | Date,

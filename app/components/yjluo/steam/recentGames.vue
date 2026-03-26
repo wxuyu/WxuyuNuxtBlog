@@ -16,7 +16,7 @@ const {
 // 初始加载数据
 onMounted(async () => {
   // 获取基础数据
-  await fetchSteamData(10)
+  await fetchSteamData()
   
   // 如果用户正在游戏中，获取游戏详情
   if (userData.value?.currentGame) {
@@ -31,7 +31,7 @@ const textAPI = gamesData.value?.recentGames
   <div class="SteamGameMain">
     <GameTitle title="最近游玩" icon="game-controller-bold" :sub-title="`显示最近两周玩的${gamesData?.recentCount}款游戏`"/>
     <div class="SteamGameList">
-      <a class="GameListCard" v-for="game in gamesData?.recentGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
+      <a class="GameListCard" v-for="game in gamesData?.recentGames.slice(0, 3)" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
         <div class="ListCardHeader">
           <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
         </div>
@@ -78,7 +78,7 @@ const textAPI = gamesData.value?.recentGames
 .SteamGameMain{
   .SteamGameList {
     display: grid;
-    gap: 16px;
+    gap: 5px;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     @media (max-width: 767px) {
       gap: .4em;

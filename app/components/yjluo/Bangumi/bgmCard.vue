@@ -134,7 +134,7 @@ const progressMessage = computed(() => {
           </div> -->
           <div class="infoDate">
             <Icon name="ph:calendar-dots-bold" />
-            {{ bangumiCollectionItem.updated_at }}
+            {{ getPostDate(bangumiCollectionItem.updated_at) }}
           </div>
           <div class="source-badge">
             <div class="source-name">

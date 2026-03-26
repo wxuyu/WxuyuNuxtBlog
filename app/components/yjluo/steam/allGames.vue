@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import GameTitle from './gameTitle.vue';
+import { computed, ref, onMounted } from 'vue'
 
 const { 
   fetchSteamData, 
@@ -13,16 +14,49 @@ const {
   statusColorMap
 } = useSteamAPIGet()
 
+// 分页相关状态
+const currentPage = ref(1);
+const itemsPerPage = 3;
+
+// 计算属性
+const totalPages = computed(() => {
+  if (!gamesData.value?.allGames) return 1;
+  return Math.ceil(gamesData.value.allGames.length / itemsPerPage);
+});
+
+// 成就完成度颜色
+const getAchievementColor = (percentage: number) => {
+  if (percentage === 100) return '#10b981'; // 绿色 - 完成
+  if (percentage >= 50) return '#3b82f6'; // 蓝色 - 进行中
+  return '#6b7280'; // 灰色 - 刚开始
+};
+
+// 成就图标颜色
+const getAchievementIconColor = (unlocked: number, total: number) => {
+  return unlocked === total ? '#10b981' : '#6b7280';
+};
+
 // 初始加载数据
 onMounted(async () => {
-  // 获取基础数据
-  await fetchSteamData(10)
-  
-  // 如果用户正在游戏中，获取游戏详情
-  if (userData.value?.currentGame) {
-    await fetchGameDetail(userData.value.currentGame.appid)
+  try {
+    // 获取基础数据
+    await fetchSteamData();
+    
+    // 如果用户正在游戏中,获取游戏详情
+    if (userData.value?.currentGame) {
+      await fetchGameDetail(userData.value.currentGame.appid);
+    }
+  } catch (error) {
+    console.error('加载 Steam 数据失败:', error);
   }
-})
+});
+
+// 处理页面变化
+const handlePageChange = (page: number) => {
+  currentPage.value = page;
+  // 可选: 滚动到顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -75,7 +109,7 @@ onMounted(async () => {
 .SteamGameMain{
   .SteamGameList {
     display: grid;
-    gap: 16px;
+    gap: 5px;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     @media (max-width: 767px) {
       gap: .4em;

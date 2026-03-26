@@ -108,6 +108,26 @@ export interface SteamAchievementsData {
   byGame: SteamGameAchievements[]
 }
 
+// ==================== 分页类型定义 ====================
+
+export interface SteamPaginationParams {
+  page?: number
+  limit?: number
+}
+
+export interface SteamPaginationMeta {
+  page: number
+  limit: number
+  total?: number
+  totalPages?: number
+  hasMore?: boolean
+}
+
+export interface SteamPaginatedGamesResult {
+  list: SteamGamesList
+  pagination: SteamPaginationMeta
+}
+
 // ==================== API 响应类型 ====================
 
 export interface SteamApiMetadata {
@@ -131,6 +151,11 @@ export interface SteamUserResponse {
 
 export interface SteamGamesResponse {
   games: SteamGamesList
+  page?: number
+  limit?: number
+  total?: number
+  totalPages?: number
+  hasMore?: boolean
 }
 
 export interface SteamGameResponse {
@@ -202,6 +227,9 @@ type FetchOptions = {
 
 const DEFAULT_TTL = 60 * 1000
 const GAME_DETAIL_TTL = 5 * 60 * 1000
+const DEFAULT_LIMIT = 12
+const DEFAULT_PAGE = 1
+const MAX_LIMIT = 100
 
 // ==================== Composable 主函数 ====================
 
@@ -214,6 +242,15 @@ export const useSteamAPIGet = () => {
   const achievementsData = useState<SteamAchievementsData | null>('steam-achievements-data', () => null)
   const gameDetailMap = useState<Record<number, SteamGameDetail>>('steam-game-detail-map', () => ({}))
   const allMetadata = useState<SteamAllMetadata | null>('steam-all-metadata', () => null)
+
+  // 当前分页状态
+  const gamesPagination = useState<SteamPaginationMeta>('steam-games-pagination', () => ({
+    page: DEFAULT_PAGE,
+    limit: DEFAULT_LIMIT,
+    total: 0,
+    totalPages: 0,
+    hasMore: false,
+  }))
 
   // 内存缓存 + 请求去重
   const responseCache = useState<Record<string, CacheEntry<any>>>('steam-response-cache', () => ({}))
@@ -265,6 +302,33 @@ export const useSteamAPIGet = () => {
     responseCache.value = {}
   }
 
+  const normalizePage = (page?: number) => {
+    return Number.isInteger(page) && page! > 0 ? page! : DEFAULT_PAGE
+  }
+
+  const normalizeLimit = (limit?: number) => {
+    return Number.isInteger(limit) && limit! > 0
+      ? Math.min(limit!, MAX_LIMIT)
+      : DEFAULT_LIMIT
+  }
+
+  const buildGamesQuery = (params: SteamPaginationParams = {}) => {
+    const page = normalizePage(params.page)
+    const limit = normalizeLimit(params.limit)
+
+    const query = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+    })
+
+    return {
+      page,
+      limit,
+      url: `${endpoints.value.games}?${query.toString()}`,
+      key: `steam:games:page=${page}:limit=${limit}`,
+    }
+  }
+
   const fetchWithDedupe = async <T>(
     key: string,
     url: string,
@@ -290,7 +354,6 @@ export const useSteamAPIGet = () => {
           headers: {
             Accept: 'application/json',
           },
-          // 不再强制 no-store，让服务端/CDN/浏览器仍有机会利用缓存策略
         })
 
         if (response?.success) {
@@ -333,12 +396,11 @@ export const useSteamAPIGet = () => {
     return res
   }
 
-  const fetchGames = async (limit?: number, options: FetchOptions = {}) => {
-    const validLimit = limit && limit > 0 && limit <= 100 ? limit : undefined
-    const url = validLimit
-      ? `${endpoints.value.games}?limit=${validLimit}`
-      : endpoints.value.games
-    const key = `steam:games:${validLimit ?? 'default'}`
+  const fetchGames = async (
+    params: SteamPaginationParams = {},
+    options: FetchOptions = {},
+  ): Promise<SteamApiResponse<SteamPaginatedGamesResult>> => {
+    const { page, limit, url, key } = buildGamesQuery(params)
 
     const res = await fetchWithDedupe<SteamGamesResponse>(
       key,
@@ -347,11 +409,46 @@ export const useSteamAPIGet = () => {
     )
 
     if (res?.success && res.data?.games) {
+      const pagination: SteamPaginationMeta = {
+        page: res.data.page ?? page,
+        limit: res.data.limit ?? limit,
+        total: res.data.total ?? res.data.games.totalCount ?? 0,
+        totalPages:
+          res.data.totalPages
+          ?? (
+            (res.data.total ?? res.data.games.totalCount)
+              ? Math.ceil((res.data.total ?? res.data.games.totalCount) / (res.data.limit ?? limit))
+              : 0
+          ),
+        hasMore:
+          res.data.hasMore
+          ?? (
+            (res.data.totalPages ?? 0) > 0
+              ? (res.data.page ?? page) < (res.data.totalPages ?? 0)
+              : ((res.data.page ?? page) * (res.data.limit ?? limit)) < (res.data.total ?? res.data.games.totalCount ?? 0)
+          ),
+      }
+
       gamesData.value = res.data.games
+      gamesPagination.value = pagination
       mergeMetadata({ games: res.metadata })
+
+      return {
+        success: true,
+        data: {
+          list: res.data.games,
+          pagination,
+        },
+        metadata: res.metadata,
+      }
     }
 
-    return res
+    return {
+      success: false,
+      error: res?.error || 'Failed to fetch games',
+      code: res?.code || 'FETCH_ERROR',
+      metadata: res?.metadata,
+    }
   }
 
   const fetchAchievements = async (options: FetchOptions = {}) => {
@@ -370,16 +467,16 @@ export const useSteamAPIGet = () => {
   }
 
   const fetchSteamData = async (
-    limit?: number,
+    params: SteamPaginationParams = {},
     options: FetchOptions = {},
-  ): Promise<SteamApiResponse<SteamDataResult> & { allMetadata?: SteamAllMetadata }> => {
+  ): Promise<SteamApiResponse<SteamDataResult> & { allMetadata?: SteamAllMetadata; pagination?: SteamPaginationMeta }> => {
     setLoading(true)
     error.value = null
 
     try {
       const [userRes, gamesRes, achievementsRes] = await Promise.all([
         fetchUser(options),
-        fetchGames(limit, options),
+        fetchGames(params, options),
         fetchAchievements(options),
       ])
 
@@ -397,9 +494,10 @@ export const useSteamAPIGet = () => {
         success: true,
         data: {
           user: userRes.data?.user,
-          games: gamesRes.data?.games,
+          games: gamesRes.data?.list,
           achievements: achievementsRes?.data?.achievements,
         },
+        pagination: gamesRes.data?.pagination,
         allMetadata: allMetadata.value || undefined,
       }
     } catch (err) {
@@ -463,7 +561,7 @@ export const useSteamAPIGet = () => {
   }
 
   const refreshUser = () => fetchUser({ force: true })
-  const refreshGames = (limit?: number) => fetchGames(limit, { force: true })
+  const refreshGames = (params: SteamPaginationParams = {}) => fetchGames(params, { force: true })
   const refreshAchievements = () => fetchAchievements({ force: true })
   const refreshGameDetail = (appid: number) => fetchGameDetail(appid, { force: true })
 
@@ -471,12 +569,18 @@ export const useSteamAPIGet = () => {
     return (appid: number) => gameDetailMap.value[appid] || null
   })
 
+  const currentGamesPage = computed(() => gamesPagination.value.page)
+  const currentGamesLimit = computed(() => gamesPagination.value.limit)
+  const totalGamesPages = computed(() => gamesPagination.value.totalPages ?? 0)
+  const hasMoreGames = computed(() => !!gamesPagination.value.hasMore)
+
   return {
     // 状态
     loading: readonly(loading),
     error: readonly(error),
     userData: readonly(userData),
     gamesData: readonly(gamesData),
+    gamesPagination: readonly(gamesPagination),
     achievementsData: readonly(achievementsData),
     gameDetailMap: readonly(gameDetailMap),
     allMetadata: readonly(allMetadata),
@@ -485,10 +589,15 @@ export const useSteamAPIGet = () => {
     endpoints: readonly(endpoints),
     baseURL: readonly(baseURL),
     getGameDetail,
+    currentGamesPage,
+    currentGamesLimit,
+    totalGamesPages,
+    hasMoreGames,
 
     // 方法
     fetchSteamData,
     fetchGameDetail,
+    fetchGames,
     refreshUser,
     refreshGames,
     refreshAchievements,
