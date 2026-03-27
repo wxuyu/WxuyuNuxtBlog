@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import appConfig from '~/app.config';
 import GameTitle from './gameTitle.vue';
+import Autoplay from 'embla-carousel-autoplay'
+import emblaCarouselVue from 'embla-carousel-vue'
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 
 const { 
   fetchSteamData, 
@@ -25,61 +29,107 @@ onMounted(async () => {
 })
 
 const textAPI = gamesData.value?.recentGames
+
+
+// 滚动支持
+const compConf = computed(() => appConfig.component.slide)
+// @keep-sorted
+const [carouselEl, carouselApi] = emblaCarouselVue({
+	containScroll: false,
+	loop: true,
+	skipSnaps: true,
+}, [
+	Autoplay({ stopOnInteraction: false, stopOnMouseEnter: true }),
+	WheelGesturesPlugin(),
+])
+
+// 鼠标横向滚动 / Shift + 纵向滚轮事件
+useEventListener(carouselEl, 'wheel', (e) => {
+	const delta = e.deltaX + (e.shiftKey ? e.deltaY : 0)
+	if (Math.abs(delta) < 80)
+		return
+	delta > 0 ? carouselApi.value?.scrollNext() : carouselApi.value?.scrollPrev()
+}, { passive: true })
 </script>
 
 <template>
   <div class="SteamGameMain">
-    <GameTitle title="最近游玩" icon="game-controller-bold" :sub-title="`显示最近两周玩的${gamesData?.recentCount}款游戏`"/>
-    <div class="SteamGameList">
-      <a class="GameListCard" v-for="game in gamesData?.recentGames.slice(0, 3)" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
-        <div class="ListCardHeader">
-          <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
-        </div>
-        <div class="ListCardBody">
-          <div class="CardBodyInfo">
-            <h3 class="BodyInfoTitle">{{ game.name }}</h3>
-            <div class="BodyInfoStatus">
-              <div class="InfoStatusRow">
-                <div class="StatusRowText">
-                  <div class="RowTextLabel">
-                    总时长
+    <GameTitle title="最近游玩" icon="game-controller-bold" :sub-title="`显示最近两周玩的${gamesData?.recentCount}款游戏`" sub-tip="请按Shift + 滚动或滑动"/>
+    <div ref="carouselEl" class="SteamGameBody" dir="ltr">
+      <div class="SteamGameList">
+        <a class="GameListCard" v-for="game in gamesData?.recentGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
+          <div class="ListCardHeader">
+            <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
+          </div>
+          <div class="ListCardBody">
+            <div class="CardBodyInfo">
+              <h3 class="BodyInfoTitle">{{ game.name }}</h3>
+              <div class="BodyInfoStatus">
+                <div class="InfoStatusRow">
+                  <div class="StatusRowText">
+                    <div class="RowTextLabel">
+                      总时长
+                    </div>
+                    <div class="RowTextValue">
+                      {{ game.playtimeForever }}h
+                    </div>
                   </div>
-                  <div class="RowTextValue">
-                    {{ game.playtimeForever }}h
-                  </div>
+                  <Badge class="StatusRowBadge" :text="`最近${ game.playtimeTwoWeeks }h`" />
                 </div>
-                <Badge class="StatusRowBadge" :text="`最近${ game.playtimeTwoWeeks }h`" />
+              </div>
+            </div>
+            <div class="ListCardAchievements" v-if="game.achievements">
+              <div class="CardAchievementsInfo">
+                <div class="AchievementsInfoLabel">
+                  <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" :style="`color: ${game.achievements?.percentage === game.achievements?.total}`"/>
+                  <span class="InfoLabelCount">
+                    {{ game.achievements?.unlocked }} / {{ game.achievements?.total }}
+                  </span>
+                </div>
+                <span class="GamePriceNumber">{{ game.price.displayPrice }}</span>
+              </div>
+              <div class="CardAchievementsProgress">
+                <div class="AchievementsProgressContainer" style="height: 6px;">
+                  <div class="ProgressCcontainerBar" :style="`width: ${game.achievements?.percentage}%`" />
+                </div>
               </div>
             </div>
           </div>
-          <div class="ListCardAchievements" v-if="game.achievements">
-            <div class="CardAchievementsInfo">
-              <div class="AchievementsInfoLabel">
-                <Icon class="InfoLabelIcon" name="i-ph:trophy-bold" :style="`color: ${game.achievements?.percentage === game.achievements?.total}`"/>
-                <span class="InfoLabelCount">
-                  {{ game.achievements?.unlocked }} / {{ game.achievements?.total }}
-                </span>
-              </div>
-              <span class="GamePriceNumber">{{ game.price.displayPrice }}</span>
-            </div>
-            <div class="CardAchievementsProgress">
-              <div class="AchievementsProgressContainer" style="height: 6px;">
-                <div class="ProgressCcontainerBar" :style="`width: ${game.achievements?.percentage}%`" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
+        </a>        
+      </div>
     </div>
+    <!-- <ZButton
+			class="carousel-action prev at-slide-hover"
+			aria-label="上一页"
+			icon="ph:caret-left-bold"
+			@click="carouselApi?.scrollPrev()"
+		/>
+
+		<ZButton
+			class="carousel-action next at-slide-hover"
+			aria-label="下一页"
+			icon="ph:caret-right-bold"
+			@click="carouselApi?.scrollNext()"
+		/> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
 .SteamGameMain{
+  .SteamGameBody {
+    --fadeout-width: 1.5rem;
+    cursor: grab;
+    -webkit-mask-image: linear-gradient(to var(--end), transparent, #fff var(--fadeout-width), #fff calc(100% - var(--fadeout-width)), transparent);
+    mask-image: linear-gradient(to var(--end), transparent, #fff var(--fadeout-width), #fff calc(100% - var(--fadeout-width)), transparent);
+    overflow: hidden;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
   .SteamGameList {
-    display: grid;
-    gap: 5px;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		display: flex;
+		scroll-snap-type: x mandatory;
     @media (max-width: 767px) {
       gap: .4em;
       padding-bottom: .4em;
@@ -88,13 +138,18 @@ const textAPI = gamesData.value?.recentGames
       background: var(--ld-bg-card);
       border: 1px solid var(--c-border);
       border-radius: 12px;
-      cursor: pointer;
-      overflow: hidden;
+      aspect-ratio: 1.77;
+      contain: paint;
+      flex-shrink: 0;
+      margin: 0 min(.5em, 1%);
+      max-width: 100%;
       position: relative;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      width: 100%;
-      flex-direction: column;
-      height: auto;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      width: max(12rem, 35%);
+      @media (max-width: 640px) {
+        width: max(15rem, 65%)
+      }
       .ListCardHeader {
         flex-shrink: 0;
         min-width: 140px;

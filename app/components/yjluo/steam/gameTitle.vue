@@ -3,6 +3,7 @@ const props = defineProps<{
   icon: string
   title: string
   subTitle: string
+  subTip: string
 }>()
 </script>
 
@@ -12,7 +13,7 @@ const props = defineProps<{
     <Icon :name="`ph:${props.icon}`" />
     {{ props.title }}
   </h2>
-  <span class="GameHeaderSub">
+  <span class="GameHeaderSub" v-tip="props.subTip">
     {{ props.subTitle }}
   </span>
 </div>
