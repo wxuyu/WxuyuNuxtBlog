@@ -57,7 +57,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
     <GameTitle title="最近游玩" icon="game-controller-bold" :sub-title="`显示最近两周玩的${gamesData?.recentCount}款游戏`" sub-tip="请按Shift + 滚动或滑动"/>
     <div ref="carouselEl" class="SteamGameBody" dir="ltr">
       <div class="SteamGameList">
-        <a class="GameListCard" v-for="game in gamesData?.recentGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
+        <a class="GameListCard" v-show="game.name !== '少女与城主'" v-for="game in gamesData?.recentGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
           <div class="ListCardHeader">
             <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
           </div>
