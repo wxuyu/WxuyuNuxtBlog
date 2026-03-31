@@ -63,7 +63,7 @@ const handlePageChange = (page: number) => {
   <div class="SteamGameMain">
     <GameTitle title="游戏库" icon="stack-bold" :sub-title="`显示游玩时长最多的${gamesData?.totalCount}款游戏`"/>
     <div class="SteamGameList">
-      <a class="GameListCard" v-for="game in gamesData?.allGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
+      <a class="GameListCard" v-show="game.name !== 'Maiden And Lord'" v-for="game in gamesData?.allGames" :href="`https://steamcommunity.com/app/${game.appid}`" target="_blank">
         <div class="ListCardHeader">
           <NuxtImg class="CardHeaderImage" :src="game.images.headerImage" />
         </div>
