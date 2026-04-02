@@ -1,12 +1,12 @@
 :root {
-	--font-basic: "LXGW WenKai GB Screen", "InterVariable", "Noto Sans SC-Local", "sans-serif", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+	--font-basic: "LXGW WenKai Screen", "LXGW WenKai", "LXGWWenKai", "InterVariable", "Noto Sans SC-Local", "Noto Sans SC", system-ui, sans-serif;
 	--font-serif: "Noto Serif SC-Local", "Noto Serif SC", serif;
-	--font-creative: "LXGW WenKai GB Screen", "InterVariable", "Noto Sans SC-Local", "Noto Sans SC", system-ui, sans-serif;
+	--font-creative: "InterVariable", "Noto Sans SC-Local", "Noto Sans SC", system-ui, sans-serif;
 	--font-stroke-free: "Inter", "Lantinghei SC", "Microsoft YaHei", "MiSans", system-ui, sans-serif;
 	--font-monospace: "JetBrains Mono", "monospace", "Cascadia Code", "Consolas", "Monaco", var(--font-basic), monospace;
 
 	@media (max-resolution: 1.2dppx) {
-		--font-basic: "LXGW WenKai GB Screen", "InterVariable", system-ui, sans-serif;
+		--font-basic: "InterVariable", system-ui, sans-serif;
 	}
 }
 

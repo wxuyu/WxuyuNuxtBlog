@@ -2,21 +2,21 @@
 <BlogWidget
 	card
 	dim
-	title="博客/技术社区"
-	bg-img="https://p.qlogo.cn/gh/169994096/169994096/100/"
+	title="闲聊/技术社区"
+	bg-img="https://blog-files.101045700.xyz/backgrounds/2b8b5c190c2176b1bc7732f957ce8af8.avif"
 	bg-right
 >
 	<div class="title text-creative">
-		纸网接入点
+		个人QQ
 	</div>
 
 	<Tip copy icon :tip-options="{ placement: 'left' }">
-		<Icon name="ri:qq-fill" />169994096
+		<Icon name="ri:qq-fill" />3227988255
 	</Tip>
 </BlogWidget>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .title {
 	background-clip: text;
 	background-image: linear-gradient(60deg, var(--c-accent) -30%, var(--c-primary), var(--c-text-1));

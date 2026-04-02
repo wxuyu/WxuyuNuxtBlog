@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type ArticleProps from '~/types/article'
-import { isSameYear } from 'date-fns'
+import type { ArticleProps } from '~/types/article'
 
 const props = defineProps<{
 	to?: string
@@ -12,32 +11,26 @@ const mainDate = computed(() => props.useUpdated ? props.updated : props.date)
 
 <template>
 <li class="article-item">
-	<NuxtTime
-		v-if="mainDate"
-		:datetime="mainDate"
-		:title="getLocaleDatetime(mainDate)"
-		month="2-digit"
-		day="2-digit"
-	/>
+	<UtilDate class="dim-hover" :date="mainDate" format="monthDay" />
 
-	<UtilLink class="article-link gradient-card" :to :title="description">
-		<span class="article-title">
-			{{ title }}
-		</span>
+	<div class="gradient-card">
+		<UtilLink class="article-link scrollbar-hidden scrollcheck-x" :to :title="description">
+			<span class="article-title">
+				{{ title }}
+			</span>
 
-		<template v-if="date && useUpdated && isTimeDiffSignificant(date, updated)">
-				&nbsp;
-			<NuxtTime
-				class="aux-date"
-				:datetime="date"
-				:title="getLocaleDatetime(date)"
-				:year="isSameYear(date, updated ?? 0) ? undefined : 'numeric'"
-				month="2-digit"
-				day="2-digit"
+			<UtilDate
+				v-if="date && useUpdated && isTimeDiffSignificant(date, updated)"
+				class="dim-hover info"
+				:date="date"
+				:format="updated && isSameUnit(date, updated, 'year') ? 'monthDay' : 'date'"
 			/>
-		</template>
-		<NuxtImg v-if="image" class="article-cover" :src="image" :alt="title" loading="lazy" />
-	</UtilLink>
+
+			<ul v-if="tags?.length" class="dim-hover info tag-list">
+				<li v-for="tag in tags" :key="tag" v-text="tag" />
+			</ul>
+		</UtilLink>
+	</div>
 </li>
 </template>
 
@@ -45,8 +38,9 @@ const mainDate = computed(() => props.useUpdated ? props.updated : props.date)
 .article-item {
 	display: flex;
 	align-items: center;
-	gap: 0.5em;
-	margin: 0.2em 0;
+	column-gap: 0.5em;
+	min-width: 0;
+	margin: var(--archive-item-gap, 0.2em) 0;
 	transition: all 0.2s;
 	animation: float-in 0.2s var(--delay) backwards;
 
@@ -54,51 +48,55 @@ const mainDate = computed(() => props.useUpdated ? props.updated : props.date)
 		font-size: 0.9em;
 	}
 
-	time {
-		display: inline-block;
+	.dim-hover {
 		opacity: 0.4;
-		font-family: var(--font-monospace);
 		transition: opacity 0.2s;
-
-		&.aux-date {
-			font-size: 0.8em;
-			vertical-align: middle;
-		}
 	}
 
-	&:hover > time,
-	&:focus-within > time {
-		opacity: 1;
+	:deep(time) {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.info {
+		font-size: 0.8em;
+	}
+
+	&:hover,
+	&:focus-within {
+		.article-title {
+			color: var(--c-text);
+		}
+
+		.dim-hover {
+			opacity: 1;
+		}
 	}
 }
 
-.article-title {
-	color: var(--c-text);
+.gradient-card {
+	flex-grow: 1;
+	min-width: 0;
 }
 
 .article-link {
-	flex-grow: 1;
-	overflow: hidden; // 标题换行
+	--scrollbar-height: 0px;
+
+	display: flex;
+	align-items: baseline;
+	gap: 1em;
 	padding: 0.3em 0.6em;
-}
+	white-space: nowrap;
 
-.article-cover {
-	position: absolute;
-	opacity: 0.8;
-	top: 0;
-	inset-inline-end: 0;
-	width: min(50%, 180px);
-	height: 100%;
-	margin: 0;
-	mask-image: linear-gradient(to var(--end), transparent, #FFF7);
-	transition: all 0.2s;
-	object-fit: cover;
-	z-index: -1;
+	> .tag-list {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 0.5em;
+		margin-left: auto;
 
-	:hover > & {
-		opacity: 1;
-		width: 50%;
-		object-position: center 43.5%;
+		&::before {
+			content: "#";
+			opacity: 0.5;
+		}
 	}
 }
 </style>

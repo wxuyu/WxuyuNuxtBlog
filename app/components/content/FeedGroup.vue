@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FeedEntry, FeedGroup } from '~/types/feed'
-import { shuffle } from 'radash'
+import { shuffle } from 'es-toolkit/array'
 
 const props = defineProps<FeedGroup & { shuffle?: boolean }>()
 const route = useRoute()
@@ -125,5 +125,6 @@ if (import.meta.dev) {
 
 .float-in-move {
 	contain: paint; // 防止移动时出现滚动条
+	pointer-events: none; // 阻止触发错误定位的气泡
 }
 </style>

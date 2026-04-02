@@ -62,6 +62,11 @@ const blogConfig = {
 		robotsNotIndex: ['/preview', '/previews/*'],
 	},
 
+	excerpt: {
+		label: '智能摘要',
+		badge: 'Kimi·K2.5',
+	},
+
 	/** 博客 Atom 订阅源 */
 	feed: {
 		/** 订阅源最大文章数量 */
@@ -70,26 +75,38 @@ const blogConfig = {
 		enableStyle: true,
 	},
 
-	/** 向 <head> 中添加脚本 */
-	scripts: [
-	],
-
-	artalk: {
-		server: 'https://artalk.comment.wxuyu.top/',
-		sitename: basicConfig.title,
-		src: 'https://jsd.myxz.top/npm/artalk@2.9.1/dist/Artalk.min.js',
-		owo_src: '/assets/owo/main.json'
+	/** 在线状态组件数据源 */
+	presence: {
+		/** Process Reporter latest 读取接口 */
+		latestEndpoint: '',
 	},
 
-  Steam : {
+	/** 向 <head> 中添加脚本 */
+	scripts: [
+		// Twikoo 评论系统
+		{ src: 'https://s4.zstatic.net/npm/twikoo@1.7.4/dist/twikoo.min.js', defer: true, crossorigin: 'anonymous' },
+	] satisfies Array<{
+		src: string
+		defer?: boolean
+		crossorigin?: '' | 'anonymous' | 'use-credentials'
+		[key: `data-${string}`]: string | undefined
+	}>,
+
+	/** 自己部署的 Twikoo 服务 */
+	twikoo: {
+		envId: 'https://twikoo.comment.wxuyu.top/',
+		preload: 'https://twikoo.comment.wxuyu.top/',
+	},
+
+  Steam: {
     status: 'https://steam.status.api.wxuyu.top/api'
-  }
+  },
 }
 
 /** 用于生成 OPML 和友链页面配置 */
 export const myFeed: FeedEntry = {
 	author: blogConfig.author.name,
-	sitenick: '源境录',
+	sitenick: '闻絮语',
 	title: blogConfig.title,
 	desc: blogConfig.subtitle || blogConfig.description,
 	link: blogConfig.url,

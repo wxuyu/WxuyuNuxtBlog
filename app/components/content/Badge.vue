@@ -11,9 +11,9 @@ const props = defineProps<{
 const img = computed(() => {
 	if (props.img)
 		return props.img
-	const ghUsername = getGhUsername(props.link)
+	const ghUsername = getGithubUsername(props.link)
 	if (ghUsername)
-		return getGhAvatar(ghUsername)
+		return getGithubAvatar(ghUsername)
 	if (props.link && isExtLink(props.link))
 		return getFavicon(getDomain(props.link))
 	return ''
@@ -34,7 +34,7 @@ const tip = computed(() => {
 
 <template>
 <UtilLink v-tip="tip" class="badge" :class="{ round }" :to="link">
-	<NuxtImg v-if="img" class="badge-icon" :src="img" :alt="img" />
+	<NuxtImg v-if="img" class="badge-icon" :src="img" alt="" densities="1x" />
 	<span class="badge-text">
 		<slot>{{ text }}</slot>
 	</span>

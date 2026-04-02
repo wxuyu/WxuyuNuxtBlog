@@ -1,6 +1,5 @@
-import type ArticleProps from '~/types/article'
-import type { ArticleOrderType } from '~/types/article'
-import { alphabetical } from 'radash'
+import type { ArticleOrderType, ArticleProps } from '~/types/article'
+import { orderBy } from 'es-toolkit/array'
 
 /**
  * 生成文章查询参数，完全包装 useAsyncData 会使 SSR 行为异常，缓存 key 需要暴露
@@ -11,7 +10,7 @@ import { alphabetical } from 'radash'
 export function useArticleIndexOptions(path = 'posts/%') {
 	return queryCollection('content')
 		.where('stem', 'LIKE', path)
-		.select('categories', 'date', 'description', 'image', 'path', 'readingTime', 'recommend', 'title', 'type', 'updated', 'tags')
+		.select('categories', 'date', 'description', 'image', 'path', 'readingTime', 'recommend', 'tags', 'title', 'type', 'updated')
 		.all()
 }
 
@@ -70,10 +69,10 @@ export function useArticleSort(list: MaybeRefOrGetter<ArticleProps[]>, options?:
 		? useRouteQuery(bindDirectionQuery, initialAscend.toString(), { transform: booleanQueryTransformer })
 		: ref<boolean>(initialAscend)
 
-	const listSorted = computed(() => alphabetical(
+	const listSorted = computed(() => orderBy(
 		toValue(list),
-		item => item[sortOrder.value] || '',
-		isAscending.value ? 'asc' : 'desc',
+		[sortOrder.value, 'date'],
+		[isAscending.value ? 'asc' : 'desc'],
 	))
 
 	return {

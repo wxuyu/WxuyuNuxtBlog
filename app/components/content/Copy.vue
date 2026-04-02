@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { createPlainShiki } from 'plain-shiki'
+import { getShikiOptions } from '~/shiki.config'
 
 const props = withDefaults(defineProps<{
 	prompt?: string | boolean
@@ -28,7 +29,7 @@ function undo() {
 	showUndo.value = false
 }
 
-function prevenLineBreak(event: InputEvent) {
+function preventLineBreak(event: InputEvent) {
 	const { data, inputType } = event
 	if (data?.includes('\n') || inputType === 'insertLineBreak') {
 		event.preventDefault()
@@ -45,7 +46,7 @@ onMounted(async () => {
 
 	createPlainShiki(shiki).mount(
 		codeInput.value!,
-		shikiStore.getOptions(language.value),
+		getShikiOptions(language.value),
 	)
 })
 </script>
@@ -59,7 +60,7 @@ onMounted(async () => {
 		contenteditable="plaintext-only"
 		class="code scrollcheck-x"
 		spellcheck="false"
-		@beforeinput="prevenLineBreak"
+		@beforeinput="preventLineBreak"
 		@input="checkUndoable"
 		v-text="code"
 	/>
@@ -78,6 +79,7 @@ onMounted(async () => {
 .copy {
 	contain: paint;
 	display: flex;
+	overflow: auto; // prompt 溢出时滚动
 	margin: 0.5rem 0;
 	border: 1px solid var(--c-border);
 	border-radius: 4px;

@@ -3,7 +3,7 @@ export interface NavItem {
 	text: string
 	url: string
 	external?: boolean
-  children?: NavItem[]
+	children?: NavItem[]
 }
 
 export type Nav = {

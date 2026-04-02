@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type ArticleProps from '~/types/article'
+import type { ArticleProps } from '~/types/article'
 
 const props = defineProps<{ useUpdated?: boolean } & ArticleProps>()
 
@@ -13,7 +13,7 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 </script>
 
 <template>
-<UtilLink class="article-card card">
+<UtilLink class="article-card card upraise">
 	<NuxtImg v-if="image" class="article-cover" :src="image" :alt="title" />
 	<article>
 		<h2 class="article-title text-creative">
@@ -27,14 +27,15 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 		<div class="article-info">
 			<UtilDate
 				v-if="date && (showAllDate || !useUpdated)"
-				:date="date"
-				icon="ph:calendar-dots-bold"
+				:date
+				icon="ph:pencil-simple-line-bold"
 			/>
 
 			<UtilDate
 				v-if="updated && (showAllDate || useUpdated)"
+				:class="{ 'use-updated': useUpdated }"
 				:date="updated"
-				icon="ph:calendar-plus-bold"
+				icon="ph:clock-counter-clockwise-bold"
 			/>
 
 			<span
@@ -45,7 +46,7 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 				<Icon :name="categoryIcon" />
 				{{ categoryLabel }}
 			</span>
-			
+
 			<span v-if="readingTime?.words" class="article-words">
 				<Icon name="ph:paragraph-bold" />
 				{{ formatNumber(readingTime?.words) }}字
@@ -59,15 +60,15 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 .article-card {
 	container-type: inline-size;
 	position: relative;
-	margin: 1rem 0;
-	border-radius: 0.8rem;
+	margin: 1em 0;
+	border-radius: 0.8em;
 	color: var(--c-text);
 	animation: float-in 0.2s var(--delay) backwards;
 
 	> article {
 		display: grid;
-		gap: 0.5rem;
-		padding: 1rem;
+		gap: 0.5em;
+		padding: 1em;
 	}
 }
 
@@ -95,18 +96,21 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 .article-description {
 	font-size: 0.9em;
 	color: var(--c-text-2);
-}
-
-.article-category {
-	color: var(--cg-color);
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4; /* 最多展示 4 行 */
+	line-clamp: 4;
+	text-overflow: ellipsis;
+	word-break: break-word;
 }
 
 .article-cover {
 	position: absolute;
 	opacity: 0.8;
-	top: 0;
 	inset-inline-end: 0;
-	width: min(320px, 50%);
+	top: 0;
+	width: calc(40% + 2em);
 	height: 100%;
 	margin: 0;
 	mask-image: linear-gradient(to var(--end), transparent, #FFF 50%);
@@ -120,7 +124,6 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 	& + article {
 		position: relative;
 		width: 60%;
-		text-shadow: 0 0 0.5rem var(--ld-bg-card), 0 0 1rem var(--ld-bg-card);
 	}
 
 	@mixin cover-narrow {
@@ -135,6 +138,10 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 
 		& + article {
 			width: auto;
+
+			> .article-title {
+				text-shadow: 0 0 0.2em var(--ld-bg-card), 0 0 0.5em var(--ld-bg-card), 0 0 1em var(--ld-bg-card);
+			}
 		}
 	}
 

@@ -1,13 +1,14 @@
 import type { ContentCollectionItem } from '@nuxt/content'
-import { toDate } from 'date-fns-tz'
-import { XMLBuilder } from 'fast-xml-parser'
-import { pascal } from 'radash'
+import { pascalCase } from 'es-toolkit/string'
+import XmlBuilder from 'fast-xml-builder'
+import { Temporal } from 'temporal-polyfill'
 import blogConfig from '~~/blog.config'
 import packageJson from '~~/package.json'
+import { toZonedTemporal } from '~~/shared/utils/time'
 
 const runtimeConfig = useRuntimeConfig()
 
-const builder = new XMLBuilder({
+const builder = new XmlBuilder({
 	attributeNamePrefix: '$',
 	cdataPropName: '$',
 	format: true,
@@ -16,8 +17,15 @@ const builder = new XMLBuilder({
 })
 
 function formatIsoDate(date?: string) {
-	const datetime = toDate(date || '', { timeZone: blogConfig.timezone })
-	return Number.isNaN(datetime.getTime()) ? datetime.toString() : datetime.toISOString()
+	if (!date)
+		return
+	try {
+		return toZonedTemporal(date).toInstant().toString()
+	}
+	catch {
+		console.error('Invalid date format', date)
+		return date
+	}
 }
 
 function getUrl(path: string | undefined) {
@@ -39,7 +47,6 @@ export default defineEventHandler(async (event) => {
 		.limit(blogConfig.feed.limit)
 		.all()
 
-	// @ts-expect-error posts 暂无类型
 	const entries = posts.map(post => ({
 		id: getUrl(post.path),
 		title: post.title ?? '',
@@ -74,11 +81,11 @@ export default defineEventHandler(async (event) => {
 		generator: {
 			$uri: 'https://github.com/L33Z22L11/blog-v3',
 			$version: packageJson.version,
-			_: pascal(packageJson.name),
+			_: pascalCase(packageJson.name),
 		},
 		icon: blogConfig.favicon,
 		logo: blogConfig.author.avatar, // Ratio should be 2:1
-		rights: `© ${new Date().getFullYear()} ${blogConfig.author.name}`,
+		rights: `© ${Temporal.Now.plainDateISO().year.toString()} ${blogConfig.author.name}`,
 		subtitle: blogConfig.subtitle || blogConfig.description,
 		entry: entries,
 	}

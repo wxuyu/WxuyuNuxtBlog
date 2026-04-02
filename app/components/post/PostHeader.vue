@@ -1,291 +1,112 @@
 <script setup lang="ts">
-import type ArticleProps from '~/types/article'
+import type { ArticleProps } from '~/types/article'
+import { LazyPopoverShare } from '#components'
 
 defineOptions({ inheritAttrs: false })
 const props = defineProps<ArticleProps>()
 
 const appConfig = useAppConfig()
 
+const coverFilter = computed(() => props.meta?.coverFilter || (props.meta?.coverDim && 'brightness(0.75)') || undefined)
 const categoryLabel = computed(() => props.categories?.[0])
 const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
+const subtitle = computed(() => props.subtitle || props.meta?.subtitle)
+const articleUrl = computed(() => new URL(props.path!, appConfig.url).href)
 
-const shareText = `【${appConfig.title}】${props.title}\n\n${
-	props.description ? `${props.description}\n\n` : ''}${
-	new URL(props.path!, appConfig.url).href}`
-
-// 未使用包体内容
-// const { copy, copied } = useCopy(shareText)
+const modalStore = useModalStore()
+const {
+	open: openShare,
+	close: closeShare,
+} = modalStore.use(() => h(LazyPopoverShare, {
+	title: props.title,
+	description: props.description,
+	url: articleUrl.value,
+	onClose: () => closeShare(),
+}), {
+	unique: true,
+	duration: 200,
+})
 </script>
 
 <template>
-<!-- 💩夸克浏览器，桌面端只有IE不支持 :has() 了 -->
-<div class="post-header" :class="{ 'has-cover': image, 'text-revert': meta?.coverRevert }">
-	<!-- <NuxtImg v-if="image" class="post-cover" :src="image" :alt="title" />
-	<div class="post-nav">
-		<div class="operations">
-			<ZButton
-				:icon="copied ? 'ph:check-bold' : 'ph:share-bold' "
-				@click="copy()"
-			>
-				文字分享
-			</ZButton>
-		</div>
+<div class="post-header" :class="{ 'has-cover': image }">
+	<Pic v-if="image" class="post-cover" :src="image" :alt="title" :filter="coverFilter" />
 
-		<div v-if="!meta?.hideInfo" class="post-info">
-			<UtilDate
-				v-if="date"
-				v-tip
-				tip-prefix="创建于"
-				:date="date"
-				icon="ph:calendar-dots-bold"
-			/>
+	<div class="post-header-content">
+		<h1 class="post-title" :class="getPostTypeClassName(type)">
+			{{ title }}
+		</h1>
 
-			<UtilDate
-				v-if="updated && isTimeDiffSignificant(date, updated, .999)"
-				v-tip
-				tip-prefix="修改于"
-				:date="updated"
-				icon="ph:calendar-plus-bold"
-			/>
+		<p v-if="subtitle" class="post-subtitle">
+			{{ subtitle }}
+		</p>
 
-			<span v-if="categoryLabel">
-				<Icon :name="categoryIcon" />
-				{{ categoryLabel }}
-			</span>
-
-			<span>
-				<Icon name="ph:paragraph-bold" />
-				{{ formatNumber(readingTime?.words) }} 字
-			</span>
-		</div>
-	</div>
-
-	<h1 class="post-title" :class="getPostTypeClassName(type)">
-		{{ title }}
-	</h1> -->
-	<div class="cover-wrapper">
-		<NuxtImg v-if="image" class="post-cover" :src="image" :alt="title"/>
-	</div>
-	<div class="cover-nav">
-		<div class="post-info">
-			<span class="date">
+		<div class="post-nav">
+			<div class="post-info">
 				<UtilDate
 					v-if="date"
 					v-tip
-					tip-prefix="创建于"
-					:date="date"
-					icon="ph:calendar-dots-bold"
+					:tip-transform="d => `创建于${d}`"
+					:date
+					icon="ph:pencil-simple-line-bold"
 				/>
-			</span>
-			<span class="categroy" v-if="categoryLabel">
-				<Icon :name="categoryIcon" />
-				{{ categoryLabel }}
-			</span>
-			<span class="wordsCount">
-				<Icon name="ph:paragraph-bold" />
-				{{ formatNumber(readingTime?.words) }} 字
-			</span>
-			<span class="update">
+
 				<UtilDate
-					v-if="updated && isTimeDiffSignificant(date, updated, .999)"
+					v-if="updated && isTimeDiffSignificant(date, updated, 1)"
 					v-tip
-					tip-prefix="修改于"
+					:tip-transform="d => `修改于${d}`"
 					:date="updated"
-					icon="ri:24-hours-line"
+					icon="ph:clock-counter-clockwise-bold"
 				/>
-			</span>
-			<span class="tagItem">
-				<Icon name="ph:tag-bold" />
-				<span class="tag" v-for="([key, value]) in Object.entries(tags ?? {})" :key="key">
-					{{ value }}
+
+				<span v-if="categoryLabel">
+					<Icon :name="categoryIcon" />
+					{{ categoryLabel }}
 				</span>
-			</span>
-		</div>
-		<div class="post-title" :class="getPostTypeClassName(type)">
-			{{ title }}
+
+				<span>
+					<Icon name="ph:paragraph-bold" />
+					{{ formatNumber(readingTime?.words) }} 字
+				</span>
+			</div>
+
+			<div class="operations">
+				<ZButton
+					icon="ph:share-bold"
+					@click="openShare()"
+				>
+					分享文章
+				</ZButton>
+			</div>
 		</div>
 	</div>
 </div>
 </template>
 
 <style lang="scss" scoped>
-.post-header.has-cover {
-	background-color: var(--c-bg-2);
-  background-color: transparent;
-  border-radius: 1rem 1rem 0 0;
-  flex-direction: column;
-  gap: 0;
-  margin: .5rem;
-	.cover-wrapper {
-    border-radius: 1rem 1rem 0 0;
-    height: 360px;
-    overflow: hidden;
-    overflow: clip;
-    position: relative;
-		@media (max-width: 768px) {
-			height: auto;
-		}
-		.post-cover {
-			height: 100%;
-			-o-object-fit: cover;
-			object-fit: cover;
-			width: 100%;
-		}
-	}
-	.cover-nav {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: transparent;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    gap: .3rem;
-    padding: 1.6rem 1.2rem;
-		.post-info {
-			align-items: center;
-			color: var(--c-text-soft);
-			display: flex;
-			flex-wrap: wrap;
-			gap: .6em 1.2em;
-			-moz-column-gap: clamp(1em, 3%, 1.5em);
-			column-gap: clamp(1em, 3%, 1.5em);
-			font-size: .85rem;
-			line-height: 1.5;
-			margin: 0;
-			order: -1;
-			padding: 0;
-			span {
-				align-items: center;
-				display: flex;
-				gap: .3em;
-			}
-			.tagItem {
-				align-items: center;
-				display: flex;
-				flex-wrap: wrap;
-				gap: .3em .6em;
-				.tag {
-					background-color: var(--c-bg-soft);
-					border-radius: .4em;
-					color: var(--c-text-soft);
-					font-size: .9em;
-					padding: .25em .6em;
-					transition: all .2s;
-					&:hover {
-						background-color: var(--c-primary-soft);
-						color: var(--c-primary);
-					}
-				}
-			}
-		}
-		.post-title {
-			-webkit-backdrop-filter: none;
-			backdrop-filter: none;
-			background: none;
-			border: none;
-			box-shadow: none;
-			color: var(--c-text);
-			font-size: 1.6rem;
-			font-weight: 600;
-			line-height: 1.4;
-			margin: 0;
-			padding: 0;
-		}
-	}
-}
-
 .post-header {
-  border-radius: 1rem;
-  color: var(--c-text);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: .5rem;
-	.cover-wrapper {
-    overflow: hidden;
-    overflow: clip;
-    position: relative;
-	}
-	.cover-nav {
-    display: flex;
-    flex-direction: column;
-    gap: .3rem;
-    opacity: .9;
-    padding: 1.6rem 1.2rem;
-    position: relative;
-		.post-info {
-			align-items: center;
-			color: var(--c-text-soft);
-			display: flex;
-			flex-wrap: wrap;
-			gap: .6em 1.2em;
-			-moz-column-gap: clamp(1em, 3%, 1.5em);
-			column-gap: clamp(1em, 3%, 1.5em);
-			font-size: .85rem;
-			line-height: 1.5;
-			margin: 0;
-			order: -1;
-			padding: 0;
-		}
-	}
-}
-</style>
-
-<!-- <style lang="scss" scoped>
-.post-header {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 1rem;
+	overflow: hidden;
 	margin: 0.5rem;
 	border-radius: 1rem;
+	box-shadow: var(--shadow-elevation-2);
 	background-color: var(--c-bg-2);
 	color: var(--c-text);
+	transition: transform 0.2s ease;
 
 	@media (max-width: $breakpoint-mobile) {
 		margin: 0;
 		border-radius: 0;
 	}
 
-	&:hover .operations,
-	&:focus-within .operations {
-		opacity: 1;
+	&:hover {
+		transform: translateY(-2px);
 	}
-
-	&.has-cover {
-		contain: paint; // overflow hidden + position relative
-		min-height: 16rem;
-		max-height: 20rem;
-		color: white;
-		transition: font-size 0.2s;
-
-		.post-info {
-			filter: drop-shadow(0 1px 2px #000);
-		}
-
-		.post-title {
-			background-image: linear-gradient(transparent, #0003, #0005);
-			text-shadow: var(--text-black-shadow);
-
-			&.text-story {
-				text-align: center;
-			}
-		}
-	}
-}
-
-.operations {
-	position: absolute;
-	opacity: 0;
-	inset-inline-end: 1em;
-	color: var(--c-text-1);
-	transition: opacity 0.2s;
-	z-index: 1;
 }
 
 .post-cover {
-	position: absolute;
-	inset: 0;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16/9;
 
 	> :deep(img) {
 		width: 100%;
@@ -294,22 +115,55 @@ const shareText = `【${appConfig.title}】${props.title}\n\n${
 	}
 }
 
+.post-header-content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 1rem;
+}
+
 .post-title {
-	padding: 0.8em 1rem;
-	font-size: 1.6em;
-	line-height: 1.2;
-	z-index: 1;
+	margin: 0;
+	font-size: 1.75rem;
+	font-weight: 700;
+	line-height: 1.3;
+	color: var(--c-text);
+}
+
+.post-subtitle {
+	max-width: 100%;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.4;
+	color: var(--c-text-2);
 }
 
 .post-nav {
-	padding: 0.8em 1rem;
-	font-size: 0.8em;
-
-	.post-info {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em 1.2em;
-		column-gap: clamp(1em, 3%, 1.5em);
-	}
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	font-size: 0.85rem;
+	color: var(--c-text-1);
 }
-</style> -->
+
+.operations {
+	flex-shrink: 0;
+	opacity: 1;
+}
+
+.post-info {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 1rem;
+}
+
+.post-info span,
+.post-info :deep(.icon) {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+</style>

@@ -1,8 +1,8 @@
 ---
 title: 即刻短文的三种部署方案
 description: 本篇转载三种不同方案（已经放好原文章链接）
-date: '2025-03-06 12:45'
-updated: '2025-03-05 14:09'
+date: 2025-03-06 12:45:00
+updated: 2025-03-07 14:09:00
 cover: https://sourceimage.s3.bitiful.net/img/default_cover_55.avif
 category:
   - hexo

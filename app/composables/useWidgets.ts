@@ -1,27 +1,29 @@
 import {
 	ContentRenderer,
 	LazyBlogWidget,
+	LazyWidgetBlogMusic,
+	LazyWidgetBlogPresence,
 	LazyWidgetBlogLog,
 	LazyWidgetBlogStats,
 	LazyWidgetBlogTech,
 	LazyWidgetCommGroup,
 	LazyWidgetEmpty,
+	LazyWidgetLatestComments,
 	LazyWidgetToc,
-  LazyWidgetBlogFlip,
-  LazyWidgetBlogMsuicPalyer,
 } from '#components'
-import { pascal } from 'radash'
+import { pascalCase } from 'es-toolkit/string'
 
 // @keep-sorted
 const rawWidgets = {
 	LazyWidgetBlogLog,
+	LazyWidgetBlogMusic,
+	LazyWidgetBlogPresence,
 	LazyWidgetBlogStats,
 	LazyWidgetBlogTech,
 	LazyWidgetCommGroup,
 	LazyWidgetEmpty,
+	LazyWidgetLatestComments,
 	LazyWidgetToc,
-  LazyWidgetBlogFlip,
-  LazyWidgetBlogMsuicPalyer,
 }
 
 type RawWidgetName = keyof typeof rawWidgets
@@ -53,7 +55,7 @@ export default function useWidgets(widgetList: MaybeRefOrGetter<WidgetName[]>) {
 		name: widgetName,
 		comp: widgetName.startsWith('meta-aside-')
 			? renderMetaSlots(widgetName)
-			: rawWidgets[`LazyWidget${pascal(widgetName)}` as RawWidgetName],
+			: rawWidgets[`LazyWidget${pascalCase(widgetName)}` as RawWidgetName],
 	})))
 
 	return {

@@ -1,11 +1,17 @@
-import type { NitroConfig } from 'nitropack'
+import { resolve } from 'node:path'
 import { arch, env, version as nodeVersion, platform } from 'node:process'
+import { pathToFileURL } from 'node:url'
 import { name as ciName, CLOUDFLARE_PAGES, GITHUB_ACTIONS, NETLIFY } from 'ci-info'
-import { pascal } from 'radash'
+import { mapValues } from 'es-toolkit/object'
+import { pascalCase } from 'es-toolkit/string'
+import { Temporal } from 'temporal-polyfill'
 import blogConfig from './blog.config'
 import packageJson from './package.json'
 import redirectList from './redirects.json'
-import appConfig from './app/app.config'
+
+function pluginPath(path: string) {
+	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
+}
 
 // 此处配置无需修改
 export default defineNuxtConfig({
@@ -15,7 +21,7 @@ export default defineNuxtConfig({
 				{ name: 'author', content: [blogConfig.author.name, blogConfig.author.email].filter(Boolean).join(', ') },
 				{ name: 'color-scheme', content: 'light dark' },
 				// 此处为元数据的生成器标识，不建议修改
-				{ 'name': 'generator', 'content': `${pascal(packageJson.name)} ${packageJson.version}`, 'data-github-repo': packageJson.homepage },
+				{ 'name': 'generator', 'content': `${pascalCase(packageJson.name)} ${packageJson.version}`, 'data-github-repo': packageJson.homepage },
 				{ name: 'mobile-web-app-capable', content: 'yes' },
 			],
 			link: [
@@ -30,7 +36,7 @@ export default defineNuxtConfig({
 				separator: '|',
 			},
 			titleTemplate: `%s %separator ${blogConfig.title}`,
-			script: blogConfig.scripts,
+			script: blogConfig.scripts as any,
 		},
 		rootAttrs: {
 			id: 'blog-root',
@@ -51,10 +57,6 @@ export default defineNuxtConfig({
 		'@/assets/css/font.scss',
 		'@/assets/css/main.scss',
 		'@/assets/css/reusable.scss',
-		'@/assets/css/comment.scss',
-    '@/assets/css/WuWuGameColor.scss',
-    '@/assets/css/BlogSiteColor.scss',
-    '@/assets/css/keyframes.scss'
 	],
 
 	// @keep-sorted
@@ -64,7 +66,7 @@ export default defineNuxtConfig({
 	},
 
 	features: {
-		inlineStyles: true,
+		inlineStyles: false,
 	},
 
 	nitro: {
@@ -77,11 +79,8 @@ export default defineNuxtConfig({
 
 	// @keep-sorted
 	routeRules: {
-		// ...Object.entries(redirectList)
-		// 	.reduce<NitroConfig['routeRules']>((acc, [from, to]) => {
-		// 		acc![from] = { redirect: { to, statusCode: 308 } }
-		// 		return acc
-		// 	}, {}),
+		...mapValues(redirectList, to => ({ redirect: { to, statusCode: 308 as const } })),
+		'/api/recent-comments': { swr: 60, headers: { 'Content-Type': 'application/json' } },
 		'/api/stats': { prerender: true, headers: { 'Content-Type': 'application/json' } },
 		'/atom.xml': { prerender: true, headers: { 'Content-Type': 'application/xml' } },
 		'/favicon.ico': { redirect: { to: blogConfig.favicon } },
@@ -92,16 +91,27 @@ export default defineNuxtConfig({
 		// @keep-sorted
 		public: {
 			arch,
-			buildTime: new Date().toISOString(),
+			buildTime: Temporal.Now.zonedDateTimeISO().toString(),
 			// EdgeOne 检测暂时不可用
 			ci: env.TENCENTCLOUD_RUNENV === 'SCF' ? 'EdgeOne' : ciName || '',
 			nodeVersion,
 			platform,
+			processReporterLatestEndpoint: env.PROCESS_REPORTER_LATEST_ENDPOINT || blogConfig.presence?.latestEndpoint || '',
 		},
 	},
 
 	/** 在生产环境启用 sourcemap */
 	// sourcemap: true,
+
+	typescript: {
+		nodeTsConfig: {
+			// @keep-sorted
+			include: [
+				'../remark-plugins/**/*.ts',
+				'../scripts/**/*.ts',
+			],
+		},
+	},
 
 	vite: {
 		css: {
@@ -115,7 +125,11 @@ export default defineNuxtConfig({
 			/** 在生产环境启用 Vue DevTools */
 			// __VUE_PROD_DEVTOOLS__: 'true',
 			/** 在生产环境启用 Vue 水合不匹配详情 */
-			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
+			// __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
+		},
+		optimizeDeps: {
+			// @keep-sorted
+			include: ['@shikijs/colorized-brackets', '@shikijs/transformers', '@unhead/schema-org/vue', '@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-autoplay', 'embla-carousel-vue', 'embla-carousel-wheel-gestures', 'es-toolkit/array', 'es-toolkit/promise', 'es-toolkit/string', 'minisearch', 'parse-domain', 'plain-shiki', 'shiki/themes/catppuccin-latte.mjs', 'shiki/themes/one-dark-pro.mjs', 'temporal-polyfill', 'vue-tippy'],
 		},
 		server: {
 			allowedHosts: true,
@@ -124,6 +138,10 @@ export default defineNuxtConfig({
 
 	// @keep-sorted
 	modules: [
+		'@bikariya/image-viewer',
+		'@bikariya/modals',
+		'@bikariya/shiki',
+		'@nuxt/a11y',
 		'@nuxt/content',
 		'@nuxt/hints',
 		'@nuxt/icon',
@@ -134,28 +152,7 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'nuxt-llms',
 		'unplugin-yaml/nuxt',
-		'@nuxtjs/critters'
 	],
-
-	critters: {
-		config: {
-			preload: 'media',
-			inlineFonts: true,
-			preloadFonts: true,
-			// 关键：字体优化
-			// 完全消除依赖树
-			inlineThreshold: 0,
-			minimumExternalSize: 0,
-			// 保持布局稳定
-			reduceInlineStyles: false,
-			pruneSource: false,  // 如果遇到样式丢失，设为false
-			// 外部资源全部处理
-			// external: true,
-			mergeStylesheets: true,
-			// compress: true,
-			noscriptFallback: true,
-		}
-	},
 
 	colorMode: {
 		preference: 'system',
@@ -169,14 +166,14 @@ export default defineNuxtConfig({
 				highlight: false,
 				// @keep-sorted
 				remarkPlugins: {
+					[pluginPath('remark-music')]: {},
 					'remark-math': {},
-					'remark-music': {},
 					'remark-reading-time': {},
 				},
 				// @keep-sorted
 				rehypePlugins: {
+					[pluginPath('rehype-meta-slots')]: {},
 					'rehype-katex': {},
-					'rehype-meta-slots': {},
 				},
 				toc: { depth: 4, searchDepth: 4 },
 			},
@@ -190,22 +187,18 @@ export default defineNuxtConfig({
 		'ready': () => {
 			console.info(`
 ================================
-${pascal(packageJson.name)} ${packageJson.version}
+${pascalCase(packageJson.name)} ${packageJson.version}
 ${packageJson.homepage}
 ================================
 `)
 		},
 		'content:file:afterParse': (ctx) => {
-			const permalink = ctx.content.permalink as string
-			if (permalink) {
+			const { permalink, path } = ctx.content as Record<string, string | undefined>
+			// 优先使用自定义链接（permalink/abbrlink），其次隐藏基于文件路由的 URL 中的 /posts 前缀
+			if (permalink)
 				ctx.content.path = permalink
-				return
-			}
-			// 在 URL 中隐藏文件路由自动生成的 /posts 路径前缀
-			if (blogConfig.article.hidePostPrefix) {
-				const realPath = ctx.content.path as string | undefined
-				ctx.content.path = realPath?.replace(/^\/posts/, '')
-			}
+			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
+				ctx.content.path = path.slice('/posts'.length)
 		},
 	},
 
@@ -221,10 +214,12 @@ ${packageJson.homepage}
 	},
 
 	image: {
+		// 尽量以这些密度点对点显示
+		densities: [1, 1.5, 2],
+		format: ['avif', 'webp'],
 		// Neylify 下 netlify 处理器无法显示站外图片，ipx 处理器无法显示站内图片，需彻底禁用
 		// https://github.com/nuxt/image/issues/1353
 		provider: NETLIFY ? 'none' : undefined,
-		format: ['avif', 'webp'],
 	},
 
 	linkChecker: {

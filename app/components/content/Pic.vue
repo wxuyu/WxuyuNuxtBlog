@@ -1,27 +1,28 @@
 <script setup lang="ts">
+import type { UtilImgProps } from '../util/Img.vue'
 import { LazyPopoverLightbox } from '#components'
 
-const props = withDefaults(defineProps<{
-	src: string
-	mirror?: ImgService
+const props = withDefaults(defineProps<UtilImgProps & {
 	caption?: string
-	width?: string | number
-	height?: string | number
 	zoom?: boolean
 }>(), {
 	caption: '',
 	zoom: true,
 })
 
+const slots = defineSlots<{
+	caption: () => any
+}>()
+
 const pic = ref()
 const picEl = useCurrentElement<HTMLImageElement>(pic)
 
-const popoverStore = usePopoverStore()
+const modalStore = useModalStore()
 
-const { open } = popoverStore.use(
+const { open } = modalStore.use(
 	() => h(LazyPopoverLightbox, {
 		el: picEl.value,
-		caption: props.caption,
+		caption: props.alt || props.caption || slots.caption,
 	}),
 	{ unique: true },
 )
@@ -34,10 +35,15 @@ const { open } = popoverStore.use(
 		ref="pic"
 		class="image"
 		:style="{ cursor: zoom && 'zoom-in' }"
-		:src :alt="caption" :width :height :mirror
+		:alt="caption || alt"
+		:src :width :height :mirror :filter :densities
 		@click="zoom && open()"
 	/>
-	<figcaption v-if="caption" aria-hidden v-text="caption" />
+	<figcaption v-if="caption || $slots.caption" aria-hidden>
+		<slot name="caption">
+			{{ caption }}
+		</slot>
+	</figcaption>
 </figure>
 </template>
 

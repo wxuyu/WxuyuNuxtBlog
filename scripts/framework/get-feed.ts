@@ -3,6 +3,8 @@
 import type { FeedEntry } from '../../app/types/feed'
 import process from 'node:process'
 import { cancel, intro, isCancel, outro, select, text } from '@clack/prompts'
+import { mapValues } from 'es-toolkit/object'
+import { Temporal } from 'temporal-polyfill'
 import { entries, getLinkInfo } from './utils'
 
 function displayName(e: FeedEntry): string {
@@ -33,10 +35,10 @@ const filtered = query?.trim()
 if (query?.startsWith('http')) {
 	filtered.push({
 		author: query,
-		link: query,
-		icon: query,
-		avatar: query,
-		date: new Date().toLocaleString('en-CA'),
+		link: query.startsWith('http') ? query : `https://${query}`,
+		icon: '',
+		avatar: '',
+		date: Temporal.Now.zonedDateTimeISO().toLocaleString('sv'),
 	})
 }
 
@@ -58,10 +60,10 @@ if (isCancel(selected)) {
 	process.exit(0)
 }
 
-const choice = filtered[Number(selected)]
+const choice = filtered[Number(selected)]!
 
 const info = await getLinkInfo(choice)
 
-console.table(Object.fromEntries(Object.entries(info).map(([k, v]) => [k, { '(value)': v }])))
+console.table(mapValues(info, v => ({ '(value)': v })))
 
 outro('完成 ✅')

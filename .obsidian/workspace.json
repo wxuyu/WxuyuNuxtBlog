@@ -1,0 +1,233 @@
+{
+  "main": {
+    "id": "586e5e030bf15d56",
+    "type": "split",
+    "children": [
+      {
+        "id": "1d07c9009308a302",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6c8833ae1cb83562",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/posts/novel/world/HarmWorld.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "HarmWorld"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ca35a713b55087f9",
+    "type": "split",
+    "children": [
+      {
+        "id": "d40c7d8f5d30f25b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ca32c3a1a1e30ded",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "7eb08892c8a33f08",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "9221a331e1ab3f69",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d9d955d3adba7cfd",
+    "type": "split",
+    "children": [
+      {
+        "id": "eba5e4db0d41b6a5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "38f13d4cd0723c2b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "content/posts/2026/03/未命名.md",
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "未命名 的反向链接列表"
+            }
+          },
+          {
+            "id": "805752225608556d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "content/posts/2026/03/未命名.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "未命名 的出链列表"
+            }
+          },
+          {
+            "id": "ee529933f9f37404",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "47534b69813ab3fe",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "20414c990e5ecef4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "content/posts/2026/02/WutheringWavesPostWidget.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "WutheringWavesPostWidget 的大纲"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "6c8833ae1cb83562",
+  "lastOpenFiles": [
+    "content/posts/novel/world/dh.md",
+    "content/posts/novel/world/HarmWorld.md",
+    "content/posts/2026/02/WutheringWavesPostWidget.md",
+    "content/mingchao/ams.md",
+    "content/preview/test/1.md",
+    "content/preview/test/1 copy 16.md",
+    "content/preview/test/1 copy 15.md",
+    "content/preview/test/1 copy 14.md",
+    "content/preview/test/1 copy 13.md",
+    "content/preview/test/1 copy 12.md",
+    "content/preview/test/1 copy 11.md",
+    "content/preview/test/1 copy 10.md",
+    "content/preview/test/1 copy 9.md",
+    "content/preview/test/1 copy 8.md",
+    "content/preview/test/1 copy 7.md",
+    "content/preview/test/1 copy 6.md",
+    "content/preview/test/1 copy 5.md",
+    "content/preview/test/1 copy 4.md",
+    "content/preview/test/1 copy 3.md",
+    "content/preview/test/1 copy 2.md",
+    "content/preview/test/4 copy.md",
+    "content/preview/test/3 copy.md",
+    "content/preview/test/2 copy.md",
+    "content/preview/test/1 copy.md",
+    "content/preview/test/4.md",
+    "content/preview/test/3.md",
+    "content/preview/test",
+    "app/components/content/heroStory.vue",
+    "app/components/content/heroSotries.vue",
+    "app/components/post/Article_Mc.vue",
+    "public/image/PostCover/btfFunction.avif",
+    "public/image/PostCover/btfAboutPage.avif",
+    "public/image/PostCover/banguimPage.avif",
+    "public/image/PostCover/archiveMougai.avif",
+    "public/image/PostCover/annualSummary.avif",
+    "public/image/PostCover/WutheringWavesPostWidget.avif",
+    "public/image/PostCover/vpsTalk.avif",
+    "public/image/PostCover/ssVeryfunction.avif",
+    "public/image/PostCover/smallCard.avif",
+    "public/image/PostCover/siteInfo.avif",
+    "未命名",
+    "未命名.base",
+    "content/posts/2026/03"
+  ]
+}

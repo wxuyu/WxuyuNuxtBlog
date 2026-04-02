@@ -6,6 +6,7 @@ const props = defineProps<{
 	enableAscending?: boolean
 	disableAscending?: boolean
 	categories?: (string | undefined)[]
+	secretDelay?: string
 }>()
 
 const appConfig = useAppConfig()
@@ -30,7 +31,9 @@ function toggleDirection() {
 </script>
 
 <template>
-<div class="order-toggle">
+<div class="order-toggle" :style="{ '--secret-delay': secretDelay }">
+	<slot />
+
 	<ZDropdown trigger="focusin" tabindex="0">
 		<button :disabled="!categories">
 			<Icon :name="getCategoryIcon(category)" />
@@ -57,7 +60,7 @@ function toggleDirection() {
 
 		<button @click="toggleOrder">
 			<Icon v-if="!allowAscending" name="ph:sort-ascending-bold" />
-			<span class="order-text">{{ orderMap[sortOrder] }}</span>
+			<span class="order-text">{{ orderMap[sortOrder] || sortOrder }}</span>
 		</button>
 	</span>
 </div>
@@ -66,11 +69,10 @@ function toggleDirection() {
 <style lang="scss" scoped>
 .order-toggle {
 	display: flex;
-	justify-content: flex-end;
 	gap: 1rem;
+	color: var(--c-text-2);
 
-	button {
-		color: var(--c-text-2);
+	:deep(button), :deep(a) {
 		transition: color 0.2s;
 
 		&:hover {
@@ -89,7 +91,11 @@ function toggleDirection() {
 	}
 }
 
+:deep(.secret-container) {
+	margin-inline-end: auto;
+}
+
 .iconify + span {
-	margin-inline-start: 0.1em;
+	margin-inline-start: 0.2em;
 }
 </style>

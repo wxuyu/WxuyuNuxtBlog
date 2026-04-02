@@ -9,16 +9,6 @@ const appConfig = useAppConfig()
 
 <template>
 <UtilLink class="blog-header">
-	<div v-if="appConfig.header.emojiTail" class="emoji-tail">
-		<span
-			v-for="(emoji, emojiIndex) in appConfig.header.emojiTail"
-			:key="emojiIndex"
-			class="split-char"
-			:style="getFixedDelay(emojiIndex * .6 - 3)"
-			v-text="emoji"
-		/>
-	</div>
-
 	<NuxtImg
 		:src="appConfig.header.logo"
 		class="blog-logo round-cobblestone"
@@ -63,12 +53,17 @@ const appConfig = useAppConfig()
 	&.circle {
 		width: 3em;
 		border-radius: 50%;
-		box-shadow: 2px 4px 1rem var(--ld-shadow);
+		box-shadow: var(--box-shadow-1), var(--box-shadow-3);
 	}
 }
 
+@font-face {
+	font-family: LXGWWenKai;
+	src: url("/fonts/LXGWWenKai.woff2");
+}
+
 .header-title {
-	// font-family: "LXGW WenKai Screen", "Noto Sans SC", sans-serif;
+	font-family: "LXGW WenKai Screen", "LXGW WenKai", "Noto Sans SC", sans-serif;
 	font-size: 1.5em;
 	font-synthesis: none;
 	font-variation-settings: "wght" 600, "BEVL" 100;
@@ -94,48 +89,5 @@ const appConfig = useAppConfig()
 @keyframes vf-bevel {
 	from { font-variation-settings: "BEVL" 100; }
 	to { font-variation-settings: "BEVL" 1; }
-}
-
-.emoji-tail {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-	align-content: center;
-	justify-items: center;
-	position: absolute;
-	opacity: 0.2;
-	inset: 0;
-	font-size: 4rem;
-	transition: opacity 1s;
-	filter: blur(2px);
-	pointer-events: none;
-	z-index: -2;
-
-	> .split-char {
-		animation: 5s infinite alternate emoji-floating;
-		animation-delay: var(--delay);
-		animation-play-state: paused;
-	}
-}
-
-.blog-header:hover {
-	.emoji-tail {
-		opacity: 0.5;
-	}
-
-	.split-char {
-		animation-play-state: running;
-	}
-}
-
-@keyframes emoji-floating {
-	50% {
-		transform: translate(-12px, -4px) scale(1.2);
-		filter: blur(4px);
-	}
-
-	100% {
-		transform: translate(-4px, -12px) scale(0.9);
-		filter: blur(1px);
-	}
 }
 </style>

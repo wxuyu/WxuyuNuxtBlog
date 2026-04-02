@@ -1,132 +1,113 @@
 <script setup lang="ts">
-import type ArticleProps from '~/types/article'
+import type { ArticleProps } from '~/types/article'
 
 defineOptions({ inheritAttrs: false })
-defineProps<ArticleProps>()
-// 未读取内容
-// const [DefineTemplate, ReuseTemplate] = createReusableTemplate<{
-// 	title: string
-// }>({ inheritAttrs: false })
-
+const props = defineProps<ArticleProps>()
 const appConfig = useAppConfig()
 
-const item = {
-	作者: appConfig.author.name,
-	// 发布时间: getPostDate(props.date),
-	// 更新时间: getPostDate(props.updated),
-	许可协议: appConfig.copyright.abbr,
+const title = computed(() => props.title || '')
+const path = computed(() => props.path || '')
+const date = computed(() => props.date)
+const updated = computed(() => props.updated)
+const references = computed(() => props.references)
+const meta = computed(() => props.meta)
+
+function formatDate(dateStr?: string): string {
+	if (!dateStr)
+		return ''
+	try {
+		const d = new Date(dateStr)
+		if (Number.isNaN(d.getTime()))
+			return ''
+		return d.toLocaleDateString('zh-CN', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})
+	}
+	catch (e) {
+		console.error(`Invalid date: ${dateStr}`, e)
+		return ''
+	}
 }
 
-import { sort } from 'radash'
-import { useReWardStore } from '~/types/reward';
-
-const { data: listRaw } = await useAsyncData('index_posts', () => useArticleIndexOptions(), { default: () => [] })
-
-const articlesByTag = computed(() => {
-	const result: Record<string, any[]> = {}
-	const articles = sort(listRaw.value, a => new Date(a.date || 0).getTime(), true)
-	for (const article of articles) {
-		if (article.tags) {
-			for (const tag of article.tags) {
-				if (!result[tag]) {
-					result[tag] = []
-				}
-				result[tag].push(article)
-			}
-		}
+const formattedDate = computed(() => formatDate(date.value))
+const formattedUpdatedDate = computed(() => formatDate(updated.value))
+const fullUrl = computed(() => {
+	if (!path.value)
+		return ''
+	try {
+		return new URL(path.value, appConfig.url).href
 	}
-	return result
+	catch {
+		return ''
+	}
 })
-
-const sortedTags = computed(() => {
-	return Object.keys(articlesByTag.value).sort((a, b) => {
-		const aCount = articlesByTag.value[a]?.length || 0
-		const bCount = articlesByTag.value[b]?.length || 0
-		return bCount - aCount
-	})
-})
-
-const ReWardStore = useReWardStore()
 </script>
 
 <template>
-<div class="post-footer">
-	<!-- <DefineTemplate v-slot="{ $slots, title }">
-		<section>
-			<div class="title text-creative">
-				{{ title }}
+<div v-if="!meta?.hideInfo" class="post-footer">
+	<section class="author-card">
+		<div class="copyright-badge">
+			<Icon name="ph:copyright-bold" />
+		</div>
+
+		<div class="card-left">
+			<div class="card-header">
+				<div class="author-info">
+					<h3 class="title">
+						{{ title }}
+					</h3>
+					<div v-if="path" class="url-wrapper">
+						<p class="url">
+							{{ fullUrl }}
+						</p>
+					</div>
+				</div>
 			</div>
 
+			<div class="card-meta">
+				<div class="meta-column">
+					<div class="meta-item">
+						<span class="label">文章作者</span>
+						<span class="value">{{ appConfig.author.name }}</span>
+					</div>
+					<div v-if="date" class="meta-item">
+						<span class="label">发布时间</span>
+						<span class="value">{{ formattedDate }}</span>
+					</div>
+					<div v-if="updated && updated !== date" class="meta-item">
+						<span class="label">更新时间</span>
+						<span class="value">{{ formattedUpdatedDate }}</span>
+					</div>
+					<div class="meta-item">
+						<span class="label">版权信息</span>
+						<a :href="appConfig.copyright.url" class="value copyright-link">
+							{{ appConfig.copyright.name }}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-signature-text">
+			PaloMiku
+		</div>
+
+		<section v-if="references" class="reference">
+			<div id="references" class="title text-creative">
+				参考链接
+			</div>
 			<div class="content">
-				<component :is="$slots.default" />
+				<ul>
+					<li v-for="({ title: rt, link }, i) in references" :key="i">
+						<ProseA :href="link || ''">
+							{{ rt ?? link }}
+						</ProseA>
+					</li>
+				</ul>
 			</div>
 		</section>
-	</DefineTemplate>
-
-	<ReuseTemplate v-if="references" title="参考链接">
-		<ul>
-			<li v-for="{ title, link }, i in references" :key="i">
-				<ProseA :href="link || ''">
-					{{ title ?? link }}
-				</ProseA>
-			</li>
-		</ul>
-	</ReuseTemplate>
-
-	<ReuseTemplate :title="meta?.slots?.copyright?.props?.title as string || '许可协议'">
-		<ContentRenderer v-if="meta?.slots?.copyright" :value="meta?.slots?.copyright" />
-		<p v-else>
-			本文采用 <ProseA :href="appConfig.copyright.url">
-				{{ appConfig.copyright.name }}
-			</ProseA>
-			许可协议，转载请注明出处。
-		</p>
-	</ReuseTemplate>-->
-	<section class="authorCard">
-		<div class="header">
-			<span class="authorInfo">
-				<h3 class="title">{{ title }}</h3>
-				<ZRawLink :to="appConfig.url + path" class="url">
-					{{ appConfig.url }}{{ path }}
-				</ZRawLink>
-			</span>
-			<span class="authorIcon">
-				<icon name="ph:copyright-bold" />
-			</span>
-		</div>
-		<div class="meta">
-      <div class="card-specs">
-        <div class="spec-item" v-for="([key, value]) in Object.entries(item ?? {})" :key="key">
-          <h3 class="spec-label">
-            {{ key }}
-          </h3>
-          <h3 class="spec-value" v-if="key === '作者' || key === '发布时间' || key === '更新时间'">
-            {{ value }}
-          </h3>
-					<ZRawLink class="spec-value" to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" v-if="key === '许可协议'">
-						{{ value }}
-					</ZRawLink>
-        </div>
-      </div>
-		</div>
-	</section>
-	<section class="post-bottom">
-		<div class="left">
-			<div class="tagsItem">
-				<ZRawLink class="tags" v-for="([key, value]) in Object.entries(tags ?? {})" :key="key" :to="'/?tags=' + value">
-					{{ value }}
-					<span class="tagNumber">{{ articlesByTag[value]?.length }}</span>
-				</ZRawLink>
-			</div>	
-		</div>
-		<div class="right">
-			<div class="post-reward">
-				<ZButton class="reward-button" @click="ReWardStore.open()" style="font-size: 0.85em;">
-					<Icon name="proicons:sparkle-2" />
-					打赏
-				</ZButton>
-			</div>
-		</div>
 	</section>
 </div>
 </template>
@@ -140,159 +121,121 @@ const ReWardStore = useReWardStore()
 }
 
 section {
-	padding: 1rem;
+	padding: 1.2rem;
 
 	& + section {
 		border-top: 1px solid var(--c-border);
 	}
 }
 
-.authorCard {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-	padding: 1.5rem;
-	overflow: hidden;
+.title {
+	font-weight: bold;
+	color: var(--c-text);
+}
 
-	.header {
-    align-items: flex-start;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-		.authorInfo {
-			flex: 1;
-			.title {
-				font-size: 1.1rem;
-				line-height: 1.4;
-				margin: 0 0 .5rem;
-			}
-			.url {
-				color: var(--c-text-soft);
-				font-size: .85rem;
-				margin: 0;
-				word-break: break-all;
-			}
-		}
-		.authorIcon {
-			position: absolute;
-			filter: blur(5px);
-			right: -26px;
-			font-size: 200px;
-			opacity: .2;
-			z-index: 2;
-			-webkit-transition: all .3s ease-in-out;
-			-moz-transition: all .3s ease-in-out;
-			-o-transition: all .3s ease-in-out;
-			-ms-transition: all .3s ease-in-out;
-			transition: all .3s ease-in-out;
-			top: -25%;
-			&:hover {
-				filter: none;
-			}
-		}
-	}
-	.meta {
-		flex: 1;
-    margin-bottom: 1rem;
+.content {
+	margin-top: 0.5em;
+	font-size: 0.9rem;
 
-		.card-specs {
-			background: transparent;
-			border-radius: 0;
-			display: grid;
-			font-size: .8rem;
-			gap: .8rem;
-			grid-template-columns: repeat(5, 1fr);
-			padding: 0;
-			@media (max-width: 768px) {
-				grid-template-columns: repeat(3, 1fr);
-			}
-
-			.spec-item {
-				display: flex;
-				flex-direction: column;
-				gap: .1rem;
-				.spec-label {
-					color: var(--c-text-2);
-					// font-size: .7rem;
-					font-weight: 500;
-				}
-				.spec-value {
-					color: var(--c-text);
-					// font-size: .8rem;
-					word-break: break-word;
-					font-size: .9rem;
-    			font-weight: 500;
-				}
-			}
-		}
+	li {
+		margin: 0.5em 0;
 	}
 }
 
-.post-bottom {
-	width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+.author-card {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	position: relative;
+	padding: 1.5rem !important;
+}
 
-	.left {
-    white-space: nowrap;
-    display: flex;
-    text-overflow: ellipsis;
-    flex-wrap: wrap;
+.copyright-badge {
+	position: absolute;
+	top: 1.5rem;
+	right: 1.5rem;
+	font-size: 2rem;
+	color: var(--c-border);
+	opacity: 0.5;
+}
 
-		.tagsItem {
-			display: flex;
-			padding: 0;
-			width: 100%;
-			flex-wrap: wrap;
-			flex-direction: row;
-			gap: 8px;
+.card-left {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
 
-			.tags {
-				background: var(--heo-card-bg);
-				border: var(--style-border-always);
-				color: var(--heo-fontcolor);
-				border-radius: 8px;
-				margin: 0;
-				display: flex;
-				align-items: center;
-				white-space: nowrap;
-				height: 32px;
-				padding: 0 .6rem;
-				width: fit-content;
-				font-size: .85em;
-				transition: all .2s ease-in-out 0s;
+.card-header {
+	display: flex;
+	align-items: flex-start;
+}
 
-				.tagNumber {
-					padding: 2px;
-					background: var(--heo-fontcolor);
-					min-width: 22.5px;
-					display: inline-block;
-					border-radius: 4px;
-					text-align: center;
-					font-size: 0.7rem;
-					color: var(--heo-card-bg);
-					margin-left: 4px;
-					line-height: 1;
-					transition: .2s;
-				}
-			}
-		}
+.author-info .title {
+	margin: 0 0 0.5rem;
+	font-size: 1.1rem;
+	line-height: 1.4;
+}
+
+.url-wrapper { display: flex; align-items: center; gap: -0.05rem; }
+
+.url {
+	flex: 1;
+	min-width: 0;
+	margin: 0;
+	font-size: 0.85rem;
+	word-break: break-all;
+	color: var(--c-text-soft);
+}
+
+.card-meta {
+	.meta-column { display: flex; flex-direction: column; gap: 0.8rem; }
+	.meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+	.label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--c-text-soft); }
+	.value { font-size: 0.9rem; font-weight: 500; color: var(--c-text-1); }
+	.copyright-link { text-decoration: none; color: var(--c-primary); transition: opacity 0.2s; }
+	.copyright-link:hover { opacity: 0.8; }
+}
+
+.card-signature-text {
+	position: absolute;
+	right: 1.5rem;
+	bottom: 1.5rem;
+	font-family: 'Ephesis', var(--font-creative), sans-serif;
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--c-text);
+	opacity: 0.95;
+	text-shadow: 0 0 4px rgba(255, 255, 255, 0.25);
+	z-index: 2;
+	padding: 0.25rem 0.4rem;
+	background-color: transparent;
+	border-radius: 0.35rem;
+}
+
+@media (max-width: 768px) {
+	.card-signature-text {
+		position: relative;
+		right: auto;
+		bottom: auto;
+		align-self: flex-end;
+		margin-top: 0.7rem;
+		text-align: right;
+		background-color: transparent;
 	}
 }
 
-// .title {
-// 	font-weight: bold;
-// 	color: var(--c-text);
-// }
+@media (prefers-color-scheme: dark) {
+	.card-signature-text {
+		background-color: transparent;
+		text-shadow: 0 0 3px rgba(0, 0, 0, 0.35);
+	}
+}
 
-// .content {
-// 	margin-top: 0.5em;
-// 	font-size: 0.9rem;
+.dark .card-signature-text {
+	background-color: transparent;
+	text-shadow: 0 0 3px rgba(0, 0, 0, 0.35);
+}
 
-// 	li {
-// 		margin: 0.5em 0;
-// 	}
-// }
+.reference .content ul { margin: 0; padding: 0; list-style: none; }
+.reference .content li { margin: 0.6rem 0; }
 </style>
-

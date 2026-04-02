@@ -5,10 +5,6 @@ defineProps<{
 	dim?: boolean
 	bgImg?: string
 	bgRight?: boolean
-	rightType?: 'desc' | 'buttom'
-	desc?: string
-	buttom_title?: string
-	buttom_url?: string
 }>()
 </script>
 
@@ -18,16 +14,6 @@ defineProps<{
 		<slot name="title">
 			{{ title }}
 		</slot>
-		<template v-if="rightType === 'desc'">
-			<div class="desc">
-				{{ desc }}
-			</div>
-		</template>
-		<template v-if="rightType === 'buttom'">
-			<NuxtLink :href="buttom_url" class="buttom">
-				{{ buttom_title }}
-		    </NuxtLink>
-		</template>
 	</hgroup>
 
 	<div class="widget-body" :class="{ 'widget-card': card, 'with-bg': bgImg }">
@@ -68,14 +54,7 @@ defineProps<{
 	a {
 		transition: color 0.2s;
 	}
-	.desc {
-		font-size: 0.5em;
-		color: var(--c-text-3);
-	}
-	.buttom {
-		font-size: 0.1em;
-		color: var(--c-text-3);
-	}
+
 	> [onclick]:hover, > [href]:hover {
 		color: var(--c-primary);
 	}

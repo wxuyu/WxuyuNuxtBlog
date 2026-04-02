@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '#components'
-import { packageManager, version, dependencies } from '~~/package.json'
+import { packageManager, version } from '~~/package.json'
 import pnpmWorkspace from '~~/pnpm-workspace.yaml'
 
 const appConfig = useAppConfig()
@@ -23,7 +23,7 @@ const [pm, pmVersion] = packageManager.split('@') as [string, string]
 
 const service = computed(() => ([
 	...ci ? [{ label: '构建平台', value: ciPlatform }] : [],
-	{ label: '图片存储', value: () => [h('img', { src: '/image/DefineAssets/Service/bitful.avif', alt: '缤纷云'}), '缤纷云'] },
+	{ label: '图片存储', value: () => [h(Icon, { name: 'simple-icons:cloudflare', alt: '' }), ' R2'] },
 	{ label: '软件协议', value: 'MIT' },
 	{ label: '文章许可', value: appConfig.copyright.abbr },
 	{ label: '规范域名', value: getDomain(appConfig.url) },
@@ -38,8 +38,6 @@ const techstack = computed(() => ([
 	{ label: pm, value: pmVersion },
 	{ label: 'OS', value: platform },
 	{ label: 'Arch', value: arch },
-	{ label: 'PUG', value: dependencies.pug },
-	{ label: 'Stylus', value: dependencies.stylus },
 ]))
 
 const expand = ref(false)

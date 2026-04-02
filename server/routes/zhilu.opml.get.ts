@@ -1,11 +1,11 @@
 import type { FeedEntry, FeedGroup } from '~/types/feed'
-import { XMLBuilder } from 'fast-xml-parser'
+import XmlBuilder from 'fast-xml-builder'
 import blogConfig, { myFeed } from '~~/blog.config'
 import feeds from '~/feeds'
 
 const runtimeConfig = useRuntimeConfig()
 
-const builder = new XMLBuilder({
+const builder = new XmlBuilder({
 	attributeNamePrefix: '$',
 	format: true,
 	ignoreAttributes: false,
@@ -16,15 +16,14 @@ function mapEntry(item: FeedEntry) {
 		$text: item.title || item.sitenick || item.author,
 		$type: 'rss',
 		$xmlUrl: item.feed,
-		$created: new Date(item.date).toISOString(),
+		$created: toZonedTemporal(item.date).toInstant().toString(),
 		$description: item.desc,
 		$htmlUrl: item.link || item.feed,
 	}
 }
 
 function flattenGroups(groups: FeedGroup[]) {
-	return groups.flatMap(group =>
-		group.entries.filter(entry => entry.feed).map(mapEntry))
+	return groups.flatMap(({ entries }) => entries.filter(({ feed }) => feed).map(mapEntry))
 }
 
 export default defineEventHandler(async (_e) => {
@@ -37,7 +36,7 @@ export default defineEventHandler(async (_e) => {
 		$version: '2.0',
 		head: {
 			title: `${blogConfig.title}的友链订阅`,
-			dateCreated: new Date(blogConfig.timeEstablished).toISOString(),
+			dateCreated: toZonedTemporal(blogConfig.timeEstablished).toInstant().toString(),
 			dateModified: runtimeConfig.public.buildTime,
 			ownerName: blogConfig.author.name,
 			ownerEmail: blogConfig.author.email,

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { group } from 'radash'
+import type { ArticleProps } from '~/types/article'
+import { sumBy } from 'es-toolkit'
+import { groupBy } from 'es-toolkit/array'
 
 const appConfig = useAppConfig()
 useSeoMeta({
@@ -7,30 +9,107 @@ useSeoMeta({
 	description: `${appConfig.title}的所有文章归档。`,
 })
 const birthYear = computed(() => appConfig.component.stats.birthYear)
+const showTuning = ref(false)
+const spacing = ref(0)
+const column = ref(1)
 
 const layoutStore = useLayoutStore()
-layoutStore.setAside(['blog-stats', 'blog-log'])
+const { panelTranslate } = storeToRefs(layoutStore)
+layoutStore.setAside(['blog-stats', 'blog-presence', 'blog-log'])
 
 const { data: listRaw } = await useAsyncData('index_posts', () => useArticleIndexOptions(), { default: () => [] })
 const { listSorted, isAscending, sortOrder } = useArticleSort(listRaw)
 const { category, categories, listCategorized } = useCategory(listSorted)
 
+const seasonOrder = ['winter', 'autumn', 'summer', 'spring'] as const
+type Season = (typeof seasonOrder)[number]
+
+const seasonLabels: Record<Season, string> = {
+	spring: '春季',
+	summer: '夏季',
+	autumn: '秋季',
+	winter: '冬季',
+}
+
+function monthToSeason(month: number): Season {
+	if (month >= 3 && month <= 5)
+		return 'spring'
+	if (month >= 6 && month <= 8)
+		return 'summer'
+	if (month >= 9 && month <= 11)
+		return 'autumn'
+	return 'winter'
+}
+
+function getArticleSeason(article: ArticleProps): Season {
+	try {
+		const month = toZonedTemporal(article[sortOrder.value] as string).month
+		return monthToSeason(month)
+	}
+	catch {
+		return 'spring'
+	}
+}
+
+interface SeasonGroupItem {
+	season: Season
+	label: string
+	articles: ArticleProps[]
+}
+
 const listGrouped = computed(() => {
-	const groupList = Object.entries(group(
-		listCategorized.value,
-		article => new Date(article[sortOrder.value] || 0).getFullYear(),
-	))
-	return isAscending.value ? groupList : groupList.reverse()
+	const yearGroupMap = groupBy(listCategorized.value, getArticleYear)
+	const yearEntries = Object.entries(yearGroupMap)
+	const sortedYearEntries = isAscending.value ? yearEntries : yearEntries.reverse()
+
+	return sortedYearEntries.map(([year, articles]) => {
+		const seasonGroup = groupBy(articles, getArticleSeason) as Record<Season, ArticleProps[]>
+		const seasonRecord: Record<Season, ArticleProps[]> = {
+			spring: seasonGroup.spring ?? [],
+			summer: seasonGroup.summer ?? [],
+			autumn: seasonGroup.autumn ?? [],
+			winter: seasonGroup.winter ?? [],
+		}
+
+		const seasons = seasonOrder
+			.map(season => ({ season, label: seasonLabels[season], articles: seasonRecord[season] }))
+			.filter(item => item.articles.length > 0)
+
+		return { year, seasons }
+	})
 })
 
 // 不能使用 /api/stats，因为可能切换分组方式
 const yearlyWordCount = computed(() => {
-	return listGrouped.value.reduce<Record<string, string>>((acc, [year, yearGroup]) => {
-		const totalWords = yearGroup?.reduce((sum, cur) => sum + cur.readingTime!.words, 0) || 0
-		acc[year] = formatNumber(totalWords)
-		return acc
-	}, {})
+	const stats: Record<string, string> = {}
+	for (const { year, seasons } of listGrouped.value) {
+		const articles = seasons.flatMap(item => item.articles)
+		const total = sumBy(articles, a => a.readingTime?.words ?? 0)
+		stats[year] = formatNumber(total)
+	}
+	return stats
 })
+
+function getYearArticleCount(seasons: SeasonGroupItem[]) {
+	return seasons.flatMap(item => item.articles).length
+}
+
+watchImmediate(showTuning, (newVal) => {
+	panelTranslate.value.archiveTuning = newVal ? '0, -3em' : undefined
+})
+
+onUnmounted(() => {
+	panelTranslate.value.archiveTuning = undefined
+})
+
+function getArticleYear(article: ArticleProps) {
+	try {
+		return toZonedTemporal(article[sortOrder.value] as string).year.toString()
+	}
+	catch {
+		return ''
+	}
+}
 </script>
 
 <template>
@@ -40,51 +119,129 @@ const yearlyWordCount = computed(() => {
 		v-model:sort-order="sortOrder"
 		v-model:category="category"
 		:categories
-	/>
+	>
+		<ZSecret>
+			<ZToggle
+				v-model="showTuning"
+				label="密度调节"
+			/>
+		</ZSecret>
+	</PostOrderToggle>
 
 	<section
-		v-for="[year, yearGroup] in listGrouped"
-		:key="year"
+		v-for="yearGroup in listGrouped"
+		:key="yearGroup.year"
 		class="archive-group"
+		:class="{ 'hide-info': column > 1 }"
+		:style="{
+			'--archive-item-gap': `${spacing}em`,
+			'--archive-item-column': column,
+		}"
 	>
 		<div class="archive-title">
 			<h2 class="archive-year">
-				{{ year }}
+				{{ yearGroup.year }}
 			</h2>
 
 			<div class="archive-age">
-				<span>{{ Number(year) - birthYear }}</span>
+				<span>{{ Number(yearGroup.year) - birthYear }}</span>
 				<span class="age-label">岁</span>
 			</div>
 
 			<div class="archive-info">
-				<span>{{ yearlyWordCount[year] }}字</span>
-				<span>{{ yearGroup?.length }}篇</span>
+				<span>{{ yearlyWordCount[yearGroup.year] }}字</span>
+				<span>{{ getYearArticleCount(yearGroup.seasons) }}篇</span>
 			</div>
 		</div>
 
-		<TransitionGroup tag="menu" class="archive-list" name="float-in">
-			<PostArchive
-				v-for="article, index in yearGroup"
-				:key="article.path"
-				v-bind="article"
-				:to="article.path"
-				:use-updated="sortOrder === 'updated'"
-				:style="getFixedDelay(index * 0.03)"
-			/>
-		</TransitionGroup>
+		<div class="archive-season-list">
+			<section
+				v-for="seasonItem in yearGroup.seasons"
+				:key="seasonItem.season"
+				class="archive-season"
+			>
+				<h3 class="archive-season-title">
+					{{ seasonItem.label }}
+				</h3>
+
+				<TransitionGroup tag="menu" class="archive-list" name="float-in">
+					<PostArchive
+						v-for="(article, index) in seasonItem.articles"
+						:key="article.path"
+						v-bind="article"
+						:to="article.path"
+						:use-updated="sortOrder === 'updated'"
+						:style="getFixedDelay(index * 0.03)"
+					/>
+				</TransitionGroup>
+			</section>
+		</div>
 	</section>
+
+	<div v-if="showTuning" class="archive-tuning card">
+		<ZSlider
+			v-model="spacing"
+			label="间距"
+			:spring-min="-0.4"
+			:spring-max="0.1"
+			:list="['-0.3', '0']"
+			min="-1"
+			max=".2"
+			step=".1"
+		/>
+
+		<ZSlider
+			v-model="column"
+			label="列数"
+			min="1"
+			max="8"
+		/>
+	</div>
 </div>
 </template>
 
 <style lang="scss" scoped>
 .archive {
-	margin: 1rem;
-	mask-image: linear-gradient(#FFF 50%, #FFF5);
+	padding: 1rem; // 防止内部 outline 被 mask
+	mask-image: linear-gradient(#FFF 50%, #FFF7);
 }
 
 .archive-group {
 	margin: 1rem 0 3rem;
+
+	> .archive-list {
+		display: grid;
+		grid-template-columns: repeat(var(--archive-item-column), 1fr);
+		column-gap: calc((5 - var(--archive-item-column)) * 0.2em);
+	}
+
+	&.hide-info :deep(.dim-hover) {
+		display: none;
+	}
+}
+
+.archive-season-list {
+	margin-top: 1rem;
+}
+
+.archive-season {
+	margin-bottom: 1.4rem;
+}
+
+.archive-season-title {
+	margin: 0.4rem 0 0.6rem;
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: var(--c-text-2);
+}
+
+.archive-tuning {
+	position: sticky;
+	bottom: min(2em, 5%);
+
+	> .z-slider {
+		margin: 0.5em 0.8em;
+	}
 }
 
 .archive-title {

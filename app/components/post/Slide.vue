@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type ArticleProps from '~/types/article'
+import type { ArticleProps } from '~/types/article'
 import Autoplay from 'embla-carousel-autoplay'
 import emblaCarouselVue from 'embla-carousel-vue'
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
@@ -47,7 +47,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 				:title="article.description"
 				:to="article.path"
 			>
-				<NuxtImg class="cover" :src="article.image" :alt="compConf.showTitle ? '' : article.title"/>
+				<NuxtImg class="cover" :src="article.image" :alt="compConf.showTitle ? '' : article.title" />
 
 				<div v-if="compConf.showTitle" class="stable-info text-creative">
 					{{ article.title }}
@@ -66,6 +66,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 			class="carousel-action prev at-slide-hover"
 			aria-label="上一页"
 			icon="ph:caret-left-bold"
+			tabindex="-1"
 			@click="carouselApi?.scrollPrev()"
 		/>
 
@@ -73,6 +74,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 			class="carousel-action next at-slide-hover"
 			aria-label="下一页"
 			icon="ph:caret-right-bold"
+			tabindex="-1"
 			@click="carouselApi?.scrollNext()"
 		/>
 	</div>
@@ -117,6 +119,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 
 	position: relative;
 	overflow: hidden;
+	padding: 2px 0;
 	mask-image: linear-gradient(to var(--end), transparent, #FFF var(--fadeout-width), #FFF calc(100% - var(--fadeout-width)), transparent);
 	cursor: grab;
 	user-select: none;
@@ -166,7 +169,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 	>.stable-info, > .hover-info {
 		position: absolute;
 		text-align: center;
-		text-shadow: var(--text-black-shadow);
+		text-shadow: var(--text-shadow-black);
 		color: white;
 		transition: opacity 0.2s;
 	}

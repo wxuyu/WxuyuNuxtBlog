@@ -1,13 +1,10 @@
 import type { Nav, NavItem } from '~/types/nav'
+import { Temporal } from 'temporal-polyfill'
 import blogConfig from '~~/blog.config'
 import { version } from '~~/package.json'
 
 // 图标查询：https://yesicon.app/ph?s=bold
 // 图标插件：https://marketplace.visualstudio.com/items?itemName=antfu.iconify
-
-declare module 'nuxt/schema' {
-	interface AppConfigInput { }
-}
 
 // @keep-sorted
 export default defineAppConfig({
@@ -37,6 +34,13 @@ export default defineAppConfig({
 		excerpt: {
 			animation: true,
 			caret: '_',
+			label: blogConfig.excerpt?.label ?? '智能摘要',
+			badge: blogConfig.excerpt?.badge ?? 'Kimi·K2-Turbo',
+		},
+
+		presence: {
+			/** 右侧在线状态组件轮询间隔（毫秒） */
+			refreshInterval: 15000,
 		},
 
 		/** 精选文章 Slide */
@@ -47,7 +51,7 @@ export default defineAppConfig({
 
 		stats: {
 			/** 归档页面每年标题对应的年龄 */
-			birthYear: 2003,
+			birthYear: 2006,
 			/** blog-stats widget 的预置文本 */
 			wordCount: '约10万',
 		},
@@ -56,7 +60,16 @@ export default defineAppConfig({
 	// @keep-sorted
 	footer: {
 		/** 页脚版权信息，支持 <br> 换行等 HTML 标签 */
-		copyright: `© ${new Date().getFullYear()} ${blogConfig.author.name}`,
+		copyright: `© ${Temporal.Now.plainDateISO().year.toString()} ${blogConfig.author.name}`,
+		/** 侧边栏底部装饰图片配置 */
+		// decorativeImage: {
+		//	url: 'https://blog-files.101045700.xyz/MaitetsuVideoFix/Home.webp', // 装饰图 URL，为空则不显示
+		//	opacity: 0.6, // 透明度（0~1），越小越淡
+		//	height: '12rem', // 装饰层高度
+		//	backgroundSize: 'cover', // 背景拉伸方式
+		//	backgroundPosition: 'center', // 背景定位
+		//	backgroundRepeat: 'no-repeat', // 背景是否重复
+		// },
 		/** 侧边栏底部图标导航 */
 		iconNav: [
 			{ icon: 'ph:house-bold', text: '个人主页', url: blogConfig.author.homepage },
@@ -65,6 +78,8 @@ export default defineAppConfig({
 			{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
 			{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/' },
 		] satisfies NavItem[],
+		/** 页脚版权信息底部的其他信息 */
+		message: '',
 		/** 页脚站点地图 */
 		nav: [
 			{
@@ -95,13 +110,11 @@ export default defineAppConfig({
 
 	/** 左侧栏顶部 Logo */
 	header: {
-		logo: blogConfig.favicon,
+		logo: 'https://cravatar.com/avatar/1012bf78fb01d5b964c3a9a0f515911a?s=160',
 		/** 展示标题文本，否则展示纯 Logo */
 		showTitle: true,
 		subtitle: blogConfig.subtitle,
-		emojiTail: ['📄', '🦌', '🙌', '🐟', '🏖️'],
 	},
-
 	/** 友链页面 */
 	link: {
 		/** 无订阅源展示静音图标 */

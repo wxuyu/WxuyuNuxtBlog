@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { ModalEmits, ModalProps } from '#modals'
 import MiniSearch from 'minisearch'
 
-const props = defineProps<{
-	show?: boolean
-}>()
+const props = defineProps<ModalProps>()
 
-const layoutStore = useLayoutStore()
+defineEmits<ModalEmits>()
+
 const appConfig = useAppConfig()
 const segmenter = Intl.Segmenter && new Intl.Segmenter(appConfig.language, { granularity: 'word' })
 
@@ -27,7 +27,7 @@ const miniSearch = new MiniSearch({
 		boost: { title: 3, titles: 2 },
 	},
 	processTerm: segmenter
-		? term => Array.from(segmenter.segment(term)).map(seg => seg.segment.toLowerCase())
+		? term => Array.from(segmenter.segment(term), seg => seg.segment.toLowerCase())
 		: undefined,
 })
 
@@ -46,7 +46,7 @@ const listResult = useTemplateRef('list-result')
 const activeIndex = ref(0)
 const activeItem = computed(() => listResult.value?.children[activeIndex.value] as HTMLElement | undefined)
 
-watch(() => props.show, focusInput)
+whenever(() => props.open, focusInput)
 
 watch(status, (newStatus) => {
 	if (newStatus === 'success' && data.value) {
@@ -87,14 +87,8 @@ function openActiveItem() {
 </script>
 
 <template>
-<BlogMask
-	:show
-	blur
-	@click="layoutStore.toggle('search')"
-/>
-
 <Transition name="float-in">
-	<div v-if="show" class="blog-search">
+	<div v-if="open" class="blog-search">
 		<form class="input" @submit.prevent>
 			<Icon :name="status === 'pending' ? 'line-md:loading-alt-loop' : 'ph:magnifying-glass-bold'" />
 
@@ -137,7 +131,7 @@ function openActiveItem() {
 				切换&emsp;
 				<Key code="Enter" icon @press="openActiveItem" />
 				选择&emsp;
-				<Key code="Escape" :icon="false" @press="layoutStore.toggle('search')" />
+				<Key code="Escape" :icon="false" @press="$emit('close')" />
 				关闭
 			</div>
 		</TransitionGroup>
@@ -158,11 +152,9 @@ function openActiveItem() {
 	margin: auto;
 	border: 1px solid var(--c-primary);
 	border-radius: 1em;
-	box-shadow: 0 0.5em 1em var(--ld-shadow);
+	box-shadow: var(--box-shadow-2), var(--box-shadow-3);
 	outline: 0.2em solid var(--c-primary-soft);
 	background-color: var(--ld-bg-card);
-	transition: all var(--delay);
-	z-index: var(--z-index-popover);
 }
 
 .input {

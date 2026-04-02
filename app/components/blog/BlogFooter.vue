@@ -7,7 +7,7 @@ const appConfig = useAppConfig()
 
 <template>
 <footer class="blog-footer">
-	<InfoCard />
+  <InfoCard />
 	<nav class="footer-nav">
 		<div v-for="(group, groupIndex) in appConfig.footer.nav" :key="groupIndex" class="footer-nav-group">
 			<h3 v-if="group.title">
@@ -24,7 +24,6 @@ const appConfig = useAppConfig()
 		</div>
 	</nav>
 	<CopyrightCard />
-	<!-- <p v-html="appConfig.footer.copyright" /> -->
 </footer>
 </template>
 

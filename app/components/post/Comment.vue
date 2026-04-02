@@ -1,87 +1,248 @@
-<script setup lang="ts">
-import { LazyPopoverLightbox } from '#components'
-import ArtalkManager from '~/utils/artalk-manager'
-import Artalk from 'artalk'
+<script setup lang="tsx">
+import type { TippyComponent } from 'vue-tippy'
+
 const appConfig = useAppConfig()
 
-import { onMounted, onBeforeUnmount, ref, watch, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+const commentEl = useTemplateRef('comment')
+const popoverEl = useTemplateRef<TippyComponent>('popover')
+const popoverJumpTo = ref('')
+const popoverInputEl = useTemplateRef('popover-input')
+const showUndo = ref(false)
 
-import 'artalk/Artalk.css'
+const popoverBind = ref<TippyComponent['$props']>({})
 
-const el = ref<HTMLElement>()
-const route = useRoute()
-const colorMode = useColorMode()
+/** 评论区链接守卫 */
+useEventListener(commentEl, 'click', (e) => {
+	if (!(e.target instanceof Element))
+		return
 
-let artalk: Artalk
+	if (e.target.matches('.tk-avatar-img'))
+		e.stopPropagation()
+
+	const popoverTarget = e.target.closest('a[target="_blank"]')
+	if (!(popoverTarget instanceof HTMLAnchorElement))
+		return
+
+	e.preventDefault()
+	popoverEl.value?.hide()
+
+	popoverJumpTo.value = safelyDecodeUriComponent(popoverTarget.href)
+	popoverBind.value = {
+		getReferenceClientRect: () => popoverTarget.getBoundingClientRect(),
+		triggerTarget: popoverTarget,
+	}
+
+	nextTick(checkUndoable)
+	popoverEl.value?.show()
+}, { capture: true })
+
+function checkUndoable() {
+	showUndo.value = popoverInputEl.value?.textContent !== popoverJumpTo.value
+}
+
+function undo() {
+	if (!popoverInputEl.value)
+		return
+	popoverInputEl.value.textContent = popoverJumpTo.value
+	checkUndoable()
+}
+
+function confirmOpen() {
+	window.open(popoverInputEl.value?.textContent, '_blank')
+}
 
 onMounted(() => {
-  artalk = Artalk.init({
-    el: '#artalk',
-    pageKey: route.path,
-    pageTitle: document.title.replace(` | ${appConfig.title}`, ''),
-    server: appConfig.artalk?.server,
-    site: appConfig.artalk?.sitename,
-    emoticons: appConfig.artalk.owo_src, // 使用配置的表情包
-    darkMode: colorMode.value === 'dark',
-  })
-})
-
-watch(
-  () => route.path,
-  (path) => {
-    nextTick(() => {
-      artalk.update({
-        pageKey: path,
-        pageTitle: document.title,
-      })
-      artalk.reload()
-    })
-  }
-)
-
-onBeforeUnmount(() => {
-  artalk.destroy()
+	window.twikoo?.init?.({
+		envId: appConfig.twikoo?.envId,
+		// twikoo 会把挂载后的元素变为 #twikoo
+		el: '#twikoo',
+	})
 })
 </script>
 
 <template>
-  <section class="z-comment">
-    <h3 class="text-creative">
-      <div class="comment-tip">评论</div>
-    </h3>
-    <div class="commentCard">
-      <div id="artalk">
-        <p class="loading-box">
-          <Icon name="line-md:loading-twotone-loop" class="loading-img" />评论加载中...
-        </p>
-      </div>
-    </div>
-  </section>
+<section ref="comment" class="z-comment">
+	<h3 class="text-creative">
+		评论区
+	</h3>
+
+	<!-- interactive 默认会把气泡移动到 triggerTarget 的父元素上 -->
+	<Tooltip
+		ref="popover"
+		v-bind="popoverBind"
+		:append-to="() => commentEl!"
+		interactive
+		:aria="{ expanded: false }"
+		trigger="focusin"
+	>
+		<template #content>
+			<div class="popover-confirm">
+				<span
+					ref="popover-input"
+					class="input"
+					contenteditable="plaintext-only"
+					spellcheck="false"
+					@input="checkUndoable"
+					@keydown.enter.prevent="confirmOpen"
+					v-text="popoverJumpTo"
+				/>
+
+				<button
+					v-if="showUndo"
+					aria-label="恢复原始内容"
+					@click="undo()"
+				>
+					<Icon name="ph:arrow-u-up-left-bold" />
+				</button>
+
+				<ZButton
+					primary
+					text="访问"
+					@click="confirmOpen"
+				/>
+			</div>
+		</template>
+	</Tooltip>
+
+	<div id="twikoo">
+		<p>评论加载中...</p>
+	</div>
+</section>
 </template>
 
 <style lang="scss" scoped>
-/* 原有样式保持不变 */
+.z-comment {
+	margin: 3rem 1rem;
 
-/* 新增错误提示样式 */
-.artalk-error {
-  text-align: center;
-  padding: 2rem;
-  color: #ff5252;
-  
-  button {
-    margin-top: 1rem;
-    padding: 0.5rem 1.5rem;
-    background: var(--c-primary);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-    
-    &:hover {
-      background: var(--c-primary-dark);
-    }
-  }
+	> h3 {
+		margin-top: 3rem;
+		font-size: 1.25rem;
+	}
+}
+
+:deep() > [data-tippy-root] > .tippy-box {
+	padding: 0;
+}
+
+.popover-confirm {
+	display: flex;
+	align-items: center;
+	overflow-wrap: anywhere;
+
+	> .input {
+		min-width: 0;
+		padding: 0.3em 0.6em;
+		outline: none;
+	}
+
+	> button {
+		flex-shrink: 0;
+		align-self: stretch;
+		padding: 0.3em;
+		border-radius: 0 0.5em 0.5em 0;
+	}
+}
+
+:deep(#twikoo) {
+	margin: 2em 0;
+
+	.tk-admin-container {
+		position: fixed;
+		z-index: calc(var(--z-index-popover) + 1);
+	}
+
+	.tk-input {
+		font-family: var(--font-monospace);
+	}
+
+	.tk-avatar {
+		border-radius: 50%;
+
+		@supports (corner-shape: squircle) {
+			corner-shape: superellipse(1.2);
+		}
+
+		&.tk-clickable {
+			cursor: auto;
+		}
+	}
+
+	.tk-time {
+		color: var(--c-text-3);
+	}
+
+	.tk-content {
+		margin-top: 0;
+	}
+
+	.tk-comments-title, .tk-nick > strong {
+		font-family: var(--font-creative);
+	}
+
+	.tk-owo-emotion {
+		width: auto;
+		height: 1.4em;
+		vertical-align: text-bottom;
+	}
+
+	.tk-extras, .tk-footer {
+		font-size: 0.7em;
+		color: var(--c-text-3);
+	}
+
+	.tk-replies:not(.tk-replies-expand) {
+		mask-image: linear-gradient(to top, transparent, #FFF 4em);
+	}
+
+	.tk-expand {
+		border-radius: 0.5em;
+		transition: background-color 0.1s;
+	}
+
+	.tippy-svg-arrow > svg {
+		fill: inherit;
+		width: auto;
+		height: auto;
+	}
+}
+
+:deep(:where(.tk-preview-container,.tk-content)) {
+	pre {
+		overflow: auto;
+		border-radius: 0.5em;
+		font-size: 0.85em;
+	}
+
+	p {
+		margin: 0.2em 0;
+	}
+
+	img {
+		border-radius: 0.5em;
+	}
+
+	menu, ol, ul {
+		margin: 0.5em 0;
+		padding-inline-start: 1.5em;
+		font-size: 0.9rem;
+		list-style: revert;
+
+		> li {
+			margin: 0.2em 0;
+
+			&::marker {
+				color: var(--c-primary);
+			}
+		}
+	}
+
+	blockquote {
+		margin: 0.5em 0;
+		padding: 0.2em 0.5em;
+		border-inline-start: 4px solid var(--c-border);
+		border-radius: 4px;
+		background-color: var(--c-bg-2);
+		font-size: 0.9em;
+	}
 }
 </style>

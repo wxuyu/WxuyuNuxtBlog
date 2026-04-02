@@ -1,7 +1,7 @@
 ---
 title: 游戏展示页面
 description: 该文章主要写了对于低价机器的试水，并提醒是超开类型的机器。在测试的过程中发现机器性能较高，且展示出机器的具体价格，并单独列出只有精简版未采用完整版测试。
-date: 2026-03-21 10:00:00
+date: 2026-03-21 14:00:00
 updated: 2026-03-22 10:00:00
 image: /image/PostCover/footerNuxtMeihua.avif
 categories:

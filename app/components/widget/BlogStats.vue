@@ -14,30 +14,6 @@ const yearlyTip = computed(() => Object
 	.join('\n') || '数据获取失败',
 )
 
-const categroyTip = computed(() => {
-	if (!stats.value)
-		return ''
-	return Object.entries(stats.value.categories).reverse().map(([name, item]) =>
-		`${item.name}：${item.posts}篇`,
-	).join('\n')
-})
-
-// const tagsTip = computed(() => {
-// 	if (!stats.value)
-// 		return ''
-// 	return Object.entries(stats.value.tags).reverse().map(([name, item]) =>
-// 		`${item.name}：${item.posts}篇`,
-// 	).join('\n')
-// })
-
-const postTip = computed(() => {
-	if (!stats.value)
-		return ''
-	return Object.entries(stats.value.annual).reverse().map(([year, item]) =>
-		`${year}年：${item.posts}篇`,
-	).join('\n')
-})
-
 const blogStats = [{
 	label: '运营时长',
 	value: timeElapse(appConfig.timeEstablished),
@@ -53,22 +29,11 @@ const blogStats = [{
 	label: '总字数',
 	value: computed(() => formatNumber(stats.value?.total?.words) || '--'),
 	tip: yearlyTip,
-}, {
-	label: '总分类',
-	value: computed(() => stats.value ? formatNumber(stats.value.categories.length) : ''),
-	tip: categroyTip,
-}, {
-	label: '总标签',
-	value: computed(() => stats.value ? formatNumber(stats.value.tags.length) : ''),
-}, {
-	label: '总文章',
-	value: computed(() => stats.value ? formatNumber(stats.value.total.posts) : ''),
-	tip: postTip,
 }]
 </script>
 
 <template>
-<BlogWidget card title="博客统计" rightType="desc" desc="整站具体信息">
+<BlogWidget card title="博客统计">
 	<ZDlGroup :items="blogStats" size="small" />
 </BlogWidget>
 </template>

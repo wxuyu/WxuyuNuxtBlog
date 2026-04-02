@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { escape } from 'es-toolkit/string'
+import { getShikiOptions } from '~/shiki.config'
+
 const props = withDefaults(defineProps<{
 	code?: string
 	language?: string
@@ -9,6 +12,7 @@ const props = withDefaults(defineProps<{
 	class?: string
 }>(), {
 	code: '',
+	meta: '',
 	language: 'text', // Nuxt Content 已经做了此处理
 })
 
@@ -18,16 +22,11 @@ interface CodeblockMeta {
 	[meta: string]: string | boolean | undefined
 }
 
-const meta = computed(() => {
-	if (!props.meta)
-		return {}
-
-	return props.meta.split(' ').reduce((acc: CodeblockMeta, item) => {
-		const [key, value] = item.split('=')
-		acc[key!] = value ?? true
-		return acc
-	}, {})
-})
+const meta = computed(() => props.meta.split(' ').reduce((acc: CodeblockMeta, item) => {
+	const [key, value] = item.split('=')
+	acc[key!] = value ?? true
+	return acc
+}, {}))
 
 const appConfig = useAppConfig()
 const compConf = computed(() => appConfig.component.codeblock)
@@ -44,13 +43,13 @@ const codeblock = useTemplateRef('codeblock')
 const { copy, copied } = useCopy(codeblock)
 
 const shikiStore = useShikiStore()
-const rawHtml = ref(escapeHtml(props.code))
+const rawHtml = ref(escape(props.code))
 
 function getIndent() {
 	if (meta.value.indent)
 		return meta.value.indent
 
-	if (['json', 'jsonc', 'yaml', 'yml'].includes(props.language))
+	if (['md', 'mdc', 'json', 'jsonc', 'yaml', 'yml'].includes(props.language))
 		return 2
 
 	return compConf.value.indent
@@ -64,15 +63,14 @@ onMounted(async () => {
 	if (props.language === 'markdown' || props.language.startsWith('md')) {
 		const mdLangRegex = /^\s*`{3,}(\S+)/gm
 		const langs = Array
-			.from(props.code.matchAll(mdLangRegex))
-			.map(match => match[1])
+			.from(props.code.matchAll(mdLangRegex), match => match[1])
 			.filter(lang => lang !== undefined)
 		await shikiStore.loadLang(...langs)
 	}
 
 	rawHtml.value = shiki.codeToHtml(
 		props.code.trimEnd(),
-		shikiStore.getOptions(
+		getShikiOptions(
 			props.language,
 			[compConf.value.enableIndentGuide ? 'ignoreRenderWhitespace' : 'ignoreRenderIndentGuides'],
 			{ meta: { indent: getIndent() } },
@@ -139,14 +137,18 @@ onMounted(async () => {
 	margin: 0.5em 0;
 	border-radius: 0.5em;
 	background-color: var(--c-bg-2);
-	font-size: 0.8125rem;
+	font-size: 0.85em;
 	line-height: 1.4;
 	tab-size: var(--tab-size, 4);
 
+	&.collapsible > pre {
+		padding-bottom: 0.5rem;
+	}
+
 	&.collapsed > pre {
 		overflow: hidden;
-		max-height: calc(var(--line-height) * var(--collapsed-rows) * 1em + 2rem);
-		mask-image: linear-gradient(to top, transparent 1em, #FFF 4em);
+		max-height: calc(var(--line-height) * var(--collapsed-rows) * 1em + 1rem);
+		mask-image: linear-gradient(to top, transparent -2em, #FFF 4em);
 		animation: none;
 	}
 }
@@ -182,7 +184,7 @@ figcaption {
 		background-color: var(--c-bg-2);
 		transition: opacity 0.2s;
 
-		:hover > & {
+		:hover > &, :focus-within > & {
 			opacity: 1;
 		}
 
@@ -285,7 +287,6 @@ pre {
 	position: relative; // 移动到 pre 上方
 	opacity: 0.3;
 	width: 100%;
-	margin-top: -1em;
 	padding: 0.2em;
 	background-color: var(--c-bg-3);
 	transition: opacity 0.2s;
@@ -296,8 +297,8 @@ pre {
 }
 
 .toggle-icon {
-	transition: all 0.2s;
 	margin-inline-end: 0.2em;
+	transition: all 0.2s;
 
 	&.is-collapsed {
 		transform: rotate(180deg);
