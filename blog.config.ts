@@ -20,7 +20,7 @@ const basicConfig = {
 	language: 'zh-CN',
 	timeEstablished: '2020-07-19',
 	timeStart: '2020',
-  timezone: 'Asia/Shanghai',
+  timeZone: 'Asia/Shanghai',
   url: 'https://www.wxuyu.top',
 	defaultCategory: '未分类',
   tip: {
