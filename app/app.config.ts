@@ -153,7 +153,7 @@ export default defineAppConfig({
           url: '#',
           children: [
             { icon: 'i-mingcute:bilibili-line', text: '追更历史', url: '/banguim' },
-            { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
+            // { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
             { icon: 'ph:steam-logo-bold', text: '游戏时刻', url: '/steam'},
 					],
         },
