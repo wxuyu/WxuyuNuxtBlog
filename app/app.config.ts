@@ -128,7 +128,7 @@ export default defineAppConfig({
 		{
 			title: '',
 			items: [
-				// { icon: 'ph:files-bold', text: '丹青妙笔', url: '/'},
+				{ icon: 'ph:files-bold', text: '丹青妙笔', url: '/'},
         {
           icon: 'ph:feather-bold',
           text: '笔墨之连',
