@@ -65,6 +65,7 @@
     "@antfu/eslint-config": "catalog:quality",
     "@clack/prompts": "catalog:util",
     "@iconify-json/catppuccin": "catalog:ui",
+    "@iconify-json/mingcute": "^1.2.7",
     "@iconify-json/ph": "catalog:ui",
     "@iconify-json/ri": "catalog:ui",
     "@iconify-json/simple-icons": "catalog:ui",
