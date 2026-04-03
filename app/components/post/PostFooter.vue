@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ArticleProps } from '~/types/article'
 import { sort } from 'radash'
-import Reward from '../popover/reward.vue';
 
 defineOptions({ inheritAttrs: false })
 const props = defineProps<ArticleProps>()
@@ -72,7 +71,8 @@ const sortedTags = computed(() => {
 	})
 })
 
-const RewardStore = useRewardStore()
+// 新增store插入
+const RewardStore = useRewardStore
 </script>
 
 <template>
