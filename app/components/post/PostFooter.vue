@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { ArticleProps } from '~/types/article'
+import { sort } from 'radash'
+import Reward from '../popover/reward.vue';
 
 defineOptions({ inheritAttrs: false })
 const props = defineProps<ArticleProps>()
@@ -11,6 +13,7 @@ const date = computed(() => props.date)
 const updated = computed(() => props.updated)
 const references = computed(() => props.references)
 const meta = computed(() => props.meta)
+const { data: listRaw } = await useAsyncData('index_posts', () => useArticleIndexOptions(), { default: () => [] })
 
 function formatDate(dateStr?: string): string {
 	if (!dateStr)
@@ -43,6 +46,33 @@ const fullUrl = computed(() => {
 		return ''
 	}
 })
+
+// 新增Tag显示
+const articlesByTag = computed(() => {
+	const result: Record<string, any[]> = {}
+	const articles = sort(listRaw.value, a => new Date(a.date || 0).getTime(), true)
+	for (const article of articles) {
+		if (article.tags) {
+			for (const tag of article.tags) {
+				if (!result[tag]) {
+					result[tag] = []
+				}
+				result[tag].push(article)
+			}
+		}
+	}
+	return result
+})
+
+const sortedTags = computed(() => {
+	return Object.keys(articlesByTag.value).sort((a, b) => {
+		const aCount = articlesByTag.value[a]?.length || 0
+		const bCount = articlesByTag.value[b]?.length || 0
+		return bCount - aCount
+	})
+})
+
+const RewardStore = useRewardStore()
 </script>
 
 <template>
@@ -90,10 +120,6 @@ const fullUrl = computed(() => {
 			</div>
 		</div>
 
-		<div class="card-signature-text">
-			PaloMiku
-		</div>
-
 		<section v-if="references" class="reference">
 			<div id="references" class="title text-creative">
 				参考链接
@@ -108,6 +134,25 @@ const fullUrl = computed(() => {
 				</ul>
 			</div>
 		</section>
+	</section>
+
+	<section class="post-bottom">
+		<div class="left">
+			<div class="tagsItem">
+				<ZRawLink class="tags" v-for="([key, value]) in Object.entries(tags ?? {})" :key="key" :to="'/?tags=' + value">
+					{{ value }}
+					<span class="tagNumber">{{ articlesByTag[value]?.length }}</span>
+				</ZRawLink>
+			</div>	
+		</div>
+		<div class="right">
+			<div class="post-reward">
+				<ZButton class="reward-button" @click="RewardStore().open()" style="font-size: 0.85em;">
+					<Icon name="proicons:sparkle-2" />
+					打赏
+				</ZButton>
+			</div>
+		</div>
 	</section>
 </div>
 </template>
@@ -188,12 +233,37 @@ section {
 }
 
 .card-meta {
-	.meta-column { display: flex; flex-direction: column; gap: 0.8rem; }
-	.meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
-	.label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--c-text-soft); }
-	.value { font-size: 0.9rem; font-weight: 500; color: var(--c-text-1); }
-	.copyright-link { text-decoration: none; color: var(--c-primary); transition: opacity 0.2s; }
-	.copyright-link:hover { opacity: 0.8; }
+	flex: 1;
+  margin-bottom: 1rem;
+  .meta-column {
+		background: transparent;
+		border-radius: 0;
+		display: grid;
+		font-size: .8rem;
+		gap: .8rem;
+		grid-template-columns: repeat(5, 1fr);
+		padding: 0;
+		@media (max-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+    .meta-item {
+      display: flex;
+			flex-direction: column;
+			gap: .1rem;
+      .label {
+				color: var(--c-text-2);
+				// font-size: .7rem;
+				font-weight: 500;
+      }
+      .value {
+				color: var(--c-text);
+				// font-size: .8rem;
+				word-break: break-word;
+				font-size: .9rem;
+    		font-weight: 500;
+      }
+    }
+  }
 }
 
 .card-signature-text {
@@ -238,4 +308,57 @@ section {
 
 .reference .content ul { margin: 0; padding: 0; list-style: none; }
 .reference .content li { margin: 0.6rem 0; }
+
+.post-bottom {
+	width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+	.left {
+    white-space: nowrap;
+    display: flex;
+    text-overflow: ellipsis;
+    flex-wrap: wrap;
+
+		.tagsItem {
+			display: flex;
+			padding: 0;
+			width: 100%;
+			flex-wrap: wrap;
+			flex-direction: row;
+			gap: 8px;
+
+			.tags {
+				background: var(--heo-card-bg);
+				border: var(--style-border-always);
+				color: var(--heo-fontcolor);
+				border-radius: 8px;
+				margin: 0;
+				display: flex;
+				align-items: center;
+				white-space: nowrap;
+				height: 32px;
+				padding: 0 .6rem;
+				width: fit-content;
+				font-size: .85em;
+				transition: all .2s ease-in-out 0s;
+
+				.tagNumber {
+					padding: 2px;
+					background: var(--heo-fontcolor);
+					min-width: 22.5px;
+					display: inline-block;
+					border-radius: 4px;
+					text-align: center;
+					font-size: 0.7rem;
+					color: var(--heo-card-bg);
+					margin-left: 4px;
+					line-height: 1;
+					transition: .2s;
+				}
+			}
+		}
+	}
+}
 </style>
