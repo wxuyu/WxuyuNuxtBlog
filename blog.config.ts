@@ -7,7 +7,7 @@ const basicConfig = {
 	description: '闻絮语的博客网站，分享技术和魔改。网站界面简洁美观，涵盖了魔改、教程等多个领域，为读者提供了卓越的阅读体验。',
 	author: {
 		name: '絮语',
-    avatar: '',
+    avatar: '/avatar.avif',
     email: '3227988255@qq.com',
     homepage: 'https://www.wxuyu.top',
 	},
@@ -16,7 +16,7 @@ const basicConfig = {
 		name: '署名-非商业性使用-相同方式共享 4.0 国际',
 		url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans',
 	},
-	favicon: '  ',
+	favicon: '/avatar.avif',
 	language: 'zh-CN',
 	timeEstablished: '2020-07-19',
 	timeStart: '2020',
@@ -37,10 +37,11 @@ const blogConfig = {
 	article: {
 		categories: {
 			[basicConfig.defaultCategory]: { icon: 'ph:folder-dotted-bold' },
-			搭建: { icon: 'ph:computer-tower-bold', color: '#3af' },
-			生活: { icon: 'ph:shooting-star-bold', color: '#3ba' },
-			博客魔改: { icon: 'ph:code-bold', color: '#77f' },
-			分享: { icon:'ph:desktop-tower-bold', color: '#3ab' },
+			站点魔改: { icon: 'ph:wrench-bold', color: '#77f' },
+      日志记录: { icon: 'ph:notebook-bold', color: '#7af' },
+      技术探索: { icon: 'ph:cpu-bold', color: '#fa3' },
+      日常随笔: { icon: 'ph:pen-bold', color: '#af7' },
+      自设记录: { icon: 'ph:book-open-text-bold', color:'#a78'},
 		},
 		defaultCategoryIcon: 'ph:folder-bold',
 		/** 文章版式，首个为默认版式 */

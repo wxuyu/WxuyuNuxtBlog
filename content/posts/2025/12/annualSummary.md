@@ -4,7 +4,7 @@ description: 该文章详细记录了2025年中的上下半年所做的事情，
 date: 2025-12-28 10:00:00
 updated: 2025-12-28 20:49:00
 image: /image/PostCover/annualSummary.avif
-categories: [年度总结]
+categories: [日志记录]
 tags: [总结, 2025]
 recommend: true
 type: story

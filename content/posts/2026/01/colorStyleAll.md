@@ -4,7 +4,7 @@ description: 自定义全局的样式颜色，具有对特定CSS中所具有的�
 date: 2026-01-27 10:00:00
 updated: 2026-01-27 20:49:00
 image: /image/PostCover/colorStyleAll.avif
-categories: [美化]
+categories: [站点魔改]
 tags: [全局颜色,自定义]
 recommend: true
 ---

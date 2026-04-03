@@ -1,17 +1,11 @@
 ---
 title: 即刻短文的三种部署方案
 description: 本篇转载三种不同方案（已经放好原文章链接）
-date: 2025-03-06 12:45:00
-updated: 2025-03-07 14:09:00
+date: 2023-12-06 12:45:00
+updated: 2023-12-07 14:09:00
 cover: https://sourceimage.s3.bitiful.net/img/default_cover_55.avif
-category:
-  - hexo
-top_img: false
-tags:
-  - hexo
-  - butterfly
-  - 美化
-abbrlink: 2900kf
+category: [技术探索]
+tags: [hexo, butterfly, 美化]
 ---
 ## 原文来源
 {% link Butterfly的魔改教程：即刻短文页,亦小封,https://meuicat.com/posts/1cdf15f7.html %}
@@ -42,7 +36,7 @@ abbrlink: 2900kf
 #### 创建数据
 ##### 创建页面配置
 创建 [blogRoot]/source/essay/index.md 页面，配置以下内容：
-``` MARKDOWN
+``` markdown
 ---
 title: 即刻短文
 date: 2023-01-17 13:38:17
@@ -61,7 +55,7 @@ top_text: 关于博主
 ##### 新建页面内容
 (1).新建页面选择（在配置文件中进行设置）
 创建 [blogRoot]/themes/butterfly/layout/includes/page/essay.pug 页面文件，并新增以下内容:
-``` PUG
+``` pug lang="pug"
 #icat-bber
     section.icat-page
         case theme.essay.mode
@@ -75,7 +69,7 @@ top_text: 关于博主
 (2).新建静态本地
 创建 [blogRoot]/themes/butterfly/layout/includes/page/essay/local.pug 页面文件，并新增以下内容
 （注意该页面中可能存在部分 fontawesome 图标 需要自行替换）
-``` PUG
+``` pug lang="pug"
 mixin renderArticle(item)
     .icat-bber-item
         .icat-bber-content
@@ -142,7 +136,7 @@ mixin renderArticle(item)
 (3).新建动态JSON
 新建 [blogRoot]/themes/butterfly/layout/includes/page/essay/json.pug 页面文件，并新增以下内容
 （注意该页面中可能存在部分 fontawesome 图标 需要自行替换）
-``` PUG
+``` pug lang="pug"
 #waterfall.list
     .icat-bber-loading
         img(src="https://img.meuicat.com/blog/loading.svg")
@@ -208,7 +202,7 @@ mixin renderArticle(item)
 (4).新建MEMOS页面
 创建 [blogRoot]/themes/butterfly/layout/includes/page/essay/memos.pug 页面文件，并新增以下内容
 （注意该页面中可能存在部分 fontawesome 图标 需要自行替换）
-``` PUG
+``` pug lang="pug"
 #waterfall.list
     .icat-bber-loading
         img(src="https://img.meuicat.com/blog/loading.svg")
@@ -298,7 +292,7 @@ mixin renderArticle(item)
 (5).修改页面文件（页面匹配markdown的type）
 修改 [blogRoot]/themes/butterfly/layout/page.pug 来使页面匹配
 （ + 号直接删除 即是正常缩进）
-``` PUG
+``` pug lang="pug"
       when 'categories'
         include includes/page/categories.pug
 +      when 'essay'
@@ -1427,7 +1421,7 @@ JSON文件可参照以下格式
 
 <!-- tab 动态memos -->
 Memos用法：
-``` MARKDOWN
+``` markdown
 #说说 {标识符} 我是内容 [我是链接](https://meuicat.com) ![](https://img.meuicat.cn/blog/8.png)
 <!-- 常规写法 -->
 
@@ -1452,7 +1446,7 @@ Memos用法：
 (1).创建页面内容
 新增 [blogRoot]/themes/butterfly/layout/includes/mixins/post-ui.pug 页面内容
 （ + 号直接删除 即是正常缩进）
-``` PUG
+``` pug lang="pug"
 mixin postUI(posts)
   - let newTitle= newPost()
 +  if theme.essay.enable && theme.essay.home_mini
@@ -1464,7 +1458,7 @@ mixin postUI(posts)
 ```
 创建 [blogRoot]/themes/butterfly/layout/includes/mixins/essay_mini.pug 页面，并新增以下内容
 （注意该内容中 fontawesome 图标 需要自行替换）
-``` PUG
+``` pug lang="pug"
 .essay-mini
     i.iconfont.icat-essay-mini(onclick=`pjax.loadUrl('${theme.essay.home_mini_link}')` title="即刻短文" style="font-size: 2.25rem; margin-right: 1rem")
     .swiper-container.swiper-no-swiping#Essay(tabindex="-1" onclick=`pjax.loadUrl('${theme.essay.home_mini_link}')`)
@@ -1761,7 +1755,7 @@ inject:
 
 ### 创建md页面
 创建md页面，在控制台输入hexo new page essay，生成文件在source/essay/index.md
-``` MARKDOWN
+``` markdown
 ---
 title: 即刻短文
 date: 2022-12-20 22:06:17
@@ -1775,7 +1769,7 @@ type: essay
 ### 创建页面文件
 
 在themes/butterfly/layout/includes/page目录下创建essay.pug
-``` PUG
+``` pug lang="pug"
 .author-content.author-content-item.essayPage.single.essayVideo
     .card-content
         .author-content-item-tips 即刻短文
@@ -1842,7 +1836,7 @@ type: essay
 ### 首页即刻（可选）
 
 新建themes/butterfly/layout/includes/bbTimeList.pug
-``` PUG
+``` pug lang="pug"
 #bbTimeList.bbTimeList.container
     i.bber-logo.iconfont.icon-bblogo(onclick=`pjax.loadUrl("/essay/")`,title="即刻短文",style="font-size: 2rem;")
     #bbtalk.swiper-container.swiper-no-swiping(tabindex="-1")
@@ -1868,7 +1862,7 @@ script(src='https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',data-pjax=
 
 新建themes/butterfly/layout/includes/bbTimeList.pug
 
-``` PUG
+``` pug lang="pug"
 #bbTimeList.bbTimeList.container
     i.bber-logo.iconfont.icon-bblogo(onclick=`pjax.loadUrl("/essay/")`,title="即刻短文",style="font-size: 2rem;")
     #bbtalk.swiper-container.swiper-no-swiping(tabindex="-1")
@@ -1888,7 +1882,7 @@ script(src='https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',data-pjax=
 ```
 (2).引入到主页
 
-``` PUG
+``` pug lang="pug"
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
@@ -2008,7 +2002,7 @@ if (document.querySelector('#bber-talk')) {
 ### 创建 md 页面文件
 
 创建source/essay/index.md 来生成页面 page
-``` MARKDOWN
+``` markdown
 ---
 title: 即刻短文
 date: 2020-07-22 22:06:17
@@ -2021,7 +2015,7 @@ type: essay
 
 ### 创建 dom 文件
 创建themes/butterfly/layout/includes/page/essay.pug, 页面内容, 注意该页面中可能存在部分fontawesome 图标需要自行替换。
-``` PUG
+``` pug lang="pug"
 #essay_page
   .author-content.author-content-item.essayPage.single
     .card-content
@@ -2077,7 +2071,7 @@ type: essay
 ### 修改 Page 文件
 修改themes/butterfly/layout/page.pug 来使页面内容匹配
 在 case page.type 子项里面添加, 注意缩进
-``` pug
+``` pug lang="pug"
     case page.type
 +     when 'essay'
 +       include includes/page/essay.pug
@@ -2557,7 +2551,7 @@ anzhiyu.reflashEssayWaterFall();
 
 ### 首页滚动显示即刻(可选)
 创建 themes/butterfly/layout/includes/bbTimeList.pug, 部分fontawesome图标可能需要您自行修改。
-``` PUG
+``` pug lang="pug"
 #bbTimeList.bbTimeList.container
     svg.icon.bber-logo.iconfont.icon-chrome(onclick=`pjax.loadUrl("/essay/")`,title="即刻短文",aria-hidden="true")
       use(xlink:href="#icon-chrome")
@@ -2574,7 +2568,7 @@ anzhiyu.reflashEssayWaterFall();
 
 ### 引入到主页
 修改themes/butterfly/layout/index.pug, 注意缩进
-``` PUG
+``` pug lang="pug"
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
@@ -2584,7 +2578,7 @@ block content
     include includes/pagination.pug
 ```
 如果需要像本站一样在整个顶部引入的话可以参考下面的代码，修改themes/butterfly/layout/includes/layout.pug
-``` PUG
+``` pug lang="pug"
 if page.type !== '404'
   #body-wrap(class=pageType)
     include ./header/index.pug

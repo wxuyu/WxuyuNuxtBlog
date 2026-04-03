@@ -4,8 +4,7 @@ description: 该文章主要写了对于低价机器的试水，并提醒是超�
 date: 2026-02-03 10:00:00
 updated: 2026-02-05 20:49:00
 image: /image/PostCover/fnosInstall.avif
-categories:
-  - 博客魔改
+categories: [技术探索]
 tags:
   - Nuxt
   - 魔改

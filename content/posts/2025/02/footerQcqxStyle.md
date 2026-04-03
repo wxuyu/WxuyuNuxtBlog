@@ -4,7 +4,7 @@ description: 本篇文章讲述了如何在博客的底部模块进行魔改添�
 date: 2025-02-27 10:10:55
 updated: 2025-02-28 10:00:00
 image: /image/PostCover/footerMeihua.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly, 美化]
 recommend: true
 ---

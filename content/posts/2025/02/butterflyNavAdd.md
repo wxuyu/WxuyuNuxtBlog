@@ -4,7 +4,7 @@ description: 这篇文章讲述在博客中对导航栏进行修改，并添加�
 date: 2025-02-05 09:00:00
 updated: 2025-03-05 10:00:00
 image: /image/PostCover/navMuogai.avif
-categories: [博客魔改]
+categories: [站点魔改]
 top_img: false
 tags: [hexo, butterfly]
 recommend: true

@@ -4,7 +4,7 @@ description: 该文章主要写了对于大容量硬盘主机的试水。在测�
 date: 2026-01-30 10:00:00
 updated: 2026-01-30 20:49:00
 image: /image/PostCover/vpsTalk.avif
-categories: [博客魔改]
+categories: [日常随笔]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

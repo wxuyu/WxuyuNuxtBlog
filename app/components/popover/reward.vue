@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import RewardCard from '../card/rewardCard.vue';
+import type { ModalEmits, ModalProps } from '#modals'
+const props = defineProps<ModalProps & rewardType>()
 
-const props = defineProps<{
+interface rewardType {
   show?: boolean
   duration?: number
-  onClose?: () => void
-}>()
+  onClose?: () => void  
+}
 const emit = defineEmits<{
   close: []
 }>()
@@ -16,11 +18,11 @@ function handleClose() {
 
 <template>
   <Transition name="float-in">
-    <div v-if="show" class="popover-mask" @click="handleClose" />
+    <div v-if="open" class="popover-mask" @click="handleClose" />
   </Transition>
 
   <Transition name="float-in">
-    <div v-if="show" class="popover-panel">
+    <div v-if="open" class="popover-panel">
       <div class="panel-header">
         <h2>
           打赏中心

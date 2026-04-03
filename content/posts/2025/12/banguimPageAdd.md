@@ -4,7 +4,7 @@ description: 该文章详细介绍了基于Vue3+TypeScript开发的豆瓣追更�
 date: 2025-12-01 10:00:00
 updated: 2025-12-01 20:49:00
 image: /image/PostCover/banguimPage.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

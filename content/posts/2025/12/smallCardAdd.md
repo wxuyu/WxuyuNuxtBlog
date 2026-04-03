@@ -4,7 +4,7 @@ description: 该文章记录了项目版本迭代中的UI优化与功能调整�
 date: 2025-12-04 10:00:00
 updated: 2025-12-04 20:49:00
 image: /image/PostCover/smallCard.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

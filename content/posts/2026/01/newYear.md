@@ -4,7 +4,7 @@ description: 该文章记录了项目版本迭代中的UI优化与功能调整�
 date: 2026-01-01 10:00:00
 updated: 2026-01-01 20:49:00
 image: /image/PostCover/NewYear.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

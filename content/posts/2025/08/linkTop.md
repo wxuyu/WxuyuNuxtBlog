@@ -4,7 +4,7 @@ description: 本篇文章讲述了添加模块代码并在博客的友情链接�
 date: 2025-08-11 10:00:00
 updated: 2025-08-11 20:49:00
 image: /image/PostCover/linkTop.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

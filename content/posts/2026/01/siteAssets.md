@@ -4,7 +4,7 @@ description: 该文章记录了项目中对于字体、图片以及构建产物�
 date: 2026-01-05 10:00:00
 updated: 2026-01-07 20:49:00
 image: /image/PostCover/siteAssets.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 type: story

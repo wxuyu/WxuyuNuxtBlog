@@ -4,7 +4,7 @@ description: 该文章介绍Nuxt博客适配中评论模块的Vue组件实现与
 date: 2025-12-23 10:00:00
 updated: 2026-03-01 20:49:00
 image: /image/PostCover/commentMeihua.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

@@ -4,8 +4,7 @@ description: 该文章展示多个以鸣潮为主题的档案组件，包含具�
 date: 2026-02-20 10:00:00
 updated: 2026-02-26 10:00:00
 image: /image/PostCover/WutheringWavesPostWidget.avif
-categories:
-  - 博客魔改
+categories: [站点魔改]
 tags:
   - Nuxt
   - 魔改

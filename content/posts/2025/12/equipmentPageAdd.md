@@ -4,7 +4,7 @@ description: 该博客持续维护Nuxt框架博客系统，新增装备页面实
 date: 2025-12-03 10:05:09
 updated: 2025-12-03 20:49:09
 image: /image/PostCover/equipmentPage.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

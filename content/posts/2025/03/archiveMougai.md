@@ -4,7 +4,7 @@ description: 这篇简述如何给自己博客中的归档、分类、标签页�
 date: 2025-03-24 08:00:09
 updated: 2025-03-24 10:56:09
 image: /image/PostCover/archiveMougai.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly]
 ---
 

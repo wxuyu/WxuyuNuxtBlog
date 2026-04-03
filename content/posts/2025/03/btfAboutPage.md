@@ -4,7 +4,7 @@ description: 本文章以安知鱼的页面文件为模版进行大幅度修改�
 date: 2025-03-24 09:00:00
 updated: 2025-03-25 11:20:00
 image: /image/PostCover/btfAboutPage.avif
-categories: [博客魔改]
+categories: [站点魔改]
 top_img: false
 tags: [hexo, butterfly]
 ---

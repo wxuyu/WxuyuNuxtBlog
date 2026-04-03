@@ -4,7 +4,7 @@ description: 从零开始魔改butterfly
 date: 2025-03-05 08:00:00
 updated: 2025-03-06 18:00:00
 image: /image/PostCover/functionMeihua.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly]
 ---
 ## 首页文章隐藏文字

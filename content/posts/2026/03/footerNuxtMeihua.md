@@ -4,8 +4,7 @@ description: 该文章主要写了对于低价机器的试水，并提醒是超�
 date: 2026-03-03 10:00:00
 updated: 2026-03-06 10:00:00
 image: /image/PostCover/footerNuxtMeihua.avif
-categories:
-  - 博客魔改
+categories: [站点魔改]
 tags:
   - Nuxt
   - 魔改

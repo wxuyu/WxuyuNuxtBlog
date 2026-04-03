@@ -4,7 +4,7 @@ description: 近期将博客迁移至Nuxt框架时，重新搭建了「关于页
 date: 2025-08-22 10:00:00
 updated: 2025-09-01 20:49:00
 image:  /image/PostCover/nuxtAboutPage.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

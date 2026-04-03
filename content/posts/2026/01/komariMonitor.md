@@ -4,8 +4,8 @@ description: 本文是一篇关于 Komari Monitor（一款服务器监控系统�
 date: 2026-01-28 19:00:00
 updated: 2026-01-29 13:00:00
 image: /image/PostCover/komariMonitor.avif
-categories: [折腾]
-tags: [探针,监控]
+categories: [技术探索]
+tags: [探针, 监控]
 recommend: true
 ---
 ## 前言

@@ -4,7 +4,7 @@ description: 这篇文章是一篇实战经验分享，主要讲解了如何利�
 date: 2026-01-11 10:00:00
 updated: 2026-01-11 20:49:00
 image: /image/PostCover/jsdmEdge.avif
-categories: [折腾]
+categories: [技术探索]
 tags: [镜像, EdgeOne, jsdmirror]
 recommend: true
 aiTip: {

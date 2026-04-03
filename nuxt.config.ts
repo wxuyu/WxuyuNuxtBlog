@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 				{ rel: 'preconnect', href: 'https://source.yjluo.top' },
 				{ rel: 'preconnect', href: blogConfig.author.homepage },
 				{ rel: 'stylesheet', href: '/assets/css/artalk.css', media: 'none', onload: 'this.media="all"'  },
-        { rel: 'stylesheet', href: 'https://s4.zstatic.net/ajax/libs/lxgw-wenkai-screen-web/1.520.0/lxgwwenkaigbscreen/result.css', media: 'none', onload: 'this.media="all"'  },
+            { rel: 'stylesheet', href: 'https://s4.zstatic.net/ajax/libs/lxgw-wenkai-screen-web/1.520.0/lxgwwenkaigbscreen/result.css', media: 'none', onload: 'this.media="all"'  },
 			],
 			templateParams: {
 				separator: '|',
@@ -57,6 +57,7 @@ export default defineNuxtConfig({
 		'@/assets/css/font.scss',
 		'@/assets/css/main.scss',
 		'@/assets/css/reusable.scss',
+      '@/assets/css/WuWuGameColor.scss'
 	],
 
 	// @keep-sorted

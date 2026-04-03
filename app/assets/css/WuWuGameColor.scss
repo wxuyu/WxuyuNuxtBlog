@@ -1,0 +1,34 @@
+/* 颜色样式 */
+.WuWuGameColor#尤诺 {
+  --color-cosmic-deep: #050a14;
+  --color-starry-night: #0d1b2a;
+  --color-lunar-silver: #c2d6e6;
+  --color-moonlight: #e6f2ff;
+  --color-tide-blue: #2e88c9;
+  --color-tide-light: #7fd3ff;
+  --color-nebula-purple: #4a235a;
+  --color-constellation: rgba(127, 211, 255, .8);
+  --card-bg: rgba(15, 25, 45, .7);
+  --card-border: rgba(127, 211, 255, .4);
+  --card-shadow: 0 20px 60px rgba(5, 10, 30, .5);
+  --section-spacing: clamp(3rem, 6vw, 5rem);
+  --card-radius: 1.5rem;
+  --transition-smooth: all .4s cubic-bezier(.4, 0, .2, 1);
+  position: relative;
+  // background: var(--color-cosmic-deep);
+  // color: var(--color-moonlight);
+  padding-top: 60px;
+}
+.WuWuGameColor#爱弥斯 {
+  --pink-core: #ff8cb0;
+  --pink-light: #ffb3cc;
+  --pink-glow: #ffb6d9;
+  --blue-glitch: #6ed4ff;
+  --blue-glow: #9ae2ff;
+  --purple-mid: #e0a0ff;
+  --white-glow: #fbefff;
+  --bg-deep: linear-gradient(145deg, #1a1028 0%, #281e30 100%);
+  --grid-color: rgba(255, 140, 176, .15);
+  --glitch-shadow: rgba(110, 212, 255, .5);
+  --heart-glow: rgba(255, 140, 176, .7);  
+}

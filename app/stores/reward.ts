@@ -1,6 +1,6 @@
 import { LazyPopoverReward } from '#components'
 
-export const useRewardStore = defineStore('reward', () => {
+export const useReWardStore = defineStore('reward', () => {
   const popoverStore = usePopoverStore()
   let Reward: ReturnType<typeof popoverStore.use> | null = null
 

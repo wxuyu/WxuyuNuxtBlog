@@ -4,7 +4,7 @@ description: 这篇文章讲述如何在页面中添加模块以及使用CSS添�
 date: 2025-03-05 08:00:00
 updated: 2025-03-06 18:00:00
 image: https://sourceimage.s3.bitiful.net/img/default_cover_21.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly]
 ---
 一.前言

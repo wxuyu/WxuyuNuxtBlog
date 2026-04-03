@@ -4,7 +4,7 @@ description: 这篇文章讲述如何给自己博客中的归档、分类、标�
 date: 2025-03-05 08:00:00
 updated: 2025-03-06 18:00:00
 image: https://sourceimage.s3.bitiful.net/img/default_cover_29.avif?v=20260104
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly]
 ---
 ## 前言

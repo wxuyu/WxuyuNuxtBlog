@@ -4,7 +4,7 @@ description: 这篇文章讲述了如何美化博客侧边栏，并调整各个�
 date: 2025-03-05 08:00:00
 updated: 2025-03-06 18:00:00
 image: /image/PostCover/cardMeihua.avif
-categories: [博客魔改]
+categories: [站点魔改]
 tags: [hexo, butterfly]
 ---
 ## 前言

@@ -4,7 +4,7 @@ description: 该文章主要写了对于低价机器的试水，并提醒是超�
 date: 2026-01-12 10:00:00
 updated: 2026-01-12 20:49:00
 image: /image/PostCover/vpsTalk.avif
-categories: [博客魔改]
+categories: [日常随笔]
 tags: [Nuxt, 魔改, 美化]
 recommend: true
 ---

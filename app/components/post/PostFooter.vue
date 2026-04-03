@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ArticleProps } from '~/types/article'
 import { sort } from 'radash'
+import { LazyPopoverReward } from '#components';
 
 defineOptions({ inheritAttrs: false })
 const props = defineProps<ArticleProps>()
@@ -13,6 +14,7 @@ const updated = computed(() => props.updated)
 const references = computed(() => props.references)
 const meta = computed(() => props.meta)
 const { data: listRaw } = await useAsyncData('index_posts', () => useArticleIndexOptions(), { default: () => [] })
+// const ReWardStore = useReWardStore()
 
 function formatDate(dateStr?: string): string {
 	if (!dateStr)
@@ -71,8 +73,17 @@ const sortedTags = computed(() => {
 	})
 })
 
-// 新增store插入
-const RewardStore = useRewardStore
+// 新增弹窗写法
+const modalStore = useModalStore()
+const {
+	open: openShare,
+	close: closeShare,
+} = modalStore.use(() => h(LazyPopoverReward, {
+	onClose: () => closeShare(),
+}), {
+	unique: true,
+	duration: 200,
+})
 </script>
 
 <template>
@@ -147,7 +158,7 @@ const RewardStore = useRewardStore
 		</div>
 		<div class="right">
 			<div class="post-reward">
-				<ZButton class="reward-button" @click="RewardStore().open()" style="font-size: 0.85em;">
+				<ZButton class="reward-button" @click="openShare()" style="font-size: 0.85em;">
 					<Icon name="proicons:sparkle-2" />
 					打赏
 				</ZButton>
@@ -309,56 +320,59 @@ section {
 .reference .content ul { margin: 0; padding: 0; list-style: none; }
 .reference .content li { margin: 0.6rem 0; }
 
-.post-bottom {
-	width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-
-	.left {
-    white-space: nowrap;
+.post-footer {
+  .post-bottom {
+    width: 100%;
     display: flex;
-    text-overflow: ellipsis;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row;
 
-		.tagsItem {
-			display: flex;
-			padding: 0;
-			width: 100%;
-			flex-wrap: wrap;
-			flex-direction: row;
-			gap: 8px;
+    .left {
+      white-space: nowrap;
+      display: flex;
+      text-overflow: ellipsis;
+      flex-wrap: wrap;
 
-			.tags {
-				background: var(--heo-card-bg);
-				border: var(--style-border-always);
-				color: var(--heo-fontcolor);
-				border-radius: 8px;
-				margin: 0;
-				display: flex;
-				align-items: center;
-				white-space: nowrap;
-				height: 32px;
-				padding: 0 .6rem;
-				width: fit-content;
-				font-size: .85em;
-				transition: all .2s ease-in-out 0s;
+      .tagsItem {
+        display: flex;
+        padding: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 8px;
 
-				.tagNumber {
-					padding: 2px;
-					background: var(--heo-fontcolor);
-					min-width: 22.5px;
-					display: inline-block;
-					border-radius: 4px;
-					text-align: center;
-					font-size: 0.7rem;
-					color: var(--heo-card-bg);
-					margin-left: 4px;
-					line-height: 1;
-					transition: .2s;
-				}
-			}
-		}
-	}
+        .tags {
+          background: var(--heo-card-bg);
+          border: var(--style-border-always);
+          color: var(--heo-fontcolor);
+          border-radius: 8px;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          height: 32px;
+          padding: 0 .6rem;
+          width: fit-content;
+          font-size: .85em;
+          transition: all .2s ease-in-out 0s;
+
+          .tagNumber {
+            padding: 2px;
+            background: var(--heo-fontcolor);
+            min-width: 22.5px;
+            display: inline-block;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--heo-card-bg);
+            margin-left: 4px;
+            line-height: 1;
+            transition: .2s;
+          }
+        }
+      }
+    }
+  }  
 }
+
 </style>
