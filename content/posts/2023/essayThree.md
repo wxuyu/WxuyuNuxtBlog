@@ -4,7 +4,7 @@ description: 本篇转载三种不同方案（已经放好原文章链接）
 date: 2023-12-06 12:45:00
 updated: 2023-12-07 14:09:00
 cover: https://sourceimage.s3.bitiful.net/img/default_cover_55.avif
-category: [技术探索]
+categories: [技术探索]
 tags: [hexo, butterfly, 美化]
 ---
 ## 原文来源

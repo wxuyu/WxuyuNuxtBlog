@@ -57,13 +57,8 @@ const appConfig = useAppConfig()
 	}
 }
 
-@font-face {
-	font-family: LXGWWenKai;
-	src: url("/fonts/LXGWWenKai.woff2");
-}
-
 .header-title {
-	font-family: "LXGW WenKai Screen", "LXGW WenKai", "Noto Sans SC", sans-serif;
+	font-family: "LXGW WenKai GB Screen", "LXGW WenKai", "Noto Sans SC", sans-serif;
 	font-size: 1.5em;
 	font-synthesis: none;
 	font-variation-settings: "wght" 600, "BEVL" 100;
