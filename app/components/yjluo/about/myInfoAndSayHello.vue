@@ -1,23 +1,24 @@
 <script setup lang="ts">
 // 自动导入 composables 目录下的函数
-const Config = useMyInfo()
+import { about } from '~/about'
+import appConfig from '~/app.config';
 </script>
 
 <template>
   <div 
     class="author-content-item myInfoAndSayHello" 
-    v-for="info in Config" 
-    :key="info.内容一"
+    v-for="info in about[1]?.myinfo" 
+    :key="info.title1"
     style="text-align: center; width: 100%"
   >
-    <div class="title1">{{ info.标题一 }}</div>
+    <div class="title1">{{ info.title1 }}</div>
     <div class="title2">
-      {{ info.标题二 }}
-      <span class="inline-word">{{ info.博主名称 }}</span>
+      {{ info.title2 }}
+      <span class="inline-word">{{ appConfig.author.name }}</span>
     </div>
     <div class="title1">
-      {{ info.内容一 }}
-      <span class="inline-word">{{ info.内容二 }}</span>
+      {{ info.card }}
+      <span class="inline-word">{{ info.inlineword2 }}</span>
     </div>
   </div>
 </template>
