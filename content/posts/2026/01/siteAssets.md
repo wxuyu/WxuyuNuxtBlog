@@ -6,7 +6,6 @@ updated: 2026-01-07 20:49:00
 image: /image/PostCover/siteAssets.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
 type: story
 ---
 

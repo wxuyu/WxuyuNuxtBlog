@@ -6,7 +6,6 @@ updated: 2025-12-28 20:49:00
 image: /image/PostCover/annualSummary.avif
 categories: [日志记录]
 tags: [总结, 2025]
-recommend: true
 type: story
 ---
 

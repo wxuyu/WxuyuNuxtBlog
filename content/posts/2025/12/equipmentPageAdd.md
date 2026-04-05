@@ -6,7 +6,7 @@ updated: 2025-12-03 20:49:09
 image: /image/PostCover/equipmentPage.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 7
 ---
 
 ## 功能解析

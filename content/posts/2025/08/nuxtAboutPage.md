@@ -6,7 +6,7 @@ updated: 2025-09-01 20:49:00
 image:  /image/PostCover/nuxtAboutPage.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 10
 ---
 ## 前言
 在将博客框架迁移至 Nuxt 的过程中，“关于”页面也一并迁移了过来。由于当时尚未掌握 Nuxt 的数据处理方式，我只能沿用原有结构，并暂未将其公开。后来，在理解了父组件与子组件之间的数据传递模式后，我重新编写了关于页面。尽管最终呈现的效果仍有改进空间，但已基本实现了预期功能。

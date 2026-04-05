@@ -9,13 +9,14 @@ const appConfig = useAppConfig()
 
 <template>
 <UtilLink class="blog-header">
-	<NuxtImg
-		:src="appConfig.header.logo"
-		class="blog-logo round-cobblestone"
-		:class="{ circle: appConfig.header.showTitle }"
-		:alt="appConfig.title"
-	/>
-
+  <div class="blog-logo">
+    <NuxtImg
+      :src="appConfig.header.logo"
+      class="round-cobblestone"
+      :class="{ circle: appConfig.header.showTitle }"
+      :alt="appConfig.title"
+    />    
+  </div>
 	<div v-if="appConfig.header.showTitle" class="blog-text">
 		<component :is="tag" class="header-title">
 			<span
@@ -52,9 +53,13 @@ const appConfig = useAppConfig()
 
 	&.circle {
 		width: 3em;
-		border-radius: 50%;
 		box-shadow: var(--box-shadow-1), var(--box-shadow-3);
 	}
+  .round-cobblestone {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 }
 
 .header-title {

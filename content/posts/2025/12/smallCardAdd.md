@@ -6,7 +6,7 @@ updated: 2025-12-04 20:49:00
 image: /image/PostCover/smallCard.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 5
 ---
 ## 前言
 由于最近的累计魔改的内容已经多到需要记录了，索性也写成一篇魔改文章。

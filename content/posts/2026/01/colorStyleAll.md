@@ -6,7 +6,6 @@ updated: 2026-01-27 20:49:00
 image: /image/PostCover/colorStyleAll.avif
 categories: [站点魔改]
 tags: [全局颜色,自定义]
-recommend: true
 ---
 
 ## 前言

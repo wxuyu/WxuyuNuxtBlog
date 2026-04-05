@@ -6,7 +6,7 @@ updated: 2025-12-09 20:49:00
 image: /image/PostCover/postMeihua.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 6
 ---
 ## 功能增加与删减
 ### V20251209-OFFICIAL

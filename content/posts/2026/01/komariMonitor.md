@@ -6,7 +6,6 @@ updated: 2026-01-29 13:00:00
 image: /image/PostCover/komariMonitor.avif
 categories: [技术探索]
 tags: [探针, 监控]
-recommend: true
 ---
 ## 前言
 很久之前用过哪吒探针的V0与V1版本，但是后来的云服务器基本上已经完全废止，所以就没进行搞了。不过最近在浏览一些文章时看到有别的探针系统，心血来潮便搭建该探针

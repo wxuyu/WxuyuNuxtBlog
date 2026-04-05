@@ -6,7 +6,7 @@ updated: 2025-12-01 20:49:00
 image: /image/PostCover/banguimPage.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 9
 ---
 
 ## 前言

@@ -9,7 +9,7 @@ tags:
   - Nuxt
   - 魔改
   - 美化
-recommend: true
+recommend: 2
 ---
 
 ## 核心代码

@@ -6,7 +6,7 @@ updated: 2026-01-01 20:49:00
 image: /image/PostCover/NewYear.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 4
 ---
 ## 前言
 林某人祝贺你们元旦快乐，至于为什么不说新年快乐呢？因为本身新年包含了公历和农历，为了区分开来用元旦是最稳妥的。

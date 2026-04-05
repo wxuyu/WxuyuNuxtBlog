@@ -6,7 +6,6 @@ updated: 2025-12-29 20:49:00
 image: https://sourceimage.s3.bitiful.net/post/img/annualSummary/cover.webp
 categories: [自设记录]
 tags: [总结, 2025]
-recommend: true
 type: story
 ---
 ## 世界观

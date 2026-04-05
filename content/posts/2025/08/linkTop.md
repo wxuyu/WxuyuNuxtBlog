@@ -6,7 +6,7 @@ updated: 2025-08-11 20:49:00
 image: /image/PostCover/linkTop.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 11
 ---
 
 ## 前言

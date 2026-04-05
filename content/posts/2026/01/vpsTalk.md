@@ -6,7 +6,6 @@ updated: 2026-01-12 20:49:00
 image: /image/PostCover/vpsTalk.avif
 categories: [日常随笔]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
 ---
 ## 前言
 最近有一些原因负担不起来服务器的价格加上本身用到的地方不多，所以低价买了个超开机。那么就来测试这台机器吧

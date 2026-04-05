@@ -6,7 +6,7 @@ updated: 2026-03-01 20:49:00
 image: /image/PostCover/commentMeihua.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 8
 ---
 ## 部署文档
 无需多说，前往官方文档查看

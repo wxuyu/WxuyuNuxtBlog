@@ -6,7 +6,6 @@ updated: 2026-01-30 20:49:00
 image: /image/PostCover/vpsTalk.avif
 categories: [日常随笔]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
 ---
 ## 前言
 原本想要查找一些大容量的VPS来搭建一些影视站，结果翻来覆去还是没找到，依旧小兔云起手。搞了台80G HDD的VPS来用了,后续将会出一期NAS系统使用与影视站的效果。

@@ -6,7 +6,6 @@ updated: 2026-01-11 20:49:00
 image: /image/PostCover/jsdmEdge.avif
 categories: [技术探索]
 tags: [镜像, EdgeOne, jsdmirror]
-recommend: true
 aiTip: {
     type: 自定义,
     content: 文章中的表格数据均使用腾讯元宝的图片转表格

@@ -6,7 +6,7 @@ updated: 2025-09-01 20:49:00
 image: https://www.yjluo.top/image/PostCover/siteInfo.avif
 categories: [站点魔改]
 tags: [Nuxt, 魔改, 美化]
-recommend: true
+recommend: 9
 ---
 
 # 前言
