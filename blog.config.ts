@@ -85,7 +85,7 @@ const blogConfig = {
 	/** 向 <head> 中添加脚本 */
 	scripts: [
 		// Twikoo 评论系统
-		{ src: 'https://s4.zstatic.net/npm/twikoo@1.7.4/dist/twikoo.min.js', defer: true, crossorigin: 'anonymous' },
+		{ src: 'https://s4.zstatic.net/npm/twikoo@1.7.7/dist/twikoo.min.js', defer: true, crossorigin: 'anonymous' },
 	] satisfies Array<{
 		src: string
 		defer?: boolean
