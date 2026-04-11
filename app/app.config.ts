@@ -115,6 +115,7 @@ export default defineAppConfig({
 		showTitle: true,
 		subtitle: blogConfig.subtitle,
 	},
+
 	/** 友链页面 */
 	link: {
 		/** 无订阅源展示静音图标 */
@@ -122,6 +123,23 @@ export default defineAppConfig({
 		/** 友链分组内随机排序 */
 		randomInGroup: true,
 	},
+
+  essay: {
+    API: {
+      ISPEAK: 'https://ispeak.api.wxuyu.top/',
+      MEMOS: '',
+    },
+    CONFIG: {
+      ISPEAK_CONFIG: {
+        author: '69d21e1f84a9d355ffe37d55',
+        error_image: 'https://lib.bsgun.cn/Hexo-static/img/avatar.256.avif'
+      },
+      LOCAL_ESSAY: {
+        page_size: 10
+      },
+    },
+    TYPE: 'local',
+  },
 
 	/** 左侧栏导航 */
 	nav: [
@@ -153,12 +171,12 @@ export default defineAppConfig({
           url: '#',
           children: [
             { icon: 'i-mingcute:bilibili-line', text: '追更历史', url: '/banguim' },
-            // { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
+            { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
             { icon: 'ph:steam-logo-bold', text: '游戏时刻', url: '/steam'},
+            { icon: 'ph:lightning-bold', text:'闲言碎语', url:'/essay' },
 					],
         },
         // { icon: 'ph:chats-bold', text:'​纸笺寄语', url:'/comments' },
-        // { icon: 'ph:lightning-bold', text:'闲言碎语', url:'/essays' },
 				// { icon: 'ph:aperture-bold', text:'探索发现', url:'/discovery'},
 				{ icon: 'ph:apple-podcasts-logo-bold', text:'关于自己', url:'/about' },
 			],

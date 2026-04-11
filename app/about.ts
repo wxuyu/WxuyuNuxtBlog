@@ -2,12 +2,8 @@ export interface aboutConnect {
     author: author[]; //头像数据
     large: string; //标题数据
     myinfo: myinfo[]; //个人介绍数据
-    hello: string; //Hello there数据
-    maxim: maxim[]; //左右铭数据
     technology: technology[]; //偏好数据
-    game: game[]; //游戏数据
     single: single[]; //历程数据
-    social: social[];
 }
 
 // 头像数据
@@ -91,13 +87,6 @@ export interface single {
     content: string;
 }
 
-// 社交数据
-export interface social {
-    href: string;
-    class: string;
-    name: string;
-}
-
 export const about: aboutConnect[] = [
     {
         author: [
@@ -137,26 +126,10 @@ export const about: aboutConnect[] = [
                 }]
             }]
         }],
-        hello: "Main Dis My Blogs",
-        social: [
-            { href: "https://github.com/661111", class: "i-ph:github-logo-bold", name: "Github" },
-            { href: "", class:"i-ph:tiktok-logo-bold", name: "TikTok" }
-        ],
-        maxim: [{
-            tip: "座右铭",
-            title1: "生活明朗，",
-            title2: "万物可爱。",
-        }],
         technology: [{
             tip: "关注偏好",
             title: "数码科技",
             bottomTip: "手机、电脑软硬件"
-        }],
-        game: [{
-            tip: "爱好游戏",
-            title: "使命召唤",
-            uid: "",
-            image: ""
         }],
         single: [{
             tip: "心路历程",

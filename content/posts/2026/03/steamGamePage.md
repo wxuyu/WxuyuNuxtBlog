@@ -5,10 +5,7 @@ date: 2026-03-21 14:00:00
 updated: 2026-03-22 10:00:00
 image: /image/PostCover/footerNuxtMeihua.avif
 categories: [站点魔改]
-tags:
-  - Nuxt
-  - 魔改
-  - 美化
+tags: ['Nuxt', '页面']
 recommend: 2
 ---
 
