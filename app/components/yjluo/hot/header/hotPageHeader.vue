@@ -7,15 +7,42 @@ const props = defineProps<{
   updateTime: string
 }>()
 
+const nowTimestamp = ref(Date.now())
+let timer: ReturnType<typeof setInterval> | null = null
+
+onMounted(() => {
+  timer = setInterval(() => {
+    nowTimestamp.value = Date.now()
+  }, 60 * 1000)
+})
+
+onBeforeUnmount(() => {
+  if (timer) {
+    clearInterval(timer)
+    timer = null
+  }
+})
+
 const relativeUpdateText = computed(() => {
   if (!props.updateTime) return '暂无更新时间'
 
-  const now = new Date()
-  const updated = new Date(props.updateTime)
+  const updated = new Date(props.updateTime).getTime()
+  if (Number.isNaN(updated)) return '暂无更新时间'
 
-  const hours = now.getHours() - updated.getUTCHours()
+  const diff = nowTimestamp.value - updated
+  if (diff <= 0) return '刚刚更新'
 
-  return `${hours}小时前更新`
+  const totalMinutes = Math.floor(diff / 1000 / 60)
+  const days = Math.floor(totalMinutes / (60 * 24))
+  const hours = Math.floor((totalMinutes % (60 * 24)) / 60)
+  const minutes = totalMinutes % 60
+
+  if (days > 0) return `${days}天前更新`
+  if (hours === 0 && minutes === 0) return '刚刚更新'
+  if (hours <= 0 && minutes > 0) return `${minutes}分钟前更新`
+  if (hours > 0 && minutes === 0) return `${hours}小时前更新}`
+
+  return `${hours}小时${minutes}分钟前更新`
 })
 </script>
 
@@ -45,9 +72,7 @@ const relativeUpdateText = computed(() => {
 
 <style lang="scss" scoped>
 $text-tertiary: #999;
-$text-secondary: #666;
 $border-lighter: #f5f5f5;
-$spacing-xs: 4px;
 $spacing-md: 12px;
 $spacing-lg: 16px;
 
@@ -78,11 +103,6 @@ $spacing-lg: 16px;
     .headerData {
       font-weight: bold;
       position: relative;
-    }
-
-    .headerHour {
-      color: $text-secondary;
-      margin-top: $spacing-xs;
     }
   }
 }

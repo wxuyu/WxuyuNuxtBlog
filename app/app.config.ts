@@ -144,6 +144,7 @@ export default defineAppConfig({
   hotGetConfig: {
     Api: 'https://hot-api.liiiu.cn',
     timeout: 200,
+    RefreshInterval: 5 * 60 * 1000,
   },
 	/** 左侧栏导航 */
 	nav: [

@@ -14,12 +14,13 @@ const props = defineProps<{
   CategroryType: '热搜'
 }>()
 
-// SSG安全的请求头
 const requestHeaders = {}
 
 const requestUrl = computed(() =>
   `${appConfig.hotGetConfig.Api}/${props.MiniNameType}`
 )
+
+const fetchKey = computed(() => `hot-${props.MiniNameType}-${props.Cache}`)
 
 const {
   data: responseData,
@@ -29,12 +30,24 @@ const {
 } = useFetch<ApiResponse>(requestUrl, {
   query: { cache: props.Cache },
   headers: requestHeaders,
-  key: `hot-${props.MiniNameType}-${props.Cache}`,
+  key: fetchKey,
   default: () => ({ total: 0, updateTime: '', data: [] }),
+  server: false,
+  lazy: false,
+  watch: [requestUrl, () => props.Cache],
 })
 
-const hotList = computed(() => responseData.value?.data ?? [])
-const hotTotal = computed(() => responseData.value?.total ?? 0)
+const hotList = computed(() => {
+  const list = responseData.value?.data
+  return Array.isArray(list) ? list : []
+})
+
+const hotTotal = computed(() => {
+  return typeof responseData.value?.total === 'number'
+    ? responseData.value.total
+    : hotList.value.length
+})
+
 const updateTime = computed(() => responseData.value?.updateTime ?? '')
 
 // 分页状态
@@ -42,7 +55,7 @@ const currentPage = ref(1)
 const itemsPerPage = ref(20)
 
 const totalPages = computed(() =>
-  Math.ceil(hotList.value.length / itemsPerPage.value)
+  Math.max(1, Math.ceil(hotList.value.length / itemsPerPage.value))
 )
 
 const paginatedList = computed(() => {
@@ -69,7 +82,15 @@ function prevPage() {
   }
 }
 
-// 数据变化时，确保页码安全
+// 当平台或缓存参数变化时，重置页码
+watch(
+  () => [props.MiniNameType, props.Cache],
+  () => {
+    currentPage.value = 1
+  }
+)
+
+// 当数据变化时，修正页码
 watch(hotList, () => {
   if (currentPage.value > totalPages.value) {
     currentPage.value = totalPages.value || 1
@@ -79,7 +100,11 @@ watch(hotList, () => {
 // 状态消息
 const statusMessage = computed(() => {
   if (pending.value) return '加载中...'
-  if (error.value) return error.value.message || '加载失败'
+  if (error.value) {
+    return error.value instanceof Error
+      ? error.value.message
+      : '加载失败'
+  }
   if (!hotList.value.length) return '暂无数据'
   return ''
 })
@@ -126,13 +151,10 @@ const statusMessage = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-$primary-color: #409eff;
-$text-secondary: #666;
 $border-light: #eee;
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
 $bg-white: #fff;
 $spacing-lg: 16px;
-$spacing-xl: 20px;
 $radius-xl: 12px;
 
 .cardMain {

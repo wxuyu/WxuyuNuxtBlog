@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HotItem } from '~/types/hot'
-import hotCard from './hotCard.vue';
+import HotCard from './hotCard.vue';
 
 defineProps<{
   items: HotItem[]
@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
   <div class="hotList">
-    <hotCard
+    <HotCard
       v-for="(item, index) in items"
       :key="item.id || index"
       :item="item"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   pending: boolean
   error: unknown
   isEmpty: boolean
@@ -20,7 +20,7 @@ const emit = defineEmits<{
       empty: isEmpty
     }"
   >
-    {{ message }}
+    <span>{{ message }}</span>
     <button
       v-if="error"
       class="retryBtn"
@@ -59,7 +59,6 @@ $radius-md: 6px;
     background: $primary-color;
     color: $bg-white;
     cursor: pointer;
-    transition: background 0.2s;
   }
 }
 </style>
