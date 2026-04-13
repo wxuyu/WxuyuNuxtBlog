@@ -141,6 +141,10 @@ export default defineAppConfig({
     TYPE: 'local',
   },
 
+  hotGetConfig: {
+    Api: 'https://hot-api.liiiu.cn',
+    timeout: 200,
+  },
 	/** 左侧栏导航 */
 	nav: [
 		{
