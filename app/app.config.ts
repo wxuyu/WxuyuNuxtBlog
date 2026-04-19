@@ -166,7 +166,7 @@ export default defineAppConfig({
     // 4. 逃生门 (Escape Door)
     // 当请求 URL 包含此前缀时，Service Worker 将彻底放行，不做任何拦截
     // 可用于动态大文件下载或需要实时获取的后端接口
-    escapeDoor: '/api/bypass/', 
+    escapeDoor: '/api/recent-comments', 
     
     // 5. 版本号 (由构建时自动注入，此处仅为类型提示)
     // 在 sw.ts 中我们会通过模板字符串自动生成时间戳

@@ -1,32 +1,31 @@
 // plugins/sw.client.ts
-import type {SwConfig} from '~/utils/sw'; 
+// 1. 引入 toRaw 用于解除 Vue 的响应式代理
+import { toRaw } from 'vue';
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // 类型安全获取配置
   const config = useAppConfig().serviceWorker;
-  
+
   if (!config.enabled || !('serviceWorker' in navigator)) return;
 
-  // 向 Service Worker 发送配置
   const sendConfigToSw = (registration: ServiceWorkerRegistration) => {
     const sw = registration.active || registration.waiting || registration.installing;
     if (sw) {
-      // 构造符合 SwConfig 类型的 payload
-      const payload: SwConfig = {
-        permanent: config.permanent,
-        maxAge: config.maxAge,
-        escapeDoor: config.escapeDoor,
-        extensions: config.cacheRules.extensions
-      };
+      // 2. 核心修复：将数据脱敏，转化为纯JS对象，去除 Vue 的 Proxy 包装
+      const payload = toRaw(config.cacheRules); 
       
       sw.postMessage({
         type: 'INIT_CONFIG',
-        payload
+        payload: {
+          permanent: config.permanent,
+          maxAge: config.maxAge,
+          escapeDoor: config.escapeDoor,
+          // 确保数组等嵌套结构也被正确深拷贝脱敏
+          extensions: JSON.parse(JSON.stringify(payload.extensions)) 
+        }
       });
     }
   };
 
-  // UI 提示渲染函数
   const showUpdatePrompt = (onRefresh: () => void, onClearCache: () => void) => {
     if (document.getElementById('sw-update-prompt')) return;
     
@@ -59,23 +58,27 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
 
   nuxtApp.hook('app:mounted', async () => {
-    // 注意：这里注册的依然是构建后生成的 /sw.js
     const registration = await navigator.serviceWorker.register('/sw.js').catch(err => {
       console.error('[SW] 注册失败:', err);
       return null;
     });
 
     if (registration) {
-      // 发送配置到 SW
-      sendConfigToSw(registration);
+      // 确保 SW 激活后再发送配置
+      if (registration.active) {
+        sendConfigToSw(registration);
+      } else {
+        // 如果还没激活，等它激活后再发
+        registration.addEventListener('activate', () => {
+          sendConfigToSw(registration);
+        });
+      }
 
-      // 监听更新
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // 有新版本可用，弹出提示
               showUpdatePrompt(
                 () => window.location.reload(),
                 () => {
