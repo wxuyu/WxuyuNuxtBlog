@@ -10,5 +10,5 @@ export default defineNitroPlugin(() => {
   }
   
   // 注入到 runtimeConfig 中
-  useRuntimeConfig().public.cacheVersion = numbers + letters;
+  useRuntimeConfig().public.appVesion = numbers + letters;
 });

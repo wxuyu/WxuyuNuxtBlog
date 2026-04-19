@@ -30,7 +30,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           type: 'INIT_CONFIG',
           payload: {
             ...appConfig.cache,
-            cacheVersion: runtimeConfig.public.cacheVersion, // 传入 120 位随机数
+            cacheVersion: useRuntimeConfig().public.appVesion, // 传入 120 位随机数
             maxAgeSeconds: (appConfig.cache.maxAge || 7 * 24 * 60 * 60 * 1000) / 1000,
           },
         });

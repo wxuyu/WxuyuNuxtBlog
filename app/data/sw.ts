@@ -11,7 +11,6 @@ declare const self: ServiceWorkerGlobalScope & {
   __APP_CONFIG__: {
     enabled: boolean;
     cachePrefix: string;
-    cacheVersion: string; // 接收 120 位的超级版本号
     maxAgeSeconds: number;
     maxEntries: number;
     extraFileTypes: string[];
@@ -19,7 +18,7 @@ declare const self: ServiceWorkerGlobalScope & {
 };
 
 // 1. 缓存名称优化：使用外部传入的唯一标识符
-const CACHE_NAME = `${self.__APP_CONFIG__?.cachePrefix || 'nuxt-ultimate-cache'}-${self.__APP_CONFIG__?.cacheVersion || Date.now()}`;
+const CACHE_NAME = `ServiceWorker_Cache_${useRuntimeConfig().public.appVesion}`;
 
 // 2. 立即接管页面，无需刷新
 clientsClaim();

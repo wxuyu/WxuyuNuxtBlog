@@ -151,7 +151,7 @@ export const useCacheManager = () => {
     if (!process.client) return
     
     const storedVersion = localStorage.getItem('sw-cache-version')
-    const currentVersion = runtimeConfig.public.cacheVersion
+    const currentVersion = useRuntimeConfig().public.appVesion
     
     if (storedVersion && storedVersion !== currentVersion) {
       showUpdateNotification()

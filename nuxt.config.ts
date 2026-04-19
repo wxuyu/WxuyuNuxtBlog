@@ -75,7 +75,6 @@ export default defineNuxtConfig({
 			// 修复部分平台会在文章路径后添加 `/`，导致闪现 404 错误
 			// https://github.com/nuxt/content/issues/2378
 			autoSubfolderIndex: CLOUDFLARE_PAGES || GITHUB_ACTIONS || NETLIFY ? false : undefined,
-
 		},
 	},
 
@@ -99,7 +98,6 @@ export default defineNuxtConfig({
 			nodeVersion,
 			platform,
 			processReporterLatestEndpoint: env.PROCESS_REPORTER_LATEST_ENDPOINT || blogConfig.presence?.latestEndpoint || '',
-      appVesion: Date.now().toString()
 		},
 	},
 
@@ -136,7 +134,7 @@ export default defineNuxtConfig({
 		},
 		server: {
 			allowedHosts: true,
-		}
+		},
 	},
 
 	// @keep-sorted
