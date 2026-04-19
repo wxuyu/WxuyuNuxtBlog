@@ -1,4 +1,4 @@
-import { resolve } from 'node:path'
+import { resolve, dirname } from 'node:path'
 import { arch, env, version as nodeVersion, platform } from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { name as ciName, CLOUDFLARE_PAGES, GITHUB_ACTIONS, NETLIFY } from 'ci-info'
@@ -8,6 +8,12 @@ import { Temporal } from 'temporal-polyfill'
 import blogConfig from './blog.config'
 import packageJson from './package.json'
 import redirectList from './redirects.json'
+import fs from 'fs/promises'
+import { fileURLToPath } from 'url'
+
+// 获取当前文件的目录路径，兼容 ESM
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
@@ -146,41 +152,6 @@ export default defineNuxtConfig({
 		server: {
 			allowedHosts: true,
     },
-    plugins: [
-      {
-        name: 'inject-sw-version-and-expose',
-        apply: 'build',
-        config() {
-          return {
-            build: {
-              rollupOptions: {
-                input: {
-                  // 将 utils/sw.ts 作为单独的入口点
-                  sw: 'app/utils/sw.ts' 
-                },
-                output: {
-                  entryFileNames: (chunkInfo) => {
-                    // 将 sw.ts 输出为 public/sw.js
-                    if (chunkInfo.name === 'sw') {
-                      return 'sw.js';
-                    }
-                    return 'assets/[name].[hash].js';
-                  },
-                  assetFileNames: 'assets/[name].[hash].[ext]'
-                }
-              }
-            }
-          }
-        },
-        transform(code, id) {
-          // 注入构建时间戳
-          if (id.includes('app/utils/sw.ts')) {
-            return code.replace('__BUILD_TIME__', Date.now().toString());
-          }
-          return code;
-        }
-      }
-    ]
 	},
 
 	// @keep-sorted
@@ -247,6 +218,55 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
+    // 在 Nitro 准备就绪后执行
+    async 'nitro:init'(nitro) {
+      nitro.hooks.hook('compiled', async () => {
+        // 动态导入 Vite，避免在非构建阶段加载
+        const { build } = await import('vite')
+        
+        const swEntry = resolve(__dirname, '/app/utils/sw.ts')
+        const swOutput = resolve(nitro.options.output.publicDir, 'sw.js')
+        
+        console.log('[SW] 开始独立构建 Service Worker...')
+        
+        // 单独运行 Vite 打包，完全独立于 Nuxt 主构建
+        await build({
+          configFile: false, // 不使用项目的 vite.config，避免插件冲突
+          build: {
+            ssr: false, // Service Worker 运行在浏览器环境
+            outDir: nitro.options.output.publicDir,
+            emptyOutDir: false, // 不清空输出目录，防止删除 Nuxt 的构建产物
+            minify: true,
+            lib: {
+              entry: swEntry,
+              name: 'sw',
+              formats: ['iife'], // 立即执行函数，适合直接作为脚本引入
+              fileName: () => 'sw.js'
+            },
+            rollupOptions: {
+              output: {
+                entryFileNames: 'sw.js',
+                inlineDynamicImports: true // 确保所有代码内联到一个文件
+              }
+            }
+          },
+          // 注入构建时间戳
+          plugins: [{
+            name: 'inject-sw-version',
+            transform(code) {
+              return code.replace('__BUILD_TIME__', Date.now().toString())
+            }
+          }]
+        })
+        
+        // 确保文件存在
+        await fs.access(swOutput).catch(() => {
+          throw new Error('[SW] Service Worker 构建失败，未生成 sw.js')
+        })
+        
+        console.log('[SW] Service Worker 构建完成 ->', swOutput)
+      })
+    }
 	},
 
 	icon: {
