@@ -5,7 +5,6 @@ import { version } from '~~/package.json'
 
 // 图标查询：https://yesicon.app/ph?s=bold
 // 图标插件：https://marketplace.visualstudio.com/items?itemName=antfu.iconify
-
 // @keep-sorted
 export default defineAppConfig({
 	// 将 blog.config 中的配置项复制到 appConfig，方便调用
@@ -146,6 +145,47 @@ export default defineAppConfig({
     timeout: 200,
     RefreshInterval: 5 * 60 * 1000,
   },
+
+  cache: {
+    // 是否启用缓存
+    enabled: process.env.NODE_ENV === 'production',
+    
+    // 是否永久缓存（false 则使用 maxAge）
+    permanent: false,
+    
+    // 缓存有效期（毫秒）
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7天
+    
+    // 逃生门：URL 参数跳过缓存
+    escapeHatch: 'nocache',
+    
+    // 额外缓存的文件类型
+    extraFileTypes: ['json', 'xml'],
+    
+    // 缓存名称前缀
+    cachePrefix: 'nuxt-cache-v',
+    
+    // 需要缓存的资源路径模式
+    cachePatterns: [
+      /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i,
+      /\.(woff2?|ttf|eot|otf)$/i,
+      /^https:\/\/fonts\.(googleapis|gstatic)\.com/i,
+      /\/images\//i,
+      /\/fonts\//i
+    ],
+    
+    // Lighthouse 优化选项
+    lighthouse: {
+      // 预缓存关键资源
+      precacheResources: [
+        '/fonts/main.woff2',
+        '/images/logo.webp'
+      ],
+      // 排除的路由
+      excludeRoutes: ['/admin', '/api']
+    }
+  },
+
 	/** 左侧栏导航 */
 	nav: [
 		{

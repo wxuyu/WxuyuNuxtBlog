@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const layoutStore = useLayoutStore()
 const isFullwidth = computed(() => layoutStore.state === 'fullwidth')
+
 </script>
 
 <template>
