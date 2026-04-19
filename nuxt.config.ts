@@ -156,7 +156,7 @@ export default defineNuxtConfig({
               rollupOptions: {
                 input: {
                   // 将 utils/sw.ts 作为单独的入口点
-                  sw: 'utils/sw.ts' 
+                  sw: 'app/utils/sw.ts' 
                 },
                 output: {
                   entryFileNames: (chunkInfo) => {
@@ -174,7 +174,7 @@ export default defineNuxtConfig({
         },
         transform(code, id) {
           // 注入构建时间戳
-          if (id.includes('utils/sw.ts')) {
+          if (id.includes('app/utils/sw.ts')) {
             return code.replace('__BUILD_TIME__', Date.now().toString());
           }
           return code;
