@@ -2,6 +2,9 @@
 import { defineNuxtPlugin, useAppConfig, useRuntimeConfig } from '#app';
 import { useCacheManager } from '~/composables/useCacheManager';
 
+// 关键修改：使用静态 import 语句代替动态 Blob 生成
+import swUrl from '../data/sw.ts?worker&url';
+
 export default defineNuxtPlugin((nuxtApp) => {
   const appConfig = useAppConfig();
   const runtimeConfig = useRuntimeConfig();
@@ -12,17 +15,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const registerSW = async () => {
     try {
-      // 动态导入 SW 代码并内联注册
-      const swModule = await import('../data/sw.ts?raw');
-      const blob = new Blob([swModule.default], { type: 'application/javascript' });
-      const swUrl = URL.createObjectURL(blob);
-
+      // 直接使用 Vite 构建并提取出来的 Worker URL
       const registration = await navigator.serviceWorker.register(swUrl, {
         scope: '/',
         updateViaCache: 'none', 
       });
-
-      URL.revokeObjectURL(swUrl);
 
       // 向 SW 发送配置（包含超级版本号）
       if (registration.active) {
@@ -30,7 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           type: 'INIT_CONFIG',
           payload: {
             ...appConfig.cache,
-            cacheVersion: useRuntimeConfig().public.appVesion, // 传入 120 位随机数
+            cacheVersion: runtimeConfig.public.cacheVersion,
             maxAgeSeconds: (appConfig.cache.maxAge || 7 * 24 * 60 * 60 * 1000) / 1000,
           },
         });

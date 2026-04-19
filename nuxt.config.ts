@@ -13,6 +13,7 @@ function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
+// 生成 20位数字 + 100位字母的超级版本号
 const generateSuperVersion = () => {
   const numbers = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('');
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -211,10 +212,23 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
-    'nuxt:config': (nuxtConfig) => {
-      nuxtConfig.runtimeConfig!.public!.cacheVersion = generateSuperVersion();
-      nuxtConfig.runtimeConfig!.public!.buildTime = new Date().toISOString();
+    // 在 Nuxt 初始化时生成版本号
+    'nuxt:init': (nuxt) => {
+      nuxt.options.runtimeConfig.public.cacheVersion = generateSuperVersion();
+      nuxt.options.runtimeConfig.public.buildTime = new Date().toISOString();
     },
+    // 关键：使用 addTemplate 动态生成客户端插件，将版本号硬编码进去
+    'builder:generateApp': (options) => {
+      const version = options.nuxt.options.runtimeConfig.public.cacheVersion;
+      
+      options.templates.push({
+        src: 'workers/sw.ts', // 源文件路径
+        dst: 'sw.ts',         // 输出到 .nuxt 目录的文件名
+        options: {
+          version: version
+        }
+      });
+    }
 	},
 
 	icon: {
