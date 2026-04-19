@@ -81,6 +81,7 @@
     "@nuxt/a11y": "catalog:quality",
     "@nuxt/hints": "catalog:quality",
     "@types/qrcode": "catalog:quality",
+    "@types/serviceworker": "^0.0.194",
     "@zinkawaii/stylelint-config": "catalog:quality",
     "cspell": "catalog:quality",
     "eslint": "catalog:quality",
