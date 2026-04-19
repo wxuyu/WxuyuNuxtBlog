@@ -236,6 +236,13 @@ export default {
       })
     }
 	},
+  
+  pwa: {
+    strategies: 'injectManifest', // 允许你自定义 SW 逻辑
+    srcDir: 'service-worker', // 指定你的 sw.ts 所在目录（例如 workers/sw.ts）
+    filename: 'sw.ts', 
+    manifest: false, // 如果你不需要 Web App Manifest，可以关闭
+  },
 
 	icon: {
 		customCollections: [
