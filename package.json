@@ -80,7 +80,6 @@
     "@iconify-json/solar": "catalog:ui",
     "@nuxt/a11y": "catalog:quality",
     "@nuxt/hints": "catalog:quality",
-    "@nuxtjs/pwa": "^3.3.5",
     "@types/qrcode": "catalog:quality",
     "@zinkawaii/stylelint-config": "catalog:quality",
     "cspell": "catalog:quality",
@@ -98,6 +97,7 @@
     "stylelint": "catalog:quality",
     "tsx": "catalog:framework",
     "typescript": "catalog:framework",
-    "unplugin-yaml": "catalog:framework"
+    "unplugin-yaml": "catalog:framework",
+    "vite-plugin-pwa": "^1.2.0"
   }
 }

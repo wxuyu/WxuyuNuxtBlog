@@ -145,7 +145,7 @@ export default defineNuxtConfig({
 		},
 		server: {
 			allowedHosts: true,
-		},
+    }
 	},
 
 	// @keep-sorted
@@ -212,37 +212,7 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
-    'nitro:config'(nitroConfig) {
-      // 确保 Nitro 预设正确
-      nitroConfig.preset = 'static' 
-    },
-    // 在 Nuxt 准备模板时注入我们的 SW 配置
-    'builder:prepared'(builder) {
-      const { numbers, letters } = generateParts()
-      builder.addTemplate({
-        filename: 'sw-config.mjs',
-        write: true,
-        options: {}, // 显式添加空的 options 对象，防止读取 undefined
-        getContents: () => `
-export default {
-  enabled: true,
-  cachePrefix: 'nuxt-ultimate-cache',
-  cacheVersion: '${numbers}${letters}',
-  maxAgeSeconds: ${7 * 24 * 60 * 60},
-  maxEntries: 200,
-  extraFileTypes: []
-}
-`
-      })
-    }
 	},
-  
-  pwa: {
-    strategies: 'injectManifest', // 允许你自定义 SW 逻辑
-    srcDir: 'service-worker', // 指定你的 sw.ts 所在目录（例如 workers/sw.ts）
-    filename: 'sw.ts', 
-    manifest: false, // 如果你不需要 Web App Manifest，可以关闭
-  },
 
 	icon: {
 		customCollections: [

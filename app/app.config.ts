@@ -146,44 +146,30 @@ export default defineAppConfig({
     RefreshInterval: 5 * 60 * 1000,
   },
 
-  cache: {
-    // 是否启用缓存
-    enabled: process.env.NODE_ENV === 'production',
+  serviceWorker: {
+    // 1. 主开关：设为 false 时，客户端将注销并停止所有 Service Worker
+    enabled: true, 
     
-    // 是否永久缓存（false 则使用 maxAge）
-    permanent: false,
+    // 2. 缓存规则
+    cacheRules: {
+      // 需要拦截缓存的文件后缀
+      extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'woff2', 'woff', 'ttf'],
+      // 额外需要缓存的 MIME 类型
+      mimeTypes: ['image', 'font'],
+    },
     
-    // 缓存有效期（毫秒）
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7天
+    // 3. 永久缓存开关与过期时间（单位：秒）
+    // 若 permanent 为 true，则无视 maxAge；若为 false，超过 maxAge 的资源会被重新拉取
+    permanent: true, 
+    maxAge: 3600 * 24 * 30, // 30天
     
-    // 逃生门：URL 参数跳过缓存
-    escapeHatch: 'nocache',
+    // 4. 逃生门 (Escape Door)
+    // 当请求 URL 包含此前缀时，Service Worker 将彻底放行，不做任何拦截
+    // 可用于动态大文件下载或需要实时获取的后端接口
+    escapeDoor: '/api/bypass/', 
     
-    // 额外缓存的文件类型
-    extraFileTypes: ['json', 'xml'],
-    
-    // 缓存名称前缀
-    cachePrefix: 'nuxt-cache-v',
-    
-    // 需要缓存的资源路径模式
-    cachePatterns: [
-      /\.(png|jpe?g|gif|svg|webp|avif|ico)$/i,
-      /\.(woff2?|ttf|eot|otf)$/i,
-      /^https:\/\/fonts\.(googleapis|gstatic)\.com/i,
-      /\/images\//i,
-      /\/fonts\//i
-    ],
-    
-    // Lighthouse 优化选项
-    lighthouse: {
-      // 预缓存关键资源
-      precacheResources: [
-        '/fonts/main.woff2',
-        '/images/logo.webp'
-      ],
-      // 排除的路由
-      excludeRoutes: ['/admin', '/api']
-    }
+    // 5. 版本号 (由构建时自动注入，此处仅为类型提示)
+    // 在 sw.ts 中我们会通过模板字符串自动生成时间戳
   },
 
 	/** 左侧栏导航 */
