@@ -145,7 +145,42 @@ export default defineNuxtConfig({
 		},
 		server: {
 			allowedHosts: true,
-    }
+    },
+    plugins: [
+      {
+        name: 'inject-sw-version-and-expose',
+        apply: 'build',
+        config() {
+          return {
+            build: {
+              rollupOptions: {
+                input: {
+                  // 将 utils/sw.ts 作为单独的入口点
+                  sw: 'utils/sw.ts' 
+                },
+                output: {
+                  entryFileNames: (chunkInfo) => {
+                    // 将 sw.ts 输出为 public/sw.js
+                    if (chunkInfo.name === 'sw') {
+                      return 'sw.js';
+                    }
+                    return 'assets/[name].[hash].js';
+                  },
+                  assetFileNames: 'assets/[name].[hash].[ext]'
+                }
+              }
+            }
+          }
+        },
+        transform(code, id) {
+          // 注入构建时间戳
+          if (id.includes('utils/sw.ts')) {
+            return code.replace('__BUILD_TIME__', Date.now().toString());
+          }
+          return code;
+        }
+      }
+    ]
 	},
 
 	// @keep-sorted

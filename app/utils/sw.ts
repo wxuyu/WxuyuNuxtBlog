@@ -1,9 +1,7 @@
-// 核心修复：告诉 TypeScript，当前环境是 Service Worker，不是普通 Window
-/// <reference lib="webworker" />
 declare const self: ServiceWorkerGlobalScope;
 
 // ========== 1. 类型定义 ==========
-interface SwConfig {
+export interface SwConfig {
   permanent: boolean;
   maxAge: number; // 秒
   escapeDoor: string;
