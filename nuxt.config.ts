@@ -13,6 +13,16 @@ function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
+const generateSuperVersion = () => {
+  const numbers = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('');
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let letters = '';
+  for (let i = 0; i < 100; i++) {
+    letters += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return numbers + letters;
+}
+
 // 此处配置无需修改
 export default defineNuxtConfig({
 	app: {
@@ -130,7 +140,7 @@ export default defineNuxtConfig({
 		},
 		optimizeDeps: {
 			// @keep-sorted
-			include: ['@shikijs/colorized-brackets', '@shikijs/transformers', '@unhead/schema-org/vue', '@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-autoplay', 'embla-carousel-vue', 'embla-carousel-wheel-gestures', 'es-toolkit/array', 'es-toolkit/promise', 'es-toolkit/string', 'minisearch', 'parse-domain', 'plain-shiki', 'shiki/themes/catppuccin-latte.mjs', 'shiki/themes/one-dark-pro.mjs', 'temporal-polyfill', 'vue-tippy'],
+			include: ['@shikijs/colorized-brackets', '@shikijs/transformers', '@unhead/schema-org/vue', '@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-autoplay', 'embla-carousel-vue', 'embla-carousel-wheel-gestures', 'es-toolkit/array', 'es-toolkit/promise', 'es-toolkit/string', 'minisearch', 'parse-domain', 'plain-shiki', 'shiki/themes/catppuccin-latte.mjs', 'shiki/themes/one-dark-pro.mjs', 'temporal-polyfill', 'vue-tippy', 'workbox-window'],
 		},
 		server: {
 			allowedHosts: true,
@@ -201,6 +211,10 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
+    'nuxt:config': (nuxtConfig) => {
+      nuxtConfig.runtimeConfig!.public!.cacheVersion = generateSuperVersion();
+      nuxtConfig.runtimeConfig!.public!.buildTime = new Date().toISOString();
+    },
 	},
 
 	icon: {
