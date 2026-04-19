@@ -13,15 +13,15 @@ function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
-// 生成 20位数字 + 100位字母的超级版本号
-const generateSuperVersion = () => {
-  const numbers = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('');
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let letters = '';
+// 辅助函数：生成 20位纯数字 + 100位纯字母
+function generateParts() {
+  const numStr = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('')
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  let letterStr = ''
   for (let i = 0; i < 100; i++) {
-    letters += chars.charAt(Math.floor(Math.random() * chars.length));
+    letterStr += chars.charAt(Math.floor(Math.random() * 52))
   }
-  return numbers + letters;
+  return { numbers: numStr, letters: letterStr }
 }
 
 // 此处配置无需修改
@@ -212,22 +212,28 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
-    // 在 Nuxt 初始化时生成版本号
-    'nuxt:init': (nuxt) => {
-      nuxt.options.runtimeConfig.public.cacheVersion = generateSuperVersion();
-      nuxt.options.runtimeConfig.public.buildTime = new Date().toISOString();
+    'nitro:config'(nitroConfig) {
+      // 确保 Nitro 预设正确
+      nitroConfig.preset = 'static' 
     },
-    // 关键：使用 addTemplate 动态生成客户端插件，将版本号硬编码进去
-    'builder:generateApp': (options) => {
-      const version = options.nuxt.options.runtimeConfig.public.cacheVersion;
-      
-      options.templates.push({
-        src: 'workers/sw.ts', // 源文件路径
-        dst: 'sw.ts',         // 输出到 .nuxt 目录的文件名
-        options: {
-          version: version
-        }
-      });
+    // 在 Nuxt 准备模板时注入我们的 SW 配置
+    'builder:prepared'(builder) {
+      const { numbers, letters } = generateParts()
+      builder.addTemplate({
+        filename: 'sw-config.mjs',
+        write: true,
+        options: {}, // 显式添加空的 options 对象，防止读取 undefined
+        getContents: () => `
+export default {
+  enabled: true,
+  cachePrefix: 'nuxt-ultimate-cache',
+  cacheVersion: '${numbers}${letters}',
+  maxAgeSeconds: ${7 * 24 * 60 * 60},
+  maxEntries: 200,
+  extraFileTypes: []
+}
+`
+      })
     }
 	},
 
