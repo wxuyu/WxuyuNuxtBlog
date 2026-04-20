@@ -20,14 +20,67 @@ function pluginPath(path: string) {
 }
 
 // =========================================================
-// 通用：独立构建 Service Worker 的函数
+// 1. 核心：带有“延迟生成”逻辑的 Vite 插件工厂
+// =========================================================
+function createSwBuildPlugin(swEntry: string, buildVersion: string) {
+  return {
+    name: 'vite-plugin-sw-version-injector',
+    enforce: 'pre' as const, // 确保在其他插件之前运行
+
+    // 拦截对虚拟模块的解析
+    resolveId(id: string) {
+      if (id === 'virtual:sw-version') {
+        return id;
+      }
+      return null;
+    },
+
+    // 当遇到虚拟模块时，异步生成版本号并返回代码
+    async load(id: string) {
+      if (id === 'virtual:sw-version') {
+        // 1. 生成随机基础数字
+        let versionBase = Math.floor(Math.random() * 1000000);
+        console.log(`[SW Build] Generated base version: ${versionBase}. Pausing for 1 second...`);
+        
+        // 2. 💤 停滞 1 秒钟（模拟耗时操作或确保时序）
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // 3. 结合时间戳生成最终版本号
+        const finalVersion = `${versionBase}-${Date.now()}`;
+        console.log(`[SW Build] Final version injected: ${finalVersion}`);
+
+        // 4. 导出版本号供 sw.ts 使用
+        return `export const BUILD_VERSION = '${finalVersion}';`;
+      }
+      return null;
+    },
+
+    // 可选：转换阶段做兜底（同步）
+    transform(code: string, id: string) {
+      if (id === swEntry) {
+        // 替换掉 import 语句，防止 Rollup 报错
+        return code.replace(
+          /import\s+{\s*BUILD_VERSION\s*}\s+from\s+['"]virtual:sw-version['"];/,
+          ''
+        ).replace(/__INJECTED_VERSION__/g, JSON.stringify(buildVersion));
+      }
+      return code;
+    }
+  }
+}
+
+// =========================================================
+// 2. 通用：独立构建 Service Worker 的函数
 // =========================================================
 async function buildServiceWorker(outputDir: string, isDev: boolean) {
   const { build } = await import('vite')
-  const swEntry = resolve(process.cwd(), 'app/utils/sw.ts') 
+  const swEntry = resolve(process.cwd(), './app/utils/sw.ts') 
   const swOutput = resolve(outputDir, 'sw.js')
 
   console.log(`[SW] ${isDev ? 'Dev' : 'Prod'} mode: Building Service Worker...`)
+
+  // 每次构建前生成唯一的版本号
+  const buildVersion = `${Math.floor(Math.random() * 1000000)}-${Date.now()}`;
 
   await build({
     configFile: false,
@@ -43,13 +96,14 @@ async function buildServiceWorker(outputDir: string, isDev: boolean) {
         fileName: () => 'sw.js'
       },
       rollupOptions: {
+        external: ['virtual:sw-version'], // 告诉 Rollup 这是一个外部虚拟模块
         output: {
           entryFileNames: 'sw.js',
           inlineDynamicImports: true
         }
       }
-    }
-    // 🔼 删除了 inject-sw-version 插件，因为版本现在由 sw.ts 自己管理
+    },
+    plugins: [createSwBuildPlugin(swEntry, buildVersion)] // 注入自定义插件
   })
 
   await fs.access(swOutput).catch(() => {
@@ -249,12 +303,15 @@ ${packageJson.homepage}
     'nitro:init': (nitro) => {
       if (nitro.options.dev) {
         nitro.hooks.hook('compiled', async () => {
-          // 开发环境输出到 .nuxt/dev/index/public
+          // 开发环境也生成版本号，保持一致性
+          const version = `${Math.floor(Math.random() * 1000)}-dev`;
+          nitro.options.runtimeConfig.public.swVersion = version;
           await buildServiceWorker(nitro.options.output.publicDir, true)
         })
       } else {
         nitro.hooks.hook('compiled', async () => {
-          // 生产环境输出到 .output/public
+          const version = `${Math.floor(Math.random() * 1000000)}-${Date.now()}`;
+          nitro.options.runtimeConfig.public.swVersion = version;
           await buildServiceWorker(nitro.options.output.publicDir, false)
         })
       }

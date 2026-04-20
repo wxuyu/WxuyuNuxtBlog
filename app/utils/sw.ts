@@ -7,15 +7,19 @@ declare const self: ServiceWorkerGlobalScope;
 export interface SwConfig {
   permanent: boolean;
   maxAge: number; // 秒
-  escapeDoors: string[]; // 🔼 升级为数组，支持多个逃生门
+  escapeDoors: string[]; 
   extensions: string[];
 }
 
-// ========== 2. 版本号生成 (打包时自动固化) ==========
-const CACHE_VERSION = (() => {
-  // 结合时间戳与 6 位随机数，确保每次打包唯一且无法被浏览器强缓存
-  return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 8)}`;
-})();
+// ========== 2. 版本号生成 (由 Vite 构建插件自动注入) ==========
+// 我们会通过插件将下方的变量替换为实际内容
+let BUILD_VERSION = '__INJECTED_VERSION__';
+if (typeof BUILD_VERSION === 'undefined') {
+  // 防止在特殊构建环境下报错
+  BUILD_VERSION = `${Date.now()}-fallback`;
+}
+
+const CACHE_VERSION = BUILD_VERSION;
 const CACHE_NAME = `app-assets-${CACHE_VERSION}`;
 
 // ========== 3. 运行时配置存储 ==========
@@ -28,7 +32,6 @@ function isCacheableRequest(url: string): boolean {
   try {
     const { pathname, href } = new URL(url, self.location.origin);
     
-    // 🔼 遍历逃生门数组，只要有一个匹配就放行
     if (runtimeConfig.escapeDoors.some(door => door && href.includes(door))) {
       return false;
     }
