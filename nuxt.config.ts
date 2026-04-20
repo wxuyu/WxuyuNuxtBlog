@@ -30,19 +30,19 @@ function generateSequentialVersion(): string {
   
   // 依据你的规则从低位到高位（或从右到左）切片：
   // 第6部分 (e): 取最后 1 位数字 (0-9)
-  const p5 = bigInt % 10n
+  const p5 = (bigInt / 10n) % 1000000000n
   
   // 第5部分 (d): 取接下来的 9 位数字 (0-999999999)
-  const p4 = (bigInt / 10n) % 1000000000n
+  const p4 = (bigInt / 10000000000n) % 10000000n
   
   // 第4部分 (c): 取接下来的 7 位数字 (0-9999999)
-  const p3 = (bigInt / 10000000000n) % 10000000n
+  const p3 = (bigInt / 100000000000000000n) % 100000n
   
   // 第3部分 (b): 取接下来的 5 位数字 (0-99999)
-  const p2 = (bigInt / 100000000000000000n) % 100000n
+  const p2 = (bigInt / 10000000000000000000000n) % 10n
   
   // 第2部分 (a): 取接下来的 1 位数字 (0-9)
-  const p1 = (bigInt / 10000000000000000000000n) % 10n
+  const p1 = bigInt % 10n
 
   // 拼接成你指定的最终格式
   return `WenXuYu_ServiceWorker_V${p1}.${p2}.${p3}.${p4}.${p5}_alpha`
