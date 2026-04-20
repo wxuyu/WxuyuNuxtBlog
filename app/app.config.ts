@@ -156,6 +156,7 @@ export default defineAppConfig({
       extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'woff2', 'woff', 'ttf'],
       // 额外需要缓存的 MIME 类型
       mimeTypes: ['image', 'font'],
+      escapeDoors: ['/api/recent-comments', '/api/stats']
     },
     
     // 3. 永久缓存开关与过期时间（单位：秒）

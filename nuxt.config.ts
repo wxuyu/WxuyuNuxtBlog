@@ -19,15 +19,43 @@ function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
-// 辅助函数：生成 20位纯数字 + 100位纯字母
-function generateParts() {
-  const numStr = Array.from({ length: 20 }, () => Math.floor(Math.random() * 10)).join('')
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-  let letterStr = ''
-  for (let i = 0; i < 100; i++) {
-    letterStr += chars.charAt(Math.floor(Math.random() * 52))
-  }
-  return { numbers: numStr, letters: letterStr }
+// =========================================================
+// 通用：独立构建 Service Worker 的函数
+// =========================================================
+async function buildServiceWorker(outputDir: string, isDev: boolean) {
+  const { build } = await import('vite')
+  const swEntry = resolve(process.cwd(), 'app/utils/sw.ts') 
+  const swOutput = resolve(outputDir, 'sw.js')
+
+  console.log(`[SW] ${isDev ? 'Dev' : 'Prod'} mode: Building Service Worker...`)
+
+  await build({
+    configFile: false,
+    build: {
+      ssr: false,
+      outDir: outputDir,
+      emptyOutDir: false, 
+      minify: isDev ? false : true, 
+      lib: {
+        entry: swEntry,
+        name: 'sw',
+        formats: ['iife'],
+        fileName: () => 'sw.js'
+      },
+      rollupOptions: {
+        output: {
+          entryFileNames: 'sw.js',
+          inlineDynamicImports: true
+        }
+      }
+    }
+    // 🔼 删除了 inject-sw-version 插件，因为版本现在由 sw.ts 自己管理
+  })
+
+  await fs.access(swOutput).catch(() => {
+    throw new Error(`[SW] Build failed: ${swOutput} not found`)
+  })
+  console.log(`[SW] Build complete -> ${swOutput}`)
 }
 
 // 此处配置无需修改
@@ -218,54 +246,18 @@ ${packageJson.homepage}
 			else if (blogConfig.article.hidePostPrefix && path?.startsWith('/posts/'))
 				ctx.content.path = path.slice('/posts'.length)
 		},
-    // 在 Nitro 准备就绪后执行
-    async 'nitro:init'(nitro) {
-      nitro.hooks.hook('compiled', async () => {
-        // 动态导入 Vite，避免在非构建阶段加载
-        const { build } = await import('vite')
-        
-        const swEntry = resolve(__dirname, '/app/utils/sw.ts')
-        const swOutput = resolve(nitro.options.output.publicDir, 'sw.js')
-        
-        console.log('[SW] 开始独立构建 Service Worker...')
-        
-        // 单独运行 Vite 打包，完全独立于 Nuxt 主构建
-        await build({
-          configFile: false, // 不使用项目的 vite.config，避免插件冲突
-          build: {
-            ssr: false, // Service Worker 运行在浏览器环境
-            outDir: nitro.options.output.publicDir,
-            emptyOutDir: false, // 不清空输出目录，防止删除 Nuxt 的构建产物
-            minify: true,
-            lib: {
-              entry: swEntry,
-              name: 'sw',
-              formats: ['iife'], // 立即执行函数，适合直接作为脚本引入
-              fileName: () => 'sw.js'
-            },
-            rollupOptions: {
-              output: {
-                entryFileNames: 'sw.js',
-                inlineDynamicImports: true // 确保所有代码内联到一个文件
-              }
-            }
-          },
-          // 注入构建时间戳
-          plugins: [{
-            name: 'inject-sw-version',
-            transform(code) {
-              return code.replace('__BUILD_TIME__', Date.now().toString())
-            }
-          }]
+    'nitro:init': (nitro) => {
+      if (nitro.options.dev) {
+        nitro.hooks.hook('compiled', async () => {
+          // 开发环境输出到 .nuxt/dev/index/public
+          await buildServiceWorker(nitro.options.output.publicDir, true)
         })
-        
-        // 确保文件存在
-        await fs.access(swOutput).catch(() => {
-          throw new Error('[SW] Service Worker 构建失败，未生成 sw.js')
+      } else {
+        nitro.hooks.hook('compiled', async () => {
+          // 生产环境输出到 .output/public
+          await buildServiceWorker(nitro.options.output.publicDir, false)
         })
-        
-        console.log('[SW] Service Worker 构建完成 ->', swOutput)
-      })
+      }
     }
 	},
 

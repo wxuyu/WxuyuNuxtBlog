@@ -1,5 +1,4 @@
 // plugins/sw.client.ts
-// 1. 引入 toRaw 用于解除 Vue 的响应式代理
 import { toRaw } from 'vue';
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -10,18 +9,20 @@ export default defineNuxtPlugin((nuxtApp) => {
   const sendConfigToSw = (registration: ServiceWorkerRegistration) => {
     const sw = registration.active || registration.waiting || registration.installing;
     if (sw) {
-      // 2. 核心修复：将数据脱敏，转化为纯JS对象，去除 Vue 的 Proxy 包装
-      const payload = toRaw(config.cacheRules); 
+      // 1. 剥离 Vue 响应式
+      const rawRules = toRaw(config.cacheRules); 
+      
+      // 2. 组装纯 JS 对象，确保数组被正确传递
+      const payload = {
+        permanent: config.permanent,
+        maxAge: config.maxAge,
+        escapeDoors: rawRules.escapeDoors.map(String), // 显式转换为字符串数组
+        extensions: rawRules.extensions.map(String)
+      };
       
       sw.postMessage({
         type: 'INIT_CONFIG',
-        payload: {
-          permanent: config.permanent,
-          maxAge: config.maxAge,
-          escapeDoor: config.escapeDoor,
-          // 确保数组等嵌套结构也被正确深拷贝脱敏
-          extensions: JSON.parse(JSON.stringify(payload.extensions)) 
-        }
+        payload
       });
     }
   };
@@ -64,11 +65,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
 
     if (registration) {
-      // 确保 SW 激活后再发送配置
       if (registration.active) {
         sendConfigToSw(registration);
       } else {
-        // 如果还没激活，等它激活后再发
         registration.addEventListener('activate', () => {
           sendConfigToSw(registration);
         });
