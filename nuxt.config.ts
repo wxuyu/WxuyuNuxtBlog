@@ -8,104 +8,125 @@ import { Temporal } from 'temporal-polyfill'
 import blogConfig from './blog.config'
 import packageJson from './package.json'
 import redirectList from './redirects.json'
-import fs from 'fs/promises'
-import crypto from 'crypto' // 引入 Node.js 内置的加密模块
-import { fileURLToPath } from 'url'
-
-// 获取当前文件的目录路径，兼容 ESM
-const __filename = fileURLToPath(import.meta.url)
 
 function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
-// =========================================================
-// 1. 核心：自定义版本号生成器（满足复杂的进位规则）
-// =========================================================
-function generateSequentialVersion(): string {
-  // 生成 30 字节（240位）的随机数，转为 BigInt 以保证绝对精度
-  // 这能提供极大的熵空间，确保每次构建都不会重复
-  const randomHex = crypto.randomBytes(30).toString('hex')
-  const bigInt = BigInt(`0x${randomHex}`)
-  
-  // 依据你的规则从低位到高位（或从右到左）切片：
-  // 第6部分 (e): 取最后 1 位数字 (0-9)
-  const p5 = (bigInt / 10n) % 1000000000n
-  
-  // 第5部分 (d): 取接下来的 9 位数字 (0-999999999)
-  const p4 = (bigInt / 10000000000n) % 10000000n
-  
-  // 第4部分 (c): 取接下来的 7 位数字 (0-9999999)
-  const p3 = (bigInt / 100000000000000000n) % 100000n
-  
-  // 第3部分 (b): 取接下来的 5 位数字 (0-99999)
-  const p2 = (bigInt / 10000000000000000000000n) % 10n
-  
-  // 第2部分 (a): 取接下来的 1 位数字 (0-9)
-  const p1 = bigInt % 10n
+// 🔽 核心修复 1：将 promises 模块重命名为 fsp，避免与类型命名空间冲突
+// 不再需要 crypto，保留 fsp 用于文件读写
+import fsp from 'fs/promises' 
 
-  // 拼接成你指定的最终格式
-  return `WenXuYu_ServiceWorker_V${p1}.${p2}.${p3}.${p4}.${p5}_alpha`
+// =========================================================
+// 1. 核心：基于构建时间生成版本号 (V年.月.日.时.分.秒)
+// =========================================================
+function generateBuildTimeVersion(): string {
+  const now = new Date()
+  
+  // 辅助函数：保证两位数格式
+  const pad = (num: number) => num.toString().padStart(2, '0')
+  
+  const year = now.getFullYear()
+  const month = pad(now.getMonth() + 1) // 月份从 0 开始
+  const day = pad(now.getDate())
+  const hours = pad(now.getHours())
+  const minutes = pad(now.getMinutes())
+  const seconds = pad(now.getSeconds())
+
+  return `V${year}.${month}.${day}.${hours}.${minutes}`
 }
 
 // =========================================================
-// 2. 核心：带有“延迟生成”逻辑的 Vite 插件工厂
+// 2. 核心：SW 版本注入插件
 // =========================================================
 function createSwBuildPlugin(swEntry: string, buildVersion: string) {
   return {
     name: 'vite-plugin-sw-version-injector',
     enforce: 'pre' as const,
-
     resolveId(id: string) {
-      if (id === 'virtual:sw-version') {
-        return id;
-      }
-      return null;
+      if (id === 'virtual:sw-version') return id
+      return null
     },
-
     async load(id: string) {
       if (id === 'virtual:sw-version') {
-        // 1. 生成随机基础数字
+        // 保持原有的随机基数 + 停顿逻辑（如不需要可自行精简）
         let versionBase = Math.floor(Math.random() * 1000000);
-        console.log(`[SW Build] Generated base version: ${versionBase}. Pausing for 1 second...`);
-        
-        // 2. 💤 停滞 1 秒钟
+        console.log(`[SW Build] Generated base: ${versionBase}. Pausing 1s...`);
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // 3. 结合时间戳生成最终版本号
         const finalVersion = `${versionBase}-${Date.now()}`;
-        console.log(`[SW Build] Final version injected: ${finalVersion}`);
-
+        console.log(`[SW Build] Injected version: ${finalVersion}`);
         return `export const BUILD_VERSION = '${finalVersion}';`;
       }
-      return null;
+      return null
     },
-
     transform(code: string, id: string) {
       if (id === swEntry) {
+        // 🔽 核心修改：使用模板字符串构建正则，彻底告别反斜杠转义地狱！
+        const searchValue = "'__INJECTED_VERSION__'"
+        const replaceValue = `'${buildVersion}'`
+        
         return code.replace(
-          /import\s+{\s*BUILD_VERSION\s*}\s+from\s+['"]virtual:sw-version['"];/,
-          ''
-        ).replace(/'__INJECTED_VERSION__'/g, `'${buildVersion}'`); 
+          new RegExp(searchValue, 'g'), 
+          replaceValue
+        )
       }
-      return code;
+      return code
     }
   }
 }
 
 // =========================================================
-// 3. 通用：独立构建 Service Worker 的函数
+// 3. 动态 Patch app.config.ts 的 Vite 插件
 // =========================================================
-async function buildServiceWorker(outputDir: string, isDev: boolean) {
+function createAppConfigPatchPlugin(buildVersion: string) {
+  return {
+    name: 'vite-plugin-patch-app-config',
+    enforce: 'pre' as const,
+    resolveId(id: string) {
+      if (id === 'virtual:patched-app-config') {
+        return '\0virtual:patched-app-config'
+      }
+      return null
+    },
+    async load(id: string) {
+      if (id === '\0virtual:patched-app-config') {
+        const appConfigPath = resolve(process.cwd(), 'app.config.ts')
+        let appConfigContent = await fsp.readFile(appConfigPath, 'utf-8')
+        
+        // 🔽 核心修改：使用模板字符串构建正则，代码更干净，绝不出错
+        // 匹配规则：serviceWorkerVersion: '任意内容'
+        const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
+        const replaceValue = `serviceWorkerVersion: '${buildVersion}'`
+        
+        // 确认是否匹配到，避免无意义的替换
+        if (appConfigContent.match(searchRegex)) {
+          appConfigContent = appConfigContent.replace(searchRegex, replaceValue)
+          await fsp.writeFile(appConfigPath, appConfigContent, 'utf-8')
+          console.log(`[AppConfig] serviceWorkerVersion successfully patched to: ${buildVersion}`)
+        } else {
+          console.warn('[AppConfig] Warning: serviceWorkerVersion pattern not found in app.config.ts')
+        }
+        
+        return appConfigContent
+      }
+      return null
+    }
+  }
+}
+
+// =========================================================
+// 4. 通用：独立构建 Service Worker 的函数
+// =========================================================
+async function buildServiceWorker(
+  outputDir: string, 
+  isDev: boolean, 
+  buildVersion?: string // 🔽 核心修复 3：将参数设为可选，兼容新旧调用方式
+) {
   const { build } = await import('vite')
   const swEntry = resolve(process.cwd(), './app/utils/sw.ts') 
   const swOutput = resolve(outputDir, 'sw.js')
 
   console.log(`[SW] ${isDev ? 'Dev' : 'Prod'} mode: Building Service Worker...`)
-
-  // 调用我们全新的复杂版本号生成器
-  const buildVersion = generateSequentialVersion();
-  console.log(`[SW] Generated Complex Version: ${buildVersion}`);
 
   await build({
     configFile: false,
@@ -128,10 +149,10 @@ async function buildServiceWorker(outputDir: string, isDev: boolean) {
         }
       }
     },
-    plugins: [createSwBuildPlugin(swEntry, buildVersion)]
+    plugins: buildVersion ? [createSwBuildPlugin(swEntry, buildVersion)] : [] 
   })
 
-  await fs.access(swOutput).catch(() => {
+  await fsp.access(swOutput).catch(() => {
     throw new Error(`[SW] Build failed: ${swOutput} not found`)
   })
   console.log(`[SW] Build complete -> ${swOutput}`)
@@ -222,6 +243,7 @@ export default defineNuxtConfig({
 			nodeVersion,
 			platform,
 			processReporterLatestEndpoint: env.PROCESS_REPORTER_LATEST_ENDPOINT || blogConfig.presence?.latestEndpoint || '',
+      swBuildTime: ''
 		},
 	},
 
@@ -326,20 +348,35 @@ ${packageJson.homepage}
 				ctx.content.path = path.slice('/posts'.length)
 		},
     'nitro:init': (nitro) => {
+      // 生成时间版本号
+      const masterVersion = generateBuildTimeVersion()
+      
+      // 注入到运行时配置中
+      nitro.options.runtimeConfig.public.swBuildTime = masterVersion
+      
+      // =========================================================
+      // 防御性编程：确保 vite 和 plugins 对象存在
+      // =========================================================
+      if (!nitro.options.vite) {
+        nitro.options.vite = {}
+      }
+      if (!nitro.options.vite.plugins) {
+        nitro.options.vite.plugins = []
+      }
+      
+      // 注入 AppConfig 补丁插件
+      nitro.options.vite.plugins.push(createAppConfigPatchPlugin(masterVersion))
+
       if (nitro.options.dev) {
         nitro.hooks.hook('compiled', async () => {
-          const version = generateSequentialVersion();
-          nitro.options.runtimeConfig.public.swVersion = version;
-          await buildServiceWorker(nitro.options.output.publicDir, true)
+          await buildServiceWorker(nitro.options.output.publicDir, true, masterVersion)
         })
       } else {
         nitro.hooks.hook('compiled', async () => {
-          const version = generateSequentialVersion();
-          nitro.options.runtimeConfig.public.swVersion = version;
-          await buildServiceWorker(nitro.options.output.publicDir, false)
+          await buildServiceWorker(nitro.options.output.publicDir, false, masterVersion)
         })
       }
-    },
+    }
   },
 
 	icon: {

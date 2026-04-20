@@ -2,8 +2,8 @@
 import { Icon } from '#components'
 import { packageManager, version } from '~~/package.json'
 import pnpmWorkspace from '~~/pnpm-workspace.yaml'
-
 const appConfig = useAppConfig()
+const sw_builder_version = useRuntimeConfig().public.swVersion
 const { public: { arch, ci, nodeVersion, platform } } = useRuntimeConfig()
 
 const ciPlatform = computed(() => {
@@ -27,7 +27,7 @@ const service = computed(() => ([
 	{ label: '软件协议', value: 'MIT' },
 	{ label: '文章许可', value: appConfig.copyright.abbr },
 	{ label: '规范域名', value: getDomain(appConfig.url) },
-  { label: 'SW版本', value: ''}
+  { label: 'sw', value: useRuntimeConfig().public.swBuildTime}
 ]))
 
 const techstack = computed(() => ([

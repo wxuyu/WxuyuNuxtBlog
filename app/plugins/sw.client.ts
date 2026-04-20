@@ -1,22 +1,28 @@
 // plugins/sw.client.ts
 import { toRaw } from 'vue';
+import { h, render, ref } from 'vue'; // 🔼 引入 Vue 的渲染 API
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useAppConfig().serviceWorker;
+  const runtimeConfig = useRuntimeConfig();
 
   if (!config.enabled || !('serviceWorker' in navigator)) return;
+
+  // ========== 1. 修复：监听控制器变化，解决 Ctrl+R 状态错乱 ==========
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('[SW] Controller changed, reloading page to apply new version...');
+    // 当有新的 Service Worker 接管页面时，强制刷新以清理旧状态
+    window.location.reload(); 
+  });
 
   const sendConfigToSw = (registration: ServiceWorkerRegistration) => {
     const sw = registration.active || registration.waiting || registration.installing;
     if (sw) {
-      // 1. 剥离 Vue 响应式
       const rawRules = toRaw(config.cacheRules); 
-      
-      // 2. 组装纯 JS 对象，确保数组被正确传递
       const payload = {
         permanent: config.permanent,
         maxAge: config.maxAge,
-        escapeDoors: rawRules.escapeDoors.map(String), // 显式转换为字符串数组
+        escapeDoors: rawRules.escapeDoors.map(String), 
         extensions: rawRules.extensions.map(String)
       };
       
@@ -27,35 +33,74 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
   };
 
-  const showUpdatePrompt = (onRefresh: () => void, onClearCache: () => void) => {
-    if (document.getElementById('sw-update-prompt')) return;
-    
-    const promptEl = document.createElement('div');
-    promptEl.id = 'sw-update-prompt';
-    Object.assign(promptEl.style, {
-      position: 'fixed', bottom: '20px', right: '20px', zIndex: '9999',
-      background: '#1a1a1a', color: 'white', padding: '16px 24px', borderRadius: '8px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.15)', fontFamily: 'sans-serif',
-      display: 'flex', alignItems: 'center', gap: '12px', transition: 'all 0.3s ease'
-    });
+  // ========== 2. 优化：基于 Vue h() 的现代化小弹窗 ==========
+  const showUpdatePrompt = (newVersion: string) => {
+    // 避免重复创建
+    if (document.getElementById('sw-update-container')) return;
 
-    const message = document.createElement('span');
-    message.textContent = '发现新版本，请刷新页面！';
+    const container = document.createElement('div');
+    container.id = 'sw-update-container';
+    document.body.appendChild(container);
 
-    const refreshBtn = document.createElement('button');
-    refreshBtn.textContent = '立即刷新';
-    Object.assign(refreshBtn.style, { padding: '6px 12px', background: '#007aff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' });
-    refreshBtn.onclick = onRefresh;
+    // 使用 ref 来控制 Vue 组件内部的响应式状态（如果需要的话）
+    const visible = ref(true);
 
-    const clearBtn = document.createElement('button');
-    clearBtn.textContent = '手动清除';
-    Object.assign(clearBtn.style, { padding: '6px 12px', background: '#555', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', marginLeft: '8px' });
-    clearBtn.onclick = () => { onClearCache(); promptEl.remove(); };
+    const vnode = h('div', { 
+      class: 'fixed bottom-4 right-4 z-[9999] transition-all duration-300 ease-out',
+      style: { opacity: visible.value ? '1' : '0', transform: visible.value ? 'translateY(0)' : 'translateY(20px)' }
+    }, [
+      h('div', { class: 'bg-white dark:bg-zinc-900 shadow-2xl rounded-xl p-4 w-80 border border-zinc-200 dark:border-zinc-800' }, [
+        // 标题
+        h('h3', { class: 'font-bold text-zinc-800 dark:text-zinc-100 mb-2 flex items-center gap-2' }, [
+          h('span', { class: 'w-2 h-2 bg-green-500 rounded-full animate-pulse' }),
+          '站点更新可用'
+        ]),
+        // 版本号信息
+        h('p', { class: 'text-sm text-zinc-600 dark:text-zinc-400 mb-1' }, [
+          '最新版本：',
+          h('code', { class: 'text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded-md font-mono' }, newVersion)
+        ]),
+        // 提示文字
+        h('p', { class: 'text-xs text-zinc-500 dark:text-zinc-500 mb-4' }, 
+          '请重新加载以免出现不可预料的问题。'
+        ),
+        // 按钮组
+        h('div', { class: 'flex gap-2 justify-end' }, [
+          h('button', {
+            class: 'px-4 py-1.5 text-sm rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors',
+            onClick: () => {
+              visible.value = false;
+              setTimeout(() => {
+                render(null, container);
+                container.remove();
+              }, 300); // 等待过渡动画结束
+            }
+          }, '稍后再说'),
+          h('button', {
+            class: 'px-4 py-1.5 text-sm rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium transition-colors shadow-sm',
+            onClick: () => {
+              window.location.reload();
+            }
+          }, '立即刷新'),
+          h('button', {
+            class: 'px-4 py-1.5 text-sm rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition-colors shadow-sm',
+            onClick: () => {
+              const sw = navigator.serviceWorker.controller;
+              if (sw) {
+                sw.postMessage({ type: 'CLEAR_CACHE' });
+                sw.addEventListener('statechange', () => {
+                  window.location.reload();
+                });
+              } else {
+                window.location.reload();
+              }
+            }
+          }, '清除缓存')
+        ])
+      ])
+    ]);
 
-    promptEl.appendChild(message);
-    promptEl.appendChild(refreshBtn);
-    promptEl.appendChild(clearBtn);
-    document.body.appendChild(promptEl);
+    render(vnode, container);
   };
 
   nuxtApp.hook('app:mounted', async () => {
@@ -78,14 +123,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              showUpdatePrompt(
-                () => window.location.reload(),
-                () => {
-                  if (registration.active) {
-                    registration.active.postMessage({ type: 'CLEAR_CACHE' });
-                  }
-                }
-              );
+              const newVersion = runtimeConfig.public.swVersion;
+              showUpdatePrompt(`${newVersion}`);
             }
           });
         }
