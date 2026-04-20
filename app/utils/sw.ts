@@ -1,26 +1,23 @@
 // src/sw.ts
-
-/// <reference lib="webworker" />
 declare const self: ServiceWorkerGlobalScope;
-
 // ========== 1. 类型定义 ==========
 export interface SwConfig {
   permanent: boolean;
-  maxAge: number; // 秒
+  maxAge: number; 
   escapeDoors: string[]; 
   extensions: string[];
 }
 
-// ========== 2. 版本号生成 (由 Vite 构建插件自动注入) ==========
-// 我们会通过插件将下方的变量替换为实际内容
+// ========== 2. 版本号 (由构建插件注入) ==========
 let BUILD_VERSION = '__INJECTED_VERSION__';
 if (typeof BUILD_VERSION === 'undefined') {
-  // 防止在特殊构建环境下报错
   BUILD_VERSION = `${Date.now()}-fallback`;
 }
 
-const CACHE_VERSION = BUILD_VERSION;
-const CACHE_NAME = `app-assets-${CACHE_VERSION}`;
+// 直接使用完整版本号作为缓存名，清晰明了
+const CACHE_NAME = `app-assets-${BUILD_VERSION}`;
+
+// ... 文件其余部分完全不变 ...
 
 // ========== 3. 运行时配置存储 ==========
 let runtimeConfig: SwConfig | null = null;
