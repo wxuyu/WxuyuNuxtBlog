@@ -16,6 +16,7 @@ function pluginPath(path: string) {
 // 🔽 核心修复 1：将 promises 模块重命名为 fsp，避免与类型命名空间冲突
 // 不再需要 crypto，保留 fsp 用于文件读写
 import fsp from 'fs/promises' 
+import fs from 'fs' // 引入同步 fs 用于即时读写
 
 // =========================================================
 // 1. 核心：基于构建时间生成版本号 (V年.月.日.时.分.秒)
@@ -348,34 +349,40 @@ ${packageJson.homepage}
 				ctx.content.path = path.slice('/posts'.length)
 		},
     'nitro:init': (nitro) => {
-      // 生成时间版本号
+      // 1. 生成时间版本号
       const masterVersion = generateBuildTimeVersion()
       
-      // 注入到运行时配置中
-      nitro.options.runtimeConfig.public.swBuildTime = masterVersion
+      // 2. 注入到运行时配置中（供前端 useRuntimeConfig 使用）
+      nitro.options.runtimeConfig.public.buildTime = masterVersion
       
       // =========================================================
-      // 防御性编程：确保 vite 和 plugins 对象存在
+      // 🔽 核心修复：完全抛弃操作 nitro.options.vite
+      // 改用纯 Node.js 同步 IO 直接重写物理文件
+      // 优点：零类型报错、零依赖冲突、绝对稳定
       // =========================================================
-      if (!nitro.options.vite) {
-        nitro.options.vite = {}
+      try {
+        const appConfigPath = resolve(process.cwd(), 'app.config.ts')
+        let content = fs.readFileSync(appConfigPath, 'utf-8')
+        
+        // 使用正则精准替换 serviceWorkerVersion 的值
+        const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
+        const replaceValue = `serviceWorkerVersion: '${masterVersion}'`
+        
+        if (content.match(searchRegex)) {
+          content = content.replace(searchRegex, replaceValue)
+          fs.writeFileSync(appConfigPath, content, 'utf-8')
+          console.log(`[AppConfig] Successfully patched to version: ${masterVersion}`)
+        } else {
+          console.warn('[AppConfig] Warning: serviceWorkerVersion pattern not found.')
+        }
+      } catch (e) {
+        console.error('[AppConfig] Failed to patch file:', e)
       }
-      if (!nitro.options.vite.plugins) {
-        nitro.options.vite.plugins = []
-      }
-      
-      // 注入 AppConfig 补丁插件
-      nitro.options.vite.plugins.push(createAppConfigPatchPlugin(masterVersion))
 
-      if (nitro.options.dev) {
-        nitro.hooks.hook('compiled', async () => {
-          await buildServiceWorker(nitro.options.output.publicDir, true, masterVersion)
-        })
-      } else {
-        nitro.hooks.hook('compiled', async () => {
-          await buildServiceWorker(nitro.options.output.publicDir, false, masterVersion)
-        })
-      }
+      // 4. 监听编译完成钩子，构建 Service Worker
+      nitro.hooks.hook('compiled', async () => {
+        await buildServiceWorker(nitro.options.output.publicDir, nitro.options.dev, masterVersion)
+      })
     }
   },
 
