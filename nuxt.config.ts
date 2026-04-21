@@ -353,7 +353,7 @@ ${packageJson.homepage}
       const masterVersion = generateBuildTimeVersion()
       
       // 2. 注入到运行时配置中（供前端 useRuntimeConfig 使用）
-      nitro.options.runtimeConfig.public.buildTime = masterVersion
+      nitro.options.runtimeConfig.public.swBuildTime = masterVersion
       
       // =========================================================
       // 🔽 核心修复：完全抛弃操作 nitro.options.vite
