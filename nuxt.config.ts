@@ -18,30 +18,24 @@ function pluginPath(path: string) {
 import fsp from 'fs/promises' 
 import fs from 'fs' // 引入同步 fs 用于即时读写
 
-// =========================================================
-// 1. 核心：基于构建时间生成版本号 (V年.月.日.时.分.秒)
-// =========================================================
+// 1. 基于构建时间生成纯净版本号
 function generateBuildTimeVersion(): string {
   const now = new Date()
-  
-  // 辅助函数：保证两位数格式
   const pad = (num: number) => num.toString().padStart(2, '0')
-  
   const year = now.getFullYear()
-  const month = pad(now.getMonth() + 1) // 月份从 0 开始
+  const month = pad(now.getMonth() + 1)
   const day = pad(now.getDate())
   const hours = pad(now.getHours())
   const minutes = pad(now.getMinutes())
   const seconds = pad(now.getSeconds())
-
-  return `V${year}.${month}.${day}.${hours}.${minutes}`
+  // 确保这里只返回纯粹的版本号，不带任何多余字符
+  return `V${year}.${month}.${day}.${hours}.${minutes}` 
 }
 
-// 提前生成主版本号
 const masterVersion = generateBuildTimeVersion()
 console.log(`[Build] Master Version Generated: ${masterVersion}`)
 
-// 2. SW 版本注入插件
+// 2. 强化版 SW 版本注入插件
 function createSwBuildPlugin(swEntry: string, buildVersion: string) {
   return {
     name: 'vite-plugin-sw-version-injector',
@@ -61,11 +55,21 @@ function createSwBuildPlugin(swEntry: string, buildVersion: string) {
       }
       return null
     },
+    // 🔽 核心修复：使用极其霸道的替换逻辑，斩断任何多余前缀
     transform(code: string, id: string) {
       if (id === swEntry) {
-        const searchValue = "'__INJECTED_VERSION__'"
-        const replaceValue = `'${buildVersion}'`
-        return code.replace(new RegExp(searchValue, 'g'), replaceValue)
+        const cleanVersion = buildVersion.trim(); // 清理首尾空格
+        
+        // 步骤A：直接替换占位符，无视外面套的几层引号
+        let updatedCode = code.replace(/__INJECTED_VERSION__/g, cleanVersion);
+        
+        // 步骤B：清除可能不小心拼接到一起的旧前缀 (如 'app-assets-V2026...' 变回 'V2026...')
+        updatedCode = updatedCode.replace(/app-assets-+/g, ''); 
+        
+        // 步骤C：兜底安全替换，防止出现双引号版本
+        updatedCode = updatedCode.replace(/"__INJECTED_VERSION__"/g, `'${cleanVersion}'`);
+
+        return updatedCode;
       }
       return code
     }
@@ -201,7 +205,7 @@ export default defineNuxtConfig({
 			nodeVersion,
 			platform,
 			processReporterLatestEndpoint: env.PROCESS_REPORTER_LATEST_ENDPOINT || blogConfig.presence?.latestEndpoint || '',
-      swBuildTime: ''
+      swBuildTime: masterVersion
 		},
 	},
 
@@ -307,9 +311,14 @@ ${packageJson.homepage}
 		},
     'nitro:init': (nitro) => {
       // =========================================================
-      // 核心改造 3：钩子中不再负责给前端传值，只负责修改物理文件和构建 SW
-      // 这样分工明确，绝对不会再出现生产环境 undefined 的问题
+      // 核心修复：在 Nitro 初始化时，强行将版本号打入运行时配置的最底层
+      // 这会穿透并覆盖所有的 .env 文件和环境变量默认值
       // =========================================================
+      nitro.options.runtimeConfig.public.buildTime = masterVersion;
+      
+      console.log(`[Nitro] RuntimeConfig public.buildTime forcibly set to: ${masterVersion}`);
+
+      // 继续处理 app.config.ts 的物理文件补丁
       try {
         const appConfigPath = resolve(process.cwd(), 'app.config.ts')
         let content = fs.readFileSync(appConfigPath, 'utf-8')
@@ -328,7 +337,7 @@ ${packageJson.homepage}
         console.error('[AppConfig] File patch failed:', e)
       }
 
-      // 继续构建 Service Worker
+      // 构建 Service Worker
       nitro.hooks.hook('compiled', async () => {
         await buildServiceWorker(nitro.options.output.publicDir, nitro.options.dev, masterVersion)
       })
