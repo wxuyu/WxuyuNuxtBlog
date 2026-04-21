@@ -37,9 +37,11 @@ function generateBuildTimeVersion(): string {
   return `V${year}.${month}.${day}.${hours}.${minutes}`
 }
 
-// =========================================================
-// 2. 核心：SW 版本注入插件
-// =========================================================
+// 提前生成主版本号
+const masterVersion = generateBuildTimeVersion()
+console.log(`[Build] Master Version Generated: ${masterVersion}`)
+
+// 2. SW 版本注入插件
 function createSwBuildPlugin(swEntry: string, buildVersion: string) {
   return {
     name: 'vite-plugin-sw-version-injector',
@@ -50,7 +52,6 @@ function createSwBuildPlugin(swEntry: string, buildVersion: string) {
     },
     async load(id: string) {
       if (id === 'virtual:sw-version') {
-        // 保持原有的随机基数 + 停顿逻辑（如不需要可自行精简）
         let versionBase = Math.floor(Math.random() * 1000000);
         console.log(`[SW Build] Generated base: ${versionBase}. Pausing 1s...`);
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -62,55 +63,11 @@ function createSwBuildPlugin(swEntry: string, buildVersion: string) {
     },
     transform(code: string, id: string) {
       if (id === swEntry) {
-        // 🔽 核心修改：使用模板字符串构建正则，彻底告别反斜杠转义地狱！
         const searchValue = "'__INJECTED_VERSION__'"
         const replaceValue = `'${buildVersion}'`
-        
-        return code.replace(
-          new RegExp(searchValue, 'g'), 
-          replaceValue
-        )
+        return code.replace(new RegExp(searchValue, 'g'), replaceValue)
       }
       return code
-    }
-  }
-}
-
-// =========================================================
-// 3. 动态 Patch app.config.ts 的 Vite 插件
-// =========================================================
-function createAppConfigPatchPlugin(buildVersion: string) {
-  return {
-    name: 'vite-plugin-patch-app-config',
-    enforce: 'pre' as const,
-    resolveId(id: string) {
-      if (id === 'virtual:patched-app-config') {
-        return '\0virtual:patched-app-config'
-      }
-      return null
-    },
-    async load(id: string) {
-      if (id === '\0virtual:patched-app-config') {
-        const appConfigPath = resolve(process.cwd(), 'app.config.ts')
-        let appConfigContent = await fsp.readFile(appConfigPath, 'utf-8')
-        
-        // 🔽 核心修改：使用模板字符串构建正则，代码更干净，绝不出错
-        // 匹配规则：serviceWorkerVersion: '任意内容'
-        const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
-        const replaceValue = `serviceWorkerVersion: '${buildVersion}'`
-        
-        // 确认是否匹配到，避免无意义的替换
-        if (appConfigContent.match(searchRegex)) {
-          appConfigContent = appConfigContent.replace(searchRegex, replaceValue)
-          await fsp.writeFile(appConfigPath, appConfigContent, 'utf-8')
-          console.log(`[AppConfig] serviceWorkerVersion successfully patched to: ${buildVersion}`)
-        } else {
-          console.warn('[AppConfig] Warning: serviceWorkerVersion pattern not found in app.config.ts')
-        }
-        
-        return appConfigContent
-      }
-      return null
     }
   }
 }
@@ -127,7 +84,7 @@ async function buildServiceWorker(
   const swEntry = resolve(process.cwd(), './app/utils/sw.ts') 
   const swOutput = resolve(outputDir, 'sw.js')
 
-  console.log(`[SW] ${isDev ? 'Dev' : 'Prod'} mode: Building Service Worker...`)
+ console.log(`[SW] ${isDev ? 'Dev' : 'Prod'} mode: Building Service Worker...`)
 
   await build({
     configFile: false,
@@ -349,37 +306,29 @@ ${packageJson.homepage}
 				ctx.content.path = path.slice('/posts'.length)
 		},
     'nitro:init': (nitro) => {
-      // 1. 生成时间版本号
-      const masterVersion = generateBuildTimeVersion()
-      
-      // 2. 注入到运行时配置中（供前端 useRuntimeConfig 使用）
-      nitro.options.runtimeConfig.public.swBuildTime = masterVersion
-      
       // =========================================================
-      // 🔽 核心修复：完全抛弃操作 nitro.options.vite
-      // 改用纯 Node.js 同步 IO 直接重写物理文件
-      // 优点：零类型报错、零依赖冲突、绝对稳定
+      // 核心改造 3：钩子中不再负责给前端传值，只负责修改物理文件和构建 SW
+      // 这样分工明确，绝对不会再出现生产环境 undefined 的问题
       // =========================================================
       try {
         const appConfigPath = resolve(process.cwd(), 'app.config.ts')
         let content = fs.readFileSync(appConfigPath, 'utf-8')
         
-        // 使用正则精准替换 serviceWorkerVersion 的值
         const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
         const replaceValue = `serviceWorkerVersion: '${masterVersion}'`
         
         if (content.match(searchRegex)) {
           content = content.replace(searchRegex, replaceValue)
           fs.writeFileSync(appConfigPath, content, 'utf-8')
-          console.log(`[AppConfig] Successfully patched to version: ${masterVersion}`)
+          console.log(`[AppConfig] Patched to: ${masterVersion}`)
         } else {
-          console.warn('[AppConfig] Warning: serviceWorkerVersion pattern not found.')
+          console.warn('[AppConfig] Warning: Pattern not found')
         }
       } catch (e) {
-        console.error('[AppConfig] Failed to patch file:', e)
+        console.error('[AppConfig] File patch failed:', e)
       }
 
-      // 4. 监听编译完成钩子，构建 Service Worker
+      // 继续构建 Service Worker
       nitro.hooks.hook('compiled', async () => {
         await buildServiceWorker(nitro.options.output.publicDir, nitro.options.dev, masterVersion)
       })

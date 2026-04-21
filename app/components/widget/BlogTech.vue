@@ -27,7 +27,7 @@ const service = computed(() => ([
 	{ label: '软件协议', value: 'MIT' },
 	{ label: '文章许可', value: appConfig.copyright.abbr },
 	{ label: '规范域名', value: getDomain(appConfig.url) },
-  { label: 'sw', value: useRuntimeConfig().public.swBuildTime}
+  { label: 'sw版本', value: useRuntimeConfig().public.swBuildTime}
 ]))
 
 const techstack = computed(() => ([
