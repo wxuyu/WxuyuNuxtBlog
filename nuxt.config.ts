@@ -318,7 +318,7 @@ ${packageJson.homepage}
 
       // 继续处理 app.config.ts 的物理文件补丁
       try {
-        const appConfigPath = resolve(process.cwd(), 'app.config.ts')
+        const appConfigPath = resolve(process.cwd(), 'app/app.config.ts')
         let content = fs.readFileSync(appConfigPath, 'utf-8')
         
         const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
