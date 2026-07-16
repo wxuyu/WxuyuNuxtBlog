@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
 <code v-if="language" class="shiki" v-html="rawHtml" />
-<code v-else><slot>{{ code }}</slot></code>
+<code v-else><slot>{{ props.code || '' }}</slot></code>
 </template>
 
 <style lang="scss" scoped>

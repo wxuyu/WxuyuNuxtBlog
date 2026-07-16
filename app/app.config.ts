@@ -54,6 +54,10 @@ export default defineAppConfig({
 			/** blog-stats widget 的预置文本 */
 			wordCount: '约10万',
 		},
+
+      sidebar: {
+         show: 'left' as 'top' | 'left',
+      }
 	},
 
 	// @keep-sorted
@@ -121,6 +125,9 @@ export default defineAppConfig({
 		remindNoFeed: true,
 		/** 友链分组内随机排序 */
 		randomInGroup: true,
+      /** 友链朋友圈API */
+      CircleApi: 'https://circle.wxuyu.top',
+      CircleEndTotal: 20,
 	},
 
   essay: {
@@ -194,7 +201,7 @@ export default defineAppConfig({
           url: '#',
           children: [
             { icon: 'ph:link-bold', text: '竹林旧友', url: '/link'},
-            { icon: 'ph:fish-bold', text: '塘文集锦', url: '/fcircle' },
+            { icon: 'ph:fish-bold', text: '塘文集锦', url: '/circle' },
 					],
         },
         {

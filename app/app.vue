@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import appConfig from './app.config';
+
 const layoutStore = useLayoutStore()
 const isFullwidth = computed(() => layoutStore.state === 'fullwidth')
 
@@ -8,7 +10,8 @@ const isFullwidth = computed(() => layoutStore.state === 'fullwidth')
 <NuxtLoadingIndicator />
 <NuxtRouteAnnouncer :style="{ position: 'absolute' }" />
 <BlogSkipToContent />
-<BlogSidebar :class="{ 'is-fullwidth-hidden': isFullwidth }" />
+<BlogSidebar v-if="appConfig.component.sidebar.show === 'left'" :class="{ 'is-fullwidth-hidden': isFullwidth }" />
+<BlogNav v-else-if="appConfig.component.sidebar.show === 'top'" :class="{ 'is-fullwidth-hidden': isFullwidth }" />
 <div id="content" :class="{ fullwidth: isFullwidth }">
 	<main id="main-content">
 		<NuxtPage />

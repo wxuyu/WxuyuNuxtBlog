@@ -1,4 +1,4 @@
-import { resolve, dirname } from 'node:path'
+import { resolve } from 'node:path'
 import { arch, env, version as nodeVersion, platform } from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { name as ciName, CLOUDFLARE_PAGES, GITHUB_ACTIONS, NETLIFY } from 'ci-info'
@@ -13,10 +13,9 @@ function pluginPath(path: string) {
 	return pathToFileURL(resolve(`./remark-plugins/${path}.ts`)).href
 }
 
-// 🔽 核心修复 1：将 promises 模块重命名为 fsp，避免与类型命名空间冲突
-// 不再需要 crypto，保留 fsp 用于文件读写
-import fsp from 'fs/promises' 
-import fs from 'fs' // 引入同步 fs 用于即时读写
+// 基础模块导入
+import fsp from 'fs/promises' // 用于文件读写
+import fs from 'fs' // 用于即时读写
 
 // 1. 基于构建时间生成纯净版本号
 function generateBuildTimeVersion(): string {
@@ -32,6 +31,7 @@ function generateBuildTimeVersion(): string {
   return `V${year}.${month}.${day}.${hours}.${minutes}` 
 }
 
+// 基础数据导入与构建Log设置（以防版本号未析出）
 const masterVersion = generateBuildTimeVersion()
 console.log(`[Build] Master Version Generated: ${masterVersion}`)
 
@@ -55,7 +55,7 @@ function createSwBuildPlugin(swEntry: string, buildVersion: string) {
       }
       return null
     },
-    // 🔽 核心修复：使用极其霸道的替换逻辑，斩断任何多余前缀
+
     transform(code: string, id: string) {
       if (id === swEntry) {
         const cleanVersion = buildVersion.trim(); // 清理首尾空格
@@ -76,9 +76,7 @@ function createSwBuildPlugin(swEntry: string, buildVersion: string) {
   }
 }
 
-// =========================================================
-// 4. 通用：独立构建 Service Worker 的函数
-// =========================================================
+// 3.独立构建 Service Worker 的函数
 async function buildServiceWorker(
   outputDir: string, 
   isDev: boolean, 
@@ -314,9 +312,9 @@ ${packageJson.homepage}
       // 核心修复：在 Nitro 初始化时，强行将版本号打入运行时配置的最底层
       // 这会穿透并覆盖所有的 .env 文件和环境变量默认值
       // =========================================================
-      nitro.options.runtimeConfig.public.buildTime = masterVersion;
+      nitro.options.runtimeConfig.public.swBuildTime = masterVersion;
       
-      console.log(`[Nitro] RuntimeConfig public.buildTime forcibly set to: ${masterVersion}`);
+      console.log(`[Nitro] RuntimeConfig public.swBuildTime forcibly set to: ${masterVersion}`);
 
       // 继续处理 app.config.ts 的物理文件补丁
       try {

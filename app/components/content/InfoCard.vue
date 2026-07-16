@@ -1,7 +1,7 @@
 <!-- .vitepress/components/InfoCard.vue -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import Title from '../card/title.vue';
+import SectionTitle from '../showcase/SectionTitle.vue';
 
 const props = defineProps<{
   cardList?: Array<{
@@ -66,23 +66,23 @@ const activeIndex = ref(0)
       </div>
       <div class="cardRight">
         <!-- 卡片描述 -->
-        <Title title="描述" />
+        <SectionTitle title="描述" />
         <div class="cardDesc">
           {{ cardList[activeIndex]?.简介 || '暂无描述信息' }}
         </div>
-        <Title title="基础信息" />
+        <SectionTitle title="基础信息" />
         <div class="tagItem">
           <span class="tag" v-for="([key, value]) in Object.entries(cardList[activeIndex]?.具体信息 ?? {})" :key="key">
             {{ key }}: {{ value }}
           </span>
         </div>
-        <Title title="由来" />
+        <SectionTitle title="由来" />
         <div class="cardYouLai">
           {{ cardList[activeIndex]?.由来 || "未写入" }}
         </div>
         
         <!-- 技能模块 -->
-        <Title title="技能" />
+        <SectionTitle title="技能" />
         <div class="cardSkills">
           <div v-if="cardList[activeIndex]?.技能?.length" class="skillsContainer">
             <div v-for="(skill, skillIndex) in cardList[activeIndex]?.技能" :key="skillIndex" class="skillItem">

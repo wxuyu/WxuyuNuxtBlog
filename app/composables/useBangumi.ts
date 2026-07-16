@@ -71,14 +71,14 @@ export default function useBangumiCollection(
 	page: Ref<number> = ref(1),
 ) {
 	const username = '1152095'
-
+   const tags = ''
 	const subjectType = computed(() => TYPE_SUBJECT_MAP[toValue(contentType)])
 	const typeId = computed(() => TYPE_ID_MAP[toValue(collectionType)])
 	const offset = computed(() => (page.value - 1) * ITEMS_PER_PAGE)
 
 	const { data, status, error, refresh } = useFetch<BangumiApiResponse>(
 		() => {
-			return `https://api.bgm.tv/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}`
+			return `https://api.bgm.tv/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}&tags=${tags}`
 		},
 		{
 			key: () =>

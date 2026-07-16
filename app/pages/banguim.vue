@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CollectionType, ContentType } from '../composables/useBangumi'
-import bgmCard from '../components/yjluo/Bangumi/bgmCard.vue'
+import BangumiCard from '~/components/bangumi/BangumiCard.vue'
 import useBangumi from '../composables/useBangumi'
 import { debounce } from 'radash'
 
@@ -141,7 +141,7 @@ onUnmounted(() => {
         :key="contentType "
       >
         <div class="banguimList" v-if="games.length > 0">
-          <bgmCard
+          <BangumiCard
             v-for="game in games"
             :key="`${game.subject_id}-${contentType}`"
             :bangumi-collection-item="game"

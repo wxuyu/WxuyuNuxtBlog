@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import Title from '../card/title.vue';
+import SectionTitle from '../showcase/SectionTitle.vue';
 
 const props = defineProps<{
   heroSpecialList?: Array<{
@@ -64,13 +64,13 @@ const cardVisibility = computed(() => {
         </div>
         <div class="cardRight">
           <!-- 卡片描述 -->
-          <Title title="描述" />
+          <SectionTitle title="描述" />
           <div class="cardDesc" v-for="index in props.物品简介?.length" v-show="item.密钥 === index">
             <slot :name="`desc${index}`" />
           </div>
           <!-- 彩蛋区域（仅爱弥斯类型显示） -->
           <div v-if="类型 === '爱弥斯'">
-            <Title title="彩蛋" />
+            <SectionTitle title="彩蛋" />
             <div class="cardYouLai WuWuGameColor" :id="类型" v-for="index in props.物品彩蛋?.length" v-show="item.密钥 === index">
               <slot :name="`caidan${index}`" />
             </div>

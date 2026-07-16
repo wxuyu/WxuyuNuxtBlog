@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Ispeak_Page_Main from '~/components/yjluo/essay/ispeak/Page_Main.vue';
-import Local_Page_Main from '~/components/yjluo/essay/local/PageMain.vue';
+import IspeakFeed from '~/components/essay/ispeak/IspeakFeed.vue';
+import LocalTalkFeed from '~/components/essay/local/LocalTalkFeed.vue';
 // 全局配置
 const appConfig = useAppConfig()
 const layoutStore = useLayoutStore()
@@ -11,13 +11,13 @@ layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
 
 <template>
   <div v-if="appConfig.essay.TYPE === 'ispeak'">
-    <Ispeak_Page_Main />
+    <IspeakFeed />
   </div>
   <div v-if="appConfig.essay.TYPE === 'memos'">
 
   </div>
   <template v-if="appConfig.essay.TYPE === 'local'">
-    <Local_Page_Main />
+    <LocalTalkFeed />
   </template>
   
   <PostComment />
