@@ -116,7 +116,7 @@ const modelIcon = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@import '~/assets/diy/font.scss';
+@use '~/assets/diy/font.scss';
 
 .circle-card {
   display: flex;
