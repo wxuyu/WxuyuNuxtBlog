@@ -59,13 +59,13 @@ watch([contentType, collectionType], async () => {
   }, 800)
 }, { immediate: true })
 
-// 数据加载完成处理
+// 数据变化响应（仅在 contentType/collectionType 触发的 refresh 后响应）
 watch(data, (newData) => {
   if (newData) {
     isDataReady.value = true
     showLoading.value = false
   }
-}, { immediate: true })
+})
 
 // 防抖处理连续点击
 const debouncedRefresh = debounce({ delay: 300 }, (newPage: number) => {

@@ -15,7 +15,6 @@ function pluginPath(path: string) {
 
 // 基础模块导入
 import fsp from 'fs/promises' // 用于文件读写
-import fs from 'fs' // 用于即时读写
 
 // 1. 基于构建时间生成纯净版本号
 function generateBuildTimeVersion(): string {
@@ -316,24 +315,9 @@ ${packageJson.homepage}
       
       console.log(`[Nitro] RuntimeConfig public.swBuildTime forcibly set to: ${masterVersion}`);
 
-      // 继续处理 app.config.ts 的物理文件补丁
-      try {
-        const appConfigPath = resolve(process.cwd(), 'app/app.config.ts')
-        let content = fs.readFileSync(appConfigPath, 'utf-8')
-        
-        const searchRegex = /serviceWorkerVersion:\s*['"][^'"]*['"]/
-        const replaceValue = `serviceWorkerVersion: '${masterVersion}'`
-        
-        if (content.match(searchRegex)) {
-          content = content.replace(searchRegex, replaceValue)
-          fs.writeFileSync(appConfigPath, content, 'utf-8')
-          console.log(`[AppConfig] Patched to: ${masterVersion}`)
-        } else {
-          console.warn('[AppConfig] Warning: Pattern not found')
-        }
-      } catch (e) {
-        console.error('[AppConfig] File patch failed:', e)
-      }
+      // 继续处理运行时配置注入
+      // 注意：不再直接写入 app/app.config.ts 源文件，避免 dev 环境下
+      // 触发 HMR 导致循环重载。版本号已通过 runtimeConfig.public.swBuildTime 注入。
 
       // 构建 Service Worker
       nitro.hooks.hook('compiled', async () => {

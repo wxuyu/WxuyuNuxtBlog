@@ -8,11 +8,25 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   if (!config.enabled || !('serviceWorker' in navigator)) return;
 
-  // ========== 1. 修复：监听控制器变化，解决 Ctrl+R 状态错乱 ==========
+  // ========== 1. 修复：监听控制器变化，带防抖保护 ==========
+  // 使用 sessionStorage 防止同一版本 SW 更新触发多次 reload
+  const RELOAD_KEY = 'sw:reloaded_version';
+
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log('[SW] Controller changed, reloading page to apply new version...');
-    // 当有新的 Service Worker 接管页面时，强制刷新以清理旧状态
-    window.location.reload(); 
+    const currentVersion = runtimeConfig.public.swBuildTime as string || '';
+
+    // 已经为这个版本重载过，跳过
+    if (currentVersion && sessionStorage.getItem(RELOAD_KEY) === currentVersion) {
+      console.log('[SW] Already reloaded for version', currentVersion, '- skipping');
+      return;
+    }
+
+    console.log('[SW] Controller changed, reloading to apply new version...');
+    sessionStorage.setItem(RELOAD_KEY, currentVersion);
+    // 延迟一帧确保 sessionStorage 写入完成
+    requestAnimationFrame(() => {
+      window.location.reload();
+    });
   });
 
   const sendConfigToSw = (registration: ServiceWorkerRegistration) => {
@@ -123,8 +137,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              const newVersion = runtimeConfig.public.swVersion;
-              showUpdatePrompt(`${newVersion}`);
+              const newVersion = runtimeConfig.public.swBuildTime as string || '';
+              showUpdatePrompt(newVersion);
             }
           });
         }

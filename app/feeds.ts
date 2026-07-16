@@ -5,6 +5,7 @@ import { myFeed } from '../blog.config'
 import { getFavicon, getGithubAvatar, getGithubIcon, getOciqGroupAvatar, getOicqAvatar, OicqAvatarSize } from './utils/img'
 
 export default [
+	// #region 推荐友链
 	{
 		name: '『推荐友链』',
 		desc: '本站推荐的友链',
@@ -74,7 +75,41 @@ export default [
 		],
 	},
 	// #endregion
-	// #region 网上邻居
+	// #region 2026
+	{
+		name: '『2026』',
+		desc: '在2026年添加友链的朋友们',
+		// @keep-sorted { "keys": ["date"] }
+		entries: [
+			{
+				author: '夜轻Blog',
+				sitenick: '夜轻Blog',
+				title: '夜轻Blog',
+				desc: '一个人',
+				link: 'http://blog.yeqing.net/',
+				feed: 'http://blog.yeqing.net/atom.xml',
+				icon: 'https://list.yppp.net/d/cos/yeqing.webp',
+				avatar: getOicqAvatar('2829470170'),
+				archs: ['Hexo', 'Vercel'],
+				date: '2026-07-16',
+				comment: '',
+			},{
+				author: '天翔TNXG',
+				sitenick: '天翔TNXG',
+				title: '天翔TNXG',
+				desc: '一个人',
+				link: 'http://blog.tnxg.cn/',
+				feed: 'http://blog.tnxg.cn/atom.xml',
+				icon: 'https://api-space.tnxg.top/avatar?s=qq',
+				avatar: getOicqAvatar('2271225249'),
+				archs: ['Next.js', 'Vercel'],
+				date: '2026-07-16',
+				comment: '',
+			}
+		]
+	},
+	// #endregion
+	// #region 2025
 	{
 		name: '『2025』',
 		desc: '在2025年添加友链的朋友们',
@@ -85,7 +120,7 @@ export default [
 				sitenick: '安小歪',
 				title: '安小歪',
 				desc: '记住你！自己！',
-				link: 'https://blog.anxy.top/',
+				link: 'https://blog.anxw.cn/',
 				feed: '',
 				icon: '/image/LinkCover/Anxy.avif',
 				avatar: '/image/LinkCover/Anxy.avif',
@@ -165,26 +200,14 @@ export default [
 				date: '2025-03-19',
 				comment: '',
 			},{
-				author: 'xyx404',
-				sitenick: '',
-				title: 'xyx404',
-				desc: '在努力和摆烂中选择了努力摆烂AWA',
-				link: 'https://xyx404.github.io',
-				feed: '',
-				icon: 'https://fastly.jsdelivr.net/npm/xyx404blogphoto@1.2.23/avatar.webp',
-				avatar: 'https://fastly.jsdelivr.net/npm/xyx404blogphoto@1.2.23/avatar.webp',
-				archs: ['Hexo', 'Vercel'],
-				date: '2025-08-11',
-				comment: '',
-			},{
 				author: '青序栈',
 				sitenick: '',
 				title: '青序栈',
 				desc: '青序成栈·向简而生',
-				link: 'https://qxzhan.cn/',
-				feed: 'ttps://qxzhan.cn/feed/',
-				icon: 'https://qxzhan.cn/favicon.png',
-				avatar: 'https://qxzhan.cn/favicon.png',
+				link: 'https://www.qixz.cn/',
+				feed: 'https://www.qixz.cn/feed/',
+				icon: 'https://www.qixz.cn/favicon.png',
+				avatar: 'https://www.qixz.cn/favicon.png',
 				archs: ['Hexo'],
 				date: '2025-08-29',
 				comment: '',

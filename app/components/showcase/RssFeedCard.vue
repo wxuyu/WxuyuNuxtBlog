@@ -36,7 +36,7 @@ const isWithin24h = computed(() => {
 const MODEL_ICON_MAP: [keyword: string, icon: string][] = [
   ['deepseek',      'hugeicons:deepseek'],
   ['chatglm',       'mingcute:ai-line'],
-  ['glm',           'hugeicons:deepseek'],
+  ['glm',           'model iconfont model-icon-glm'],
   ['gpt-4o',        'simple-icons:openai'],
   ['gpt-4',         'simple-icons:openai'],
   ['gpt',           'simple-icons:openai'],
