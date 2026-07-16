@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Title from '../card/title.vue';
 
 const props = defineProps<{
 	/** story 下标从 1 开始 */
@@ -15,7 +14,7 @@ const activeStory = ref(Number(props.密钥) || 1)
 
 <template>
 <div :class="{ 居中 }" class="heroStoryMain WuWuGameColor">
-  <Title :title="`${props.标题}`" style="margin-bottom: 10px;"/>
+  <showcase-section-title :title="`${props.标题}`" style="margin-bottom: 10px;"/>
 	<div class="storys">
 		<button
 			v-for="(story, storyIndex) in 故事"

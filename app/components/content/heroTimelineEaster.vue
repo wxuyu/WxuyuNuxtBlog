@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { __String } from 'typescript';
-import Title from '../card/title.vue';
 import Badge from './Badge.vue';
 import Timeline from './Timeline.vue';
 
@@ -30,7 +29,7 @@ const props = defineProps<{
   <div class="heroTimelineEasterMain">
     <div class="heroTimelineEasterCard">
       <div class="timelineEasterHeader">
-        <Title :title="`${顶部?.标题}`" />
+        <showcase-section-title :title="`${顶部?.标题}`" />
         <Badge :text="顶部?.副标题" />
       </div>
       

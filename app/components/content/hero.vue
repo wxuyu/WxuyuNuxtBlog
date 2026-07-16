@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Title from '../card/title.vue';
-
 // ==================== 类型定义 ====================
 interface Props {
   类型: '爱弥斯' | '尤诺' | '奥古斯塔';
@@ -59,13 +57,13 @@ const getInfoGridColumns = (type: string): number => {
       <div class="right-info">
         <div class="panel-main">
           <!-- 简介 -->
-          <Title title="简介" />
+          <showcase-section-title title="简介" />
           <div class="hero-desc">
             <slot name="desc" />
           </div>
 
           <!-- 标签 -->
-          <Title title="标签" />
+          <showcase-section-title title="标签" />
           <div class="tag-container">
             <span
               v-for="[key, value] in Object.entries(标签 ?? {})"
@@ -77,7 +75,7 @@ const getInfoGridColumns = (type: string): number => {
           </div>
 
           <!-- 详情信息 -->
-          <Title title="详情信息" />
+          <showcase-section-title title="详情信息" />
           <div
             class="info-grid"
             :style="{ gridTemplateColumns: `repeat(${getInfoGridColumns(类型)}, 1fr)` }"
@@ -93,7 +91,7 @@ const getInfoGridColumns = (type: string): number => {
           </div>
 
           <!-- 档案 -->
-          <Title :title="档案?.顶栏信息.主标题" />
+          <showcase-section-title :title="档案?.顶栏信息.主标题" />
           <div
             v-for="data in 档案?.具体信息"
             :key="data.序号"

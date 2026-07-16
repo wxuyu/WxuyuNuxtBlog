@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Title from '../card/title.vue'
-
 const props = defineProps<{
   共鸣链信息?: Array<{
     链度: number
@@ -57,7 +55,7 @@ const activeIndex = ref(0)
           </div>
         </div>
         <div class="heroMechaFooter WuWuGameColor" v-show="类型 === '尤诺'" :id="类型">
-          <Title title="输出流程参考" />
+          <showcase-section-title title="输出流程参考" />
           <div class="footerList">
             <div class="footerCard" v-for="([key, value], index) in Object.entries(流程 ?? {})" :key="key">
               {{ value }}

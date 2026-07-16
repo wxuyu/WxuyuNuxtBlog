@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import RewardCard from '../card/rewardCard.vue';
 import type { ModalEmits, ModalProps } from '#modals'
 const props = defineProps<ModalProps & rewardType>()
 
@@ -34,7 +33,8 @@ function handleClose() {
 
       <div class="panel-content">
         <ul class="rewardMain">
-          <RewardCard />
+          <show />
+          <ShowcaseDonateCard />
         </ul>
       </div>
     </div>
