@@ -83,7 +83,19 @@ export default [
 				archs: ['Hexo', '服务器'],
 				date: '2026-07-17',
 				comment: '',
-			},
+			},{
+				author: '保哥笔记',
+				sitenick: '李明',
+				title: '李明的博客',
+				desc: '技术性SEO实战经验分享博客',
+				link: 'https://zhangwenbao.com/',
+				feed: 'https://zhangwenbao.com/rss.xml',
+				icon: 'https://zhangwenbao.com/img/paul.jpg',
+				avatar: 'https://zhangwenbao.com/img/paul.jpg',
+				archs: ['PHP', '服务器'],
+				date: '2026-07-19',
+				comment: '专注SEO和GEO实战研究',
+			}
 		],
 	},
 	// #endregion
