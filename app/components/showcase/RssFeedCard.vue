@@ -3,13 +3,23 @@ import type { CircleArticleData } from '~/types/circle'
 
 const props = defineProps<{
   data: CircleArticleData
+  /** 共享时间源（来自父组件），避免每张卡片各自创建定时器 */
+  now?: Date
 }>()
 
 /** 24 小时阈值：超过则不再显示相对时间，直接展示原始请求时间 */
 const HOURS_THRESHOLD = 24
 
-// 响应式当前时间（每 60 秒刷新一次，保证相对时间始终保持新鲜）
-const now = useNow({ interval: 60_000 })
+// 独立定时器（仅在无共享时间源时作为回退）
+const localNow = useNow({ interval: 60_000 })
+
+// 优先使用父组件传入的共享时间源，减少全局定时器数量
+const effectiveNow = computed<Date>(() => {
+  if (props.now instanceof Date && !isNaN(props.now.getTime())) {
+    return props.now
+  }
+  return localNow.value
+})
 
 // 将 props.data.updated 解析为 Date；解析失败则返回 null
 const updatedDate = computed(() => {
@@ -23,7 +33,7 @@ const updatedDate = computed(() => {
 const isWithin24h = computed(() => {
   if (!updatedDate.value)
     return false
-  const diffMs = now.value.getTime() - updatedDate.value.getTime()
+  const diffMs = effectiveNow.value.getTime() - updatedDate.value.getTime()
   // 防御未来时间：未来时间（diffMs < 0）走原始时间分支
   return diffMs >= 0 && diffMs < HOURS_THRESHOLD * 60 * 60 * 1000
 })
@@ -166,8 +176,7 @@ const modelIcon = computed(() => {
       }
     }
     .circle-card-top-summary {
-      color: hsl(var(--thyuu--color-font) / .5);
-      font-size: var(--thyuu--size-small);
+      font-size: 0.69rem;
     }
   }
   .circle-card-footer {
@@ -224,7 +233,6 @@ const modelIcon = computed(() => {
         position: relative;
         z-index: 10;
         pointer-events: auto;
-        color: hsl(var(--thyuu--color-font) / .6);
       }
     }
     .circle-card-footer-right {

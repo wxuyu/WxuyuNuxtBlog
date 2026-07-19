@@ -1,6 +1,13 @@
-import type { CircleApiResponse } from '~/types/circle'
+import type { CircleAllApiResponse, CircleFriendApiResponse } from '~/types/circle'
+export type CircleType = keyof typeof CIRCLE_TYPE
 
-const CIRCLE_API_URL = 'https://circle.api.wxuyu.top/all'
+const CIRCLE_TYPE = {
+  moments: "all",
+  friend: "friend",
+  friend_post: "post",
+  random_friend: "randomfriend",
+  random_post: "randompost",
+} as const
 
 /**
  * 获取朋友圈 RSS 聚合数据
@@ -16,9 +23,15 @@ const CIRCLE_API_URL = 'https://circle.api.wxuyu.top/all'
  * 分页由调用方在客户端通过 `usePagination` 自行处理，
  * 该 composable 不再耦合 `page` 参数。
  */
-export default function useCircle() {
-  const { data, status, error, refresh } = useFetch<CircleApiResponse>(
-    CIRCLE_API_URL,
+export default function useCircle(
+  linkType: Ref<keyof typeof CIRCLE_TYPE> = ref('moments')
+) {
+  const API_URL = 'https://circle.api.wxuyu.top'
+  const linkTypeValue = computed(() => CIRCLE_TYPE[toValue(linkType)])
+  const { data, status, error, refresh } = useFetch<CircleAllApiResponse>(
+    () => {
+      return `${API_URL}/${linkTypeValue.value}`
+    },
     {
       key: 'circle-all-data',
       server: false,
