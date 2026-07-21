@@ -1,44 +1,41 @@
-// 定义单个音乐项的接口
-export interface MusicItem {
-  /** 音乐名称 */
-  title: string;
-  /** 歌手/创作者 */
-  artist: string;
-  /** 音频文件 URL */
-  url: string;
-  /** 歌词文件 URL */
-  lrc: string;
-  /** 封面图 URL */
-  cover: string;
+import type { Playlist } from '~/types/music'
+
+/**
+ * 本地歌单数据
+ *
+ * 配置方式：在 app.config.ts 中设置 music.source = 'local'
+ * 添加歌曲：按 { id, title, artist, url, lrc, cover, duration } 格式追加
+ */
+
+const favorites: Playlist = {
+  id: 'favorites',
+  name: '我的收藏',
+  cover: '/image/MusicCover/BARRETE!(SLOWED%20+%20REVERB)%20.avif',
+  desc: '常听的好歌',
+  songs: [
+    {
+      id: 'barrete',
+      title: 'BARRETE!(SLOWED + REVERB)',
+      artist: 'CHASHKAKEFIRA&D4C',
+      url: '/assets/music/songs/BARRETE.mp3',
+      lrc: '/assets/music/lrc/BARRETE!(SLOWED%20+%20REVERB)-CHASHKAKEFIRA&D4C.lrc',
+      cover: '/image/MusicCover/BARRETE!(SLOWED%20+%20REVERB)%20.avif',
+      duration: 0,
+    },
+    {
+      id: 'wu-ren-fu-wo',
+      title: '无人扶我青云志',
+      artist: 'ZMAGE-Y',
+      url: '/assets/music/songs/ZMAGE-Y.mp3',
+      lrc: '/assets/music/lrc/无人扶我青云志%20(ZMAGE-Y%20remix)%20(Remix)-ZMAGE-Y.lrc',
+      cover: '/image/MusicCover/无人扶我青云志%20(ZMAGE-Y%20remix).avif',
+      duration: 0,
+    },
+  ],
 }
 
-export const musicList: MusicItem[] = [
-  // {
-  //   title: 'L E V E I S(Cyberpunk)(Remix)',
-  //   artist: 'vodKe',
-  //   url: '/sxiaohe_source/music/songs/levels.mp3',
-  //   lrc: '/sxiaohe_source/music/lrc/L%20E%20V%20E%20I%20S(Cyberpunk)(Remix).lrc',
-  //   cover: '/sxiaohe_source/music/cover/L%20E%20V%20E%20l%20S%20(Cyberpunk).avif'
-  // },
-  // {
-  //   title: '逆天',
-  //   artist: '呦猫UNEKO',
-  //   url: '/sxiaohe_source/music/songs/呦猫UNEKO%20-%20逆天.mp3',
-  //   lrc: '/sxiaohe_source/music/lrc/呦猫UNEKO%20-%20逆天.lrc',
-  //   cover: '/sxiaohe_source/music/cover/逆天.avif'
-  // },
-  {
-    title: 'BARRETE!(SLOWED + REVERB)',
-    artist: 'CHASHKAKEFIRA&D4C',
-    url: '/sxiaohe_source/music/songs/BARRETE.mp3',
-    lrc: '/sxiaohe_source/music/lrc/BARRETE!(SLOWED%20+%20REVERB)-CHASHKAKEFIRA&D4C.lrc',
-    cover: '/sxiaohe_source/music/cover/BARRETE!(SLOWED%20+%20REVERB)%20.avif'
-  },
-  {
-    title: '无人扶我青云志',
-    artist: 'ZMAGE-Y',
-    url: '/sxiaohe_source/music/songs/ZMAGE-Y.mp3',
-    lrc: '/sxiaohe_source/music/lrc/无人扶我青云志%20(ZMAGE-Y%20remix)%20(Remix)-ZMAGE-Y.lrc',
-    cover: '/sxiaohe_source/music/cover/无人扶我青云志%20(ZMAGE-Y%20remix).avif'
-  }
-];
+/** 所有本地歌单 */
+export const localPlaylists: Playlist[] = [favorites]
+
+/** 兼容旧版：导出所有歌曲的扁平列表 */
+export const musicList = localPlaylists.flatMap((p) => p.songs)

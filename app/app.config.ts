@@ -153,6 +153,24 @@ export default defineAppConfig({
     RefreshInterval: 5 * 60 * 1000,
   },
 
+  /** 音乐播放器配置 */
+  music: {
+    /** 数据源：local = 本地 TS 数据，api = 平台 API */
+    source: 'local' as 'local' | 'api',
+    /** 歌词显示 */
+    lyrics: {
+      show: true,
+    },
+    /** 默认音量 (0-1) */
+    defaultVolume: 0.5,
+    /** API 配置（source = 'api' 时生效） */
+    api: {
+      provider: 'netease' as 'netease' | 'qq' | 'spotify',
+      playlistId: '',
+    },
+	 defaultMode: 'list' as 'list' | 'single' | 'random',
+  },
+
   serviceWorker: {
     // 1. 主开关：设为 false 时，客户端将注销并停止所有 Service Worker
     enabled: true, 
