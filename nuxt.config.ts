@@ -168,6 +168,7 @@ export default defineNuxtConfig({
 	experimental: {
 		extractAsyncDataHandlers: true,
 		typescriptPlugin: true,
+		NuxtTime: false,
 	},
 
 	features: {
@@ -264,6 +265,7 @@ export default defineNuxtConfig({
 		preference: 'system',
 		fallback: 'light',
 		classSuffix: '',
+		storage: 'cookie',
 	},
 
 	content: {

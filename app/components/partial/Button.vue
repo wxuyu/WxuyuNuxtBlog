@@ -12,7 +12,7 @@ defineProps<ButtonProps>()
 </script>
 
 <template>
-<component :is="to ? UtilLink : 'button'" :to class="button" :class="{ primary }">
+<component :is="to ? UtilLink : 'button'" :to class="button" :class="{ primary }" :title="primary">
 	<div class="button-main">
 		<Icon v-if="icon" :name="icon" />
 		<slot>{{ text }}</slot>

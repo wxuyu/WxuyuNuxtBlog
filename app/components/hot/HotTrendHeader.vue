@@ -7,10 +7,12 @@ const props = defineProps<{
   updateTime: string
 }>()
 
-const nowTimestamp = ref(Date.now())
+// SSR 安全：服务端渲染时用 0，客户端 hydrate 后立刻修正，避免 hydration mismatch
+const nowTimestamp = ref(0)
 let timer: ReturnType<typeof setInterval> | null = null
 
 onMounted(() => {
+  nowTimestamp.value = Date.now()
   timer = setInterval(() => {
     nowTimestamp.value = Date.now()
   }, 60 * 1000)

@@ -9,7 +9,6 @@ import {
 	LazyWidgetEmpty,
 	LazyWidgetLatestComments,
 	LazyWidgetToc,
-	LazyWidgetMusicPlayer,
 } from '#components'
 import { pascalCase } from 'es-toolkit/string'
 
@@ -23,7 +22,6 @@ const rawWidgets = {
 	LazyWidgetEmpty,
 	LazyWidgetLatestComments,
 	LazyWidgetToc,
-	LazyWidgetMusicPlayer,
 }
 
 type RawWidgetName = keyof typeof rawWidgets

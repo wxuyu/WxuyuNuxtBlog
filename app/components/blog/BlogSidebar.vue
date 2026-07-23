@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { LazyPopoverMyDialog } from '#components';
 
 // TODO: 暂时移除 SidebarDecorImage，保留实现以备恢复
 const appConfig = useAppConfig()
 const layoutStore = useLayoutStore()
 const searchStore = useSearchStore()
+// 新增弹窗写法
+const modalStore = useModalStore()
+const {
+	open: openShare,
+	close: closeShare,
+} = modalStore.use(() => h(LazyPopoverMyDialog, {
+	onClose: () => closeShare(),
+}), {
+	unique: true,
+	duration: 200,
+})
 
 // Sidebar 底部装饰图由 SidebarDecorImage 组件实现
 
@@ -114,7 +126,10 @@ watch(() => route.path, openActiveMenus, { immediate: true })
 	</nav>
 
 	<footer class="sidebar-footer">
-		<BlogThemeToggle />
+		<ZButton @click="openShare()" alt="Button-Consle">
+			<Icon name="ph:swatches-bold" />
+		</ZButton>
+		<BlogThemeToggle alt="Input Themes Toggle" />
 		<ZIconNavList :list="appConfig.footer.iconNav" />
 	</footer>
 </aside>
@@ -292,6 +307,28 @@ watch(() => route.path, openActiveMenus, { immediate: true })
 	font-size: 0.8em;
 	text-align: center;
 	color: var(--c-text-2);
+	.customizer-toggle {
+		background-color: var(--c-bg-2);
+		border: 1px solid var(--c-border);
+		border-radius: 1rem;
+		display: flex;
+		gap: 3px;
+		justify-content: center;
+		margin: 0 auto;
+		padding: 2px;
+		width: -moz-fit-content;
+		width: fit-content;
+		
+		button {
+			background-color: transparent;
+			border: none;
+			border-radius: 1rem;
+			color: var(--c-text-2);
+			cursor: pointer;
+			padding: 4px 1rem;
+			transition: all .1s;
+		}
+	}
 }
 
 .sidebar-footer > * {

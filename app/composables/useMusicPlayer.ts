@@ -240,14 +240,22 @@ export function useMusicPlayer() {
       }
     }
 
-    // LRC 匹配
+    // LRC 匹配（优化：从上次 idx 开始正向扫，避免每帧从末尾 0(n) 查找）
     const lines = lrcLines.value
     if (lines.length === 0) return
-    let idx = -1
-    for (let i = lines.length - 1; i >= 0; i--) {
-      if (a.currentTime >= lines[i].time) {
-        idx = i
-        break
+    const cur = a.currentTime
+    let idx = lrcIndex.value
+    if (idx < 0 || idx >= lines.length || cur < lines[idx].time) {
+      // 倒找：时间回退 / 初始化 / 切歌
+      idx = -1
+      for (let i = 0; i < lines.length; i++) {
+        if (cur >= lines[i].time) idx = i
+        else break
+      }
+    } else {
+      // 正找：时间前进，从 idx+1 开始扫
+      while (idx + 1 < lines.length && cur >= lines[idx + 1].time) {
+        idx++
       }
     }
     if (idx !== lrcIndex.value) {
@@ -258,51 +266,122 @@ export function useMusicPlayer() {
 
   // --- 播放控制 ---
   // 一次性绑定: src 设完后等 canplay 再 play，避免 preload='none' + 立即 play 被拒绝
+  // 改进：每次 _loadSong 先取消上一轮未触发 canplay 的 handler，避免上次加载失败时本轮也卡住
+  let _pendingCanPlayHandler: (() => void) | null = null
   function _waitCanPlayThenPlay() {
     const a = getAudio()
+    if (_pendingCanPlayHandler) {
+      a.removeEventListener('canplay', _pendingCanPlayHandler)
+      a.removeEventListener('loadedmetadata', _pendingCanPlayHandler)
+      _pendingCanPlayHandler = null
+    }
     if (a.readyState >= 3 /* HAVE_FUTURE_DATA */) {
       play()
       return
     }
     const onCanPlay = () => {
-      a.removeEventListener('canplay', onCanPlay)
-      a.removeEventListener('loadedmetadata', onCanPlay)
+      if (_pendingCanPlayHandler === onCanPlay) {
+        a.removeEventListener('canplay', onCanPlay)
+        a.removeEventListener('loadedmetadata', onCanPlay)
+        _pendingCanPlayHandler = null
+      }
       play()
     }
+    _pendingCanPlayHandler = onCanPlay
     a.addEventListener('canplay', onCanPlay, { once: true })
     a.addEventListener('loadedmetadata', onCanPlay, { once: true })
   }
 
-  function _loadSong(index: number) {
+  // 记录当前正在解析的 index，多个 _loadSong 并发时只取最后一次
+  let _loadingIndex = -1
+
+  async function _loadSong(index: number) {
     if (index < 0 || index >= globalPlaylist.length) return
     globalIndex = index
+    _loadingIndex = index
     const song = globalPlaylist[index]
     const a = getAudio()
-    a.src = song.url
-    a.load()
-    currentSong.value = { ...song }
-    playlist.value = [...globalPlaylist]
 
-    // 加载歌词
-    if (song.lrc) {
-      if (song.lrc.startsWith('[')) {
+    // 0. 优先拿真实封面 URL（QQ 场景下 song.cover 是 /api/song/cover JSON 端点，
+    //    需调 resolveCover 拆出真实图片 URL；网易云 / 本地 不需这一步）
+    let realCover = song.cover
+    try {
+      const source = useMusicSource()
+      const coverUrl = await source.resolveCover(song.id)
+      if (_loadingIndex !== index) return // 被新的 _loadSong 抢占，丢弃结果
+      if (coverUrl) realCover = coverUrl
+    }
+    catch (e) {
+      // 封面解析失败保持原值
+    }
+
+    // 1. 拿真实播放 URL（本地歌单 song.url 已填；API 歌单需调 resolveSongUrl）
+    let realUrl = song.url
+    if (!realUrl) {
+      try {
+        const source = useMusicSource()
+        realUrl = await source.resolveSongUrl(song.id)
+        if (_loadingIndex !== index) return
+      }
+      catch (e) {
+        console.warn('[useMusicPlayer] 歌曲 URL 解析失败:', e)
+      }
+    }
+
+    // 2. 拿真实 LRC 文本（本地可能填了 LRC URL，API 需调 fetchLyric）
+    let realLrc = song.lrc
+    if (!realLrc) {
+      try {
+        const source = useMusicSource()
+        realLrc = await source.fetchLyric(song.id)
+        if (_loadingIndex !== index) return
+      }
+      catch (e) {
+        // 歌词解析失败静默
+      }
+    }
+
+    // 3. 用解析后的真实数据更新全局 state
+    const resolvedSong: Song = {
+      ...song,
+      cover: realCover || song.cover,
+      url: realUrl,
+      lrc: realLrc,
+    }
+    // 反向写回 globalPlaylist，下一首 / seek / 重读时不会重复解析
+    // 但仅当仍是当前选中的 index 才写，避免覆盖新点击的歌曲
+    if (_loadingIndex === index) {
+      globalPlaylist[index] = resolvedSong
+      currentSong.value = { ...resolvedSong }
+      playlist.value = [...globalPlaylist]
+    }
+
+    // 再次抢占检查：set src 前最终确认
+    if (_loadingIndex !== index) return
+
+    a.src = realUrl
+    a.load()
+
+    // 4. 加载歌词
+    lrcLines.value = []
+    lrcIndex.value = -1
+    currentLyric.value = ''
+    if (realLrc) {
+      if (realLrc.startsWith('[')) {
         // 原始 LRC 文本
-        lrcLines.value = parseLrc(song.lrc)
-      } else {
+        lrcLines.value = parseLrc(realLrc)
+      } else if (/^https?:\/\//i.test(realLrc)) {
         // LRC URL，异步加载
-        lrcLines.value = []
-        lrcIndex.value = -1
-        fetch(song.lrc)
+        fetch(realLrc)
           .then((r) => r.text())
           .then((text) => {
-            lrcLines.value = parseLrc(text)
+            if (_loadingIndex === index) lrcLines.value = parseLrc(text)
           })
           .catch(() => {})
+      } else {
+        // 其他原始文本也试一下 parse
+        lrcLines.value = parseLrc(realLrc)
       }
-    } else {
-      lrcLines.value = []
-      lrcIndex.value = -1
-      currentLyric.value = ''
     }
 
     // 等待可播放后再 play，绕过 preload='none' 下 readyState 不足导致的 autoplay 失败

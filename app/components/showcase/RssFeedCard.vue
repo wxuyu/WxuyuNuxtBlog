@@ -38,6 +38,10 @@ const isWithin24h = computed(() => {
   return diffMs >= 0 && diffMs < HOURS_THRESHOLD * 60 * 60 * 1000
 })
 
+/** 客户端挂载守卫 — 避免 SSR/客户端时间差导致 v-if 分支切换产生 hydration mismatch */
+const ready = ref(false)
+onMounted(() => { ready.value = true })
+
 /**
  * AI 模型关键词 → 图标 映射
  * 按子串匹配，顺序敏感：长关键词放前面，避免短关键词提前误匹配
@@ -108,14 +112,14 @@ const modelIcon = computed(() => {
           <template v-if="!updatedDate">
             {{ props.data.updated }}
           </template>
-          <!-- 2) 24 小时内：相对时间（如 "5 分钟前" / "3 小时前"） -->
-          <template v-else-if="isWithin24h">
+          <!-- 2) 24 小时内：相对时间（SSR 走日期分支避免 mismatch；客户端 mount 后切为相对时间） -->
+          <template v-else-if="ready && isWithin24h">
             <NuxtTime
               :datetime="updatedDate.toISOString()"
               relative
             />
           </template>
-          <!-- 3) 超过 24 小时（或未来时间）：展示原始请求时间 -->
+          <!-- 3) 超过 24 小时 / 未来时间 / SSR 暂态：展示原始请求时间 -->
           <template v-else>
             {{ props.data.updated }}
           </template>

@@ -113,6 +113,7 @@ watch(primaryColor, (newColor) => {
 			:aria-label="themeData.tip"
 			:class="{ active: colorMode.preference === themeName }"
 			@click="colorMode.preference = themeName"
+			:title="themeData.tip"
 		>
 			<Icon :name="themeData.icon" />
 		</button>
@@ -125,13 +126,15 @@ watch(primaryColor, (newColor) => {
 		aria-label="切换主题色"
 		@click="openColorPicker"
 	>
-		<span class="color-dot" :style="{ '--current-color': currentColor }" />
+		<span class="color-dot" :style="isMounted ? { '--current-color': currentColor } : undefined" />
 		<input
 			ref="colorPickerRef"
 			type="color"
 			class="color-input"
-			:value="primaryColor"
+			:value="isMounted ? currentColor : undefined"
 			@input="handleColorChange"
+			aria-label="选择主题色"
+			tabindex="-1"
 		>
 	</button>
 </div>

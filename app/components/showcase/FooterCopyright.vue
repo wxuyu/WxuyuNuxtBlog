@@ -19,7 +19,7 @@ const footerGroup = [{
           ©{{ appConfig.timeStart }} — 2026 Powerby
         </div>
         <a class="copyrightName" :href="appConfig.url" :title="appConfig.title" target="_blank">
-          <NuxtImg class="logo" :alt="appConfig.title" src="/image/SiteCover/avatar.avif" :class="{circle: appConfig.header.showTitle}" width="25" height="25" loading="lazy" />
+          <!-- <NuxtImg class="logo" :alt="appConfig.title" src="/image/SiteCover/avatar.avif" :class="{circle: appConfig.header.showTitle}" width="25" height="25" loading="lazy" /> -->
           <div class="title">
             {{ appConfig.title }}
           </div>
