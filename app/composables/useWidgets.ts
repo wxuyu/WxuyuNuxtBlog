@@ -1,27 +1,27 @@
 import {
 	ContentRenderer,
-	LazyBlogWidget,
-	LazyWidgetBlogPresence,
-	LazyWidgetBlogLog,
-	LazyWidgetBlogStats,
-	LazyWidgetBlogTech,
-	LazyWidgetCommGroup,
-	LazyWidgetEmpty,
-	LazyWidgetLatestComments,
-	LazyWidgetToc,
+	BlogWidget as WidgetBlogWidget,
+	WidgetBlogLog,
+	WidgetBlogPresence,
+	WidgetBlogStats,
+	WidgetBlogTech,
+	WidgetCommGroup,
+	WidgetEmpty,
+	WidgetLatestComments,
+	WidgetToc,
 } from '#components'
 import { pascalCase } from 'es-toolkit/string'
 
 // @keep-sorted
 const rawWidgets = {
-	LazyWidgetBlogLog,
-	LazyWidgetBlogPresence,
-	LazyWidgetBlogStats,
-	LazyWidgetBlogTech,
-	LazyWidgetCommGroup,
-	LazyWidgetEmpty,
-	LazyWidgetLatestComments,
-	LazyWidgetToc,
+	WidgetBlogLog,
+	WidgetBlogPresence,
+	WidgetBlogStats,
+	WidgetBlogTech,
+	WidgetCommGroup,
+	WidgetEmpty,
+	WidgetLatestComments,
+	WidgetToc,
 }
 
 type RawWidgetName = keyof typeof rawWidgets
@@ -33,7 +33,7 @@ type KebabCase<S extends string> = S extends `${infer First}${infer Rest}`
 
 type RemovePrefix<S extends string, Prefix extends string> = S extends `${Prefix}${infer Rest}` ? Rest : S
 
-export type WidgetName = RemovePrefix<KebabCase<RawWidgetName>, '-lazy-widget-'> | `meta-aside-${string}`
+export type WidgetName = RemovePrefix<KebabCase<RawWidgetName>, '-widget-'> | `meta-aside-${string}`
 
 export default function useWidgets(widgetList: MaybeRefOrGetter<WidgetName[]>) {
 	const store = useContentStore()
@@ -41,7 +41,7 @@ export default function useWidgets(widgetList: MaybeRefOrGetter<WidgetName[]>) {
 	function renderMetaSlots(widgetName: WidgetName) {
 		const slotsTree = store.meta.slots[widgetName.slice('meta-'.length)]
 		return h(
-			LazyBlogWidget,
+			WidgetBlogWidget,
 			{ card: !slotsTree, ...slotsTree?.props },
 			() => slotsTree
 				? h(ContentRenderer, { value: slotsTree })
@@ -53,7 +53,7 @@ export default function useWidgets(widgetList: MaybeRefOrGetter<WidgetName[]>) {
 		name: widgetName,
 		comp: widgetName.startsWith('meta-aside-')
 			? renderMetaSlots(widgetName)
-			: rawWidgets[`LazyWidget${pascalCase(widgetName)}` as RawWidgetName],
+			: rawWidgets[`Widget${pascalCase(widgetName)}` as RawWidgetName],
 	})))
 
 	return {
