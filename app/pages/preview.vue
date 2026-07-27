@@ -5,7 +5,7 @@ useSeoMeta({
 	description: `${appConfig.title}的文章预览。`,
 })
 const layoutStore = useLayoutStore()
-layoutStore.setAside(['blog-log'])
+layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
 
 const { data: listRaw } = await useAsyncData('index_previews', () => useArticleIndexOptions('previews/%'), { default: () => [] })
 const { listSorted, isAscending, sortOrder } = useArticleSort(listRaw)

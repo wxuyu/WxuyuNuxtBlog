@@ -21,6 +21,7 @@ const isFullwidth = computed(() => layoutStore.state === 'fullwidth')
 </div>
 <BlogPanel />
 <BikariyaModals />
+<PlayerFloatingPlayer />
 </template>
 
 <!-- eslint-disable-next-line vue/enforce-style-attribute -->

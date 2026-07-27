@@ -30,3 +30,7 @@ content/posts/novel/world
 
 #Obsidian
 .obsidian
+
+.nuxt-*
+nuxt-*
+tools

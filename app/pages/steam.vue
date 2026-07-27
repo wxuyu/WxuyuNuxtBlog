@@ -2,7 +2,7 @@
 // 全局模块
 const layoutStore = useLayoutStore()
 // 开启侧边栏设置
-layoutStore.setAside(['blog-log'])
+layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
 // 导入模块位置
 import SteamUserCard from '~/components/steam/SteamUserCard.vue';
 import SteamRecentPlay from '~/components/steam/SteamRecentPlay.vue';

@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "b34b603618f396fc",
+        "id": "8231622943bb4b5d",
         "type": "tabs",
         "children": [
           {
-            "id": "bd58c9c5dad17734",
+            "id": "1b25447c4a6904c6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/posts/2026/04/essayNuxtPage.md",
+                "file": "content/preview/custom.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "essayNuxtPage"
+              "title": "custom"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "d9d955d3adba7cfd",
@@ -114,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/posts/2026/03/未命名.md",
+                "file": "content/preview/test/demo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "未命名 的出链列表"
+              "title": "demo 的出链列表"
             }
           },
           {
@@ -185,38 +184,43 @@
       "bases:新建数据库": false
     }
   },
-  "active": "bd58c9c5dad17734",
+  "active": "1b25447c4a6904c6",
   "lastOpenFiles": [
+    "content/preview/test/demo.md",
+    "content/preview/custom.md",
+    "tools/obsidian-sync/test-mdc-parser.mjs",
+    "content/preview/test/README.md",
+    "content/about.md",
     "未命名.base",
-    "content/posts/2026/04/essayNuxtPage.md",
+    "content/posts/2026/04/nuxtHotPage.md",
+    "content/posts/2026/04/nuxtServiceWorker.md",
+    "content/posts/novel/world/LmmortalGod.md",
+    "content/posts/2024/04/flinkPageMeihua.md",
+    "tools/obsidian-sync/test-process.mjs",
+    "tools/obsidian-sync/test-obsidian-dom.mjs",
+    "tools/obsidian-sync/test-props.mjs",
+    "tools/obsidian-sync/test-parse.mjs",
+    "tools/obsidian-sync/test-renderer.mjs",
+    "content/posts/2025/12/annualSummary.md",
+    "content/posts/2025/12/banguimPageAdd.md",
+    "content/posts/2025/12/commentAdd.md",
+    "content/posts/2025/12/equipmentPageAdd.md",
+    "content/posts/2025/12/postPageXiuGai.md",
+    "content/posts/2025/12/smallCardAdd.md",
+    "content/posts/2026/01/colorStyleAll.md",
+    "content/posts/2026/01/jsdmEdge.md",
+    "content/posts/2026/01/komariMonitor.md",
+    "content/posts/2026/01/newYear.md",
+    "content/posts/2026/01/siteAssets.md",
+    "content/posts/2026/01/vpsTalk.md",
+    "content/posts/2026/01/vpsTalk-2.md",
+    "content/posts/2026/02/musicInstall.md",
+    "content/posts/2026/02/macBookPerformancTest.md",
+    "content/posts/2026/02/fnosInstall.md",
     "content/posts/novel/world/HarmWorld.md",
-    "content/posts/novel/world/dh.md",
-    "content/posts/2026/02/WutheringWavesPostWidget.md",
-    "content/mingchao/ams.md",
-    "content/preview/test/1.md",
-    "content/preview/test/1 copy 16.md",
-    "content/preview/test/1 copy 15.md",
-    "content/preview/test/1 copy 14.md",
-    "content/preview/test/1 copy 13.md",
-    "content/preview/test/1 copy 12.md",
-    "content/preview/test/1 copy 11.md",
-    "content/preview/test/1 copy 10.md",
-    "content/preview/test/1 copy 9.md",
-    "content/preview/test/1 copy 8.md",
-    "content/preview/test/1 copy 7.md",
-    "content/preview/test/1 copy 6.md",
-    "content/preview/test/1 copy 5.md",
-    "content/preview/test/1 copy 4.md",
-    "content/preview/test/1 copy 3.md",
-    "content/preview/test/1 copy 2.md",
-    "content/preview/test/4 copy.md",
-    "content/preview/test/3 copy.md",
-    "content/preview/test/2 copy.md",
-    "content/preview/test/1 copy.md",
     "content/preview/test",
-    "app/components/content/heroStory.vue",
-    "app/components/content/heroSotries.vue",
-    "app/components/post/Article_Mc.vue",
+    "tools/obsidian-sync/preflight.ts",
+    "tools/obsidian-sync/validate-mdc.ts",
     "public/image/PostCover/btfFunction.avif",
     "public/image/PostCover/btfAboutPage.avif",
     "public/image/PostCover/banguimPage.avif",
@@ -226,8 +230,6 @@
     "public/image/PostCover/vpsTalk.avif",
     "public/image/PostCover/ssVeryfunction.avif",
     "public/image/PostCover/smallCard.avif",
-    "public/image/PostCover/siteInfo.avif",
-    "未命名",
-    "content/posts/2026/03"
+    "public/image/PostCover/siteInfo.avif"
   ]
 }

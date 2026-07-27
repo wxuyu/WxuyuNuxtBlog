@@ -214,7 +214,7 @@ async function fetchNeteaseLyric(baseUrl: string, externalId: string, cookie?: s
 }
 
 // ============================================================================
-// QQ provider（api.ygking.top）
+// QQ provider — type: 'ygking'（api.ygking.top，向后兼容默认）
 // ============================================================================
 // 实际响应结构（参考 playlist.json）：
 //   顶层：{ code: 0, data: { code, subcode, dirinfo, songlist, songlist_size, ... } }
@@ -232,7 +232,8 @@ async function fetchNeteaseLyric(baseUrl: string, externalId: string, cookie?: s
 //   - 歌曲 URL 走 `/api/song/url?mid=...&quality=...` 返回 `{data: {mid: url}}` map
 //   - 歌词走 `/api/lyric?mid=...&qrc=1&trans=1&roma=1` 返回 `{data:{lyric, trans, roma}}`
 
-const DEFAULT_QQ_BASE = 'https://api.ygking.top'
+const DEFAULT_QQ_BASE_YGKING = 'https://api.ygking.top'
+const DEFAULT_QQ_BASE_SANSENJIAN = 'http://localhost:3200'
 const DEFAULT_QQ_QUALITY: QQQuality = '320'
 
 /** 歌单封面尺寸：dirinfo.picurl 末尾是 /600，替换为 /300 / 800 */
@@ -241,8 +242,8 @@ function resizeQQPlaylistCover(picurl: string, size: 300 | 800 = 300): string {
   return picurl.replace(/\/(?:600|300|800)$/, `/${size}`)
 }
 
-/** 拉取单个 QQ 歌单 → 本地 Playlist */
-async function fetchQQPlaylist(
+/** 拉取单个 QQ 歌单 → 本地 Playlist（ygking 实现） */
+async function fetchQQPlaylistYGKing(
   baseUrl: string,
   playlistId: number,
   meta?: PlaylistConfig,
@@ -269,10 +270,10 @@ async function fetchQQPlaylist(
       .filter((s: any) => s && s.mid) // 过滤掉没有 mid 的
       .map((s: any) => mapQQSong(s, baseUrl))
 
-    // 性能优化：不并发拉 22 首 cover（以前要 6.4s）。所有歌曲先用歌单封面兑底，
-    // 真实封面在用户进入 songs 视图后由 enrichSongCovers 按需拉取。
-    // 兑底选择：playlistCover 总是真实的 qpic.y.qq.com 图片 URL。
-    const songs: Song[] = mappedSongs.map((s) => ({ ...s, cover: playlistCover }))
+    // 性能优化：不并发拉 22 首 cover（以前要 6.4s）。所有歌曲封面初始为空，
+    // 真实封面在用户进入 songs 视图后由 enrichSongCovers 按需拉取（前12首），
+    // 以及 _loadSong 时懒加载（播放到哪首补哪首）。
+    const songs: Song[] = mappedSongs.map((s) => ({ ...s, cover: '' }))
 
     return applyMetaOverrides({
       id: String(playlistId),
@@ -288,26 +289,29 @@ async function fetchQQPlaylist(
   }
 }
 
-/** QQ songlist[].song → 本地 Song */
+/** QQ songlist[].song → 本地 Song（ygking / sansenjian 共享字段映射） */
 function mapQQSong(s: any, _baseUrl: string): Song {
-  const mid = s.mid ?? ''
+  const mid = s.mid ?? s.songmid ?? ''
   return {
     id: makeApiSongId('qq', mid),
     // 关键修复：QQ 用 s.name（不是 s.title，s.title 是另一字段但多数情况相同）
-    title: s.name ?? s.title ?? '',
-    artist: Array.isArray(s.singer) ? s.singer.map((x: any) => x.name).filter(Boolean).join(' / ') : '',
-    album: s.album?.name ?? '',
+    title: s.name ?? s.songname ?? s.title ?? '',
+    // sansenjian: singer 为字符串 '歌手1 / 歌手2' 或数组
+    artist: Array.isArray(s.singer)
+      ? s.singer.map((x: any) => x.name ?? x).filter(Boolean).join(' / ')
+      : (typeof s.singer === 'string' ? s.singer : ''),
+    album: s.album?.name ?? s.albumname ?? '',
     // 封面：留空，由 fetchQQPlaylist 阶段并发调 resolveQQCover 填充
     // （之前是拼 /api/song/cover 端点 URL，但那是 JSON 接口不是图片，会破图）
     cover: '',
-    duration: s.interval ?? 0,
+    duration: s.interval ?? s.duration ?? 0,
     url: '', // 懒加载：_loadSong 时由 resolveSongUrl 填充
     lrc: '', // 懒加载：_loadSong 时由 fetchLyric 填充
   }
 }
 
-/** 实际拿歌曲封面（返回真实图片 URL） */
-async function resolveQQCover(baseUrl: string, mid: string): Promise<string> {
+/** 实际拿歌曲封面（ygking：/api/song/cover） */
+async function resolveQQCoverYGKing(baseUrl: string, mid: string): Promise<string> {
   try {
     const url = `${baseUrl.replace(/\/$/, '')}/api/song/cover?mid=${encodeURIComponent(mid)}&size=300`
     const resp = await $fetch<any>(url)
@@ -321,7 +325,7 @@ async function resolveQQCover(baseUrl: string, mid: string): Promise<string> {
 /** QQ /api/song/url?mid=...&quality=... → 真实 url
  *  实际响应：{ code: 0, data: { "mid_xxxx": "https://..." }, quality: "320" }
  */
-async function resolveQQUrl(baseUrl: string, mid: string, quality: QQQuality): Promise<string> {
+async function resolveQQUrlYGKing(baseUrl: string, mid: string, quality: QQQuality): Promise<string> {
   try {
     const url = `${baseUrl.replace(/\/$/, '')}/api/song/url?mid=${encodeURIComponent(mid)}&quality=${quality}`
     const resp = await $fetch<any>(url)
@@ -346,7 +350,7 @@ async function resolveQQUrl(baseUrl: string, mid: string, quality: QQQuality): P
 /** QQ /api/lyric?mid=...&qrc=1&trans=1 → LRC 文本
  *  实际响应：{ code: 0, data: { mid, id, lyric, trans, roma } }
  */
-async function fetchQQLyric(
+async function fetchQQLyricYGKing(
   baseUrl: string,
   mid: string,
   options: { qrc?: boolean, trans?: boolean, roma?: boolean },
@@ -369,6 +373,141 @@ async function fetchQQLyric(
   }
   catch (e) {
     console.warn(`[useMusicSource] QQ 歌曲 ${mid} 歌词获取失败:`, e)
+    return ''
+  }
+}
+
+// ============================================================================
+// QQ provider — type: 'sansenjian'（自部署 @sansenjian/qq-music-api）
+// ============================================================================
+// API 文档来源：https://sansenjian.github.io/qq-music-api/api/playlist.html
+// 默认端口 3200；需本地或服务器自部署（`npm i -g @sansenjian/qq-music-api`
+// 或 `npm i @sansenjian/qq-music-api && node node_modules/@sansenjian/qq-music-api/dist/app.js`）。
+//
+// 关键端点（query string）：
+//   GET /getSongListDetail?disstid=<id>         歌单详情 + 歌曲列表
+//      响应：{ code, data: { dissname, desc, songlist:[{songname, singer, mid?, songmid?, ...}] } }
+//   GET /getMusicPlay?songmid=<mid>             歌曲播放 URL
+//      响应：{ code, data: { url, size, quality } }
+//   GET /getLyric?songmid=<mid>&isFormat=1      歌词（LRC 时间戳格式）
+//      响应：{ code, data: { lyric, trans } }
+//   GET /getImageUrl?id=<songmid|albummid>&size=500x500   封面真实图片 URL
+//      响应：{ code, data: <图片 url 字符串或对象> }
+//
+// 字段映射注意事项：
+//   - songlist[] 文档示例只列了 songname + singer，但实际响应通常含 mid/songmid（用于播放/歌词）
+//     若 mid 缺失则歌曲被过滤（无法解析 URL/歌词）
+//   - 歌单封面由 `/getImageUrl?id=<disstid>&size=500x500` 单独拉取（响应 data 字段为字符串 URL）
+//   - 歌手字段可能是字符串 '歌手1 / 歌手2' 或数组 [{name}]，mapQQSong 已兼容
+
+/**
+ * 拉取 sansenjian 歌单封面 → 真实图片 URL
+ */
+async function fetchQQPlaylistCoverSansenjian(baseUrl: string, disstid: string): Promise<string> {
+  try {
+    const url = `${baseUrl.replace(/\/$/, '')}/getImageUrl?id=${encodeURIComponent(disstid)}&size=500x500`
+    const resp = await $fetch<any>(url)
+    const data = resp?.data
+    if (typeof data === 'string') return data
+    if (data && typeof data === 'object' && typeof data.url === 'string') return data.url
+    return ''
+  }
+  catch {
+    return ''
+  }
+}
+
+/** 拉取单个 sansenjian QQ 歌单 → 本地 Playlist */
+async function fetchQQPlaylistSansenjian(
+  baseUrl: string,
+  playlistId: number | string,
+  meta?: PlaylistConfig,
+): Promise<Playlist | null> {
+  try {
+    const url = `${baseUrl.replace(/\/$/, '')}/getSongListDetail?disstid=${encodeURIComponent(String(playlistId))}`
+    const resp = await $fetch<any>(url)
+    const data = resp?.data
+    if (!data) return null
+    if (resp?.code !== undefined && resp.code !== 0) {
+      console.warn(`[useMusicSource] sansenjian 歌单 ${playlistId} 业务失败: code=${resp.code} msg=${resp.msg}`)
+      return null
+    }
+
+    const dissname: string = data.dissname ?? data.title ?? 'QQ 歌单'
+    const desc: string = data.desc ?? ''
+    const songlist: any[] = Array.isArray(data.songlist) ? data.songlist : []
+
+    // 拉歌单封面（sansenjian 不在详情里返回 picurl，需额外请求）
+    const playlistCover = await fetchQQPlaylistCoverSansenjian(baseUrl, String(playlistId))
+
+    const mappedSongs: Song[] = songlist
+      .filter((s: any) => s && (s.mid || s.songmid))
+      .map((s: any) => mapQQSong(s, baseUrl))
+
+    const songs: Song[] = mappedSongs.map((s) => ({ ...s, cover: '' }))
+
+    return applyMetaOverrides({
+      id: String(playlistId),
+      name: dissname,
+      cover: playlistCover,
+      desc,
+      songs,
+    }, meta)
+  }
+  catch (e) {
+    console.warn(`[useMusicSource] sansenjian 歌单 ${playlistId} 拉取失败:`, e)
+    return null
+  }
+}
+
+/** sansenjian 歌曲封面（/getImageUrl?id=songmid） */
+async function resolveQQCoverSansenjian(baseUrl: string, mid: string): Promise<string> {
+  try {
+    const url = `${baseUrl.replace(/\/$/, '')}/getImageUrl?id=${encodeURIComponent(mid)}&size=500x500`
+    const resp = await $fetch<any>(url)
+    const data = resp?.data
+    if (typeof data === 'string') return data
+    if (data && typeof data === 'object' && typeof data.url === 'string') return data.url
+    return ''
+  }
+  catch {
+    return ''
+  }
+}
+
+/** sansenjian 歌曲 URL（/getMusicPlay?songmid=...） */
+async function resolveQQUrlSansenjian(baseUrl: string, mid: string, _quality: QQQuality): Promise<string> {
+  try {
+    const url = `${baseUrl.replace(/\/$/, '')}/getMusicPlay?songmid=${encodeURIComponent(mid)}`
+    const resp = await $fetch<any>(url)
+    return resp?.data?.url ?? ''
+  }
+  catch (e) {
+    console.warn(`[useMusicSource] sansenjian 歌曲 ${mid} url 获取失败:`, e)
+    return ''
+  }
+}
+
+/** sansenjian 歌词（/getLyric?songmid=...&isFormat=1）
+ *  options.trans 生效：追加翻译到主歌词后（用换行分隔）。
+ *  options.qrc/roma：sansenjian 不区分，返回同一种 LRC，忽略。
+ */
+async function fetchQQLyricSansenjian(
+  baseUrl: string,
+  mid: string,
+  options: { trans?: boolean },
+): Promise<string> {
+  try {
+    const url = `${baseUrl.replace(/\/$/, '')}/getLyric?songmid=${encodeURIComponent(mid)}&isFormat=1`
+    const resp = await $fetch<any>(url)
+    const data = resp?.data
+    if (!data) return ''
+    let result = data.lyric ?? ''
+    if (options.trans && data.trans) result += '\n' + data.trans
+    return result
+  }
+  catch (e) {
+    console.warn(`[useMusicSource] sansenjian 歌曲 ${mid} 歌词获取失败:`, e)
     return ''
   }
 }
@@ -460,7 +599,9 @@ function buildApiDataSource(apiCfg: MusicApiConfigNested | undefined): MusicData
       fetchTrans: apiCfg.qq?.fetchTrans,
       fetchRoma: apiCfg.qq?.fetchRoma,
     }
-    const baseUrl = cfg.baseUrl ?? DEFAULT_QQ_BASE
+    const qqType = cfg.type ?? 'ygking'
+    const baseUrl = cfg.baseUrl
+      ?? (qqType === 'sansenjian' ? DEFAULT_QQ_BASE_SANSENJIAN : DEFAULT_QQ_BASE_YGKING)
     const quality = cfg.quality ?? DEFAULT_QQ_QUALITY
     // 优先使用 playlists（带元数据），回退到 playlistIds（简单 ID 列表）
     const metaList: PlaylistConfig[] = (() => {
@@ -471,6 +612,12 @@ function buildApiDataSource(apiCfg: MusicApiConfigNested | undefined): MusicData
       return []
     })()
 
+    // 按 type 选择 provider 实现
+    const fetchPlaylist = qqType === 'sansenjian' ? fetchQQPlaylistSansenjian : fetchQQPlaylistYGKing
+    const resolveUrl = qqType === 'sansenjian' ? resolveQQUrlSansenjian : resolveQQUrlYGKing
+    const fetchLyric = qqType === 'sansenjian' ? fetchQQLyricSansenjian : fetchQQLyricYGKing
+    const resolveCover = qqType === 'sansenjian' ? resolveQQCoverSansenjian : resolveQQCoverYGKing
+
     return {
       async fetchPlaylists(): Promise<Playlist[]> {
         if (metaList.length === 0) {
@@ -478,7 +625,7 @@ function buildApiDataSource(apiCfg: MusicApiConfigNested | undefined): MusicData
           return []
         }
         const results = await Promise.all(
-          metaList.map(meta => fetchQQPlaylist(baseUrl, Number(meta.id), meta)),
+          metaList.map(meta => fetchPlaylist(baseUrl, meta.id, meta)),
         )
         return results.filter((p, i): p is Playlist => {
           if (p === null) return false
@@ -489,12 +636,12 @@ function buildApiDataSource(apiCfg: MusicApiConfigNested | undefined): MusicData
       async resolveSongUrl(songId: string): Promise<string> {
         const ref = parseApiRef(songId)
         if (!ref || ref.provider !== 'qq') return ''
-        return resolveQQUrl(baseUrl, ref.externalId, quality)
+        return resolveUrl(baseUrl, ref.externalId, quality)
       },
       async fetchLyric(songId: string): Promise<string> {
         const ref = parseApiRef(songId)
         if (!ref || ref.provider !== 'qq') return ''
-        return fetchQQLyric(baseUrl, ref.externalId, {
+        return fetchLyric(baseUrl, ref.externalId, {
           qrc: cfg.fetchQrc ?? false,
           trans: cfg.fetchTrans ?? false,
           roma: cfg.fetchRoma ?? false,
@@ -503,7 +650,7 @@ function buildApiDataSource(apiCfg: MusicApiConfigNested | undefined): MusicData
       async resolveCover(songId: string): Promise<string> {
         const ref = parseApiRef(songId)
         if (!ref || ref.provider !== 'qq') return ''
-        return resolveQQCover(baseUrl, ref.externalId)
+        return resolveCover(baseUrl, ref.externalId)
       },
     }
   }
@@ -650,6 +797,8 @@ export async function enrichSongCovers(
   const apiCfg = config.music?.api as MusicApiConfigNested | undefined
   if (!apiCfg?.qq?.baseUrl) return
   const baseUrl = apiCfg.qq.baseUrl
+  const qqType = apiCfg.qq?.type ?? 'ygking'
+  const resolveCover = qqType === 'sansenjian' ? resolveQQCoverSansenjian : resolveQQCoverYGKing
 
   // 仅处理 api 歌单
   if (!playlist.id.startsWith('api:')) return
@@ -665,7 +814,7 @@ export async function enrichSongCovers(
       const ref = parseApiRef(song.id)
       if (!ref) continue
       try {
-        const url = await resolveQQCover(baseUrl, ref.externalId)
+        const url = await resolveCover(baseUrl, ref.externalId)
         if (url) {
           song.cover = url
         }

@@ -6,7 +6,7 @@ import PersonalGreeting from '~/components/about/PersonalGreeting.vue'
 import AboutContent from '~/components/about/AboutContent.vue'
 
 const layoutStore = useLayoutStore()
-layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
+layoutStore.setAside(useAsideWithMusic(['blog-stats', 'blog-tech', 'blog-log']))
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import type { Nav, NavItem } from '~/types/nav'
+﻿import type { Nav, NavItem } from '~/types/nav'
 import { Temporal } from 'temporal-polyfill'
 import blogConfig from '~~/blog.config'
 import { version } from '~~/package.json'
@@ -228,9 +228,17 @@ export default defineAppConfig({
         unblock: false,
       },
 
-      /** QQ 音乐配置（ygking.cloudflare-workers 公共实例） */
+      /** QQ 音乐配置（提供两个后端实现，通过 `type` 字段切换）
+       *   - 'ygking'      → api.ygking.top 公共实例（默认；向后兼容）
+       *   - 'sansenjian'  → 自部署 @sansenjian/qq-music-api（默认 baseUrl http://localhost:3200）
+       * 切换 type 后无需重启 dev server，下次进入页面或刷新页面生效。
+       */
       qq: {
-        // baseUrl 留空时使用默认 https://api.ygking.top
+        // 后端实现类型
+        type: 'ygking' as 'ygking' | 'sansenjian',
+        // baseUrl 留空时根据 type 使用不同默认值：
+        //   type='ygking'      → https://api.ygking.top
+        //   type='sansenjian'  → http://localhost:3200
         baseUrl: 'https://api.ygking.top',
         // 音质：master / atmos / atmos_2 / atmos_51 / flac / 320 / 128
         quality: '320' as
@@ -329,6 +337,7 @@ export default defineAppConfig({
             { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
             { icon: 'ph:steam-logo-bold', text: '游戏时刻', url: '/steam'},
             { icon: 'ph:lightning-bold', text:'闲言碎语', url:'/essay' },
+            { icon: 'bxs:hot', text:'热搜', url:'/hot'}
 					],
         },
         // { icon: 'ph:chats-bold', text:'​纸笺寄语', url:'/comments' },

@@ -75,8 +75,22 @@ function notifyEnded() {
   }
 }
 
+// ── 模块级响应式 ref（所有 useMusicPlayer() 实例共享同一个 ref）──
+// 这是修复 Bug 的关键：之前这些 ref 在函数体内每次调用重新创建，
+// 导致 FloatingPlayer 和 MusicSettings 各有一份独立 ref。
+// MusicSettings 调用 playAt 只更新了自己那份 → FloatingPlayer UI 不更新。
 const globalStatusRef = ref<PlayerStatus>(PS.STOPPED)
 const isPlaying = computed(() => globalStatusRef.value === PS.PLAYING)
+const _sharedCurrentSong = ref<Song | null>(null)
+const _sharedCurrentTime = ref(0)
+const _sharedDuration = ref(0)
+const _sharedVolume = ref(globalVolume)
+const _sharedMode = ref<PlayMode>(globalMode)
+const _sharedCurrentLyric = ref('')
+const _sharedLrcLines = ref<LrcLine[]>([])
+const _sharedLrcIndex = ref(-1)
+const _sharedPlaylist = ref<Song[]>([...globalPlaylist])
+const _sharedBuffered = ref(0)
 
 function getAudio(): HTMLAudioElement {
   if (!audio) {
@@ -185,18 +199,18 @@ function parseLrc(raw: string): LrcLine[] {
 
 // ===================== 导出的 Composables =====================
 export function useMusicPlayer() {
-  // --- 响应式状态 ---
-  const status = ref<PlayerStatus>(globalStatus)
-  const currentSong = ref<Song | null>(null)
-  const currentTime = ref(0)
-  const duration = ref(0)
-  const volume = ref(globalVolume)
-  const mode = ref<PlayMode>(globalMode)
-  const currentLyric = ref('')
-  const lrcLines = ref<LrcLine[]>([])
-  const lrcIndex = ref(-1)
-  const playlist = ref<Song[]>([...globalPlaylist])
-  const buffered = ref(0)
+  // --- 响应式状态（引用模块级共享 ref，保证多实例一致性）---
+  const status        = globalStatusRef
+  const currentSong   = _sharedCurrentSong
+  const currentTime   = _sharedCurrentTime
+  const duration      = _sharedDuration
+  const volume        = _sharedVolume
+  const mode          = _sharedMode
+  const currentLyric  = _sharedCurrentLyric
+  const lrcLines      = _sharedLrcLines
+  const lrcIndex      = _sharedLrcIndex
+  const playlist      = _sharedPlaylist
+  const buffered       = _sharedBuffered
 
   // 同步状态
   const syncState = () => {
@@ -295,24 +309,27 @@ export function useMusicPlayer() {
   // 记录当前正在解析的 index，多个 _loadSong 并发时只取最后一次
   let _loadingIndex = -1
 
-  async function _loadSong(index: number) {
+  async function _loadSong(index: number, autoPlay = true) {
     if (index < 0 || index >= globalPlaylist.length) return
     globalIndex = index
     _loadingIndex = index
     const song = globalPlaylist[index]
     const a = getAudio()
 
-    // 0. 优先拿真实封面 URL（QQ 场景下 song.cover 是 /api/song/cover JSON 端点，
-    //    需调 resolveCover 拆出真实图片 URL；网易云 / 本地 不需这一步）
+    // 0. 封面：仅在未解析（空或非 http）时才调 resolveCover。
+    //    enrichSongCovers 已在后台补好前 12 首的真实封面 → 跳过 API 请求
+    //    空封面（fetchQQPlaylist 阶段初始值）→ 懒加载一次
     let realCover = song.cover
-    try {
-      const source = useMusicSource()
-      const coverUrl = await source.resolveCover(song.id)
-      if (_loadingIndex !== index) return // 被新的 _loadSong 抢占，丢弃结果
-      if (coverUrl) realCover = coverUrl
-    }
-    catch (e) {
-      // 封面解析失败保持原值
+    if (!realCover || !/^https?:\/\//.test(realCover)) {
+      try {
+        const source = useMusicSource()
+        const coverUrl = await source.resolveCover(song.id)
+        if (_loadingIndex !== index) return
+        if (coverUrl) realCover = coverUrl
+      }
+      catch (e) {
+        // 封面解析失败：用歌单封面兑底（已存于 song.cover）
+      }
     }
 
     // 1. 拿真实播放 URL（本地歌单 song.url 已填；API 歌单需调 resolveSongUrl）
@@ -341,18 +358,14 @@ export function useMusicPlayer() {
       }
     }
 
-    // 3. 用解析后的真实数据更新全局 state
-    const resolvedSong: Song = {
-      ...song,
-      cover: realCover || song.cover,
-      url: realUrl,
-      lrc: realLrc,
-    }
-    // 反向写回 globalPlaylist，下一首 / seek / 重读时不会重复解析
-    // 但仅当仍是当前选中的 index 才写，避免覆盖新点击的歌曲
+    // 3. 在原对象上直接赋值（不替换引用），保持与 enrichSongCovers 同一条对象链
+    //    这样 enrichSongCovers 的 cover 突变能同步到 currentSong
+    if (realCover && realCover !== song.cover) song.cover = realCover
+    if (realUrl) song.url = realUrl
+    if (realLrc) song.lrc = realLrc
+    // 抢占检查后仍有效
     if (_loadingIndex === index) {
-      globalPlaylist[index] = resolvedSong
-      currentSong.value = { ...resolvedSong }
+      currentSong.value = { ...song }
       playlist.value = [...globalPlaylist]
     }
 
@@ -384,8 +397,14 @@ export function useMusicPlayer() {
       }
     }
 
-    // 等待可播放后再 play，绕过 preload='none' 下 readyState 不足导致的 autoplay 失败
-    _waitCanPlayThenPlay()
+    // 根据调用入口决定是否自动播放
+    if (autoPlay) {
+      _waitCanPlayThenPlay()
+    } else {
+      // setPlaylist / applyResume 等场景：仅预加载，不自动播放
+      a.preload = 'metadata'
+      a.load().catch(() => {})
+    }
   }
 
   function play() {
@@ -539,7 +558,7 @@ export function useMusicPlayer() {
     if (globalMode === PM.SHUFFLE) {
       buildShuffledOrder()
     }
-    _loadSong(Math.min(startIndex, songs.length - 1))
+    _loadSong(Math.min(startIndex, songs.length - 1), false)
   }
 
   function getCurrentPlaylistId() {
@@ -570,7 +589,7 @@ export function useMusicPlayer() {
       const idx = songs.findIndex((s) => s.id === opts.persistedSongId)
       if (idx >= 0) targetIndex = idx
     }
-    _loadSong(targetIndex)
+    _loadSong(targetIndex, false)
 
     // 设置进度（不自动播放：设置 currentTime 浏览器也不会触发放音）
     const a = getAudio()

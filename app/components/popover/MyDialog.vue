@@ -34,16 +34,14 @@ function handleClose() {
     <div v-if="visible" class="popover-panel">
       <div class="panel-header">
         <h2>
-          控制台
+          音乐选择器
         </h2>
         <button class="close-btn" aria-label="关闭" @click="handleClose">
           <Icon name="ph:x-bold" />
         </button>
       </div>
 
-      <div class="panel-content">
-        <MainCard />
-      </div>
+      <ConsoleMusicSettings />
     </div>
   </Transition>
 </template>
