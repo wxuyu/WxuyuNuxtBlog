@@ -277,33 +277,6 @@ export default defineAppConfig({
 	 defaultMode: 'list' as 'list' | 'single' | 'random',
   },
 
-  serviceWorker: {
-    // 1. 主开关：设为 false 时，客户端将注销并停止所有 Service Worker
-    enabled: true, 
-    
-    // 2. 缓存规则
-    cacheRules: {
-      // 需要拦截缓存的文件后缀
-      extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'woff2', 'woff', 'ttf'],
-      // 额外需要缓存的 MIME 类型
-      mimeTypes: ['image', 'font'],
-      escapeDoors: ['/api/recent-comments', '/api/stats']
-    },
-    
-    // 3. 永久缓存开关与过期时间（单位：秒）
-    // 若 permanent 为 true，则无视 maxAge；若为 false，超过 maxAge 的资源会被重新拉取
-    permanent: true, 
-    maxAge: 3600 * 24 * 30, // 30天
-    
-    // 4. 逃生门 (Escape Door)
-    // 当请求 URL 包含此前缀时，Service Worker 将彻底放行，不做任何拦截
-    // 可用于动态大文件下载或需要实时获取的后端接口
-    escapeDoor: ['/api/recent-comments'], 
-    
-    // 5. 版本号 (由构建时自动注入，此处仅为类型提示)
-    // 在 sw.ts 中我们会通过模板字符串自动生成时间戳
-  },
-
 	/** 左侧栏导航 */
 	nav: [
 		{
