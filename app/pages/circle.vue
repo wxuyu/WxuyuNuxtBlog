@@ -392,7 +392,7 @@ useEventListener(carouselEl, 'wheel', (e) => {
 
 .circle-fade-leave-active {
   transition: opacity .2s ease, transform .2s ease;
-  position: absolute; // 防止离开时 jank
+  position: absolute; /* 防止离开时 jank */
 }
 
 .circle-fade-enter-from {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionType, ContentType } from '../composables/useBangumi'
+import type { CollectionType, ContentType, FetchApiType } from '../composables/useBangumi'
 import BangumiCard from '~/components/bangumi/BangumiCard.vue'
 import useBangumi from '../composables/useBangumi'
 import { debounce } from 'radash'
@@ -31,8 +31,9 @@ layoutStore.setAside(['blog-stats', 'blog-tech', 'blog-log'])
 const route = useRoute()
 const contentType = ref<ContentType>('anime')
 const collectionType = ref<CollectionType>('wish')
+const apiFetch = ref<FetchApiType>('桜色')
 const page = ref(1)
-const { data, error, totalPages, refresh, status } = useBangumi(contentType, collectionType, page)
+const { data, error, totalPages, refresh, status } = useBangumi(contentType, collectionType, page, apiFetch)
 
 // 加载状态控制
 const isLoading = computed(() => status.value === 'pending')

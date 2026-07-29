@@ -23,6 +23,10 @@ function handleClose() {
     emit('close')
   }
 }
+
+// 音乐播放器全局开关
+const player = useMusicPlayer()
+const { musicEnabled, setMusicEnabled } = player
 </script>
 
 <template>
@@ -36,9 +40,23 @@ function handleClose() {
         <h2>
           音乐选择器
         </h2>
-        <button class="close-btn" aria-label="关闭" @click="handleClose">
-          <Icon name="ph:x-bold" />
-        </button>
+        <div class="header-right">
+          <label class="music-toggle" title="开关音乐播放器">
+            <span class="toggle-label">播放器</span>
+            <input
+              type="checkbox"
+              :checked="musicEnabled"
+              @change="setMusicEnabled(($event.target as HTMLInputElement).checked)"
+              class="toggle-input"
+            />
+            <span class="toggle-track">
+              <span class="toggle-thumb" />
+            </span>
+          </label>
+          <button class="close-btn" aria-label="关闭" @click="handleClose">
+            <Icon name="ph:x-bold" />
+          </button>
+        </div>
       </div>
 
       <ConsoleMusicSettings />
@@ -81,12 +99,17 @@ function handleClose() {
     margin-bottom: 1em;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     h2 {
       margin: 0;
       font-size: 1.2em;
       font-weight: 600;
       color: var(--c-text);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: .6em;
     }
     .close-btn {
       padding: 0.4em;
@@ -99,6 +122,55 @@ function handleClose() {
       &:hover {
         background-color: var(--c-bg-soft);
         color: var(--c-text-1);
+      }
+    }
+    .music-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: .4em;
+      cursor: pointer;
+      user-select: none;
+
+      .toggle-label {
+        font-size: .78em;
+        color: var(--c-text-2);
+      }
+
+      .toggle-input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .toggle-track {
+        position: relative;
+        width: 2.4em;
+        height: 1.3em;
+        border-radius: 1em;
+        background: var(--c-border, hsl(0 0% 80%));
+        transition: background .2s ease;
+
+        .toggle-thumb {
+          position: absolute;
+          top: .15em;
+          left: .15em;
+          width: 1em;
+          height: 1em;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 1px 3px hsl(0 0% 0% / .18);
+          transition: transform .2s ease;
+        }
+      }
+
+      .toggle-input:checked + .toggle-track {
+        background: var(--c-primary, hsl(355 70% 62%));
+
+        .toggle-thumb {
+          transform: translateX(1.1em);
+        }
       }
     }
   }

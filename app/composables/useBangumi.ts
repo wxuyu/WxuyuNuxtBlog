@@ -47,7 +47,7 @@ import type { BangumiApiResponse } from '~/types/bangumi'
 
 export type ContentType = keyof typeof TYPE_SUBJECT_MAP
 export type CollectionType = keyof typeof TYPE_ID_MAP
-
+export type FetchApiType = keyof typeof Fetch_API_TYPE
 export const ITEMS_PER_PAGE = 20
 
 const TYPE_SUBJECT_MAP = {
@@ -65,11 +65,18 @@ const TYPE_ID_MAP = {
 	dropped: 5,
 } as const
 
+const Fetch_API_TYPE = {
+	Default: 'api.bgm.tv',
+	桜色: 'api.bangumi.lol'
+}
+
 export default function useBangumiCollection(
 	contentType: Ref<ContentType> = ref('anime'),
 	collectionType: Ref<CollectionType> = ref('wish'),
 	page: Ref<number> = ref(1),
+	apiFetch: Ref<FetchApiType> = ref('桜色')
 ) {
+	const ApiUrl = computed(() => Fetch_API_TYPE[toValue(apiFetch)])
 	const username = '1152095'
    const tags = ''
 	const subjectType = computed(() => TYPE_SUBJECT_MAP[toValue(contentType)])
@@ -78,7 +85,7 @@ export default function useBangumiCollection(
 
 	const { data, status, error, refresh } = useFetch<BangumiApiResponse>(
 		() => {
-			return `https://api.bgm.tv/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}&tags=${tags}`
+			return `https://api.bangumi.lol/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}&tags=${tags}`
 		},
 		{
 			key: () =>

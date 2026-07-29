@@ -69,8 +69,18 @@ $spacing-md: 12px;
 $radius-md: 6px;
 
 .hotItem {
-  border-bottom: 1px solid $border-lightest;
-  padding-bottom: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .5em;
+  padding: 0.8rem 0.8rem;
+  border-radius: 0.5rem;
+  background-color: var(--c-bg-3);
+  overflow: hidden;
+  .dark & {
+    --c-bg-3: hsl(0deg 0% 60% / .1);
+  }
+  --c-bg-3: hsl(0deg 0% 100%);
 
   &:last-child {
     border-bottom: none;

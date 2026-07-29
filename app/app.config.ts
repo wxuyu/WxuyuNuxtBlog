@@ -149,6 +149,8 @@ export default defineAppConfig({
 
   hotGetConfig: {
     Api: 'https://hot-api.liiiu.cn',
+    /** 卡片布局：'grid' 竖向卡片 / 'row' 横向单列 */
+    layout: 'row' as 'grid' | 'row',
     timeout: 200,
     RefreshInterval: 5 * 60 * 1000,
   },

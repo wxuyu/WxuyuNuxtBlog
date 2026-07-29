@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { LazyPopoverMyDialog } from '#components';
+import { Icon, LazyPopoverMyDialog } from '#components';
 
 // TODO: 暂时移除 SidebarDecorImage，保留实现以备恢复
 const appConfig = useAppConfig()
@@ -121,14 +121,15 @@ watch(() => route.path, openActiveMenus, { immediate: true })
 						</UtilLink>
 					</template>
 				</li>
+				<button class="sidebar-nav-item sidebar-nav-item-parent" @click="openShare()" alt="Button-Console">
+					<Icon name="ph:swatches-bold"></Icon>
+					<span class="nav-text">音乐控制</span>
+				</button>
 			</menu>
 		</template>
 	</nav>
 
 	<footer class="sidebar-footer">
-		<ZButton @click="openShare()" alt="Button-Consle">
-			<Icon name="ph:swatches-bold" />
-		</ZButton>
 		<BlogThemeToggle alt="Input Themes Toggle" />
 		<ZIconNavList :list="appConfig.footer.iconNav" />
 	</footer>

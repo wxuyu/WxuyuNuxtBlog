@@ -1,0 +1,4223 @@
+{
+  "哔哩TV": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/doge.gif\">",
+        "text": "btv-doge"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/亲亲.gif\">",
+        "text": "btv-亲亲"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/偷笑.gif\">",
+        "text": "btv-偷笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/再见.gif\">",
+        "text": "btv-再见"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/发怒.gif\">",
+        "text": "btv-发怒"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/发财.gif\">",
+        "text": "btv-发财"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/可爱.gif\">",
+        "text": "btv-可爱"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/吐血.gif\">",
+        "text": "btv-吐血"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/呆.gif\">",
+        "text": "btv-呆"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/呕吐.gif\">",
+        "text": "btv-呕吐"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/困.gif\">",
+        "text": "btv-困"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/坏笑.gif\">",
+        "text": "btv-坏笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/大佬.gif\">",
+        "text": "btv-大佬"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/大哭.gif\">",
+        "text": "btv-大哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/委屈.gif\">",
+        "text": "btv-委屈"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/害羞.gif\">",
+        "text": "btv-害羞"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/尴尬.gif\">",
+        "text": "btv-尴尬"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/微笑.gif\">",
+        "text": "btv-微笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/思考.gif\">",
+        "text": "btv-思考"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/惊吓.gif\">",
+        "text": "btv-惊吓"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/打脸.gif\">",
+        "text": "btv-打脸"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/抓狂.gif\">",
+        "text": "btv-抓狂"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/抠鼻子.gif\">",
+        "text": "btv-抠鼻子"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/斜眼笑.gif\">",
+        "text": "btv-斜眼笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/无奈.gif\">",
+        "text": "btv-无奈"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/晕.gif\">",
+        "text": "btv-晕"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/流汗.gif\">",
+        "text": "btv-流汗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/流鼻血.gif\">",
+        "text": "btv-流鼻血"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/点赞.gif\">",
+        "text": "btv-点赞"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/生气.gif\">",
+        "text": "btv-生气"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/生病.gif\">",
+        "text": "btv-生病"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/疑问.gif\">",
+        "text": "btv-疑问"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/白眼.gif\">",
+        "text": "btv-白眼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/睡着.gif\">",
+        "text": "btv-睡着"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/笑哭.gif\">",
+        "text": "btv-笑哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/腼腆.gif\">",
+        "text": "btv-腼腆"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/色.gif\">",
+        "text": "btv-色"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/调皮.gif\">",
+        "text": "btv-调皮"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/鄙视.gif\">",
+        "text": "btv-鄙视"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/闭嘴.gif\">",
+        "text": "btv-闭嘴"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/难过.gif\">",
+        "text": "btv-难过"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/馋.gif\">",
+        "text": "btv-馋"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/黑人问号.gif\">",
+        "text": "btv-黑人问号"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/bili_tv/鼓掌.gif\">",
+        "text": "btv-鼓掌"
+      }
+    ]
+  },
+  "Blob": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ab1nzyblob2.gif\">",
+        "text": "blob-ab1nzyblob2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobangel.gif\">",
+        "text": "blob-ablobangel"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobattention.gif\">",
+        "text": "blob-ablobattention"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobattentionreverse.gif\">",
+        "text": "blob-ablobattentionreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobaww.gif\">",
+        "text": "blob-ablobaww"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobbanhammer.gif\">",
+        "text": "blob-ablobbanhammer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobbass.gif\">",
+        "text": "blob-ablobbass"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobbathtub.gif\">",
+        "text": "blob-ablobbathtub"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobblastoff.gif\">",
+        "text": "blob-ablobblastoff"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobblewobble.gif\">",
+        "text": "blob-ablobblewobble"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobbounce.gif\">",
+        "text": "blob-ablobbounce"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcaramelldansen.gif\">",
+        "text": "blob-ablobcaramelldansen"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcheer.gif\">",
+        "text": "blob-ablobcheer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcolorshift.gif\">",
+        "text": "blob-ablobcolorshift"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcongarollbounce.gif\">",
+        "text": "blob-ablobcongarollbounce"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcouncil.gif\">",
+        "text": "blob-ablobcouncil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcouple.gif\">",
+        "text": "blob-ablobcouple"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobcry.gif\">",
+        "text": "blob-ablobcry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdancer.gif\">",
+        "text": "blob-ablobdancer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobderpy.gif\">",
+        "text": "blob-ablobderpy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobderpyhappy.gif\">",
+        "text": "blob-ablobderpyhappy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdevil.gif\">",
+        "text": "blob-ablobdevil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdizzy.gif\">",
+        "text": "blob-ablobdizzy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdrool.gif\">",
+        "text": "blob-ablobdrool"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdrum.gif\">",
+        "text": "blob-ablobdrum"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobdundundun.gif\">",
+        "text": "blob-ablobdundundun"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobenjoy.gif\">",
+        "text": "blob-ablobenjoy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobenjoyrain.gif\">",
+        "text": "blob-ablobenjoyrain"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobenjoysnow.gif\">",
+        "text": "blob-ablobenjoysnow"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobeyesdown.gif\">",
+        "text": "blob-ablobeyesdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobeyesup.gif\">",
+        "text": "blob-ablobeyesup"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobflushed.gif\">",
+        "text": "blob-ablobflushed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobgift.gif\">",
+        "text": "blob-ablobgift"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobglarezoom.gif\">",
+        "text": "blob-ablobglarezoom"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobglarezoombutfast.gif\">",
+        "text": "blob-ablobglarezoombutfast"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobgoodnight.gif\">",
+        "text": "blob-ablobgoodnight"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobgoodnightreverse.gif\">",
+        "text": "blob-ablobgoodnightreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobgrimace.gif\">",
+        "text": "blob-ablobgrimace"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobgrin.gif\">",
+        "text": "blob-ablobgrin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobguitar.gif\">",
+        "text": "blob-ablobguitar"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobheadshake.gif\">",
+        "text": "blob-ablobheadshake"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhearteyes.gif\">",
+        "text": "blob-ablobhearteyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhologram.gif\">",
+        "text": "blob-ablobhologram"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhop.gif\">",
+        "text": "blob-ablobhop"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhungry.gif\">",
+        "text": "blob-ablobhungry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhydraulicpress.gif\">",
+        "text": "blob-ablobhydraulicpress"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobhype.gif\">",
+        "text": "blob-ablobhype"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobjoin.gif\">",
+        "text": "blob-ablobjoin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobjoy.gif\">",
+        "text": "blob-ablobjoy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobkeyboard.gif\">",
+        "text": "blob-ablobkeyboard"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobkiss.gif\">",
+        "text": "blob-ablobkiss"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/abloblamp.gif\">",
+        "text": "blob-abloblamp"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobleave.gif\">",
+        "text": "blob-ablobleave"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/abloblurk.gif\">",
+        "text": "blob-abloblurk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobmaracas.gif\">",
+        "text": "blob-ablobmaracas"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobmelt.gif\">",
+        "text": "blob-ablobmelt"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobmelting.gif\">",
+        "text": "blob-ablobmelting"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobmeltsoblove.gif\">",
+        "text": "blob-ablobmeltsoblove"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobmicrophone.gif\">",
+        "text": "blob-ablobmicrophone"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnervous.gif\">",
+        "text": "blob-ablobnervous"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnod.gif\">",
+        "text": "blob-ablobnod"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnogood.gif\">",
+        "text": "blob-ablobnogood"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnom.gif\">",
+        "text": "blob-ablobnom"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnomcookie.gif\">",
+        "text": "blob-ablobnomcookie"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobnwn.gif\">",
+        "text": "blob-ablobnwn"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobonfire.gif\">",
+        "text": "blob-ablobonfire"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobowo.gif\">",
+        "text": "blob-ablobowo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpainpats.gif\">",
+        "text": "blob-ablobpainpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpanic.gif\">",
+        "text": "blob-ablobpanic"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobparty.gif\">",
+        "text": "blob-ablobparty"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpats.gif\">",
+        "text": "blob-ablobpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpeek.gif\">",
+        "text": "blob-ablobpeek"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobplsnospam.gif\">",
+        "text": "blob-ablobplsnospam"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpopcorn.gif\">",
+        "text": "blob-ablobpopcorn"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpropeller.gif\">",
+        "text": "blob-ablobpropeller"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobpumpkin.gif\">",
+        "text": "blob-ablobpumpkin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobrage.gif\">",
+        "text": "blob-ablobrage"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobraisehand.gif\">",
+        "text": "blob-ablobraisehand"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobreach.gif\">",
+        "text": "blob-ablobreach"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobreachreverse.gif\">",
+        "text": "blob-ablobreachreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobrollbounce.gif\">",
+        "text": "blob-ablobrollbounce"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobrollingeyes.gif\">",
+        "text": "blob-ablobrollingeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsad.gif\">",
+        "text": "blob-ablobsad"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsadpats.gif\">",
+        "text": "blob-ablobsadpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsadrain.gif\">",
+        "text": "blob-ablobsadrain"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsalute.gif\">",
+        "text": "blob-ablobsalute"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobscream.gif\">",
+        "text": "blob-ablobscream"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobshrug.gif\">",
+        "text": "blob-ablobshrug"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsigh.gif\">",
+        "text": "blob-ablobsigh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsleep.gif\">",
+        "text": "blob-ablobsleep"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsleepy.gif\">",
+        "text": "blob-ablobsleepy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsmile.gif\">",
+        "text": "blob-ablobsmile"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsmilehappy.gif\">",
+        "text": "blob-ablobsmilehappy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsplosion.gif\">",
+        "text": "blob-ablobsplosion"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsquish.gif\">",
+        "text": "blob-ablobsquish"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobstare.gif\">",
+        "text": "blob-ablobstare"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsunglasses.gif\">",
+        "text": "blob-ablobsunglasses"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsurpriseblush.gif\">",
+        "text": "blob-ablobsurpriseblush"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsweating.gif\">",
+        "text": "blob-ablobsweating"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobsweats.gif\">",
+        "text": "blob-ablobsweats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobthinking.gif\">",
+        "text": "blob-ablobthinking"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobthinkingeyes.gif\">",
+        "text": "blob-ablobthinkingeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobthinkingfast.gif\">",
+        "text": "blob-ablobthinkingfast"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobthinkzerogravity.gif\">",
+        "text": "blob-ablobthinkzerogravity"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobtipping.gif\">",
+        "text": "blob-ablobtipping"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobtoiletflush.gif\">",
+        "text": "blob-ablobtoiletflush"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobtonguewink.gif\">",
+        "text": "blob-ablobtonguewink"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobunamused.gif\">",
+        "text": "blob-ablobunamused"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobuwu.gif\">",
+        "text": "blob-ablobuwu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwave.gif\">",
+        "text": "blob-ablobwave"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwavereverse.gif\">",
+        "text": "blob-ablobwavereverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobweary.gif\">",
+        "text": "blob-ablobweary"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwhee.gif\">",
+        "text": "blob-ablobwhee"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwhistle.gif\">",
+        "text": "blob-ablobwhistle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwink.gif\">",
+        "text": "blob-ablobwink"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwoah.gif\">",
+        "text": "blob-ablobwoah"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwoahsnow.gif\">",
+        "text": "blob-ablobwoahsnow"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwob.gif\">",
+        "text": "blob-ablobwob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwobroll.gif\">",
+        "text": "blob-ablobwobroll"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobwobwork.gif\">",
+        "text": "blob-ablobwobwork"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ablobzerogravity.gif\">",
+        "text": "blob-ablobzerogravity"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/abongoblob.gif\">",
+        "text": "blob-abongoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/acongablob.gif\">",
+        "text": "blob-acongablob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/adontfeelsoblob.gif\">",
+        "text": "blob-adontfeelsoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agoogle100.gif\">",
+        "text": "blob-agoogle100"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglebee.gif\">",
+        "text": "blob-agooglebee"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglebell.gif\">",
+        "text": "blob-agooglebell"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglebomb.gif\">",
+        "text": "blob-agooglebomb"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglebrokenheart.gif\">",
+        "text": "blob-agooglebrokenheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglecake.gif\">",
+        "text": "blob-agooglecake"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglecat.gif\">",
+        "text": "blob-agooglecat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglecheers.gif\">",
+        "text": "blob-agooglecheers"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agoogleclap.gif\">",
+        "text": "blob-agoogleclap"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglehearts.gif\">",
+        "text": "blob-agooglehearts"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglemonkey.gif\">",
+        "text": "blob-agooglemonkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agoogleoctopus.gif\">",
+        "text": "blob-agoogleoctopus"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglepeach.gif\">",
+        "text": "blob-agooglepeach"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglepoop.gif\">",
+        "text": "blob-agooglepoop"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglerainbowheart.gif\">",
+        "text": "blob-agooglerainbowheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglesnail.gif\">",
+        "text": "blob-agooglesnail"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglesun.gif\">",
+        "text": "blob-agooglesun"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agoogletada.gif\">",
+        "text": "blob-agoogletada"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglethumbsdown.gif\">",
+        "text": "blob-agooglethumbsdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglethumbsup.gif\">",
+        "text": "blob-agooglethumbsup"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agoogleturtle.gif\">",
+        "text": "blob-agoogleturtle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/agooglewine.gif\">",
+        "text": "blob-agooglewine"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ajakeblob.gif\">",
+        "text": "blob-ajakeblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/amegablobsweats.gif\">",
+        "text": "blob-amegablobsweats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/angel_monkey.png\">",
+        "text": "blob-angel_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/angry_monkey.png\">",
+        "text": "blob-angry_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/apartyblob.gif\">",
+        "text": "blob-apartyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/aphotoblob.gif\">",
+        "text": "blob-aphotoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/arainblob.gif\">",
+        "text": "blob-arainblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/athinkingwithblobs.gif\">",
+        "text": "blob-athinkingwithblobs"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/awolfiriblob.gif\">",
+        "text": "blob-awolfiriblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/b1nzyblob.png\">",
+        "text": "blob-b1nzyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/b1nzyblob2.png\">",
+        "text": "blob-b1nzyblob2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/b4nzyblob.png\">",
+        "text": "blob-b4nzyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bandit.gif\">",
+        "text": "blob-bandit"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blob.png\">",
+        "text": "blob-blob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blob0w0.png\">",
+        "text": "blob-blob0w0"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blob3c.png\">",
+        "text": "blob-blob3c"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blob3cevil.png\">",
+        "text": "blob-blob3cevil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobamused.png\">",
+        "text": "blob-blobamused"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobangel.png\">",
+        "text": "blob-blobangel"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobangery.png\">",
+        "text": "blob-blobangery"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobangry.png\">",
+        "text": "blob-blobangry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobangry2.png\">",
+        "text": "blob-blobangry2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobangrypuff.png\">",
+        "text": "blob-blobangrypuff"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobartist.png\">",
+        "text": "blob-blobartist"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobastonished.png\">",
+        "text": "blob-blobastonished"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobaviator.png\">",
+        "text": "blob-blobaviator"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobawkward.png\">",
+        "text": "blob-blobawkward"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobaww.png\">",
+        "text": "blob-blobaww"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbandage.png\">",
+        "text": "blob-blobbandage"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbanhammer.png\">",
+        "text": "blob-blobbanhammer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbathtub.png\">",
+        "text": "blob-blobbathtub"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobblush.png\">",
+        "text": "blob-blobblush"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobboost.png\">",
+        "text": "blob-blobboost"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbored.png\">",
+        "text": "blob-blobbored"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbot.png\">",
+        "text": "blob-blobbot"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbowing.png\">",
+        "text": "blob-blobbowing"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobbroken.png\">",
+        "text": "blob-blobbroken"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcamera.png\">",
+        "text": "blob-blobcamera"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcat.png\">",
+        "text": "blob-blobcat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcheeky.png\">",
+        "text": "blob-blobcheeky"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcheer.png\">",
+        "text": "blob-blobcheer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcheerful.png\">",
+        "text": "blob-blobcheerful"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcheerful2.png\">",
+        "text": "blob-blobcheerful2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobclipboard.png\">",
+        "text": "blob-blobclipboard"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcmereyou.png\">",
+        "text": "blob-blobcmereyou"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcocoa.png\">",
+        "text": "blob-blobcocoa"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcomfort.png\">",
+        "text": "blob-blobcomfort"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobconcerned.png\">",
+        "text": "blob-blobconcerned"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobconfounded.png\">",
+        "text": "blob-blobconfounded"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobconfused.png\">",
+        "text": "blob-blobconfused"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcool.png\">",
+        "text": "blob-blobcool"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcouncil.png\">",
+        "text": "blob-blobcouncil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcouple.png\">",
+        "text": "blob-blobcouple"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcowboy.png\">",
+        "text": "blob-blobcowboy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobcry.png\">",
+        "text": "blob-blobcry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdancer.png\">",
+        "text": "blob-blobdancer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdead.png\">",
+        "text": "blob-blobdead"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobderpy.png\">",
+        "text": "blob-blobderpy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobderpyhappy.png\">",
+        "text": "blob-blobderpyhappy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdetective.png\">",
+        "text": "blob-blobdetective"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdevil.png\">",
+        "text": "blob-blobdevil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdisapproval.png\">",
+        "text": "blob-blobdisapproval"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdisguise.png\">",
+        "text": "blob-blobdisguise"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdizzy.png\">",
+        "text": "blob-blobdizzy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdoctor.png\">",
+        "text": "blob-blobdoctor"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdoubt.png\">",
+        "text": "blob-blobdoubt"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdoubtful.png\">",
+        "text": "blob-blobdoubtful"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobdrool.png\">",
+        "text": "blob-blobdrool"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobeagle.png\">",
+        "text": "blob-blobeagle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobembarrassed.png\">",
+        "text": "blob-blobembarrassed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobembarrassed2.png\">",
+        "text": "blob-blobembarrassed2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobenjoy.png\">",
+        "text": "blob-blobenjoy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloberm.png\">",
+        "text": "blob-bloberm"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobexpressionless.png\">",
+        "text": "blob-blobexpressionless"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobeyes.png\">",
+        "text": "blob-blobeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobeyesdown.png\">",
+        "text": "blob-blobeyesdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobeyesup.png\">",
+        "text": "blob-blobeyesup"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfacemask.png\">",
+        "text": "blob-blobfacemask"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfacepalm.png\">",
+        "text": "blob-blobfacepalm"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfearful.png\">",
+        "text": "blob-blobfearful"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfingerguns.png\">",
+        "text": "blob-blobfingerguns"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfingerscrossed.png\">",
+        "text": "blob-blobfingerscrossed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfirefighter.png\">",
+        "text": "blob-blobfirefighter"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfistbumpL.png\">",
+        "text": "blob-blobfistbumpL"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfistbumpR.png\">",
+        "text": "blob-blobfistbumpR"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobflushed.png\">",
+        "text": "blob-blobflushed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfreezing.png\">",
+        "text": "blob-blobfreezing"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfrog.png\">",
+        "text": "blob-blobfrog"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfrown.png\">",
+        "text": "blob-blobfrown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfrowning.png\">",
+        "text": "blob-blobfrowning"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobfrowningbig.png\">",
+        "text": "blob-blobfrowningbig"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgamer.png\">",
+        "text": "blob-blobgamer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgift.png\">",
+        "text": "blob-blobgift"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgiggle.png\">",
+        "text": "blob-blobgiggle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobglare.png\">",
+        "text": "blob-blobglare"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobglarepolice.png\">",
+        "text": "blob-blobglarepolice"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobglassesdown.png\">",
+        "text": "blob-blobglassesdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgo.png\">",
+        "text": "blob-blobgo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgoat.png\">",
+        "text": "blob-blobgoat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgoodmorning.png\">",
+        "text": "blob-blobgoodmorning"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgoodmorningreverse.png\">",
+        "text": "blob-blobgoodmorningreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgoodnight.png\">",
+        "text": "blob-blobgoodnight"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgoodnightreverse.png\">",
+        "text": "blob-blobgoodnightreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgrimace.png\">",
+        "text": "blob-blobgrimace"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobgrin.png\">",
+        "text": "blob-blobgrin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhammer.png\">",
+        "text": "blob-blobhammer"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobheadphones.png\">",
+        "text": "blob-blobheadphones"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobheart.png\">",
+        "text": "blob-blobheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhearteyes.png\">",
+        "text": "blob-blobhearteyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhero.png\">",
+        "text": "blob-blobhero"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhighfive.png\">",
+        "text": "blob-blobhighfive"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhug.png\">",
+        "text": "blob-blobhug"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhug2.png\">",
+        "text": "blob-blobhug2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhuh.png\">",
+        "text": "blob-blobhuh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhushed.png\">",
+        "text": "blob-blobhushed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhyperthink.png\">",
+        "text": "blob-blobhyperthink"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhyperthinkfast.png\">",
+        "text": "blob-blobhyperthinkfast"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobhypesquad.png\">",
+        "text": "blob-blobhypesquad"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobidea.png\">",
+        "text": "blob-blobidea"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobimfine.png\">",
+        "text": "blob-blobimfine"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobinlove.png\">",
+        "text": "blob-blobinlove"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobjoy.png\">",
+        "text": "blob-blobjoy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobkiss.png\">",
+        "text": "blob-blobkiss"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobkissblush.png\">",
+        "text": "blob-blobkissblush"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobkissheart.png\">",
+        "text": "blob-blobkissheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloblamp.png\">",
+        "text": "blob-bloblamp"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloblul.png\">",
+        "text": "blob-bloblul"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmail.png\">",
+        "text": "blob-blobmail"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmaracas.png\">",
+        "text": "blob-blobmaracas"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmelt.png\">",
+        "text": "blob-blobmelt"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmeltblush.png\">",
+        "text": "blob-blobmeltblush"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmeltsob.png\">",
+        "text": "blob-blobmeltsob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmeltsoblove.png\">",
+        "text": "blob-blobmeltsoblove"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmindblown.png\">",
+        "text": "blob-blobmindblown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmlem.png\">",
+        "text": "blob-blobmlem"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmorning.png\">",
+        "text": "blob-blobmorning"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobmoustache.png\">",
+        "text": "blob-blobmoustache"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnauseated.png\">",
+        "text": "blob-blobnauseated"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnerd.png\">",
+        "text": "blob-blobnerd"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnervous.png\">",
+        "text": "blob-blobnervous"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnervous2.png\">",
+        "text": "blob-blobnervous2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobneutral.png\">",
+        "text": "blob-blobneutral"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnight.png\">",
+        "text": "blob-blobnight"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobninja.png\">",
+        "text": "blob-blobninja"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnitro.png\">",
+        "text": "blob-blobnitro"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobno.png\">",
+        "text": "blob-blobno"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnogood.png\">",
+        "text": "blob-blobnogood"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnom.png\">",
+        "text": "blob-blobnom"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomchocolate.png\">",
+        "text": "blob-blobnomchocolate"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomchristmas.png\">",
+        "text": "blob-blobnomchristmas"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomcookie.png\">",
+        "text": "blob-blobnomcookie"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomglobal1.png\">",
+        "text": "blob-blobnomglobal1"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomglobal2.png\">",
+        "text": "blob-blobnomglobal2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomglobal3.png\">",
+        "text": "blob-blobnomglobal3"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnomouth.png\">",
+        "text": "blob-blobnomouth"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnook.png\">",
+        "text": "blob-blobnook"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnostar.png\">",
+        "text": "blob-blobnostar"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnostar2.png\">",
+        "text": "blob-blobnostar2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobnwn.png\">",
+        "text": "blob-blobnwn"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobok.png\">",
+        "text": "blob-blobok"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobokhand.png\">",
+        "text": "blob-blobokhand"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobomo.png\">",
+        "text": "blob-blobomo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobonfire.png\">",
+        "text": "blob-blobonfire"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobono.png\">",
+        "text": "blob-blobono"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobooh.png\">",
+        "text": "blob-blobooh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloboohcry.png\">",
+        "text": "blob-bloboohcry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobopenmouth.png\">",
+        "text": "blob-blobopenmouth"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloboro.png\">",
+        "text": "blob-bloboro"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloboutage.png\">",
+        "text": "blob-bloboutage"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bloboverheated.png\">",
+        "text": "blob-bloboverheated"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobovo.png\">",
+        "text": "blob-blobovo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobowo.png\">",
+        "text": "blob-blobowo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobowo2.png\">",
+        "text": "blob-blobowo2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobowoevil.png\">",
+        "text": "blob-blobowoevil"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobowosquint.png\">",
+        "text": "blob-blobowosquint"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpain.png\">",
+        "text": "blob-blobpain"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpainpats.png\">",
+        "text": "blob-blobpainpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpan.png\">",
+        "text": "blob-blobpan"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpanic.png\">",
+        "text": "blob-blobpanic"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpanic2.png\">",
+        "text": "blob-blobpanic2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpartlysunny.png\">",
+        "text": "blob-blobpartlysunny"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobparty.png\">",
+        "text": "blob-blobparty"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpatrol.png\">",
+        "text": "blob-blobpatrol"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpats.png\">",
+        "text": "blob-blobpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpeek.png\">",
+        "text": "blob-blobpeek"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpensive.png\">",
+        "text": "blob-blobpensive"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpin.png\">",
+        "text": "blob-blobpin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpirate.png\">",
+        "text": "blob-blobpirate"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpleading.png\">",
+        "text": "blob-blobpleading"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpolice.png\">",
+        "text": "blob-blobpolice"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpoliceangery.png\">",
+        "text": "blob-blobpoliceangery"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpoliceangry.png\">",
+        "text": "blob-blobpoliceangry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpoll.png\">",
+        "text": "blob-blobpoll"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpopcorn.png\">",
+        "text": "blob-blobpopcorn"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpopsicle.png\">",
+        "text": "blob-blobpopsicle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpout.png\">",
+        "text": "blob-blobpout"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpout2.png\">",
+        "text": "blob-blobpout2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpray.png\">",
+        "text": "blob-blobpray"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobpumpkin.png\">",
+        "text": "blob-blobpumpkin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobrage.png\">",
+        "text": "blob-blobrage"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobrageangry.png\">",
+        "text": "blob-blobrageangry"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobreach.png\">",
+        "text": "blob-blobreach"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobreachdrool.png\">",
+        "text": "blob-blobreachdrool"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobreachfrown.png\">",
+        "text": "blob-blobreachfrown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobreachreverse.png\">",
+        "text": "blob-blobreachreverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobreachsob.png\">",
+        "text": "blob-blobreachsob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobrofl.png\">",
+        "text": "blob-blobrofl"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobrollingeyes.png\">",
+        "text": "blob-blobrollingeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobross.png\">",
+        "text": "blob-blobross"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsad.png\">",
+        "text": "blob-blobsad"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsadpats.png\">",
+        "text": "blob-blobsadpats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsadrain.png\">",
+        "text": "blob-blobsadrain"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsalute.png\">",
+        "text": "blob-blobsalute"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsanta.png\">",
+        "text": "blob-blobsanta"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobscarf.png\">",
+        "text": "blob-blobscarf"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobscream.png\">",
+        "text": "blob-blobscream"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsecret.png\">",
+        "text": "blob-blobsecret"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobshh.png\">",
+        "text": "blob-blobshh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobshrug.png\">",
+        "text": "blob-blobshrug"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsick.png\">",
+        "text": "blob-blobsick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsign.png\">",
+        "text": "blob-blobsign"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignaf.png\">",
+        "text": "blob-blobsignaf"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignaye.png\">",
+        "text": "blob-blobsignaye"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignbai.png\">",
+        "text": "blob-blobsignbai"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignbb.png\">",
+        "text": "blob-blobsignbb"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignbrb.png\">",
+        "text": "blob-blobsignbrb"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignbye.png\">",
+        "text": "blob-blobsignbye"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsigncya.png\">",
+        "text": "blob-blobsigncya"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignf.png\">",
+        "text": "blob-blobsignf"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignfml.png\">",
+        "text": "blob-blobsignfml"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsigngg.png\">",
+        "text": "blob-blobsigngg"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsigngtg.png\">",
+        "text": "blob-blobsigngtg"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignhah.png\">",
+        "text": "blob-blobsignhah"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignhey.png\">",
+        "text": "blob-blobsignhey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignhmm.png\">",
+        "text": "blob-blobsignhmm"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignhmu.png\">",
+        "text": "blob-blobsignhmu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignhru.png\">",
+        "text": "blob-blobsignhru"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignidc.png\">",
+        "text": "blob-blobsignidc"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignidk.png\">",
+        "text": "blob-blobsignidk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignily.png\">",
+        "text": "blob-blobsignily"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignkk.png\">",
+        "text": "blob-blobsignkk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignl.png\">",
+        "text": "blob-blobsignl"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignlel.png\">",
+        "text": "blob-blobsignlel"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignlit.png\">",
+        "text": "blob-blobsignlit"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignlmao.png\">",
+        "text": "blob-blobsignlmao"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignlol.png\">",
+        "text": "blob-blobsignlol"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignlul.png\">",
+        "text": "blob-blobsignlul"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignnice.png\">",
+        "text": "blob-blobsignnice"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignno.png\">",
+        "text": "blob-blobsignno"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignnobully.png\">",
+        "text": "blob-blobsignnobully"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignnou.png\">",
+        "text": "blob-blobsignnou"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignofc.png\">",
+        "text": "blob-blobsignofc"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignok.png\">",
+        "text": "blob-blobsignok"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignomg.png\">",
+        "text": "blob-blobsignomg"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignoof.png\">",
+        "text": "blob-blobsignoof"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignpls.png\">",
+        "text": "blob-blobsignpls"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignrip.png\">",
+        "text": "blob-blobsignrip"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignsmh.png\">",
+        "text": "blob-blobsignsmh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsigntho.png\">",
+        "text": "blob-blobsigntho"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignthx.png\">",
+        "text": "blob-blobsignthx"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignty.png\">",
+        "text": "blob-blobsignty"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignugh.png\">",
+        "text": "blob-blobsignugh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignwait.png\">",
+        "text": "blob-blobsignwait"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignwhat.png\">",
+        "text": "blob-blobsignwhat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignwhy.png\">",
+        "text": "blob-blobsignwhy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignwot.png\">",
+        "text": "blob-blobsignwot"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignwtf.png\">",
+        "text": "blob-blobsignwtf"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignyay.png\">",
+        "text": "blob-blobsignyay"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignyes.png\">",
+        "text": "blob-blobsignyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsignyo.png\">",
+        "text": "blob-blobsignyo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsip.png\">",
+        "text": "blob-blobsip"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsleeping.png\">",
+        "text": "blob-blobsleeping"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsleepless.png\">",
+        "text": "blob-blobsleepless"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobslightsmile.png\">",
+        "text": "blob-blobslightsmile"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmile.png\">",
+        "text": "blob-blobsmile"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmilehappy.png\">",
+        "text": "blob-blobsmilehappy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmilehappyeyes.png\">",
+        "text": "blob-blobsmilehappyeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmileopenmouth.png\">",
+        "text": "blob-blobsmileopenmouth"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmileopenmouth2.png\">",
+        "text": "blob-blobsmileopenmouth2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmilesweat.png\">",
+        "text": "blob-blobsmilesweat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmilesweat2.png\">",
+        "text": "blob-blobsmilesweat2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmiletear.png\">",
+        "text": "blob-blobsmiletear"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmiley.png\">",
+        "text": "blob-blobsmiley"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsmirk.png\">",
+        "text": "blob-blobsmirk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsneezing.png\">",
+        "text": "blob-blobsneezing"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsnuggle.png\">",
+        "text": "blob-blobsnuggle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsob.png\">",
+        "text": "blob-blobsob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsobglasses.png\">",
+        "text": "blob-blobsobglasses"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobspam.png\">",
+        "text": "blob-blobspam"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsplosion.png\">",
+        "text": "blob-blobsplosion"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobspy.png\">",
+        "text": "blob-blobspy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsquee.png\">",
+        "text": "blob-blobsquee"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobstare.png\">",
+        "text": "blob-blobstare"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobstarstruck.png\">",
+        "text": "blob-blobstarstruck"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobstop.png\">",
+        "text": "blob-blobstop"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobstudent.png\">",
+        "text": "blob-blobstudent"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsunglasses.png\">",
+        "text": "blob-blobsunglasses"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsurprised.png\">",
+        "text": "blob-blobsurprised"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsweats.png\">",
+        "text": "blob-blobsweats"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobsweatsweary.png\">",
+        "text": "blob-blobsweatsweary"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobteefs.png\">",
+        "text": "blob-blobteefs"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthanks.png\">",
+        "text": "blob-blobthanks"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthief.png\">",
+        "text": "blob-blobthief"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinking.png\">",
+        "text": "blob-blobthinking"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingcool.png\">",
+        "text": "blob-blobthinkingcool"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingdown.png\">",
+        "text": "blob-blobthinkingdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingeyes.png\">",
+        "text": "blob-blobthinkingeyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingfast.png\">",
+        "text": "blob-blobthinkingfast"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingglare.png\">",
+        "text": "blob-blobthinkingglare"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinkingsmirk.png\">",
+        "text": "blob-blobthinkingsmirk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthinksmart.png\">",
+        "text": "blob-blobthinksmart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthis.png\">",
+        "text": "blob-blobthis"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthonkang.png\">",
+        "text": "blob-blobthonkang"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthumbsdown.png\">",
+        "text": "blob-blobthumbsdown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthumbsup.png\">",
+        "text": "blob-blobthumbsup"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobthump.png\">",
+        "text": "blob-blobthump"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtilt.png\">",
+        "text": "blob-blobtilt"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtired.png\">",
+        "text": "blob-blobtired"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtongue.png\">",
+        "text": "blob-blobtongue"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtonguewink.png\">",
+        "text": "blob-blobtonguewink"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtorch.png\">",
+        "text": "blob-blobtorch"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtriumph.png\">",
+        "text": "blob-blobtriumph"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobtriumph2.png\">",
+        "text": "blob-blobtriumph2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobugh.png\">",
+        "text": "blob-blobugh"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobunamused.png\">",
+        "text": "blob-blobunamused"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobunsure.png\">",
+        "text": "blob-blobunsure"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobupset.png\">",
+        "text": "blob-blobupset"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobupsidedown.png\">",
+        "text": "blob-blobupsidedown"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobuwu.png\">",
+        "text": "blob-blobuwu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobvomiting.png\">",
+        "text": "blob-blobvomiting"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwaitwhat.png\">",
+        "text": "blob-blobwaitwhat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwave.png\">",
+        "text": "blob-blobwave"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwavereverse.png\">",
+        "text": "blob-blobwavereverse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobweary.png\">",
+        "text": "blob-blobweary"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwhistle.png\">",
+        "text": "blob-blobwhistle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwink.png\">",
+        "text": "blob-blobwink"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwitch.png\">",
+        "text": "blob-blobwitch"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwizard.png\">",
+        "text": "blob-blobwizard"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwoah.png\">",
+        "text": "blob-blobwoah"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwob.png\">",
+        "text": "blob-blobwob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwooloo.png\">",
+        "text": "blob-blobwooloo"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobwoozy.png\">",
+        "text": "blob-blobwoozy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobworker.png\">",
+        "text": "blob-blobworker"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobworried.png\">",
+        "text": "blob-blobworried"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobxd.png\">",
+        "text": "blob-blobxd"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobyawn.png\">",
+        "text": "blob-blobyawn"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobyes.png\">",
+        "text": "blob-blobyes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobyikes.png\">",
+        "text": "blob-blobyikes"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobyum.png\">",
+        "text": "blob-blobyum"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blobzippermouth.png\">",
+        "text": "blob-blobzippermouth"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/blushed_monkey.png\">",
+        "text": "blob-blushed_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bolb.png\">",
+        "text": "blob-bolb"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bombgif.gif\">",
+        "text": "blob-bombgif"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/bowtie.png\">",
+        "text": "blob-bowtie"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/canada_poggers.png\">",
+        "text": "blob-canada_poggers"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/cat_monkey.png\">",
+        "text": "blob-cat_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/comfyblob.png\">",
+        "text": "blob-comfyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/confused_monkey.png\">",
+        "text": "blob-confused_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/cubimal_chick.png\">",
+        "text": "blob-cubimal_chick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/cute_monkey.png\">",
+        "text": "blob-cute_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/dizzy_monkey.png\">",
+        "text": "blob-dizzy_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/doggoblob.png\">",
+        "text": "blob-doggoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/double_monkey.png\">",
+        "text": "blob-double_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/dusty_stick.png\">",
+        "text": "blob-dusty_stick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/dying_Inside.png\">",
+        "text": "blob-dying_Inside"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/fatpepe.png\">",
+        "text": "blob-fatpepe"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/feeling_hot_monkey.png\">",
+        "text": "blob-feeling_hot_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/feelsblobman.png\">",
+        "text": "blob-feelsblobman"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ferretblob.png\">",
+        "text": "blob-ferretblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/festivepepe.png\">",
+        "text": "blob-festivepepe"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/gentleblob.png\">",
+        "text": "blob-gentleblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/ghost_monkey.png\">",
+        "text": "blob-ghost_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/glitch_crab.png\">",
+        "text": "blob-glitch_crab"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlebear.png\">",
+        "text": "blob-googlebear"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlebee.png\">",
+        "text": "blob-googlebee"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlebird.png\">",
+        "text": "blob-googlebird"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleblueheart.png\">",
+        "text": "blob-googleblueheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecake.png\">",
+        "text": "blob-googlecake"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecat.png\">",
+        "text": "blob-googlecat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecatface.png\">",
+        "text": "blob-googlecatface"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecatheart.png\">",
+        "text": "blob-googlecatheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlechick.png\">",
+        "text": "blob-googlechick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlechicken.png\">",
+        "text": "blob-googlechicken"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecow.png\">",
+        "text": "blob-googlecow"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlecrab.png\">",
+        "text": "blob-googlecrab"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googledog.png\">",
+        "text": "blob-googledog"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googledove.png\">",
+        "text": "blob-googledove"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleduck.png\">",
+        "text": "blob-googleduck"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleeagle.png\">",
+        "text": "blob-googleeagle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlefire.png\">",
+        "text": "blob-googlefire"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlefox.png\">",
+        "text": "blob-googlefox"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleghost.png\">",
+        "text": "blob-googleghost"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlegoat.png\">",
+        "text": "blob-googlegoat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlegun.png\">",
+        "text": "blob-googlegun"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleicecream.png\">",
+        "text": "blob-googleicecream"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlekoala.png\">",
+        "text": "blob-googlekoala"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlelion.png\">",
+        "text": "blob-googlelion"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlemouse.png\">",
+        "text": "blob-googlemouse"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlemuscleL.png\">",
+        "text": "blob-googlemuscleL"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlemuscleR.png\">",
+        "text": "blob-googlemuscleR"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleoctopus.png\">",
+        "text": "blob-googleoctopus"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlepenguin.png\">",
+        "text": "blob-googlepenguin"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlepig.png\">",
+        "text": "blob-googlepig"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlepizza.png\">",
+        "text": "blob-googlepizza"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlerabbit.png\">",
+        "text": "blob-googlerabbit"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlerat.png\">",
+        "text": "blob-googlerat"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleredheart.png\">",
+        "text": "blob-googleredheart"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlesheep.png\">",
+        "text": "blob-googlesheep"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlesnail.png\">",
+        "text": "blob-googlesnail"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlesnake.png\">",
+        "text": "blob-googlesnake"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlesquirrel.png\">",
+        "text": "blob-googlesquirrel"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googleturtle.png\">",
+        "text": "blob-googleturtle"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/googlewhale.png\">",
+        "text": "blob-googlewhale"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/grab.png\">",
+        "text": "blob-grab"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/grabbed.png\">",
+        "text": "blob-grabbed"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/greentick.png\">",
+        "text": "blob-greentick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/heart_monkey.png\">",
+        "text": "blob-heart_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/imp_monkey.png\">",
+        "text": "blob-imp_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/jakeblob.png\">",
+        "text": "blob-jakeblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/joy_monkey.png\">",
+        "text": "blob-joy_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/kirblob.png\">",
+        "text": "blob-kirblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/kirbyblob.png\">",
+        "text": "blob-kirbyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/kiss_monkey.png\">",
+        "text": "blob-kiss_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/love_monkey.png\">",
+        "text": "blob-love_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/masked_monkey.png\">",
+        "text": "blob-masked_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/mind_blown_monkey.png\">",
+        "text": "blob-mind_blown_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/monkaHmm.png\">",
+        "text": "blob-monkaHmm"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/nellyblob.png\">",
+        "text": "blob-nellyblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/nikoblob.png\">",
+        "text": "blob-nikoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/notlikeblob.png\">",
+        "text": "blob-notlikeblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pandablob.png\">",
+        "text": "blob-pandablob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/peeporub.gif\">",
+        "text": "blob-peeporub"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pensive_monkey.png\">",
+        "text": "blob-pensive_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pepeEZ.png\">",
+        "text": "blob-pepeEZ"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pepega.png\">",
+        "text": "blob-pepega"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pepeOK.png\">",
+        "text": "blob-pepeOK"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pepereee.png\">",
+        "text": "blob-pepereee"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/photoblob.png\">",
+        "text": "blob-photoblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/piggy.png\">",
+        "text": "blob-piggy"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pikablob.png\">",
+        "text": "blob-pikablob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/Pikadance.gif\">",
+        "text": "blob-Pikadance"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/poggers.png\">",
+        "text": "blob-poggers"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pumpkin_monkey.png\">",
+        "text": "blob-pumpkin_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/pusheenblob.png\">",
+        "text": "blob-pusheenblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/rainblob.png\">",
+        "text": "blob-rainblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/redtick.png\">",
+        "text": "blob-redtick"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/reindeerblob.png\">",
+        "text": "blob-reindeerblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/rickblob.png\">",
+        "text": "blob-rickblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/rolling_eye_monkey.png\">",
+        "text": "blob-rolling_eye_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/screaming_ghost.png\">",
+        "text": "blob-screaming_ghost"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/screaming_monkey.png\">",
+        "text": "blob-screaming_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/smiley_monkey.png\">",
+        "text": "blob-smiley_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/smiling_imp_monkey.png\">",
+        "text": "blob-smiling_imp_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/squirrel.png\">",
+        "text": "blob-squirrel"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/stupid_monkey.png\">",
+        "text": "blob-stupid_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/superblob.png\">",
+        "text": "blob-superblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/thinkingwithblobs.png\">",
+        "text": "blob-thinkingwithblobs"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/thinking_monkey.png\">",
+        "text": "blob-thinking_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/thonk.png\">",
+        "text": "blob-thonk"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/thumbsup_all.gif\">",
+        "text": "blob-thumbsup_all"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/tired_monkey.png\">",
+        "text": "blob-tired_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/triumphant_monkey.png\">",
+        "text": "blob-triumphant_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/unamused_monkey.png\">",
+        "text": "blob-unamused_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/vomit_monkey.png\">",
+        "text": "blob-vomit_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/wolfiriblob.png\">",
+        "text": "blob-wolfiriblob"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/worried_monkey.png\">",
+        "text": "blob-worried_monkey"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/blob/wumpusblob.png\">",
+        "text": "blob-wumpusblob"
+      }
+    ]
+  },
+  "<img src=\"https://owosource.s3.bitiful.net/heo/害羞.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"Heo\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/3d眼镜.png\">",
+        "text": "heo-3d眼镜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/beluga.png\">",
+        "text": "heo-beluga"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/EDG.png\">",
+        "text": "heo-EDG"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/LPL.png\">",
+        "text": "heo-LPL"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/不好意思.png\">",
+        "text": "heo-不好意思"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/不服吗.png\">",
+        "text": "heo-不服吗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/亲亲.png\">",
+        "text": "heo-亲亲"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/伞兵.png\">",
+        "text": "heo-伞兵"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/倚墙笑.png\">",
+        "text": "heo-倚墙笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/值得肯定.png\">",
+        "text": "heo-值得肯定"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/偷偷看.png\">",
+        "text": "heo-偷偷看"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/傻笑.png\">",
+        "text": "heo-傻笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/再见.png\">",
+        "text": "heo-再见"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/出家人.png\">",
+        "text": "heo-出家人"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/击剑.png\">",
+        "text": "heo-击剑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/加班.png\">",
+        "text": "heo-加班"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/勉强笑.png\">",
+        "text": "heo-勉强笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/危险.png\">",
+        "text": "heo-危险"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/发红包.png\">",
+        "text": "heo-发红包"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/吃手.png\">",
+        "text": "heo-吃手"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/吃瓜.png\">",
+        "text": "heo-吃瓜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/吐血.png\">",
+        "text": "heo-吐血"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/吵架.png\">",
+        "text": "heo-吵架"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/呦吼.png\">",
+        "text": "heo-呦吼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/呲牙笑.png\">",
+        "text": "heo-呲牙笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/哈士奇.png\">",
+        "text": "heo-哈士奇"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/哈士奇失去意识.png\">",
+        "text": "heo-哈士奇失去意识"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/哈士奇失望.png\">",
+        "text": "heo-哈士奇失望"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/哭泣.png\">",
+        "text": "heo-哭泣"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/唱歌.png\">",
+        "text": "heo-唱歌"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/喜欢.png\">",
+        "text": "heo-喜欢"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/嘿哈.png\">",
+        "text": "heo-嘿哈"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/大笑.png\">",
+        "text": "heo-大笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/失去信号.png\">",
+        "text": "heo-失去信号"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/失望.png\">",
+        "text": "heo-失望"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/头秃.png\">",
+        "text": "heo-头秃"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/奋斗.png\">",
+        "text": "heo-奋斗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/好奇.png\">",
+        "text": "heo-好奇"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/好的.png\">",
+        "text": "heo-好的"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/害羞.png\">",
+        "text": "heo-害羞"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/小丑.png\">",
+        "text": "heo-小丑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/小偷.png\">",
+        "text": "heo-小偷"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/尬笑.png\">",
+        "text": "heo-尬笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/尴尬.png\">",
+        "text": "heo-尴尬"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/应援.png\">",
+        "text": "heo-应援"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/开心.png\">",
+        "text": "heo-开心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/引起不适.png\">",
+        "text": "heo-引起不适"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/微笑.png\">",
+        "text": "heo-微笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/思考.png\">",
+        "text": "heo-思考"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/恶心.png\">",
+        "text": "heo-恶心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/恶魔.png\">",
+        "text": "heo-恶魔"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/恶魔恐惧.png\">",
+        "text": "heo-恶魔恐惧"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/惊吓.png\">",
+        "text": "heo-惊吓"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/惊吓白眼.png\">",
+        "text": "heo-惊吓白眼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/惊讶.png\">",
+        "text": "heo-惊讶"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/惬意.png\">",
+        "text": "heo-惬意"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/感动.png\">",
+        "text": "heo-感动"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/愤怒.png\">",
+        "text": "heo-愤怒"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/我看好你.png\">",
+        "text": "heo-我看好你"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/手机相机.png\">",
+        "text": "heo-手机相机"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/打咩.png\">",
+        "text": "heo-打咩"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/打牌.png\">",
+        "text": "heo-打牌"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/托腮.png\">",
+        "text": "heo-托腮"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/扶额.png\">",
+        "text": "heo-扶额"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/抠鼻.png\">",
+        "text": "heo-抠鼻"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/抬眼镜.png\">",
+        "text": "heo-抬眼镜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/拜托.png\">",
+        "text": "heo-拜托"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/捂嘴笑.png\">",
+        "text": "heo-捂嘴笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/捂脸.png\">",
+        "text": "heo-捂脸"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/擦汗.png\">",
+        "text": "heo-擦汗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/放鞭炮.png\">",
+        "text": "heo-放鞭炮"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/敬礼.png\">",
+        "text": "heo-敬礼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/整理发型.png\">",
+        "text": "heo-整理发型"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/斗鸡眼.png\">",
+        "text": "heo-斗鸡眼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/智慧的眼神.png\">",
+        "text": "heo-智慧的眼神"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/月饼.png\">",
+        "text": "heo-月饼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/有没有搞错.png\">",
+        "text": "heo-有没有搞错"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/正确.png\">",
+        "text": "heo-正确"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/没招.png\">",
+        "text": "heo-没招"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/波吉.png\">",
+        "text": "heo-波吉"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/泪奔.png\">",
+        "text": "heo-泪奔"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/流汗微笑.png\">",
+        "text": "heo-流汗微笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/流鼻涕.png\">",
+        "text": "heo-流鼻涕"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/深思.png\">",
+        "text": "heo-深思"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽.png\">",
+        "text": "heo-滑稽"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽吃瓜.png\">",
+        "text": "heo-滑稽吃瓜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽喝水.png\">",
+        "text": "heo-滑稽喝水"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽奶茶.png\">",
+        "text": "heo-滑稽奶茶"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽柠檬.png\">",
+        "text": "heo-滑稽柠檬"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽狂汗.png\">",
+        "text": "heo-滑稽狂汗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/滑稽被子.png\">",
+        "text": "heo-滑稽被子"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/烦恼.png\">",
+        "text": "heo-烦恼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊熊.png\">",
+        "text": "heo-熊熊"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊猫.png\">",
+        "text": "heo-熊猫"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊猫唱歌.png\">",
+        "text": "heo-熊猫唱歌"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊猫喜欢.png\">",
+        "text": "heo-熊猫喜欢"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊猫失望.png\">",
+        "text": "heo-熊猫失望"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熊猫意外.png\">",
+        "text": "heo-熊猫意外"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/熬夜.png\">",
+        "text": "heo-熬夜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/爆炸.png\">",
+        "text": "heo-爆炸"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/牛年进宝.png\">",
+        "text": "heo-牛年进宝"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狂热.png\">",
+        "text": "heo-狂热"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头.png\">",
+        "text": "heo-狗头"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头围脖.png\">",
+        "text": "heo-狗头围脖"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头失望.png\">",
+        "text": "heo-狗头失望"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头意外.png\">",
+        "text": "heo-狗头意外"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头胖次.png\">",
+        "text": "heo-狗头胖次"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头花.png\">",
+        "text": "heo-狗头花"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/狗头草.png\">",
+        "text": "heo-狗头草"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/猪头.png\">",
+        "text": "heo-猪头"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/猪头意外.png\">",
+        "text": "heo-猪头意外"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/生病.png\">",
+        "text": "heo-生病"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/电话.png\">",
+        "text": "heo-电话"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/疑问.png\">",
+        "text": "heo-疑问"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/疼痛.png\">",
+        "text": "heo-疼痛"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/痛哭.png\">",
+        "text": "heo-痛哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/看穿一切.png\">",
+        "text": "heo-看穿一切"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/眩晕.png\">",
+        "text": "heo-眩晕"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/睡觉.png\">",
+        "text": "heo-睡觉"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/禁言.png\">",
+        "text": "heo-禁言"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/笑哭.png\">",
+        "text": "heo-笑哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/纠结.png\">",
+        "text": "heo-纠结"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/绿帽.png\">",
+        "text": "heo-绿帽"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/缺牙笑.png\">",
+        "text": "heo-缺牙笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/翻白眼.png\">",
+        "text": "heo-翻白眼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/老虎意外.png\">",
+        "text": "heo-老虎意外"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/耍酷.png\">",
+        "text": "heo-耍酷"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/胡子.png\">",
+        "text": "heo-胡子"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/菜狗.png\">",
+        "text": "heo-菜狗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/菜狗花.png\">",
+        "text": "heo-菜狗花"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/蒙面滑稽.png\">",
+        "text": "heo-蒙面滑稽"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/虎年进宝.png\">",
+        "text": "heo-虎年进宝"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/被打.png\">",
+        "text": "heo-被打"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/裂开.png\">",
+        "text": "heo-裂开"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/警告.png\">",
+        "text": "heo-警告"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/读书.png\">",
+        "text": "heo-读书"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/财神红包.png\">",
+        "text": "heo-财神红包"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/超爱.png\">",
+        "text": "heo-超爱"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/这是啥.png\">",
+        "text": "heo-这是啥"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/送福.png\">",
+        "text": "heo-送福"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/送花.png\">",
+        "text": "heo-送花"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/错误.png\">",
+        "text": "heo-错误"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/阴险.png\">",
+        "text": "heo-阴险"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/难以置信.png\">",
+        "text": "heo-难以置信"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/面具.png\">",
+        "text": "heo-面具"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/饥渴.png\">",
+        "text": "heo-饥渴"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/鬼脸.png\">",
+        "text": "heo-鬼脸"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/黑线.png\">",
+        "text": "heo-黑线"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/heo/鼓掌.png\">",
+        "text": "heo-鼓掌"
+      }
+    ]
+  },
+  "<img src=\"https://owosource.s3.bitiful.net/huyao/比心.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"Heo\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/不明嚼栗.png\">",
+        "text": "huyao-不明嚼栗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/伐开心.png\">",
+        "text": "huyao-伐开心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/前排.png\">",
+        "text": "huyao-前排"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/吃我安利.png\">",
+        "text": "huyao-吃我安利"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/吃药.png\">",
+        "text": "huyao-吃药"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/哭.png\">",
+        "text": "huyao-哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/大笑.png\">",
+        "text": "huyao-大笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/比心.png\">",
+        "text": "huyao-比心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/沙发.png\">",
+        "text": "huyao-沙发"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/huyao/脸红.png\">",
+        "text": "huyao-脸红"
+      }
+    ]
+  },
+  "酷币": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/1.png\">",
+        "text": "kcoin-1"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/10.png\">",
+        "text": "kcoin-10"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/11.png\">",
+        "text": "kcoin-11"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/12.png\">",
+        "text": "kcoin-12"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/13.png\">",
+        "text": "kcoin-13"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/14.png\">",
+        "text": "kcoin-14"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/15.png\">",
+        "text": "kcoin-15"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/16.png\">",
+        "text": "kcoin-16"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/17.png\">",
+        "text": "kcoin-17"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/18.png\">",
+        "text": "kcoin-18"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/19.png\">",
+        "text": "kcoin-19"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/2.png\">",
+        "text": "kcoin-2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/20.png\">",
+        "text": "kcoin-20"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/21.png\">",
+        "text": "kcoin-21"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/22.png\">",
+        "text": "kcoin-22"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/23.png\">",
+        "text": "kcoin-23"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/24.png\">",
+        "text": "kcoin-24"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/25.png\">",
+        "text": "kcoin-25"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/26.png\">",
+        "text": "kcoin-26"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/27.png\">",
+        "text": "kcoin-27"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/28.png\">",
+        "text": "kcoin-28"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/29.png\">",
+        "text": "kcoin-29"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/3.png\">",
+        "text": "kcoin-3"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/30.png\">",
+        "text": "kcoin-30"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/31.png\">",
+        "text": "kcoin-31"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/32.png\">",
+        "text": "kcoin-32"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/33.png\">",
+        "text": "kcoin-33"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/34.png\">",
+        "text": "kcoin-34"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/35.png\">",
+        "text": "kcoin-35"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/36.png\">",
+        "text": "kcoin-36"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/37.png\">",
+        "text": "kcoin-37"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/38.png\">",
+        "text": "kcoin-38"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/4.png\">",
+        "text": "kcoin-4"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/5.png\">",
+        "text": "kcoin-5"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/6.png\">",
+        "text": "kcoin-6"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/7.png\">",
+        "text": "kcoin-7"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/8.png\">",
+        "text": "kcoin-8"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/9.png\">",
+        "text": "kcoin-9"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/coolb1.png\">",
+        "text": "kcoin-coolb1"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/coolb2.png\">",
+        "text": "kcoin-coolb2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/coolb3.png\">",
+        "text": "kcoin-coolb3"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/lvbi.png\">",
+        "text": "kcoin-lvbi"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/kcoin/yinbi.png\">",
+        "text": "kcoin-yinbi"
+      }
+    ]
+  },
+  "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/1.gif\" style=\"width: 30px;top: 4px;position: relative;\" title=\"Setphen樽\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/1.gif\">",
+        "text": "Setphen樽-1"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/10.gif\">",
+        "text": "Setphen樽-10"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/11.gif\">",
+        "text": "Setphen樽-11"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/12.gif\">",
+        "text": "Setphen樽-12"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/13.gif\">",
+        "text": "Setphen樽-13"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/14.gif\">",
+        "text": "Setphen樽-14"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/15.gif\">",
+        "text": "Setphen樽-15"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/16.gif\">",
+        "text": "Setphen樽-16"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/17.gif\">",
+        "text": "Setphen樽-17"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/18.gif\">",
+        "text": "Setphen樽-18"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/19.gif\">",
+        "text": "Setphen樽-19"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/2.gif\">",
+        "text": "Setphen樽-2"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/20.gif\">",
+        "text": "Setphen樽-20"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/21.gif\">",
+        "text": "Setphen樽-21"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/22.gif\">",
+        "text": "Setphen樽-22"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/23.gif\">",
+        "text": "Setphen樽-23"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/24.gif\">",
+        "text": "Setphen樽-24"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/25.gif\">",
+        "text": "Setphen樽-25"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/26.gif\">",
+        "text": "Setphen樽-26"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/27.gif\">",
+        "text": "Setphen樽-27"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/28.gif\">",
+        "text": "Setphen樽-28"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/29.gif\">",
+        "text": "Setphen樽-29"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/3.gif\">",
+        "text": "Setphen樽-3"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/30.gif\">",
+        "text": "Setphen樽-30"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/31.gif\">",
+        "text": "Setphen樽-31"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/32.gif\">",
+        "text": "Setphen樽-32"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/33.gif\">",
+        "text": "Setphen樽-33"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/34.gif\">",
+        "text": "Setphen樽-34"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/35.gif\">",
+        "text": "Setphen樽-35"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/36.gif\">",
+        "text": "Setphen樽-36"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/37.gif\">",
+        "text": "Setphen樽-37"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/38.gif\">",
+        "text": "Setphen樽-38"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/39.gif\">",
+        "text": "Setphen樽-39"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/4.gif\">",
+        "text": "Setphen樽-4"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/40.gif\">",
+        "text": "Setphen樽-40"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/41.gif\">",
+        "text": "Setphen樽-41"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/42.gif\">",
+        "text": "Setphen樽-42"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/43.gif\">",
+        "text": "Setphen樽-43"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/44.gif\">",
+        "text": "Setphen樽-44"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/45.gif\">",
+        "text": "Setphen樽-45"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/46.gif\">",
+        "text": "Setphen樽-46"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/47.gif\">",
+        "text": "Setphen樽-47"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/48.gif\">",
+        "text": "Setphen樽-48"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/49.gif\">",
+        "text": "Setphen樽-49"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/5.gif\">",
+        "text": "Setphen樽-5"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/50.gif\">",
+        "text": "Setphen樽-50"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/51.gif\">",
+        "text": "Setphen樽-51"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/52.gif\">",
+        "text": "Setphen樽-52"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/53.gif\">",
+        "text": "Setphen樽-53"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/54.gif\">",
+        "text": "Setphen樽-54"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/55.gif\">",
+        "text": "Setphen樽-55"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/56.gif\">",
+        "text": "Setphen樽-56"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/57.gif\">",
+        "text": "Setphen樽-57"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/58.gif\">",
+        "text": "Setphen樽-58"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/59.gif\">",
+        "text": "Setphen樽-59"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/6.gif\">",
+        "text": "Setphen樽-6"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/60.gif\">",
+        "text": "Setphen樽-60"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/61.gif\">",
+        "text": "Setphen樽-61"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/62.gif\">",
+        "text": "Setphen樽-62"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/63.gif\">",
+        "text": "Setphen樽-63"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/64.gif\">",
+        "text": "Setphen樽-64"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/65.gif\">",
+        "text": "Setphen樽-65"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/7.gif\">",
+        "text": "Setphen樽-7"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/8.gif\">",
+        "text": "Setphen樽-8"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/Setphen樽/9.gif\">",
+        "text": "Setphen樽-9"
+      }
+    ]
+  },
+  "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/被摸头.gif\" style=\"width: 30px;top: 4px;position: relative;\" title=\"Setphen樽\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/不OK.gif\">",
+        "text": "大傻椿-不OK"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/吃瓜.gif\">",
+        "text": "大傻椿-吃瓜"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/墙探头.gif\">",
+        "text": "大傻椿-墙探头"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/失魂.gif\">",
+        "text": "大傻椿-失魂"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/很OK.gif\">",
+        "text": "大傻椿-很OK"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/抓住.gif\">",
+        "text": "大傻椿-抓住"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/捂嘴笑.gif\">",
+        "text": "大傻椿-捂嘴笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/捏脸.gif\">",
+        "text": "大傻椿-捏脸"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/探头.gif\">",
+        "text": "大傻椿-探头"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/摇人.gif\">",
+        "text": "大傻椿-摇人"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/支持飞行雪绒.gif\">",
+        "text": "大傻椿-支持飞行雪绒"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/期待.gif\">",
+        "text": "大傻椿-期待"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/欧啦欧啦.gif\">",
+        "text": "大傻椿-欧啦欧啦"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/比心.gif\">",
+        "text": "大傻椿-比心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/气愤.gif\">",
+        "text": "大傻椿-气愤"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/求盛饭.gif\">",
+        "text": "大傻椿-求盛饭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/献花.gif\">",
+        "text": "大傻椿-献花"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/睡觉中.gif\">",
+        "text": "大傻椿-睡觉中"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/脑袋过载.gif\">",
+        "text": "大傻椿-脑袋过载"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/脸红.gif\">",
+        "text": "大傻椿-脸红"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/舔屏.gif\">",
+        "text": "大傻椿-舔屏"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/被摸头.gif\">",
+        "text": "大傻椿-被摸头"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/记录.gif\">",
+        "text": "大傻椿-记录"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/蹭黑猫.gif\">",
+        "text": "大傻椿-蹭黑猫"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/WutheringWaves/AMS/大傻椿/静音.gif\">",
+        "text": "大傻椿-静音"
+      }
+    ]
+  },
+  
+  "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/color.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"二重螺旋1\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/color.png\">",
+        "text": "第1弹-color"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/乐.png\">",
+        "text": "第1弹-乐"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/你说.png\">",
+        "text": "第1弹-你说"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/加油.png\">",
+        "text": "第1弹-加油"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/吓.png\">",
+        "text": "第1弹-吓"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/哭哭.png\">",
+        "text": "第1弹-哭哭"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/哼.png\">",
+        "text": "第1弹-哼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/在吗.png\">",
+        "text": "第1弹-在吗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/想.png\">",
+        "text": "第1弹-想"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/无语.png\">",
+        "text": "第1弹-无语"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/汗.png\">",
+        "text": "第1弹-汗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/看戏.png\">",
+        "text": "第1弹-看戏"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/行.png\">",
+        "text": "第1弹-行"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第1弹/躺.png\">",
+        "text": "第1弹-躺"
+      }
+    ]
+  },
+
+  "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/color.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"二重螺旋7\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/color.png\">",
+        "text": "第7弹-color"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/你没事吧.png\">",
+        "text": "第7弹-你没事吧"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/保护.png\">",
+        "text": "第7弹-保护"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/净心.png\">",
+        "text": "第7弹-净心"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/多喝热水.png\">",
+        "text": "第7弹-多喝热水"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/委屈.png\">",
+        "text": "第7弹-委屈"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/安抚.png\">",
+        "text": "第7弹-安抚"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/思考.png\">",
+        "text": "第7弹-思考"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/悠闲.png\">",
+        "text": "第7弹-悠闲"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/无语.png\">",
+        "text": "第7弹-无语"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/梳理.png\">",
+        "text": "第7弹-梳理"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/治疗.png\">",
+        "text": "第7弹-治疗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/洁癖.png\">",
+        "text": "第7弹-洁癖"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/目移.png\">",
+        "text": "第7弹-目移"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/睡.png\">",
+        "text": "第7弹-睡"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/讲故事.png\">",
+        "text": "第7弹-讲故事"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第7弹/锻炼.png\">",
+        "text": "第7弹-锻炼"
+      }
+    ]
+  },
+
+  "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/color.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"二重螺旋8\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/color.png\">",
+        "text": "第8弹-color"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/不服.png\">",
+        "text": "第8弹-不服"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/买单.png\">",
+        "text": "第8弹-买单"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/仰仗.png\">",
+        "text": "第8弹-仰仗"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/催眠.png\">",
+        "text": "第8弹-催眠"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/分析.png\">",
+        "text": "第8弹-分析"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/卜卦.png\">",
+        "text": "第8弹-卜卦"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/叛逆.png\">",
+        "text": "第8弹-叛逆"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/大方.png\">",
+        "text": "第8弹-大方"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/快哉.png\">",
+        "text": "第8弹-快哉"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/有了.png\">",
+        "text": "第8弹-有了"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/来.png\">",
+        "text": "第8弹-来"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/没电了.png\">",
+        "text": "第8弹-没电了"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/看剑.png\">",
+        "text": "第8弹-看剑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/看透.png\">",
+        "text": "第8弹-看透"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/笑.png\">",
+        "text": "第8弹-笑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第8弹/计算.png\">",
+        "text": "第8弹-计算"
+      }
+    ]
+  },
+
+  "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/color.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"二重螺旋9\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/05306f967fff3752410aa6ffea5098f0_thu.png\">",
+        "text": "第9弹-05306f967fff3752410aa6ffea5098f0_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/0a27793b1808edd49149c39dc698df26_aio.png\">",
+        "text": "第9弹-0a27793b1808edd49149c39dc698df26_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/0a27793b1808edd49149c39dc698df26_thu.png\">",
+        "text": "第9弹-0a27793b1808edd49149c39dc698df26_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/19efb756b5c23a60cc4ebf35c14da946_thu.png\">",
+        "text": "第9弹-19efb756b5c23a60cc4ebf35c14da946_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/1b529744b280483f50903db854c374ee_thu.png\">",
+        "text": "第9弹-1b529744b280483f50903db854c374ee_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/31c4adda9999ed4bfd58dde2db12d22b_thu.png\">",
+        "text": "第9弹-31c4adda9999ed4bfd58dde2db12d22b_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/3f9c9925414b595de8df9979c85e8dde_thu.png\">",
+        "text": "第9弹-3f9c9925414b595de8df9979c85e8dde_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/5a6a681a782ef0ab6b9b2dc376753704_aio.png\">",
+        "text": "第9弹-5a6a681a782ef0ab6b9b2dc376753704_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/5a6a681a782ef0ab6b9b2dc376753704_thu.png\">",
+        "text": "第9弹-5a6a681a782ef0ab6b9b2dc376753704_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/73ff4d231bc4ecf9072273d3ebeab71f_aio.png\">",
+        "text": "第9弹-73ff4d231bc4ecf9072273d3ebeab71f_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/73ff4d231bc4ecf9072273d3ebeab71f_thu.png\">",
+        "text": "第9弹-73ff4d231bc4ecf9072273d3ebeab71f_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/8e29aec362cd5ce2e99855a2ef9ba59d_thu.png\">",
+        "text": "第9弹-8e29aec362cd5ce2e99855a2ef9ba59d_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/967bc92fa7f14265d5501bc42f3cf533_aio.png\">",
+        "text": "第9弹-967bc92fa7f14265d5501bc42f3cf533_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/967bc92fa7f14265d5501bc42f3cf533_thu.png\">",
+        "text": "第9弹-967bc92fa7f14265d5501bc42f3cf533_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/98edd7c3e0f0f33afc106fa9c3792b89_aio.png\">",
+        "text": "第9弹-98edd7c3e0f0f33afc106fa9c3792b89_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/98edd7c3e0f0f33afc106fa9c3792b89_thu.png\">",
+        "text": "第9弹-98edd7c3e0f0f33afc106fa9c3792b89_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/aa69bd52c08629ccd1f0f76502846fdf_thu.png\">",
+        "text": "第9弹-aa69bd52c08629ccd1f0f76502846fdf_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/af57674c0ea4083a3b4e9ba8c65c8f67_thu.png\">",
+        "text": "第9弹-af57674c0ea4083a3b4e9ba8c65c8f67_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/b12bb3a1d3e9672323c0a097518e0251_aio.png\">",
+        "text": "第9弹-b12bb3a1d3e9672323c0a097518e0251_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/b12bb3a1d3e9672323c0a097518e0251_thu.png\">",
+        "text": "第9弹-b12bb3a1d3e9672323c0a097518e0251_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/c8c4597b1db56c4cd439688ec8fd08e0_aio.png\">",
+        "text": "第9弹-c8c4597b1db56c4cd439688ec8fd08e0_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/c8c4597b1db56c4cd439688ec8fd08e0_thu.png\">",
+        "text": "第9弹-c8c4597b1db56c4cd439688ec8fd08e0_thu"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/color.png\">",
+        "text": "第9弹-color"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/f3a703b5fc7576239584ae3529961294_aio.png\">",
+        "text": "第9弹-f3a703b5fc7576239584ae3529961294_aio"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第9弹/f3a703b5fc7576239584ae3529961294_thu.png\">",
+        "text": "第9弹-f3a703b5fc7576239584ae3529961294_thu"
+      }
+    ]
+  },
+
+  "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/color.png\" style=\"width: 30px;top: 4px;position: relative;\" title=\"二重螺旋10\">": {
+    "type": "image",
+    "container": [
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/color.png\">",
+        "text": "第10弹-color"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/举剑.png\">",
+        "text": "第10弹-举剑"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/举杯.png\">",
+        "text": "第10弹-举杯"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/俯视.png\">",
+        "text": "第10弹-俯视"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/冷脸服务.png\">",
+        "text": "第10弹-冷脸服务"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/悠闲.png\">",
+        "text": "第10弹-悠闲"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/慵懒.png\">",
+        "text": "第10弹-慵懒"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/我不想听.png\">",
+        "text": "第10弹-我不想听"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/护卫.png\">",
+        "text": "第10弹-护卫"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/擦拭枪械.png\">",
+        "text": "第10弹-擦拭枪械"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/无语.png\">",
+        "text": "第10弹-无语"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/暗中出击.png\">",
+        "text": "第10弹-暗中出击"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/查看委托.png\">",
+        "text": "第10弹-查看委托"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/行礼.png\">",
+        "text": "第10弹-行礼"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/警告.png\">",
+        "text": "第10弹-警告"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/陷入思考.png\">",
+        "text": "第10弹-陷入思考"
+      },
+      {
+        "icon": "<img src=\"https://owosource.s3.bitiful.net/DuetNightAbyss/第10弹/饮茶.png\">",
+        "text": "第10弹-饮茶"
+      }
+    ]
+  }
+}

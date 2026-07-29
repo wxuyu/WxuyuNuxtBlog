@@ -31,6 +31,7 @@ const {
   togglePlay, playNext, playPrev,
   currentLyric,
   setPlaylist, applyResume,
+  musicEnabled,
 } = player
 
 const appConfig = useAppConfig()
@@ -128,10 +129,15 @@ onMounted(() => {
     defaultVolume: musicConfig.defaultVolume,
     defaultMode: musicConfig.defaultMode,
   })
-  loadPlaylists()
+  if (musicEnabled.value) loadPlaylists()
   checkMobile()
   window.addEventListener('resize', checkMobile)
   window.addEventListener('keydown', onKeydown)
+})
+
+// 用户打开开关 → 加载歌单
+watch(musicEnabled, (enabled) => {
+  if (enabled && playlists.value.length === 0 && !loading.value) loadPlaylists()
 })
 
 onBeforeUnmount(() => {
@@ -168,7 +174,7 @@ function onKeydown(e: KeyboardEvent) {
   <Teleport to="body">
     <Transition name="fp-fade">
       <div
-        v-if="visible && (isReady || loading) && showFloating"
+        v-if="visible && (isReady || loading) && showFloating && musicEnabled"
         class="floating-player"
         :class="{ 'is-expanded': expanded, 'is-touch': isTouching }"
         :style="{ '--fp-progress': progressPct + '%' }"

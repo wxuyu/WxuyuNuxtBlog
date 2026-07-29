@@ -92,6 +92,28 @@ const _sharedLrcIndex = ref(-1)
 const _sharedPlaylist = ref<Song[]>([...globalPlaylist])
 const _sharedBuffered = ref(0)
 
+// ── 音乐播放器全局开关（默认关闭）──
+const ENABLED_KEY = 'sxiaohe-music-enabled'
+function readEnabled(): boolean {
+  if (typeof window === 'undefined') return false
+  try { return localStorage.getItem(ENABLED_KEY) === '1' } catch { return false }
+}
+function saveEnabled(v: boolean) {
+  if (typeof window === 'undefined') return
+  try { localStorage.setItem(ENABLED_KEY, v ? '1' : '0') } catch {}
+}
+const _sharedMusicEnabled = ref<boolean>(readEnabled())
+function setMusicEnabled(v: boolean) {
+  _sharedMusicEnabled.value = v
+  saveEnabled(v)
+  if (!v) {
+    // 关闭时暂停音频 + 更新状态
+    if (audio && !audio.paused) audio.pause()
+    globalStatus = PS.STOPPED
+    globalStatusRef.value = PS.STOPPED
+  }
+}
+
 function getAudio(): HTMLAudioElement {
   if (!audio) {
     audio = new Audio()
@@ -408,6 +430,7 @@ export function useMusicPlayer() {
   }
 
   function play() {
+    if (!_sharedMusicEnabled.value) return
     const a = getAudio()
     if (!a.src && globalPlaylist.length > 0) {
       _loadSong(globalIndex)
@@ -807,5 +830,9 @@ export function useMusicPlayer() {
     formatDuration,
     mount,
     unmount,
+
+    // 全局开关
+    musicEnabled: _sharedMusicEnabled,
+    setMusicEnabled,
   }
 }
