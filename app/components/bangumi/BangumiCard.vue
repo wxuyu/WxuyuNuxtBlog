@@ -11,23 +11,23 @@ function handleClick() {
 	window.open(url, '_blank')
 }
 
-// 计算满星数量：score 除以 2 后向下取整
+// 计算满星数量:score 除以 2 后向下取整
 const fullStars = Math.floor(props.bangumiCollectionItem.subject.score / 2);
 
 const score = Math.floor(props.bangumiCollectionItem.subject.score); // 动态评分(全局评分)
 const rate = Math.floor(props.bangumiCollectionItem.rate); // 动态评分(全局评分)
 
 const scoreClass = computed(() => (index: number) => {
-  // 将评分值乘以2，实现半星精度（例如3.5 * 2=7，表示3个全星+1个半星）
+  // 将评分值乘以2,实现半星精度(例如3.5 * 2=7,表示3个全星+1个半星)
   const scoreTotal = score / 2;
-  const integerPartScore = Math.floor(scoreTotal); // 总星数的整数部分（包含半星换算）
+  const integerPartScore = Math.floor(scoreTotal); // 总星数的整数部分(包含半星换算)
   const hasHalfScore = scoreTotal % 1 !== 0; // 是否存在半星
 
   // 根据索引判断星星状态
   if (index < integerPartScore) {
     return 'ri:star-fill';     // 全星
   } else if (index === integerPartScore && hasHalfScore) {
-    return 'ri:star-half-line'; // 半星（仅在有余数时显示）
+    return 'ri:star-half-line'; // 半星(仅在有余数时显示)
   } else {
     return 'ri:star-line';     // 空星
   }
@@ -35,12 +35,12 @@ const scoreClass = computed(() => (index: number) => {
 
 const rateClass = computed(() => (rate: number) => {
   const rateTotal = rate /2;
-  const integerPartRate = Math.floor(rateTotal); // 总星数的整数部分（包含半星换算）
+  const integerPartRate = Math.floor(rateTotal); // 总星数的整数部分(包含半星换算)
   const hasHalfRate = rateTotal % 1 !== 0; // 是否存在半星
   if (rate < integerPartRate) {
     return 'ri:star-fill';     // 全星
   } else if (rate === integerPartRate && hasHalfRate) {
-    return 'ri:star-half-line'; // 半星（仅在有余数时显示）
+    return 'ri:star-half-line'; // 半星(仅在有余数时显示)
   } else {
     return 'ri:star-line';     // 空星
   }
@@ -54,8 +54,8 @@ function goComment(content: string) {
     textarea.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
-// 主显示条件：仅当 subject_id 为 1 或 2 时显示
-const shouldShowTodo = computed(() => 
+// 主显示条件:仅当 subject_id 为 1 或 2 时显示
+const shouldShowTodo = computed(() =>
   [1, 2].includes(props.bangumiCollectionItem.subject_id)
 )
 
@@ -69,13 +69,86 @@ const progress = computed(() => {
 // 动态生成提示消息
 const progressMessage = computed(() => {
   if (progress.value >= 100) return "恭喜你快追完了!"
-  if (progress.value > 75) return "恭喜你快追完了，如若看完请移交到追完列表中。"
-  if (progress.value > 50) return "恭喜你追到一半，可以一鼓作气追完哦！"
-  if (progress.value > 40) return "恭喜你快追到一半，需要继续加油！"
-  if (progress.value > 10) return "你在干什么吃呢！还不快点赶上进度。"
+  if (progress.value > 75) return "恭喜你快追完了,如若看完请移交到追完列表中。"
+  if (progress.value > 50) return "恭喜你追到一半,可以一鼓作气追完哦!"
+  if (progress.value > 40) return "恭喜你快追到一半,需要继续加油!"
+  if (progress.value > 10) return "你在干什么吃呢!还不快点赶上进度。"
   if (progress.value >= 0) return "请开始追更"
-  return "请添加观看记录" // 默认提示（可选）
+  return "请添加观看记录" // 默认提示(可选)
 })
+
+// 日期格式化:ISO 8601 / 'YYYY-MM-DD HH:mm:ss' / 时间戳 → XXXX年XX月XX日
+function formatDate(input: string | number | Date | undefined | null): string {
+  if (input === null || input === undefined || input === '') return '未知时间'
+
+  let d: Date
+  try {
+    // 兼容 'YYYY-MM-DD HH:mm:ss' → 替换为 'YYYY-MM-DDTHH:mm:ss'
+    const normalized = typeof input === 'string'
+      ? input.trim().replace(/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/, '$1T$2')
+      : input
+    d = new Date(normalized)
+  } catch {
+    return '未知时间'
+  }
+
+  if (Number.isNaN(d.getTime())) return '未知时间'
+
+  // 用本地时区取日期,避免 UTC +8 时差偏移
+  const y = d.getFullYear()
+  const m = d.getMonth() + 1
+  const day = d.getDate()
+  return `${y}年${m}月${day}日`
+}
+
+// 标签栏：手动 pointer 事件驱动横向滚动
+const tagListRef = ref<HTMLElement | null>(null)
+let dragOriginX = 0
+let scrollOriginX = 0
+let dragging = false
+let activePointerId: number | null = null
+
+function onTagPointerDown(e: PointerEvent) {
+  const el = tagListRef.value
+  if (!el) return
+  // 只响应鼠标/触摸主按钮
+  if (e.button !== 0 && e.pointerType === 'mouse') return
+  dragging = true
+  activePointerId = e.pointerId
+  dragOriginX = e.clientX
+  scrollOriginX = el.scrollLeft
+  el.classList.add('is-dragging')
+  try { el.setPointerCapture(e.pointerId) } catch {}
+}
+
+function onTagPointerMove(e: PointerEvent) {
+  if (!dragging || (activePointerId !== null && e.pointerId !== activePointerId)) return
+  const el = tagListRef.value
+  if (!el) return
+  const dx = e.clientX - dragOriginX
+  el.scrollLeft = scrollOriginX - dx
+}
+
+function onTagPointerEnd(e: PointerEvent) {
+  if (activePointerId !== null && e.pointerId !== activePointerId) return
+  dragging = false
+  activePointerId = null
+  const el = tagListRef.value
+  if (el) {
+    el.classList.remove('is-dragging')
+    try { el.releasePointerCapture(e.pointerId) } catch {}
+  }
+}
+
+// 鼠标竖向滚轮 → 横向滚动（桌面端顺手）
+function onTagWheel(e: WheelEvent) {
+  const el = tagListRef.value
+  if (!el) return
+  if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return
+  if (el.scrollWidth <= el.clientWidth) return
+  e.preventDefault()
+  el.scrollLeft += e.deltaY
+}
 </script>
 
 <template>
@@ -87,7 +160,7 @@ const progressMessage = computed(() => {
       <section class="bgmInfoMainSection">
         <div class="title">
           <h3 class="fontColor">
-            {{ bangumiCollectionItem.subject.name_cn.slice(0, 16) }}
+            {{ bangumiCollectionItem.subject.name_cn }}
             <!-- 关闭上标内容 -->
             <!-- <sup>
               {{ bangumiCollectionItem.subject.name }}
@@ -118,7 +191,16 @@ const progressMessage = computed(() => {
             {{ bangumiCollectionItem.subject.score }}
           </div>
         </div>
-        <div class="infoTagList">
+        <div
+          ref="tagListRef"
+          class="infoTagList"
+          @pointerdown="onTagPointerDown"
+          @pointermove="onTagPointerMove"
+          @pointerup="onTagPointerEnd"
+          @pointercancel="onTagPointerEnd"
+          @pointerleave="onTagPointerEnd"
+          @wheel="onTagWheel"
+        >
           <span class="infoTag" v-for="tags in bangumiCollectionItem.subject.tags.slice(0, 10).sort((a, b) => b.count - a.count)">
             {{ tags.name}}<sup>{{tags.count}}</sup>
           </span>
@@ -134,7 +216,7 @@ const progressMessage = computed(() => {
           </div> -->
           <div class="infoDate">
             <Icon name="ph:calendar-dots-bold" />
-            {{ bangumiCollectionItem.updated_at }}
+            {{ formatDate(bangumiCollectionItem.updated_at) }}
           </div>
           <div class="source-badge">
             <div class="source-name">
@@ -202,9 +284,8 @@ const progressMessage = computed(() => {
       }
     }
     .bgmInfoConnect {
-      align-items: start;
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
+      grid-template-columns: 1.5fr minmax(0, 1fr);
       gap: 1em;
       @media (max-width: 768px) {
         gap: .75em;
@@ -228,7 +309,12 @@ const progressMessage = computed(() => {
             font-size: 1.25em;
             font-weight: 600;
             line-height: 1.3;
-            word-break: break-word;
+            word-break: normal;
+            overflow-wrap: anywhere;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
             margin: 0px;
             sup {
               opacity: 0.6;
@@ -350,19 +436,44 @@ const progressMessage = computed(() => {
         }
         .infoTagList {
           display: flex;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           gap: 0.25em;
           margin: 0px;
+          padding-bottom: 2px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          touch-action: pan-x;
+          overscroll-behavior-x: contain;
+          cursor: grab;
+          user-select: none;
+          -webkit-user-select: none;
+          -webkit-user-drag: none;
+
+          &::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+          }
+
+          &.is-dragging {
+            cursor: grabbing;
+            scroll-behavior: auto;
+          }
 
           .infoTag {
             color: var(--c-primary);
             display: inline-block;
+            flex-shrink: 0;
             font-size: 0.78em;
             font-weight: 500;
             background: color-mix(in srgb, var(--c-primary) 15%, transparent);
             border-radius: 0.25em;
             padding: 0.25em 0.5em;
             white-space: nowrap;
+            pointer-events: none;
+            -webkit-user-drag: none;
 
             sup {
               opacity: 0.6;

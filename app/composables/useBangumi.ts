@@ -85,7 +85,7 @@ export default function useBangumiCollection(
 
 	const { data, status, error, refresh } = useFetch<BangumiApiResponse>(
 		() => {
-			return `https://api.bangumi.lol/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}&tags=${tags}`
+			return `https://bgmapi.anibt.net/v0/users/${username}/collections?subject_type=${subjectType.value}&type=${typeId.value}&limit=${ITEMS_PER_PAGE}&offset=${offset.value}&tags=${tags}`
 		},
 		{
 			key: () =>
