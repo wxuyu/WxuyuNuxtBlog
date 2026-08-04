@@ -32,6 +32,8 @@ const {
   currentLyric,
   setPlaylist, applyResume,
   musicEnabled,
+  playbackError,
+  loadError,
 } = player
 
 const appConfig = useAppConfig()
@@ -217,6 +219,12 @@ function onKeydown(e: KeyboardEvent) {
             </div>
           </div>
 
+          <!-- 错误提示：仅 expanded 态下显示 -->
+          <div v-if="expanded && loadError" class="fp-error-tip" role="alert">
+            <Icon name="ph:warning-circle-fill" class="fp-error-icon" />
+            <span class="fp-error-text">{{ playbackError || '暂不可播放' }}</span>
+          </div>
+
           <!-- 右侧：控制按钮 -->
           <!-- mini 态：仅播放 -->
           <!-- expanded 态：prev / play / next / playlist 四按钮 -->
@@ -250,7 +258,7 @@ function onKeydown(e: KeyboardEvent) {
             >
               <Icon name="ph:skip-forward-fill" />
             </button>
-            <Button
+            <ZButton
               v-if="expanded"
               class="fp-ctrl-btn fp-playlist-btn"
               @click.stop="openPlaylistModal"
@@ -259,7 +267,7 @@ function onKeydown(e: KeyboardEvent) {
               aria-label="选择歌单"
             >
               <Icon name="ph:list-music" />
-            </Button>
+            </ZButton>
           </div>
         </div>
       </div>
@@ -471,6 +479,33 @@ function onKeydown(e: KeyboardEvent) {
     opacity: .55;
     font-style: italic;
   }
+}
+
+/* ==================== 错误提示 ==================== */
+.fp-error-tip {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  margin: .25rem .85rem 0;
+  padding: .35rem .55rem;
+  border-radius: 6px;
+  background: hsla(20, 90%, 55%, .12);
+  color: hsl(20, 90%, 40%);
+  font-size: .78rem;
+  line-height: 1.35;
+  animation: fp-btn-in .2s ease both;
+}
+
+.fp-error-icon {
+  flex: none;
+  font-size: .95rem;
+  color: hsl(20, 90%, 50%);
+}
+
+.fp-error-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
 }
 
 /* ==================== 控制按钮组 ==================== */

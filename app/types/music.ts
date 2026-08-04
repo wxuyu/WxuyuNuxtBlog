@@ -108,11 +108,9 @@ export interface NeteaseApiConfig {
 export interface QQApiConfig {
   provider: 'qq'
   /**
-   * 后端实现类型（决定走哪个 provider 实现）：
-   *   - 'ygking'      — api.ygking.top 公共实例（默认，向后兼容）
-   *   - 'sansenjian'  — 自部署 @sansenjian/qq-music-api（默认 baseUrl http://localhost:3200）
+   * 后端实现类型。当前仅支持 'jsososo'（jsososo/QQMusicApi 公共实例，默认）。
    */
-  type?: 'ygking' | 'sansenjian'
+  type?: 'jsososo'
   /** QQ 音乐 API 地址（不同 type 默认值不同） */
   baseUrl?: string
   /** 音质（默认 320） */
@@ -123,8 +121,6 @@ export interface QQApiConfig {
   playlists?: PlaylistConfig[]
   /**
    * 是否同时获取逐字歌词（QRC）。
-   * 注：sansenjian 后端的歌词格式固定由 `isFormat=1` 控制（解析为 LRC 时间戳格式），
-   * 因此该字段对 sansenjian 实际上无意义——保留仅为向后兼容。
    */
   fetchQrc?: boolean
   /** 是否同时获取翻译 */

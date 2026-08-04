@@ -230,18 +230,16 @@ export default defineAppConfig({
         unblock: false,
       },
 
-      /** QQ 音乐配置（提供两个后端实现，通过 `type` 字段切换）
-       *   - 'ygking'      → api.ygking.top 公共实例（默认；向后兼容）
-       *   - 'sansenjian'  → 自部署 @sansenjian/qq-music-api（默认 baseUrl http://localhost:3200）
-       * 切换 type 后无需重启 dev server，下次进入页面或刷新页面生效。
+      /** QQ 音乐配置（仅支持 jsososo 后端）
+       * jsososo/QQMusicApi 部署在 https://qq.music.api.wxuyu.top
+       * ⚠️ jsososo 后端 /song/urls 需要 vip cookie 才能拿到播放链接，本项目当前后端
+       *    未配置可用 cookie，因此走 jsososo 时**无法播放**，等解灰代理部署后即恢复。
        */
       qq: {
         // 后端实现类型
-        type: 'ygking' as 'ygking' | 'sansenjian',
-        // baseUrl 留空时根据 type 使用不同默认值：
-        //   type='ygking'      → https://api.ygking.top
-        //   type='sansenjian'  → http://localhost:3200
-        baseUrl: 'https://api.ygking.top',
+        type: 'jsososo' as 'jsososo',
+        // 留空时走 useMusicSource 内置的 DEFAULT_QQ_BASE_JSOSOSO 默认值
+        baseUrl: 'https://qq.music.api.wxuyu.top',
         // 音质：master / atmos / atmos_2 / atmos_51 / flac / 320 / 128
         quality: '320' as
           | 'master' | 'atmos' | 'atmos_2' | 'atmos_51' | 'flac' | '320' | '128',

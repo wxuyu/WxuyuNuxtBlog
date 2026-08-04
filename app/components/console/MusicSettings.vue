@@ -12,7 +12,7 @@
 import type { Playlist } from '~/types/music'
 
 const player = useMusicPlayer()
-const { currentSong, playlist: currentPlayingList, setPlaylist, playAt } = player
+const { currentSong, playlist: currentPlayingList, setPlaylist, playAt, playbackError, loadError } = player
 
 const musicSource = useMusicSource()
 const playlists = ref<Playlist[]>([])
@@ -23,6 +23,21 @@ const selectedPlaylist = computed(() =>
 
 type ViewMode = 'playlists' | 'songs'
 const view = ref<ViewMode>('playlists')
+
+// --- “暂不可播放”弹窗 ---
+// 跳转歌曲后，如果 _loadSong 检测到 URL 为空会设 loadError='unavailable'
+// 这里监听变化 → 弹提示弹窗
+const showUnblockDialog = ref(false)
+const unblockMessage = ref('')
+
+watch(loadError, (val) => {
+  if (val === 'unavailable') {
+    unblockMessage.value = playbackError.value || '该歌曲当前不可使用，请稍后重试或选择其他歌曲。'
+    showUnblockDialog.value = true
+  } else {
+    showUnblockDialog.value = false
+  }
+})
 
 const loading = ref(true)
 
@@ -150,6 +165,22 @@ onMounted(loadPlaylists)
       </Transition>
     </div>
   </div>
+
+  <!-- “暂不可播放”提示弹窗：点击需解灰的歌曲时跳出 -->
+  <Teleport to="body">
+    <Transition name="ms-dialog">
+      <div v-if="showUnblockDialog" class="ms-unblock-mask" @click="showUnblockDialog = false">
+        <div class="ms-unblock-panel" @click.stop>
+          <div class="ms-unblock-icon">
+            <Icon name="ph:warning-circle-fill" />
+          </div>
+          <h3 class="ms-unblock-title">暂不可使用</h3>
+          <p class="ms-unblock-text">{{ unblockMessage }}</p>
+          <button class="ms-unblock-btn" @click="showUnblockDialog = false">知道了</button>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <style lang="scss" scoped>
@@ -354,5 +385,90 @@ onMounted(loadPlaylists)
 .ms-fade-leave-to {
   opacity: 0;
   transform: translateY(4px);
+}
+
+/* ==================== 暂不可播放提示弹窗 ==================== */
+.ms-unblock-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647; /* Max safe int — 不可能被 bikariya overlay/MyDialog 盖住 */
+  background: hsla(0, 0%, 0%, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(2px);
+}
+
+.ms-unblock-panel {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 10px 40px hsla(0, 0%, 0%, .2);
+  text-align: center;
+}
+
+.ms-unblock-icon {
+  font-size: 2.6rem;
+  color: hsl(20, 90%, 50%);
+  margin-bottom: .5rem;
+}
+
+.ms-unblock-title {
+  margin: 0 0 .5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color, #222);
+}
+
+.ms-unblock-text {
+  margin: 0 0 1.25rem;
+  font-size: .92rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #666);
+  word-break: break-word;
+}
+
+.ms-unblock-btn {
+  appearance: none;
+  border: none;
+  background: hsl(20, 90%, 55%);
+  color: #fff;
+  padding: .55rem 1.5rem;
+  border-radius: 6px;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.ms-unblock-btn:hover {
+  background: hsl(20, 90%, 50%);
+}
+
+.ms-unblock-btn:active {
+  background: hsl(20, 90%, 45%);
+}
+
+/* 过渡动画 */
+.ms-dialog-enter-active,
+.ms-dialog-leave-active {
+  transition: opacity .2s ease;
+}
+
+.ms-dialog-enter-active .ms-unblock-panel,
+.ms-dialog-leave-active .ms-unblock-panel {
+  transition: transform .2s ease;
+}
+
+.ms-dialog-enter-from,
+.ms-dialog-leave-to {
+  opacity: 0;
+}
+
+.ms-dialog-enter-from .ms-unblock-panel,
+.ms-dialog-leave-to .ms-unblock-panel {
+  transform: scale(.95) translateY(-8px);
 }
 </style>

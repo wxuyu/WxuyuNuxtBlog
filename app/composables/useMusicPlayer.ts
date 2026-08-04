@@ -331,6 +331,14 @@ export function useMusicPlayer() {
   // 记录当前正在解析的 index，多个 _loadSong 并发时只取最后一次
   let _loadingIndex = -1
 
+  // 公开的错误状态：UI 可读取
+  const playbackError = ref<string | null>(null)
+  const loadError = ref<'unavailable' | 'network' | 'unsupported' | null>(null)
+
+  function _clearLoading() {
+    _loadingIndex = -1
+  }
+
   async function _loadSong(index: number, autoPlay = true) {
     if (index < 0 || index >= globalPlaylist.length) return
     globalIndex = index
@@ -803,6 +811,10 @@ export function useMusicPlayer() {
     currentLyric,
     lrcLines,
     lrcIndex,
+
+    // 错误状态（UI 可读取用于提示）
+    playbackError,
+    loadError,
 
     // 控制
     play,
