@@ -1,3 +1,22 @@
+---
+title: 朋友圈大改
+description: 该文章主要写了对于低价机器的试水，并提醒是超开类型的机器。在测试的过程中发现机器性能较高，且展示出机器的具体价格，并单独列出只有精简版未采用完整版测试。
+date: 2026-08-08 14:00:00
+updated: 2026-08-08 22:00:00
+image: /image/PostCover/circlePage.avif
+categories: [站点魔改]
+tags: ['Nuxt', '页面']
+recommend: true
+---
+## 前言
+原本想要在7月底发布的，但是因为一些问题，加上已经工作一个月有余，没啥时间去写。这不就来了嘛
+
+## 更新亮点
+- 1.基于友链文件(即Feeds.ts)的配置来更新筛选文章，解决了原先需要点击卡片头像才能知道最近更新多少篇，现可以完全浏览到从第一次爬取到现在的所有文章
+- 2.基于作为灵感，新增了AI摘要(简介)，基于各种不同模型的名称来自动更新按钮图标，实现不同效果（同时增加了XX/XXXX模型的摘要标注）
+
+## 核心代码
+```
 <script setup lang="ts">
 import type { CircleArticleData } from '~/types/circle'
 
@@ -247,3 +266,4 @@ const modelIcon = computed(() => {
   }
 }
 </style>
+```

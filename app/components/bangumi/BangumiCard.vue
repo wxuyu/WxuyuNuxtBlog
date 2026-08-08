@@ -162,9 +162,6 @@ function onTagWheel(e: WheelEvent) {
           <h3 class="fontColor">
             {{ bangumiCollectionItem.subject.name_cn }}
             <!-- 关闭上标内容 -->
-            <!-- <sup>
-              {{ bangumiCollectionItem.subject.name }}
-            </sup> -->
           </h3>
         </div>
         <p class="desc">
@@ -205,6 +202,9 @@ function onTagWheel(e: WheelEvent) {
             {{ tags.name}}<sup>{{tags.count}}</sup>
           </span>
         </div>
+        <sup>
+          原名：{{ bangumiCollectionItem.subject.name }}
+        </sup>
         <div class="infoCombinedList">
           <!-- <div class="infoCombinedCard">
             <div class="label">
