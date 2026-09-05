@@ -34,3 +34,9 @@ content/posts/novel/world
 .nuxt-*
 nuxt-*
 tools
+*.cjs
+chain_*.*
+chain-*
+edge_*.txt
+ibl_*.*
+memos_*.*

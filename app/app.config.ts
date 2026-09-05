@@ -309,7 +309,7 @@ export default defineAppConfig({
             { icon: 'i-mingcute:bilibili-line', text: '追更历史', url: '/banguim' },
             { icon: 'ph:star-of-david-bold', text:'优良精装', url:'/equipment'},
             { icon: 'ph:steam-logo-bold', text: '游戏时刻', url: '/steam'},
-            { icon: 'ph:lightning-bold', text:'闲言碎语', url:'/essay' },
+            { icon: 'ph:lightning-bold', text:'闲言碎语', url:'/memos' },
             { icon: 'bxs:hot', text:'热搜', url:'/hot'}
 					],
         },
@@ -341,5 +341,23 @@ export default defineAppConfig({
 			icon: 'ph:moon-bold',
 			tip: '深色模式',
 		},
+	},
+
+	/**
+	 * Memos 碎碎念组件默认配置
+	 *
+	 * 优先级：组件 props > 此处 appConfig.memos > 组件内置默认值
+	 *
+	 * @see app/components/memos/MemosTimeline.vue
+	 */
+	memos: {
+		/** Memos 实例地址（不含末尾斜杠） */
+		memos: 'https://s.dusays.com',
+		/** Memos 用户名（走 CEL filter: creator == "users/{username}"） */
+		username: 'MineXine',
+		/** 每页条数 */
+		limit: 10,
+		/** 布局模式：'list' 单列 | 'masonry' 瀑布流 */
+		layout: 'list' as 'list' | 'masonry',
 	},
 })

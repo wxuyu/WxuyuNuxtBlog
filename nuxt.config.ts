@@ -96,6 +96,12 @@ export default defineNuxtConfig({
 			buildTime: Temporal.Now.zonedDateTimeISO().toString(),
 			// EdgeOne 检测暂时不可用
 			ci: env.TENCENTCLOUD_RUNENV === 'SCF' ? 'EdgeOne' : ciName || '',
+			// Memos 碎碎念组件 runtimeConfig（页面可覆盖 appConfig.memos）
+			memosDefault: {
+				memos: env.MEMOS_URL || 'https://s.dusays.com',
+				username: env.MEMOS_USERNAME || 'MineXine',
+				limit: Number(env.MEMOS_LIMIT || 10),
+			},
 			nodeVersion,
 			platform,
 			processReporterLatestEndpoint: env.PROCESS_REPORTER_LATEST_ENDPOINT || blogConfig.presence?.latestEndpoint || '',
