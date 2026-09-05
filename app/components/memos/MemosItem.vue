@@ -13,10 +13,10 @@
 -->
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { MemosMemo } from './utils/types'
-import { renderMemoContent } from './utils/marked'
-import { useMdcRender } from './utils/useMdc'
-import { useRelativeTime } from './utils/useLately'
+import type { MemosMemo } from '~/types/memos'
+import { renderMemoContent } from '~/utils/marked'
+import { useMdcRender } from '~/composables/useMdc'
+import { useRelativeTime } from '~/composables/useLately'
 
 interface Props {
   memo: MemosMemo

@@ -3,7 +3,7 @@
 -->
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import { useLightboxKeyboard } from './utils/useLightbox'
+import { useLightboxKeyboard } from '~/composables/useLightbox'
 
 interface Props {
   open: boolean

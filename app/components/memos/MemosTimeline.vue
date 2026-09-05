@@ -14,9 +14,9 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useAppConfig, useRuntimeConfig } from '#imports'
 import MemosItem from './MemosItem.vue'
 import MemosLightbox from './MemosLightbox.vue'
-import { MemosClient } from './utils/useMemosApi'
-import { useLightbox } from './utils/useLightbox'
-import type { MemosMemo, MemosTimelineProps } from './utils/types'
+import { MemosClient } from '~/composables/useMemosApi'
+import { useLightbox } from '~/composables/useLightbox'
+import type { MemosMemo, MemosTimelineProps } from '~/types/memos'
 
 const props = withDefaults(defineProps<MemosTimelineProps>(), {
   limit: 10,
@@ -157,7 +157,7 @@ onMounted(() => {
     </div>
 
     <!-- 列表 -->
-    <div v-else-if="memos.length" class="memos-list" :class="`layout-${config.layout}`" @memos-lightbox="(e: any) => onLightbox(e.detail)">
+    <div v-else-if="memos.length" class="memos-list" @memos-lightbox="(e: any) => onLightbox(e.detail)">
       <MemosItem
         v-for="memo in memos"
         :key="memo.id"
@@ -268,12 +268,9 @@ onMounted(() => {
 
 // 列表
 .memos-list {
-  // 单列布局（默认）：flex 垂直排列
-  &.layout-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
   // 瀑布流布局：CSS Grid 两列（column-count 在卡片少时不会分列）
   // &.layout-masonry {

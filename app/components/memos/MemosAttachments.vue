@@ -13,7 +13,7 @@
   - 不依赖 MDC 解析，由父组件直接传入 attachments
 -->
 <script setup lang="ts">
-import type { MemosAttachment } from './utils/types'
+import type { MemosAttachment } from '~/types/memos'
 
 interface ImageItem {
   src: string
@@ -202,6 +202,7 @@ function preventDrag(e: DragEvent) { e.preventDefault() }
   padding-inline: calc(var(--spacing) * 2);
   padding-block: calc(var(--spacing) * 1);
   --spacing: .25rem;
+  background-color: var(--anzhiyu-bg-2, var(--ibl-bg));
 }
 
 .ibl-attachments-icon {
@@ -221,8 +222,8 @@ function preventDrag(e: DragEvent) { e.preventDefault() }
   /* 默认：自适应，最小 120px 等分 */
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   padding: 1rem;
-  background-color: color-mix(in oklab, var(--muted) 70%, transparent);
-  --muted: oklch(1 0 0);
+  background-color: var(--c-bg-2);
+  border-color: var(--c-bg-1);
 }
 
 /* 数量规则：手动控制列数与比例 */
