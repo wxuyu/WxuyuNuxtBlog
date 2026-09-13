@@ -185,20 +185,10 @@ defineEmits<{
   gap: 0.5em;
   padding: 0.8rem 0.8rem;
   border-radius: 0.5rem;
-  background-color: var(--c-bg-3);
+  box-shadow: 0 0 0 1px var(--c-bg-soft);
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-
-  .dark & {
-    --c-bg-3: hsl(0deg 0% 60% / 0.1);
-  }
-  --c-bg-3: hsl(0deg 0% 100%);
-
-  &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-  }
 
   .memo-card-top {
     word-break: break-all;
